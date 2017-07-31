@@ -15,6 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('student', function() {
-    return view('student.studentList');
+Route::prefix('student')->group(function() {
+    Route::get('/', function() {
+        return view('student.studentList');
+    });
+
+    Route::get('add', function() {
+        return view('student.addStudent');
+    });
+
+    Route::get('add-list', function() {
+        return view('student.addListStudent');
+    });
 });

@@ -1,5 +1,7 @@
 @extends('master')
 
+@section('title_site', "IT's CYU | Student Management")
+
 @section('header_page')
 <div class="row">
     <div class="page-title">
