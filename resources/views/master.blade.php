@@ -27,6 +27,8 @@
     <link href="{{ URL::asset('vendors/jqvmap/dist/jqvmap.min.css') }}" rel="stylesheet" />
     <!-- bootstrap-daterangepicker -->
     <link href="{{ URL::asset('vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+    <!-- Jquery UI -->
+    <link href="{{ URL::asset('vendors/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="{{ URL::asset('css/custom.css') }}" rel="stylesheet">
@@ -70,6 +72,8 @@
 
     <!-- jQuery -->
     <script src="{{ URL::asset('vendors/jquery/dist/jquery.min.js') }}"></script>
+    <!--JQuery UI -->
+    <script src="{{ URL::asset('vendors/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Bootstrap -->
     <script src="{{ URL::asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- FastClick -->

@@ -26,18 +26,13 @@
                     <a><i class="fa fa-graduation-cap"></i> Quản Lý Sinh Viên <span class="fa fa-chevron-down"></span></a>
 
                     <ul class="nav child_menu">
-                        <li><a href="../student/ListStudent.html">Danh Sách Sinh Viên</a></li>
-                        <li><a href="../student/AddOneStudent.html">Thêm Sinh Viên</a></li>
-                        <li><a href="../student/AddListStudent.html">Thêm Danh Sách Sinh Viên</a></li>
+                        <li><a href="{{ route('student_index_route') }}">Danh Sách Sinh Viên</a></li>
+                        <li><a href="{{ route('student_add_route') }}">Thêm Sinh Viên</a></li>
+                        <li><a href="{{ route('student_add_list_route') }}">Thêm Danh Sách Sinh Viên</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a><i class="fa fa-graduation-cap"></i> Quản Lý Khóa Học <span class="fa fa-chevron-down"></span></a>
-
-                    <ul class="nav child_menu">
-                        <li><a href="../science/ListScience.html">Danh Sách Khóa Học</a></li>
-                        <li><a href="../science/AddScience.html">Thêm Khóa Học</a></li>
-                    </ul>
+                    <a href="{{ route('science_index_route') }}"><i class="fa fa-calendar"></i> Quản Lý Khóa Học </a>
                 </li>
                 <li>
                     <a><i class="fa fa-graduation-cap"></i> Quản Lý Lớp Học <span class="fa fa-chevron-down"></span></a>
