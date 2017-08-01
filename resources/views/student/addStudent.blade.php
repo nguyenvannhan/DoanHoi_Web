@@ -5,7 +5,7 @@
 @section('header_page')
 <div class="page-title">
     <div class="title_left">
-        <h3>Nhập Danh Sách Sinh Viên</h3>
+        <h3>Nhập Thông Tin Sinh Viên</h3>
     </div>
 </div>
 @stop

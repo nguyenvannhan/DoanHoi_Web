@@ -55,7 +55,7 @@
                             </td>
                             <td style="text-align: center;">2013 - 2014</td>
                             <td class="action-column center">
-                                <a href="#"> Xem danh sách hoạt động NH 2013 - 2014 </a>
+                                <a href="#"> Xem danh sách hoạt động năm học 2013 - 2014 </a>
                             </td>
                         </tr>
                         <tr>
@@ -64,7 +64,7 @@
                             </td>
                             <td style="text-align: center;">2014</td>
                             <td class="action-column" style="text-align: center;">
-                                <a href="#"> Xem danh sách SV Khóa 2014 </a>
+                                <a href="#"> Xem danh sách hoạt động năm học 2014 - 2015 </a>
                             </td>
                         </tr>
                         <tr>
@@ -73,7 +73,7 @@
                             </td>
                             <td style="text-align: center;">2015</td>
                             <td class="action-column" style="text-align: center;">
-                                <a href="#"> Xem danh sách SV Khóa 2015 </a>
+                                <a href="#"> Xem danh sách hoạt động năm học 2015 - 2016 </a>
                             </td>
                         </tr>
                         <tr>
@@ -82,7 +82,7 @@
                             </td>
                             <td style="text-align: center;">2016</td>
                             <td class="action-column" style="text-align: center;">
-                                <a href="#"> Xem danh sách SV Khóa 2016 </a>
+                                <a href="#"> Xem danh sách hoạt động năm học 2016 - 2017 </a>
                             </td>
                         </tr>
                     </tbody>

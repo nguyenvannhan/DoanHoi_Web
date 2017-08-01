@@ -5140,3 +5140,12 @@ $('#addSchoolYear').on('click', function() {
       }
     });
 });
+
+$('#ClassAdd').on('click', function() {
+
+    document.getElementById('add_class_modal').style.display="block";
+    $('#close_add_class').on('click',function(){
+    	document.getElementById('add_class_modal').style.display="none";
+    });
+
+});

@@ -39,20 +39,7 @@
                 </li>
 
                 <li>
-                    <a><i class="fa fa-graduation-cap"></i> Quản Lý Lớp Học <span class="fa fa-chevron-down"></span></a>
-
-                    <ul class="nav child_menu">
-                        <li><a href="../class/ListClass.html">Danh Sách Khoá Học</a></li>
-                        <li><a href="../class/AddClass.html">Thêm Khóa Học</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a><i class="fa fa-graduation-cap"></i> Quản Lý Năm Học <span class="fa fa-chevron-down"></span></a>
-
-                    <ul class="nav child_menu">
-                        <li><a href="../scholastic/ListScholastic.html">Danh Sách Năm Học</a></li>
-                        <li><a href="../scholastic/AddScholastic.html">Thêm Năm Học</a></li>
-                    </ul>
+                    <a href="{{ route('class_index_route') }}"><i class="fa fa-group"></i> Quản Lý Lớp Học </a>
                 </li>
                 <li>
                     <a><i class="fa fa-graduation-cap"></i> Quản Lý Hoạt Động <span class="fa fa-chevron-down"></span></a>

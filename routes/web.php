@@ -40,3 +40,11 @@ Route::prefix('school-year')->group(function() {
         return view('school_year.schoolYearList');
     })->name('school_year_index_route');
 });
+Route::prefix('class')->group(function() {
+    Route::get('/', function() {
+        return view('class.classList');
+    })->name('class_index_route');
+    Route::get('add', function() {
+        return view('class.addClass');
+    })->name('class_add_route');
+});
