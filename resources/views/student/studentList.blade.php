@@ -790,10 +790,10 @@
                             <div class="panel_body">
                                 <div class="row">
                                     <div class="col-md-2 col-sm-2 col-xs-6">
-                                        <a href="AddOneStudent.html" class="btn btn-block btn-success"><i class="fa fa-user"></i> Thêm 1 Sinh viên </a>
+                                        <a href="{{ route('student_add_route') }}" class="btn btn-block btn-success"><i class="fa fa-user"></i> Thêm 1 Sinh viên </a>
                                     </div>
                                     <div class="col-md-2 col-sm-2 col-xs-6">
-                                        <a href="AddListStudent.html" class="btn btn-block btn-success"><i class="fa fa-users"></i> Nhập file Excel </a>
+                                        <a href="{{ route('student_add_list_route') }}" class="btn btn-block btn-success"><i class="fa fa-users"></i> Nhập file Excel </a>
                                     </div>
                                     <div class="col-md-2 col-sm-2 col-xs-6">
                                         <a href="#" class="btn btn-block btn-primary"><i class="fa fa-graduation-cap"></i> Update tình trạng </a>

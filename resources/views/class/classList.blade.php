@@ -119,8 +119,9 @@
                         <thead>
                             <tr class="headings">
                                 <th class="column-title center"> STT </th>
-                                <th class="column-title" style="text-align: center;"> Lớp Học </th>
-                                <th class="column-title" style="text-align: center;"> Action </th>
+                                <th class="column-title center" style="text-align: center;"> Lớp Học </th>
+                                <th class="column-title center" style="text-align: center;"> Danh Sách Sinh Viên </th>
+                                <th class="column-title center" style="text-align: center;"> Action </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -129,8 +130,13 @@
                                     1
                                 </td>
                                 <td style="text-align: center;">161</td>
+                                <td style="text-align: center;">
+                                    <a href="#" > Xem danh sách SV Lớp 161 </a>
+                                </td>
                                 <td class="action-column center">
-                                    <a href="#"> Xem danh sách SV Lớp 161 </a>
+                                    <a href="#"><i class="fa fa-list" title="Chi tiết"></i></a>
+                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
+                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
                             </tr>
                             <tr>
@@ -138,8 +144,13 @@
                                     2
                                 </td>
                                 <td style="text-align: center;">162</td>
-                                <td class="action-column" style="text-align: center;">
+                                <td  style="text-align: center;">
                                     <a href="#"> Xem danh sách SV Lớp 162 </a>
+                                </td>
+                                <td class="action-column center">
+                                    <a href="#"><i class="fa fa-list" title="Chi tiết"></i></a>
+                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
+                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
                             </tr>
                             <tr>
@@ -147,8 +158,13 @@
                                     3
                                 </td>
                                 <td style="text-align: center;">163</td>
-                                <td class="action-column" style="text-align: center;">
+                                <td  style="text-align: center;">
                                     <a href="#"> Xem danh sách SV Lớp 163 </a>
+                                </td>
+                                <td class="action-column center center">
+                                    <a href="#"><i class="fa fa-list" title="Chi tiết"></i></a>
+                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
+                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
                             </tr>
                             <tr>
@@ -156,8 +172,13 @@
                                     4
                                 </td>
                                 <td style="text-align: center;">169</td>
-                                <td class="action-column" style="text-align: center;">
+                                <td  style="text-align: center;">
                                     <a href="#"> Xem danh sách SV Lớp 169 </a>
+                                </td>
+                                <td class="action-column center">
+                                    <a href="#"><i class="fa fa-list" title="Chi tiết"></i></a>
+                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
+                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
                             </tr>
                         </tbody>
