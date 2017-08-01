@@ -34,3 +34,9 @@ Route::prefix('science')->group(function() {
         return view('science.scienceList');
     })->name('science_index_route');
 });
+
+Route::prefix('school-year')->group(function() {
+    Route::get('/', function() {
+        return view('school_year.schoolYearList');
+    })->name('school_year_index_route');
+});

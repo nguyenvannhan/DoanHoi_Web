@@ -32,8 +32,12 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{{ route('science_index_route') }}"><i class="fa fa-calendar"></i> Quản Lý Khóa Học </a>
+                    <a href="{{ route('science_index_route') }}"><i class="fa fa-book"></i> Quản Lý Khóa Học </a>
                 </li>
+                <li>
+                    <a href="{{ route('school_year_index_route') }}"><i class="fa fa-calendar"></i> Quản Lý Năm Học </a>
+                </li>
+
                 <li>
                     <a><i class="fa fa-graduation-cap"></i> Quản Lý Lớp Học <span class="fa fa-chevron-down"></span></a>
 

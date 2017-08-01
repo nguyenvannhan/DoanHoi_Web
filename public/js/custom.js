@@ -5123,3 +5123,20 @@ $('#addScience').on('click', function() {
       }
     });
 });
+
+$('#addSchoolYear').on('click', function() {
+    $('#dialog-add-school-year').dialog({
+        resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+        "Có": function() {
+          $( this ).dialog( "close" );
+        },
+        "Không": function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+});
