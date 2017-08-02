@@ -6,7 +6,7 @@
 <div class="row">
     <div class="page-title">
         <div class="center-page-title">
-            <h2>QUẢN LÝ LỚP HỌC</h2>
+            <h2 class="blue">QUẢN LÝ LỚP HỌC</h2>
         </div>
     </div>
 </div>
@@ -15,52 +15,7 @@
 @section('main_content')
 
 
-        <!-- The Modal -->
-    <div id="add_class_modal" class="modal_add_class" style="display: none;">
-          <!-- Modal content -->
-            <div class="modal-content_add_class">
-                <div class="modal-header_add_class">
-                    <span id="close_add_class" class="close_add_class">&times;</span>
-                    <h2>Nhập Lớp Học</h2>
-                </div>
-                <div class="modal-body_add_class">
-                    <div class="x_panel">
-                        <div class="x_content"><br />
-                            <form class="form-horizontal ">
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Lớp Học : </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" class="form-control" required="required">
-                                    </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control">
-                                                <option value="">2017</option>
-                                                <option value="">2017</option>
-                                                <option value="">2017</option>
-                                                <option value="">2017</option>
-                                                <option value="">2017</option>
-                                                <option value="">2017</option>
-                                            </select>
-                                        </div>
-                                </div>
-                                <div class="ln_solid"></div>
-                                <div class="form-group">
-                                    <div class="col-md-12 col-sm-12 col-xs-12 center">
-                                        <button class="btn btn-primary" >Cancel</button>
-                                        <button class="btn btn-success">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer_add_class">
-                </div>
-            </div>
-    </div>
+       
     <!-- /Action Area -->
 
     
@@ -184,4 +139,53 @@
     </div>
     <!--Science List Table-->
 </div>
+@stop
+
+@section('modals')
+ <!-- The Modal -->
+    <div id="add_class_modal" class="modal_add_class" style="display: none;">
+          <!-- Modal content -->
+            <div class="modal-content_add_class">
+                <div class="modal-header_add_class">
+                    <span id="close_add_class" class="close_add_class">&times;</span>
+                    <h2>Nhập Lớp Học</h2>
+                </div>
+                <div class="modal-body_add_class">
+                    <div class="x_panel">
+                        <div class="x_content"><br />
+                            <form class="form-horizontal ">
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Lớp Học : </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" required="required">
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select class="form-control">
+                                                <option value="">2017</option>
+                                                <option value="">2017</option>
+                                                <option value="">2017</option>
+                                                <option value="">2017</option>
+                                                <option value="">2017</option>
+                                                <option value="">2017</option>
+                                            </select>
+                                        </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 center">
+                                        <button class="btn btn-primary" >Cancel</button>
+                                        <button class="btn btn-success">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer_add_class">
+                </div>
+            </div>
+    </div>
 @stop

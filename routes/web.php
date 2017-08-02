@@ -52,4 +52,32 @@ Route::prefix('activity')->group(function() {
     Route::get('/', function() {
         return view('activity.activityList');
     })->name('activity_index_route');
+    Route::get('add', function() {
+        return view('activity.addActivity');
+    })->name('activity_add_route');
+    Route::get('detail', function() {
+        return view('activity.detailOneActivity');
+    })->name('activity_detail_route');
+});
+Route::prefix('BCH-Khoa')->group(function() {
+    Route::get('/', function() {
+        return view('BCH_Khoa.BCH_KhoaList');
+    })->name('BCH_Khoa_index_route');
+    Route::get('add', function() {
+        return view('BCH_Khoa.addBCH_Khoa');
+    })->name('BCH_Khoa_add_route');
+    Route::get('add-list', function() {
+        return view('BCH_Khoa.addListBCH_Khoa');
+    })->name('BCH_Khoa_add_list_route');
+});
+Route::prefix('BCH-Lop')->group(function() {
+    Route::get('/', function() {
+        return view('BCH_Lop.BCH_LopList');
+    })->name('BCH_Lop_index_route');
+    Route::get('add', function() {
+        return view('BCH_Lop.addBCH_Lop');
+    })->name('BCH_Lop_add_route');
+    Route::get('add-list', function() {
+        return view('BCH_Lop.addListBCH_Lop');
+    })->name('BCH_Lop_add_list_route');
 });

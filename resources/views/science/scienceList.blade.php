@@ -6,7 +6,7 @@
 <div class="row">
     <div class="page-title">
         <div class="center-page-title">
-            <h2>QUẢN LÝ KHÓA HỌC</h2>
+            <h2 class="blue">QUẢN LÝ KHÓA HỌC</h2>
         </div>
     </div>
 </div>

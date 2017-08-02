@@ -31,7 +31,7 @@
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Ngày Sinh : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" id="single_cal1" aria-describedby="inputSuccess2Status">
+                        <input type="text" class="form-control" id="single_cal4" aria-describedby="inputSuccess2Status">
                     </div>
                 </div>
                 <div class="item form-group">

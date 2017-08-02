@@ -116,8 +116,8 @@
 
                                                         <!--Filter Unionist -->
                                                         <div class="col-md-3 col-sm-6 col-xs-12">
-                                                            <label>Đoàn viên: </label>
-                                                            <div id="unionist-radio" class="btn-group" data-toggle="buttons">
+                                                            <label> Đoàn viên: </label>
+                                                            <div id="partisan-radio" class="btn-group" data-toggle="buttons" style="width: 100%;">
                                                                 <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                                                                     <input type="radio" name="gender" value="male"> &nbsp; None &nbsp;
                                                                 </label>
