@@ -23,7 +23,7 @@
             <h3>General</h3>
             <ul class="nav side-menu">
                 <li>
-                    <a><i class="fa fa-graduation-cap"></i> Quản Lý Sinh Viên <span class="fa fa-chevron-down"></span></a>
+                    <a href="{{ route('student_index_route') }}"><i class="fa fa-graduation-cap"></i> Quản Lý Sinh Viên <span class="fa fa-chevron-down"></span></a>
 
                     <ul class="nav child_menu">
                         <li><a href="{{ route('student_index_route') }}">Danh Sách Sinh Viên</a></li>
@@ -42,12 +42,11 @@
                     <a href="{{ route('class_index_route') }}"><i class="fa fa-group"></i> Quản Lý Lớp Học </a>
                 </li>
                 <li>
-                    <a><i class="fa fa-graduation-cap"></i> Quản Lý Hoạt Động <span class="fa fa-chevron-down"></span></a>
+                    <a href="{{ route('activity_index_route') }}"><i class="fa fa-graduation-cap"></i> Quản Lý Hoạt Động <span class="fa fa-chevron-down"></span></a>
 
                     <ul class="nav child_menu">
-                        <li><a href="../activity/ListStudentActivity.html">Danh Sách Tham Gia Hoạt Động</a></li>
-                        <li><a href="../activity/AddOneStudentActivity.html">Thêm Sinh Viên Tham Gia</a></li>
-                        <li><a href="../activity/AddListStudentActivity.html">Thêm Danh Sách Tham Gia</a></li>
+                        <li><a href="{{ route('activity_index_route') }}">Danh Sách Hoạt Động</a></li>
+                        <li><a href="../activity/AddOneStudentActivity.html">Thêm Hoạt Động</a></li>
                     </ul>
                 </li>
                 <li>

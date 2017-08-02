@@ -48,3 +48,8 @@ Route::prefix('class')->group(function() {
         return view('class.addClass');
     })->name('class_add_route');
 });
+Route::prefix('activity')->group(function() {
+    Route::get('/', function() {
+        return view('activity.activityList');
+    })->name('activity_index_route');
+});

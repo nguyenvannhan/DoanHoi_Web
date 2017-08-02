@@ -1,12 +1,12 @@
 @extends('master')
 
-@section('title_site', "IT's CYU | Quản lý Khóa học")
+@section('title_site', "IT's CYU | Student Management")
 
 @section('header_page')
 <div class="row">
     <div class="page-title">
         <div class="center-page-title">
-            <h2>QUẢN LÝ LỚP HỌC</h2>
+            <h2 class="blue">QUẢN LÝ HOẠT ĐỘNG</h2>
         </div>
     </div>
 </div>
@@ -72,7 +72,7 @@
                         <div class="panel">
                             <div class="row">
                                 <div class="col-md-2 col-sm-2 col-xs-6">
-                                    <a id="ClassAdd" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm Lớp Học </a>
+                                    <a id="ClassAdd" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm Hoạt Động </a>
                                 </div>
                             </div>
                             <form>
@@ -105,17 +105,18 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h4>Danh sách Lớp Học</h4>
+                    <h4>Danh sách Hoạt Động</h4>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <table class="datatable table table-striped table-bordered jambo_table bulk_action">
+                    <table class="datatable table table-striped table-bordered jambo_table bulk_action ">
                         <thead>
                             <tr class="headings">
                                 <th class="column-title center"> STT </th>
                                 <th class="column-title center" style="text-align: center;"> Khóa Học </th>
-                                <th class="column-title center" style="text-align: center;"> Lớp Học </th>
-                                <th class="column-title center" style="text-align: center;"> Danh Sách Sinh Viên </th>
+                                <th class="column-title center" style="text-align: center;"> Tên Hoạt Động </th>
+                                <th class="column-title center" style="text-align: center;"> Thời Gian </th>
+                                <th class="column-title center" style="text-align: center;"> Ghi Chú </th>
                                 <th class="column-title center" style="text-align: center;"> Action </th>
                             </tr>
                         </thead>
@@ -125,11 +126,11 @@
                                     1
                                 </td>
                                 <td style="text-align: center;">2016</td>
-                                <td style="text-align: center;">161</td>
-                                <td style="text-align: center;">
-                                    <a href="#" >Danh sách SV Lớp 161 </a>
-                                </td>
+                                <td style="text-align: center;">Trại Truyền Thống</td>
+                                <td style="text-align: center;">Tháng 10</td>
+                                <td></td>
                                 <td class="action-column center">
+                                    <a href="#"><i class="fa fa-list" title="Chi tiết"></i></a>
                                     <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
@@ -139,11 +140,11 @@
                                     2
                                 </td>
                                 <td style="text-align: center;">2016</td>
-                                <td style="text-align: center;">162</td>
-                                <td  style="text-align: center;">
-                                    <a href="#">Danh sách SV Lớp 162 </a>
-                                </td>
+                                <td style="text-align: center;">Tri Ân</td>
+                                <td  style="text-align: center;">Tháng 11</td>
+                                <td></td>
                                 <td class="action-column center">
+                                    <a href="#"><i class="fa fa-list" title="Chi tiết"></i></a>
                                     <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
@@ -153,11 +154,11 @@
                                     3
                                 </td>
                                 <td style="text-align: center;">2016</td>
-                                <td style="text-align: center;">163</td>
-                                <td  style="text-align: center;">
-                                    <a href="#">Danh sách SV Lớp 163 </a>
-                                </td>
+                                <td style="text-align: center;">Hội Thao</td>
+                                <td  style="text-align: center;">Tháng 3</td>
+                                <td></td>
                                 <td class="action-column center center">
+                                    <a href="#"><i class="fa fa-list" title="Chi tiết"></i></a>
                                     <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
@@ -167,21 +168,20 @@
                                     4
                                 </td>
                                 <td style="text-align: center;">2016</td>
-                                <td style="text-align: center;">169</td>
-                                <td  style="text-align: center;">
-                                    <a href="#">Danh sách SV Lớp 169 </a>
-                                </td>
+                                <td style="text-align: center;">MIT</td>
+                                <td  style="text-align: center;">Tháng 4</td>
+                                <td></td>
                                 <td class="action-column center">
+                                    <a href="#"><i class="fa fa-list" title="Chi tiết"></i></a>
                                     <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table>   
                 </div>
             </div>
         </div>
     </div>
-    <!--Science List Table-->
 </div>
 @stop
