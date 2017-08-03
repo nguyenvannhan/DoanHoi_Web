@@ -4,8 +4,8 @@
 
 @section('header_page')
 <div class="page-title">
-    <div class="title_left">
-        <h1>Thêm Thành Viên Ban Chấp Hành Lớp</h1>
+    <div class="">
+        <h1>Thêm Sinh Viên Tham Gia Hoạt Động</h1>
     </div>
 </div>
 @stop
@@ -40,9 +40,8 @@
                     <i class="fa fa-circle" style="color: orange;"></i> 0 SV không có thông tin
                 </div>
                 <div class="col-md-3 blue center">
-                    <i class="fa fa-circle"></i> 3 SV bị đã tồn tại
+                    <i class="fa fa-circle"></i> 3 SV đã tồn tại
                 </div>
-
                 <div class="col-md-3 green center">
                     <i class="fa fa-circle"></i> 3 SV bị trùng
                 </div>
@@ -54,10 +53,10 @@
             <!-- /Info Error -->
 
             <div>
-                <table id="datatable-checkbox" class="table table-striped table-bordered jambo_table bulk_action">
+                <table id="datatable-checkbox" class="table table-striped table-bordered jambo_table table-responsive">
                                     <thead>
                                         <tr class="headings">
-                                            <th></th>
+                                            <th><i class="fa fa-exclamation-circle red"></i></th>
                                             <th class="column-title"> STT </th>
                                             <th class="column-title"> MSSV </th>
                                             <th class="column-title"> Họ tên </th>
@@ -75,8 +74,8 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
-                                                <input type="checkbox" class="flat" name="table_records" />
+                                            <td> 
+                                               <i class="fa fa-circle blue"></i>
                                             </td>
                                             <td>1</td>
                                             <td> 13110113 </td>

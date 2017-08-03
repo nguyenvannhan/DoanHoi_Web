@@ -82,7 +82,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="action-column center">
-                                    <a href="#"><i class="fa fa-list" title="Chi tiết"></i></a>
+                                    <a href="{{ route('activity_detail_route') }}"><i class="fa fa-list" title="Chi tiết"></i></a>
                                     <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
@@ -97,7 +97,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="action-column center">
-                                    <a href="#"><i class="fa fa-list" title="Chi tiết"></i></a>
+                                    <a href="{{ route('activity_detail_route') }}"><i class="fa fa-list" title="Chi tiết"></i></a>
                                     <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
@@ -112,7 +112,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="action-column center center">
-                                    <a href="#"><i class="fa fa-list" title="Chi tiết"></i></a>
+                                    <a href="{{ route('activity_detail_route') }}"><i class="fa fa-list" title="Chi tiết"></i></a>
                                     <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
@@ -127,7 +127,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="action-column center">
-                                    <a href="#"><i class="fa fa-list" title="Chi tiết"></i></a>
+                                    <a href="{{ route('activity_detail_route') }}"><i class="fa fa-list" title="Chi tiết"></i></a>
                                     <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
