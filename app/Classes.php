@@ -17,6 +17,6 @@ class Classes extends Model {
     public $timestamps = true;
 
     public function Science() {
-        $this->belongsTo('App\Science', 'scienceId', 'id');
+        return $this->belongsTo('App\Science', 'scienceId', 'id');
     }
 }

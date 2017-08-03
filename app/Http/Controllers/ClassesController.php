@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ClassesController extends Controller {
     public function getClassList() {
-        $classList = Classes::all();
+        $classList = Classes::with('Science')->orderBy('id', 'desc')->get();
         $scienceList = Science::orderBy('id', 'desc')->get();
 
         return view('class.classList', ['classList' => $classList, 'scienceList' => $scienceList]);

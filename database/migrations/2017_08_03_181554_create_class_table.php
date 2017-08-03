@@ -19,7 +19,7 @@ class CreateClassTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->string('id', 3);
-            $table->string('nameClass', 3)->unique();
+            $table->string('nameClass', 6)->unique();
             $table->string('scienceId', 4);
             $table->softDeletes();
             $table->timestamps();
