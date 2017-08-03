@@ -32,6 +32,8 @@ Route::prefix('student')->group(function() {
 //Route science
 Route::prefix('science')->group(function() {
     Route::get('/', 'ScienceController@getAllList')->name('science_index_route');
+
+    Route::get('/add', 'ScienceController@getAddScience')->name('get_add_science');
 });
 
 //Route chool year

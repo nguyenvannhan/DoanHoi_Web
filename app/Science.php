@@ -12,7 +12,7 @@ class Science extends Model {
     public $incrementing = false;
 
     protected $primaryKey = 'id';
-    protected $fillable = ['id','nameScience'];
+    protected $fillable = ['nameScience'];
 
     public $timestamps = true;
 }

@@ -6,6 +6,9 @@
  *     // code here
  * });
  */
+
+var URI = "http://localhost/official_cyu_management/public";
+
 (function($,sr){
     // debouncing function from John Hann
     // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
@@ -107,13 +110,13 @@ $MENU_TOGGLE.on('click', function() {
 			$SIDEBAR_MENU.find('li.active ul').hide();
 			$SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
             $logo = $('.sidebar-banner');
-            $logo.attr('src', "images/faculty_banner.png");
+            $logo.attr('src', URI+"/images/faculty_banner.png");
             $logo.width(50);
 		} else {
 			$SIDEBAR_MENU.find('li.active-sm ul').show();
 			$SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
 
-            $logo.attr('src', "images/banner.png");
+            $logo.attr('src', URI+"/images/banner.png");
             $logo.width(150);
 		}
 
@@ -5118,7 +5121,12 @@ $('#addScience').on('click', function() {
       modal: true,
       buttons: {
         "Có": function() {
-          $( this ).dialog( "close" );
+            $(this).dialog("close");
+            $.get(URI+"/science/add", function(data) {
+                if(data['response'] === true) {
+                    window.location.href = URI + "/science";
+                }
+            });
         },
         "Không": function() {
           $( this ).dialog( "close" );
@@ -5135,7 +5143,8 @@ $('#addSchoolYear').on('click', function() {
       modal: true,
       buttons: {
         "Có": function() {
-          $( this ).dialog( "close" );
+            //Ajax Insert a Science
+            alert(1);
         },
         "Không": function() {
           $( this ).dialog( "close" );
