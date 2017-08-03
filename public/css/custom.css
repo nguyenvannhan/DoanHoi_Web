@@ -4434,4 +4434,7 @@ td.right {
     background-color: #5cb85c;
     color: white;
 }
-td,th{text-align: center;}
+
+table.center tr td {
+    text-align: center;
+}

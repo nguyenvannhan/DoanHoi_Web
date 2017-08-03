@@ -23,7 +23,8 @@
             <h3>General</h3>
             <ul class="nav side-menu">
                 <li>
-                    <a ><i class="fa fa-graduation-cap"></i> Quản Lý Sinh Viên <span class="fa fa-chevron-down"></span></a>
+                    <a><i class="fa fa-graduation-cap"></i> Quản Lý Sinh Viên <span
+                                class="fa fa-chevron-down"></span></a>
 
                     <ul class="nav child_menu">
                         <li><a href="{{ route('student_index_route') }}">Danh Sách Sinh Viên</a></li>
@@ -42,7 +43,7 @@
                     <a href="{{ route('class_index_route') }}"><i class="fa fa-group"></i> Quản Lý Lớp Học </a>
                 </li>
                 <li>
-                    <a ><i class="fa fa-bullhorn"></i> Quản Lý Hoạt Động <span class="fa fa-chevron-down"></span></a>
+                    <a><i class="fa fa-bullhorn"></i> Quản Lý Hoạt Động <span class="fa fa-chevron-down"></span></a>
 
                     <ul class="nav child_menu">
                         <li><a href="{{ route('activity_index_route') }}">Danh Sách Hoạt Động</a></li>
@@ -86,7 +87,7 @@
         </a>
         <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-         </a>
+        </a>
     </div>
     <!-- /menu footer buttons -->
 </div>

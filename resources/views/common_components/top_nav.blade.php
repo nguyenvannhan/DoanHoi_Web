@@ -6,8 +6,9 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li class="">
-                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ URL('/images/avatars/default.png') }}" alt="" />John Doe
+                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                   aria-expanded="false">
+                    <img src="{{ URL('/images/avatars/default.png') }}" alt=""/>John Doe
                     <span class="fa fa-angle-down"></span>
                 </a>
 
@@ -18,7 +19,7 @@
                     <li>
                         <a href="javascript:;">
                             <span class="badge bg-red pull-right">50%</span>
-                            <span>Settings</span>
+                            <span>SSettings</span>
                         </a>
                     </li>
                     <li>
