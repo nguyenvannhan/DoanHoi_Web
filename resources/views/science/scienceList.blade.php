@@ -40,51 +40,28 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <table class="datatable table table-striped table-bordered jambo_table bulk_action science_list_table">
+                <table class="datatable center table table-striped table-bordered jambo_table science_list_table">
                     <thead>
                         <tr class="headings">
-                            <th class="column-title center"> STT </th>
-                            <th class="column-title" style="text-align: center;"> Khóa Học </th>
-                            <th class="column-title" style="text-align: center;"> Action </th>
+                            <th class="column-title"> Mã </th>
+                            <th class="column-title"> Khóa Học </th>
+                            <th class="column-title"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
+                    @foreach ($scienceList as $science)
                         <tr>
-                            <td style="text-align: center;">
-                                1
+                            <td>
+                                {{ $science->id }}
                             </td>
-                            <td style="text-align: center;">2013</td>
+                            <td>
+                                {{ $science->nameScience }}
+                            </td>
                             <td class="action-column center">
-                                <a href="#"> Xem danh sách SV Khóa 2013 </a>
+                                <a href="#"> Xem danh sách SV Khóa {{ $science->nameScience }} </a>
                             </td>
                         </tr>
-                        <tr>
-                            <td style="text-align: center;">
-                                2
-                            </td>
-                            <td style="text-align: center;">2014</td>
-                            <td class="action-column" style="text-align: center;">
-                                <a href="#"> Xem danh sách SV Khóa 2014 </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center;">
-                                3
-                            </td>
-                            <td style="text-align: center;">2015</td>
-                            <td class="action-column" style="text-align: center;">
-                                <a href="#"> Xem danh sách SV Khóa 2015 </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center;">
-                                4
-                            </td>
-                            <td style="text-align: center;">2016</td>
-                            <td class="action-column" style="text-align: center;">
-                                <a href="#"> Xem danh sách SV Khóa 2016 </a>
-                            </td>
-                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

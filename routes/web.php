@@ -29,17 +29,19 @@ Route::prefix('student')->group(function() {
     })->name('student_add_list_route');
 });
 
+//Route science
 Route::prefix('science')->group(function() {
-    Route::get('/', function() {
-        return view('science.scienceList');
-    })->name('science_index_route');
+    Route::get('/', 'ScienceController@getAllList')->name('science_index_route');
 });
 
+//Route chool year
 Route::prefix('school-year')->group(function() {
     Route::get('/', function() {
         return view('school_year.schoolYearList');
     })->name('school_year_index_route');
 });
+
+//Route class
 Route::prefix('class')->group(function() {
     Route::get('/', function() {
         return view('class.classList');
@@ -48,6 +50,8 @@ Route::prefix('class')->group(function() {
         return view('class.addClass');
     })->name('class_add_route');
 });
+
+//Route activities
 Route::prefix('activity')->group(function() {
     Route::get('/', function() {
         return view('activity.activityList');
@@ -62,6 +66,8 @@ Route::prefix('activity')->group(function() {
         return view('activity.addListStudentActivity');
     })->name('activity_list_student_route');
 });
+
+//Route faculty commitee
 Route::prefix('BCH-Khoa')->group(function() {
     Route::get('/', function() {
         return view('BCH_Khoa.BCH_KhoaList');
@@ -73,6 +79,8 @@ Route::prefix('BCH-Khoa')->group(function() {
         return view('BCH_Khoa.addListBCH_Khoa');
     })->name('BCH_Khoa_add_list_route');
 });
+
+// Route class commitee
 Route::prefix('BCH-Lop')->group(function() {
     Route::get('/', function() {
         return view('BCH_Lop.BCH_LopList');

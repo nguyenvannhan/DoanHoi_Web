@@ -5103,14 +5103,11 @@ $('#unionist-radio > label.btn').on('click', function() {
 
 //Custom add list student
 $("#datatable-import-student").dataTable({
-  'order': [[ 1, 'desc' ]],
-  'columnDefs': [
-    { orderable: true, targets: [0] }
-  ]
+  'order': [[0, 'desc'], [ 1, 'desc' ]]
 });
 
 $(".datatable").dataTable({
-    'order': [[ 0, 'desc' ]],
+    'order': [[ 0, 'desc'], [1, 'desc']],
 });
 
 $('#addScience').on('click', function() {
