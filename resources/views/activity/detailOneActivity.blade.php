@@ -697,30 +697,17 @@
             <div class="modal-content_add_class">
                 <div class="modal-header_add_class">
                     <span id="close_add_active_class" class="close_add_class">&times;</span>
-                    <h2>Nhập Lớp Học</h2>
+                    <h2>Nhập Sinh Viên Tham Gia</h2>
                 </div>
                 <div class="modal-body_add_class">
                     <div class="x_panel">
                         <div class="x_content"><br />
                             <form class="form-horizontal ">
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Lớp Học : </label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Mã Số Sinh Viên : </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" required="required">
                                     </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control">
-                                                <option value="">2017</option>
-                                                <option value="">2017</option>
-                                                <option value="">2017</option>
-                                                <option value="">2017</option>
-                                                <option value="">2017</option>
-                                                <option value="">2017</option>
-                                            </select>
-                                        </div>
                                 </div>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
