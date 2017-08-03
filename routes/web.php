@@ -58,6 +58,9 @@ Route::prefix('activity')->group(function() {
     Route::get('detail', function() {
         return view('activity.detailOneActivity');
     })->name('activity_detail_route');
+    Route::get('add-list-student-activity', function() {
+        return view('activity.addListStudentActivity');
+    })->name('activity_list_student_route');
 });
 Route::prefix('BCH-Khoa')->group(function() {
     Route::get('/', function() {

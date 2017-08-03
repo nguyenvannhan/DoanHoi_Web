@@ -37,7 +37,7 @@
             <!-- Info Error -->
             <div class="row" id="error-add-table">
                 <div class="col-md-4 blue center">
-                    <i class="fa fa-circle"></i> 3 SV bị đã tồn tại
+                    <i class="fa fa-circle"></i> 3 SV đã tồn tại
                 </div>
 
                 <div class="col-md-4 green center">

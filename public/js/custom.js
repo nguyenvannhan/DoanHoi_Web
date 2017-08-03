@@ -5155,3 +5155,11 @@ $('#ClassAdd').on('click', function() {
     });
 
 });
+$('#add_student_active').on('click', function() {
+
+    document.getElementById('add_student_active_modal').style.display="block";
+    $('#close_add_active_class').on('click',function(){
+    	document.getElementById('add_student_active_modal').style.display="none";
+    });
+
+});

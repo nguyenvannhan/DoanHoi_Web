@@ -4,7 +4,7 @@
 
 @section('header_page')
 <div class="page-title">
-    <div class="title_left">
+    <div class="">
         <h1>Thêm Thành Viên Ban Chấp Hành Khoa</h1>
     </div>
 </div>
@@ -36,25 +36,28 @@
         <div class="col-md-12 col-xs-12 col-sm-12">
             <!-- Info Error -->
             <div class="row" id="error-add-table">
-                <div class="col-md-4 blue center">
-                    <i class="fa fa-circle"></i> 3 SV bị đã tồn tại
+                <div class="col-md-3 center">
+                    <i class="fa fa-circle"style="color: orange;"></i> 0 SV không có thông tin
+                </div>
+                <div class="col-md-3 blue center">
+                    <i class="fa fa-circle"></i> 3 SV đã tồn tại
                 </div>
 
-                <div class="col-md-4 green center">
+                <div class="col-md-3 green center">
                     <i class="fa fa-circle"></i> 3 SV bị trùng
                 </div>
 
-                <div class="col-md-4 red center">
+                <div class="col-md-3 red center">
                     <i class="fa fa-circle"></i> 3 SV bị lỗi thông tin
                 </div>
             </div>
             <!-- /Info Error -->
 
             <div>
-                <table id="datatable-checkbox" class="table table-striped table-bordered jambo_table bulk_action">
+                <table id="datatable-checkbox" class="table table-striped table-bordered jambo_table table-responsive">
                                     <thead>
                                         <tr class="headings">
-                                            <th></th>
+                                            <th><i class="fa fa-exclamation-circle red"></i></th>
                                             <th class="column-title"> STT </th>
                                             <th class="column-title"> MSSV </th>
                                             <th class="column-title"> Họ tên </th>
@@ -72,8 +75,8 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
-                                                <input type="checkbox" class="flat" name="table_records" />
+                                            <td> 
+                                               <i class="fa fa-circle blue"></i>
                                             </td>
                                             <td>1</td>
                                             <td> 13110113 </td>
@@ -95,7 +98,7 @@
                                             </td>
                                         </tr>
                                     </tbody>
-                                </table>
+                </table>
             </div>
         </div>
     </div>
