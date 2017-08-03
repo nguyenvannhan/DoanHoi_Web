@@ -54,10 +54,10 @@
             <!-- /Info Error -->
 
             <div>
-                <table id="datatable-checkbox" class="table table-striped table-bordered jambo_table bulk_action">
+                 <table id="datatable-checkbox" class="table table-striped table-bordered jambo_table table-responsive">
                                     <thead>
                                         <tr class="headings">
-                                            <th></th>
+                                            <th><i class="fa fa-exclamation-circle red"></i></th>
                                             <th class="column-title"> STT </th>
                                             <th class="column-title"> MSSV </th>
                                             <th class="column-title"> Họ tên </th>
@@ -75,8 +75,8 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
-                                                <input type="checkbox" class="flat" name="table_records" />
+                                            <td> 
+                                               <i class="fa fa-circle blue"></i>
                                             </td>
                                             <td>1</td>
                                             <td> 13110113 </td>
@@ -98,7 +98,7 @@
                                             </td>
                                         </tr>
                                     </tbody>
-                                </table>
+                </table>
             </div>
         </div>
     </div>
