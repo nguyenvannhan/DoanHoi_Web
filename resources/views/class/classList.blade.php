@@ -31,14 +31,9 @@
                                 </div>
                                 <div class="col-md-2 col-sm-6 col-xs-12">
                                     <select class="form-control">
-                                        <option value="">2016</option>
-                                        <option value="">2016</option>
-                                        <option value="">2016</option>
-                                        <option value="">2016</option>
-                                        <option value="">2016</option>
-                                        <option value="">2016</option>
-                                        <option value="">2016</option>
-                                        <option value="">2016</option>
+                                        @foreach($scienceList as $science)
+                                            <option value="{{ $science->id }}">{{ $science->nameScience }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-2 col-sm-6 col-xs-12" id="submit-filter-div">

@@ -45,9 +45,7 @@ Route::prefix('school-year')->group(function() {
 
 //Route class
 Route::prefix('class')->group(function() {
-    Route::get('/', function() {
-        return view('class.classList');
-    })->name('class_index_route');
+    Route::get('/', 'ClassesController@getClassList')->name('class_index_route');
     Route::get('add', function() {
         return view('class.addClass');
     })->name('class_add_route');

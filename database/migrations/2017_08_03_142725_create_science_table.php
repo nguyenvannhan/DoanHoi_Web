@@ -16,9 +16,10 @@ class CreateScienceTable extends Migration
         Schema::create('sciences', function (Blueprint $table) {
             $table->charset = 'utf8';
             $table->collation = 'utf8_unicode_ci';
+            $table->engine = 'InnoDB';
 
-            $table->string('id');
-            $table->string('nameScience');
+            $table->string('id', 4);
+            $table->string('nameScience', 4)->unique();
             $table->softDeletes();
             $table->timestamps();
 
