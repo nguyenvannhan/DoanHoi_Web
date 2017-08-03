@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddLengthNameScience extends Migration
+class UpdateClassTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddLengthNameScience extends Migration
      */
     public function up()
     {
-        Schema::table('sciences', function (Blueprint $table) {
-            $table->string('nameScience', 4)->change();
-            $table->string('id', 4)->change();
+        Schema::table('classes', function (Blueprint $table) {
+            $table->string('nameClass', 6)->change();
+            $table->string('id', 3)->change();
         });
     }
 
@@ -26,8 +26,8 @@ class AddLengthNameScience extends Migration
      */
     public function down()
     {
-        Schema::table('sciences', function (Blueprint $table) {
-
+        Schema::table('classes', function (Blueprint $table) {
+            //
         });
     }
 }
