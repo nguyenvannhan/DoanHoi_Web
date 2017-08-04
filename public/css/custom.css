@@ -4435,7 +4435,7 @@ td.right {
     color: white;
 }
 
-table.center tr td {
+table.center, tr, td, th  {
     text-align: center;
 }
 

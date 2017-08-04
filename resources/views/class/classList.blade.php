@@ -66,18 +66,21 @@
                            class="center datatable table table-striped table-bordered jambo_table">
                         <thead>
                         <tr class="headings">
-                            <th class="column-title"> Mã Lớp</th>
-                            <th class="column-title"> Lớp Học</th>
+                            <th class="column-title"> STT</th>
+                            <th class="column-title"> Tên Lớp Học</th>
                             <th class="column-title"> Khóa Học</th>
                             <th class="column-title"> Danh Sách Sinh Viên</th>
                             <th class="column-title"> Action</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <?php
+                        $i=1;
+                        ?>
                         @foreach($classList as $classOb)
                             <tr>
                                 <td>
-                                    {{ $classOb->id }}
+                                     <?php echo $i; $i++; ?>
                                 </td>
                                 <td>{{ $classOb->nameClass }}</td>
                                 <td>{{ $classOb->Science->nameScience }}</td>
@@ -133,13 +136,8 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12 center">
-<<<<<<< HEAD
                                     <button id="btncancel" class="btn btn-primary">Cancel</button>
-                                    <button class="btn btn-success">Submit</button>
-=======
-                                    <button class="btn btn-primary cancel_button">Cancel</button>
                                     <button class="btn btn-success" type="submit">Submit</button>
->>>>>>> 84a8030b3db964f95ed7abd41ff62bae2f2081ea
                                 </div>
                             </div>
                         </form>

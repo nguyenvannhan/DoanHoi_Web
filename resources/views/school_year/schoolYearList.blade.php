@@ -15,6 +15,15 @@
 @section('main_content')
 <div class="row">
     <!-- Action Area -->
+    @if(session('success_alert'))
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="alert alert-success">
+                    {{ session('success_alert') }}
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="panel_body">
@@ -72,12 +81,13 @@
         <div class="modal-content_add_class">
             <div class="modal-header_add_class">
                 <span id="close_add_class" class="close_add_class">&times;</span>
-                <h2>Nhập Lớp Học</h2>
+                <h2>Nhập Năm Học</h2>
             </div>
             <div class="modal-body_add_class">
                 <div class="x_panel">
                     <div class="x_content"><br/>
                         <form action="{{route('school_year_add_route')}}" method="POST" class="form-horizontal ">
+                        {{ csrf_field() }}
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Năm Học : </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">

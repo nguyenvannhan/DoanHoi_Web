@@ -16,9 +16,9 @@ class School_YearesController extends Controller
     }
     public function AddSchool_Year(Request $request) {
       $namhoc= $request->txtNamHoc;
-      $school_yearob = new Classes;
+      $school_yearob = new School_Yeares;
       $school_yearob->school_year_name = $namhoc;
       $school_yearob->save();
-      return redirect('/school-year')->with(['success_alert' => 'Them Nam Hoc thanh cong']);
+      return redirect('/school-year')->with(['success_alert' => 'Thêm Năm Học Thành Công']);
     }
 }

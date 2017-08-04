@@ -15,19 +15,24 @@
 @section('main_content')
 <div class="row">
     <!-- Action Area -->
+    @if(session('success_alert'))
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="alert alert-success">
+                    {{ session('success_alert') }}
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="panel_body">
                 <div class="row">
                     <div class="col-md-2 col-sm-2 col-xs-6">
-                        <a id="addScience" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm Khóa Học </a>
+                        <a id="ClassAdd" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm Khóa Học </a>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div id="dialog-add-science" title="Xác nhận?" hidden>
-            <p><span class="fa fa-plus-square"></span> Bạn có chắc muốn tạo thêm Khóa mới? </p>
         </div>
     </div>
     <!-- /Action Area -->
@@ -43,16 +48,19 @@
                 <table class="datatable center table table-striped table-bordered jambo_table science_list_table">
                     <thead>
                         <tr class="headings">
-                            <th class="column-title"> Mã </th>
+                            <th class="column-title"> STT </th>
                             <th class="column-title"> Khóa Học </th>
                             <th class="column-title"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
+                    <?php
+                        $i=1;
+                    ?>
                     @foreach ($scienceList as $science)
                         <tr>
                             <td>
-                                {{ $science->id }}
+                                <?php echo $i; $i++; ?>
                             </td>
                             <td>
                                 {{ $science->nameScience }}
@@ -69,4 +77,41 @@
     </div>
     <!--Science List Table-->
 </div>
+@stop
+
+@section('modals')
+    <!-- The Modal -->
+    <div id="add_class_modal" class="modal_add_class" style="display: none;">
+        <!-- Modal content -->
+        <div class="modal-content_add_class">
+            <div class="modal-header_add_class">
+                <span id="close_add_class" class="close_add_class">&times;</span>
+                <h2>Nhập Khóa Học</h2>
+            </div>
+            <div class="modal-body_add_class">
+                <div class="x_panel">
+                    <div class="x_content"><br/>
+                        <form action="{{route('science_add_route')}}" method="POST" class="form-horizontal ">
+                        {{ csrf_field() }}
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa Học : </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="txtKhoaHoc" class="form-control" required="required">
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12 center">
+                                    <button id="btncancel"  class="btn btn-primary">Cancel</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer_add_class">
+            </div>
+        </div>
+    </div>
 @stop

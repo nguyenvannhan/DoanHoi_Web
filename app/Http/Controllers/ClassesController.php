@@ -24,6 +24,6 @@ class ClassesController extends Controller {
 
         $classOb->save();
 
-        return redirect('/class')->with(['success_alert' => 'Them Lop hoc thanh cong']);
+        return redirect('/class')->with(['success_alert' => 'Thêm Lớp Học Thành Công']);
     }
 }

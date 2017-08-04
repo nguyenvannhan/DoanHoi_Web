@@ -34,6 +34,7 @@ Route::prefix('science')->group(function() {
     Route::get('/', 'ScienceController@getAllList')->name('science_index_route');
 
     Route::get('/add', 'ScienceController@getAddScience')->name('get_add_science');
+    Route::post('add-new','ScienceController@posttAddScience')->name('science_add_route');
 });
 
 //Route chool year

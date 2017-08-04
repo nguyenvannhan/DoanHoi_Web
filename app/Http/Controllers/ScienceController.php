@@ -26,4 +26,11 @@ class ScienceController extends Controller
 
         return response()->json(['response' => true]);
     }
+    public function posttAddScience(Request $request){
+        $khoahoc= $request->txtKhoaHoc;
+        $khoahocob = new Science;
+        $khoahocob->nameScience = $khoahoc;
+        $khoahocob->save();
+        return redirect('/science')->with(['success_alert' => 'Thêm Khóa Học Thành Công']);
+    }
 }
