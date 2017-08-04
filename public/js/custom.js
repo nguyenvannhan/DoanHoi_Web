@@ -5169,3 +5169,9 @@ $('#add_student_active').on('click', function() {
     });
 
 });
+
+$('.modal_add_class .cancel_button').on('click', function() {
+	$('.modal_add_class').css('display', 'none');
+});
+
+$('div.alert').delay(2000).fadeOut('slow');

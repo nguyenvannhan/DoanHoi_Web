@@ -13,4 +13,17 @@ class ClassesController extends Controller {
 
         return view('class.classList', ['classList' => $classList, 'scienceList' => $scienceList]);
     }
+
+    public function postAddClass(Request $request) {
+        $className = $request->txtClassName;
+        $scienceId = $request->slScienceId;
+
+        $classOb = new Classes;
+        $classOb->nameClass = $className;
+        $classOb->scienceId = $scienceId;
+
+        $classOb->save();
+
+        return redirect('/class')->with(['success_alert' => 'Them Lop hoc thanh cong']);
+    }
 }

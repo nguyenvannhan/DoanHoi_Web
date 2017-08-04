@@ -4438,3 +4438,7 @@ td.right {
 table.center tr td {
     text-align: center;
 }
+
+div.alert {
+    margin-left: 20px;
+}
