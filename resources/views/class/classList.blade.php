@@ -15,12 +15,22 @@
 @section('main_content')
     <!-- /Action Area -->
     <div class="row">
+        @if(session('success_alert'))
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="alert alert-success">
+                        {{ session('success_alert') }}
+                    </div>
+                </div>
+            </div>
+        @endif
         <div class="col-md-12 col-sm-12 col-xs-12" id="filter">
             <div class="x_panel">
                 <div class="x_content">
                     <div class="row">
                         <div class="col-md-2 col-sm-2 col-xs-6">
-                            <a id="ClassAdd" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm Lớp Học </a>
+                            <a id="ClassAdd" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm Lớp Học
+                            </a>
                         </div>
                     </div>
                     <div class="row">
@@ -52,7 +62,8 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <table id="class-list-table" class="center datatable table table-striped table-bordered jambo_table">
+                    <table id="class-list-table"
+                           class="center datatable table table-striped table-bordered jambo_table">
                         <thead>
                         <tr class="headings">
                             <th class="column-title"> Mã Lớp</th>
@@ -101,23 +112,18 @@
             <div class="modal-body_add_class">
                 <div class="x_panel">
                     <div class="x_content"><br/>
-                        <form class="form-horizontal ">
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Mã Lớp Học : </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" class="form-control" required="required" disabled>
-                                </div>
-                            </div>
+                        <form class="form-horizontal" action="{{ route('post_add_class_route') }}" method="POST">
+                            {{ csrf_field() }}
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Lớp Học : </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" class="form-control" required="required">
+                                    <input type="text" class="form-control" name="txtClassName" required="required">
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select class="form-control">
+                                    <select class="form-control" name="slScienceId">
                                         @foreach($scienceList as $science)
                                             <option value="{{ $science->id }}"> {{ $science->nameScience }} </option>
                                         @endforeach
@@ -127,8 +133,13 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12 center">
+<<<<<<< HEAD
                                     <button id="btncancel" class="btn btn-primary">Cancel</button>
                                     <button class="btn btn-success">Submit</button>
+=======
+                                    <button class="btn btn-primary cancel_button">Cancel</button>
+                                    <button class="btn btn-success" type="submit">Submit</button>
+>>>>>>> 84a8030b3db964f95ed7abd41ff62bae2f2081ea
                                 </div>
                             </div>
                         </form>
