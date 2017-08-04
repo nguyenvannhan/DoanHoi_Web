@@ -38,9 +38,8 @@ Route::prefix('science')->group(function() {
 
 //Route chool year
 Route::prefix('school-year')->group(function() {
-    Route::get('/', function() {
-        return view('school_year.schoolYearList');
-    })->name('school_year_index_route');
+    Route::get('/','School_YearesController@getAllList')->name('school_year_index_route');
+    Route::post('add','School_YearesController@AddSchool_Year')->name('school_year_add_route');
 });
 
 //Route class

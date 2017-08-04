@@ -5110,7 +5110,7 @@ $("#datatable-import-student").dataTable({
 });
 
 $(".datatable").dataTable({
-    'order': [[ 0, 'desc'], [1, 'desc']],
+    'order': [[ 0, 'asc'], [1, 'desc']],
 });
 
 $('#addScience').on('click', function() {
@@ -5159,6 +5159,9 @@ $('#ClassAdd').on('click', function() {
     $('#close_add_class').on('click',function(){
     	document.getElementById('add_class_modal').style.display="none";
     });
+    $('#btncancel').on('click',function(){
+    	document.getElementById('add_class_modal').style.display="none";
+    });
 
 });
 $('#add_student_active').on('click', function() {
@@ -5166,6 +5169,9 @@ $('#add_student_active').on('click', function() {
     document.getElementById('add_student_active_modal').style.display="block";
     $('#close_add_active_class').on('click',function(){
     	document.getElementById('add_student_active_modal').style.display="none";
+    });
+    $('#btncancel').on('click',function(){
+    	document.getElementById('add_class_modal').style.display="none";
     });
 
 });

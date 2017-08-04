@@ -20,14 +20,10 @@
             <div class="panel_body">
                 <div class="row">
                     <div class="col-md-2 col-sm-2 col-xs-6">
-                        <a id="addSchoolYear" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm Năm học </a>
+                        <a id="ClassAdd" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm Năm học </a>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div id="dialog-add-school-year" title="Xác nhận?" hidden>
-            <p><span class="fa fa-plus-square"></span> Bạn có chắc muốn tạo thêm <strong>Năm học</strong> mới? </p>
         </div>
     </div>
     <!-- /Action Area -->
@@ -49,42 +45,18 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php
+                        $i=1;
+                    ?>
+                    @foreach ($school_yearList as $school_year)
                         <tr>
-                            <td style="text-align: center;">
-                                1
-                            </td>
-                            <td style="text-align: center;">2013 - 2014</td>
-                            <td class="action-column center">
-                                <a href="#"> Xem danh sách hoạt động năm học 2013 - 2014 </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center;">
-                                2
-                            </td>
-                            <td style="text-align: center;">2014</td>
-                            <td class="action-column" style="text-align: center;">
-                                <a href="#"> Xem danh sách hoạt động năm học 2014 - 2015 </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center;">
-                                3
-                            </td>
-                            <td style="text-align: center;">2015</td>
-                            <td class="action-column" style="text-align: center;">
-                                <a href="#"> Xem danh sách hoạt động năm học 2015 - 2016 </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center;">
-                                4
-                            </td>
-                            <td style="text-align: center;">2016</td>
+                            <td><?php echo $i; $i++; ?></td>
+                            <td>{{ $school_year->school_year_name }}</td>
                             <td class="action-column" style="text-align: center;">
                                 <a href="#"> Xem danh sách hoạt động năm học 2016 - 2017 </a>
                             </td>
                         </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -93,3 +65,39 @@
     <!--Science List Table-->
 </div>
 @stop
+@section('modals')
+    <!-- The Modal -->
+    <div id="add_class_modal" class="modal_add_class" style="display: none;">
+        <!-- Modal content -->
+        <div class="modal-content_add_class">
+            <div class="modal-header_add_class">
+                <span id="close_add_class" class="close_add_class">&times;</span>
+                <h2>Nhập Lớp Học</h2>
+            </div>
+            <div class="modal-body_add_class">
+                <div class="x_panel">
+                    <div class="x_content"><br/>
+                        <form action="{{route('school_year_add_route')}}" method="POST" class="form-horizontal ">
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Năm Học : </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="txtNamHoc" class="form-control" required="required">
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12 center">
+                                    <button id="btncancel"  class="btn btn-primary">Cancel</button>
+                                    <button  type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer_add_class">
+            </div>
+        </div>
+    </div>
+@stop
+
