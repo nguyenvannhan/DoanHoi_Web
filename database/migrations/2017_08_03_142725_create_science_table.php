@@ -18,12 +18,11 @@ class CreateScienceTable extends Migration
             $table->collation = 'utf8_unicode_ci';
             $table->engine = 'InnoDB';
 
-            $table->string('id', 4);
+            $table->increments('id');
             $table->string('nameScience', 4)->unique();
             $table->softDeletes();
             $table->timestamps();
 
-            $table->primary('id');
         });
     }
 

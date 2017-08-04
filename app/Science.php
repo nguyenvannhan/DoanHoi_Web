@@ -9,7 +9,7 @@ class Science extends Model {
     use SoftDeletes;
 
     protected $table = 'sciences';
-    public $incrementing = false;
+    public $incrementing = true;
 
     protected $primaryKey = 'id';
     protected $fillable = ['nameScience'];

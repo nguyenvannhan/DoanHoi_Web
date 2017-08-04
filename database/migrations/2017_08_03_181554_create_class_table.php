@@ -18,13 +18,12 @@ class CreateClassTable extends Migration
             $table->collation = 'utf8_unicode_ci';
             $table->engine = 'InnoDB';
 
-            $table->string('id', 3);
+            $table->increments('id');
             $table->string('nameClass', 6)->unique();
-            $table->string('scienceId', 4);
+            $table->integer('scienceId')->unsigned();
             $table->softDeletes();
             $table->timestamps();
 
-            $table->primary('id');
             $table->foreign('scienceId')->references('id')->on('sciences')->onDelete('cascade');
         });
     }

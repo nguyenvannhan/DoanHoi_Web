@@ -20,8 +20,7 @@
                 <div class="x_content">
                     <div class="row">
                         <div class="col-md-2 col-sm-2 col-xs-6">
-                            <a id="ClassAdd" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm Lớp
-                                Học </a>
+                            <a id="ClassAdd" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm Lớp Học </a>
                         </div>
                     </div>
                     <div class="row">
@@ -53,7 +52,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <table class="center datatable table table-striped table-bordered jambo_table">
+                    <table id="class-list-table" class="center datatable table table-striped table-bordered jambo_table">
                         <thead>
                         <tr class="headings">
                             <th class="column-title"> Mã Lớp</th>
@@ -120,8 +119,8 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select class="form-control">
                                         @foreach($scienceList as $science)
-                                        <option value="{{ $science->id }}"> {{ $science->nameScience }} </option>
-                                            @endforeach
+                                            <option value="{{ $science->id }}"> {{ $science->nameScience }} </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

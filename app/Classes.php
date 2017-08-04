@@ -9,7 +9,7 @@ class Classes extends Model {
     use SoftDeletes;
 
     protected $table = 'classes';
-    public $incrementing = false;
+    public $incrementing = true;
 
     protected $primaryKey = 'id';
     protected $fillable = ['nameClass', 'scienceId'];

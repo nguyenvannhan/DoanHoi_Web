@@ -16,13 +16,10 @@ class ScienceController extends Controller
     public function getAddScience() {
         $topScience = Science::orderBy('id', 'desc')->take(1)->first();
 
-        $maxScienceId = substr($topScience->id, -2);
-
-        $newScienceId = 'KH'.($maxScienceId + 1);
+        $maxScienceId = substr($topScience->nameScience, -2);
         $newScienceName = '20'.($maxScienceId + 1);
 
         $science = new Science();
-        $science->id = $newScienceId;
         $science->nameScience = $newScienceName;
 
         $science->save();
