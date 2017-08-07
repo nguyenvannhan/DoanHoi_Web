@@ -26,6 +26,10 @@ class ClassesController extends Controller {
 
         return redirect('/class')->with(['success_alert' => 'Thêm Lớp Học Thành Công']);
     }
+    public function getClassById(Request $request){
+        $id=$request->
+        $class=Classes::where('id','')
+    }
     public function updateClass(Request $request)
     {
         

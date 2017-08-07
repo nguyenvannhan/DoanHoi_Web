@@ -46,7 +46,13 @@ Route::prefix('school-year')->group(function() {
 //Route class
 Route::prefix('class')->group(function() {
     Route::get('/', 'ClassesController@getClassList')->name('class_index_route');
+
     Route::post('add', 'ClassesController@postAddClass')->name('post_add_class_route');
+
+    Route::get('edit/{id}', 'ClassesController@getEditClass')->name('get_edit_class_route');
+    Route::post('edit/{id}', 'ClassesController@postEditClass')->name('post_edit_class_route');
+
+    Route::get('delete/{id}', 'ClassesController@getDeleteClass')->name('get_delete_class_route');
 });
 
 //Route activities

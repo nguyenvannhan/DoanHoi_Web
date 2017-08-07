@@ -5153,17 +5153,39 @@ $('#addSchoolYear').on('click', function() {
     });
 });
 
+//Js process Class Add and edit Modal
+
 $('#ClassAdd').on('click', function() {
+    $('#add_class_modal form').attr('action', URI+'/class/add');
 
-    document.getElementById('add_class_modal').style.display="block";
-    $('#close_add_class').on('click',function(){
-    	document.getElementById('add_class_modal').style.display="none";
-    });
-    $('#btncancel').on('click',function(){
-    	document.getElementById('add_class_modal').style.display="none";
-    });
-
+    $('#add_class_modal').css('display', 'block');
 });
+
+$('.edit_class_button').on('click', function() {
+    id = $(this).attr('data-id');
+
+    $.get(URI+'/class/edit/'+id, function(data) {
+        var classOb = data['classOb'];
+
+        $('#add_class_modal input[name="txtClassName"]').val(classOb.nameClass);
+        $('#add_class_modal select[name="slScienceId"]').val(classOb.scienceId);
+
+    });
+
+    $('#add_class_modal form').attr('action', URI+'/class/edit/'+id);
+    $('#add_class_modal .modal-content_add_class .modal-header_add_class h2').html("Cập nhật Lớp học")
+
+    $('#add_class_modal').css('display', 'block');
+});
+
+$('#add_class_modal .close_add_class, #add_class_modal .btncancel').on('click', function() {
+    $('#add_class_modal select[name="slScienceId"]').prop('selectedIndex', 0);
+    $('#add_class_modal input[name="txtClassName"]').val("");
+    $('#add_class_modal').css('display', 'none');
+});
+
+// End Js process Class Add and edit Modal
+
 $('#add_student_active').on('click', function() {
 
     document.getElementById('add_student_active_modal').style.display="block";
@@ -5174,10 +5196,6 @@ $('#add_student_active').on('click', function() {
     	document.getElementById('add_student_active_modal').style.display="none";
     });
 
-});
-
-$('.modal_add_class .cancel_button').on('click', function() {
-	$('.modal_add_class').css('display', 'none');
 });
 
 $('div.alert').delay(2000).fadeOut('slow');

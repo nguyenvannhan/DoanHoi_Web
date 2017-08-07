@@ -74,13 +74,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php
-                        $i=1;
-                        ?>
+                        @php
+                            $i=1
+                        @endphp
                         @foreach($classList as $classOb)
                             <tr>
                                 <td>
-                                     <?php echo $i; $i++; ?>
+                                      {{ $i++ }}
                                 </td>
                                 <td>{{ $classOb->nameClass }}</td>
                                 <td>{{ $classOb->Science->nameScience }}</td>
@@ -88,8 +88,13 @@
                                     <a href="#">Danh sách SV Lớp {{ $classOb->nameClass }} </a>
                                 </td>
                                 <td class="action-column">
+
                                     <a id="add_student_active"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
+
+                                    <a class="edit_class_button" data-id="{{ $classOb->id }}"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
+                                    <a href="{{ route('get_delete_class_route', ['id' => $classOb->id]) }}"><i class="fa fa-trash" title="Xóa"></i></a>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -100,27 +105,26 @@
         </div>
     </div>
     <!--Science List Table-->
-    </div>
 @stop
 
 @section('modals')
-    <!-- The Modal -->
+    <!-- The Modal Add Class-->
     <div id="add_class_modal" class="modal_add_class" style="display: none;">
         <!-- Modal content -->
         <div class="modal-content_add_class">
             <div class="modal-header_add_class">
-                <span id="close_add_class" class="close_add_class">&times;</span>
+                <span class="close_add_class">&times;</span>
                 <h2>Nhập Lớp Học</h2>
             </div>
             <div class="modal-body_add_class">
                 <div class="x_panel">
                     <div class="x_content"><br/>
-                        <form class="form-horizontal" action="{{ route('post_add_class_route') }}" method="POST">
+                        <form class="form-horizontal" action="#" method="POST">
                             {{ csrf_field() }}
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Lớp Học : </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" class="form-control" name="txtClassName" required="required">
+                                    <input type="text" class="form-control" name="txtClassName" required>
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -136,8 +140,8 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12 center">
-                                    <button id="btncancel" class="btn btn-primary">Cancel</button>
-                                    <button class="btn btn-success" type="submit">Submit</button>
+                                    <button type="button" class="btn btn-primary btncancel">Cancel</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
                         </form>
