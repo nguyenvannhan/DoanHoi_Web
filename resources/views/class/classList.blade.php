@@ -88,7 +88,7 @@
                                     <a href="#">Danh sách SV Lớp {{ $classOb->nameClass }} </a>
                                 </td>
                                 <td class="action-column">
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
+                                    <a id="add_student_active"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
                             </tr>
@@ -148,4 +148,49 @@
             </div>
         </div>
     </div>
+        <!-- Edit Class -->
+    <div id="add_student_active_modal" class="modal_add_class" style="display: none;">
+        <!-- Modal content -->
+        <div class="modal-content_add_class">
+            <div class="modal-header_add_class">
+                <span id="close_add_active_class" class="close_add_class">&times;</span>
+                <h2>Edit Lớp Học</h2>
+            </div>
+            <div class="modal-body_add_class">
+                <div class="x_panel">
+                    <div class="x_content"><br/>
+                        <form class="form-horizontal" action="{{ route('post_add_class_route') }}" method="POST">
+                            {{ csrf_field() }}
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Lớp Học : </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" class="form-control" name="txtClassName" required="required"  value="">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control" name="slScienceId">
+                                        @foreach($scienceList as $science)
+                                            <option value="{{ $science->id }}"> {{ $science->nameScience }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12 center">
+                                    <button id="btncancelactive" class="btn btn-primary">Cancel</button>
+                                    <button class="btn btn-success" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer_add_class">
+            </div>
+        </div>
+    </div>
+   <!-- /The Modal -->
 @stop

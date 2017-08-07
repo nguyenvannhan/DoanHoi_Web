@@ -5170,8 +5170,8 @@ $('#add_student_active').on('click', function() {
     $('#close_add_active_class').on('click',function(){
     	document.getElementById('add_student_active_modal').style.display="none";
     });
-    $('#btncancel').on('click',function(){
-    	document.getElementById('add_class_modal').style.display="none";
+    $('#btncancelactive').on('click',function(){
+    	document.getElementById('add_student_active_modal').style.display="none";
     });
 
 });
