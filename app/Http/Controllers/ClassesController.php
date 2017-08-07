@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Classes;
+use App\Http\Requests\AddClassRequest;
+use App\Http\Requests\EditClassRequest;
 use App\Science;
 use Illuminate\Http\Request;
 
@@ -14,9 +16,9 @@ class ClassesController extends Controller {
         return view('class.classList', ['classList' => $classList, 'scienceList' => $scienceList]);
     }
 
-    public function postAddClass(Request $request) {
-        $className = $request->txtClassName;
-        $scienceId = $request->slScienceId;
+    public function postAddClass(AddClassRequest $request) {
+        $className = $request->txtAddClassName;
+        $scienceId = $request->slAddScienceId;
 
         $classOb = new Classes;
         $classOb->nameClass = $className;
@@ -33,11 +35,11 @@ class ClassesController extends Controller {
         return response()->json(['classOb' => $classOb]);
     }
 
-    public function postEditClass(Request $request, $id) {
+    public function postEditClass(EditClassRequest $request, $id) {
         $classOb = Classes::find($id);
 
-        $classOb->nameClass = $request->txtClassName;
-        $classOb->scienceId = $request->slScienceId;
+        $classOb->nameClass = $request->txtEditClassName;
+        $classOb->scienceId = $request->slEditScienceId;
 
         $classOb->save();
 

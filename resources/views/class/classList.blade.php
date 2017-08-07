@@ -104,7 +104,7 @@
 
 @section('modals')
     <!-- The Modal Add Class-->
-    <div id="add_class_modal" class="modal_add_class" style="display: none;">
+    <div id="add_class_modal" class="modal_add_class" style="display: {{ old('txtAddClassName') !== null ? 'block;' : 'none;' }}">
         <!-- Modal content -->
         <div class="modal-content_add_class">
             <div class="modal-header_add_class">
@@ -114,20 +114,31 @@
             <div class="modal-body_add_class">
                 <div class="x_panel">
                     <div class="x_content"><br/>
-                        <form class="form-horizontal" action="#" method="POST">
+                        <div class="row">
+                            @if($errors->any())
+                                <div class="col-md-12 col-xs-12 col-sm-12">
+                                    <ul class="alert alert-danger">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                        </div>
+                        <form class="form-horizontal" action="{{ route('post_add_class_route') }}" method="POST">
                             {{ csrf_field() }}
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Lớp Học : </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" class="form-control" name="txtClassName" required>
+                                    <input type="text" class="form-control" name="txtAddClassName" required value="{{ old('txtAddClassName') }}">
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select class="form-control" name="slScienceId">
+                                    <select class="form-control" name="slAddScienceId">
                                         @foreach($scienceList as $science)
-                                            <option value="{{ $science->id }}"> {{ $science->nameScience }} </option>
+                                            <option value="{{ $science->id }}" {{ old('slAddScienceId') == $science->id ? "selected" : "" }}> {{ $science->nameScience }} </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -137,6 +148,63 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12 center">
                                     <button type="button" class="btn btn-primary btncancel">Cancel</button>
                                     <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer_add_class">
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal Edit Class-->
+    <div id="edit_class_modal" class="modal_add_class" style="display: {{ old('txtEditClassName') !== null ? 'block;' : 'none;' }};">
+        <!-- Modal content -->
+        <div class="modal-content_add_class">
+            <div class="modal-header_add_class">
+                <span class="close_add_class">&times;</span>
+                <h2>Cập nhật Lớp Học</h2>
+            </div>
+            <div class="modal-body_add_class">
+                <div class="x_panel">
+                    <div class="x_content"><br/>
+                        <div class="row">
+                            @if($errors->any())
+                                <div class="col-md-12 col-xs-12 col-sm-12">
+                                    <ul class="alert alert-danger">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                        </div>
+                        <form class="form-horizontal" action="#" method="POST">
+                            {{ csrf_field() }}
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Lớp Học : </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="hidden" name="txtIdClass" value="{{ old('txtIdClass') }}">
+                                    <input type="text" class="form-control" name="txtEditClassName" required value="{{ old('txtEditClassName') }}">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control" name="slEditScienceId">
+                                        @foreach($scienceList as $science)
+                                            <option value="{{ $science->id }}" {{ old('slEditScienceId') == $science->id ? "selected" : "" }}> {{ $science->nameScience }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12 center">
+                                    <button type="button" class="btn btn-primary btncancel">Cancel</button>
+                                    <button id="btnSubmit" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
                         </form>

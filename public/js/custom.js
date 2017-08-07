@@ -5161,28 +5161,42 @@ $('#ClassAdd').on('click', function() {
     $('#add_class_modal').css('display', 'block');
 });
 
+
 $('.edit_class_button').on('click', function() {
-    id = $(this).attr('data-id');
+    var id = $(this).attr('data-id');
 
     $.get(URI+'/class/edit/'+id, function(data) {
         var classOb = data['classOb'];
 
-        $('#add_class_modal input[name="txtClassName"]').val(classOb.nameClass);
-        $('#add_class_modal select[name="slScienceId"]').val(classOb.scienceId);
+        $('#edit_class_modal input[name="txtEditClassName"]').val(classOb.nameClass);
+        $('#edit_class_modal select[name="slEditScienceId"]').val(classOb.scienceId);
+        $('#edit_class_modal input[name="txtIdClass"]').val(id);
 
     });
 
-    $('#add_class_modal form').attr('action', URI+'/class/edit/'+id);
-    $('#add_class_modal .modal-content_add_class .modal-header_add_class h2').html("Cập nhật Lớp học")
-
-    $('#add_class_modal').css('display', 'block');
+    $('#edit_class_modal form').attr('action', URI+'/class/edit/'+id);
+    $('#edit_class_modal').css('display', 'block');
 });
 
 $('#add_class_modal .close_add_class, #add_class_modal .btncancel').on('click', function() {
-    $('#add_class_modal select[name="slScienceId"]').prop('selectedIndex', 0);
-    $('#add_class_modal input[name="txtClassName"]').val("");
+    $('#add_class_modal select[name="slAddScienceId"]').prop('selectedIndex', 0);
+    $('#add_class_modal input[name="txtAddClassName"]').val("");
     $('#add_class_modal').css('display', 'none');
 });
+
+$('#edit_class_modal .close_add_class, #edit_class_modal .btncancel').on('click', function() {
+    $('#edit_class_modal select[name="slEditScienceId"]').prop('selectedIndex', 0);
+    $('#edit_class_modal input[name="txtEditClassName"]').val("");
+    $('#edit_class_modal ul.alert-danger').remove();
+    $('#edit_class_modal').css('display', 'none');
+});
+
+$('#edit_class_modal #btnSubmit').on('click', function() {
+    var id = $('#edit_class_modal input[name="txtIdClass]').val();
+   $('#edit_class_modal form').attr('action', URI+'/class/edit/'+id);
+   $(this).attr('type', 'submit');
+});
+
 
 // End Js process Class Add and edit Modal
 
