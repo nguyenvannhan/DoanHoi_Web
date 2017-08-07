@@ -26,4 +26,28 @@ class ClassesController extends Controller {
 
         return redirect('/class')->with(['success_alert' => 'Thêm Lớp Học Thành Công']);
     }
+
+    public function getEditClass($id) {
+        $classOb = Classes::find($id);
+
+        return response()->json(['classOb' => $classOb]);
+    }
+
+    public function postEditClass(Request $request, $id) {
+        $classOb = Classes::find($id);
+
+        $classOb->nameClass = $request->txtClassName;
+        $classOb->scienceId = $request->slScienceId;
+
+        $classOb->save();
+
+        return redirect('/class')->with(['success_alert' => 'Cập nhật Lớp học thành công!']);
+    }
+
+    public function getDeleteClass($id) {
+        $classOb = Classes::find($id);
+        $classOb->delete();
+
+        return redirect('/class')->with(['success_alert' => 'Xóa Lớp học thành công!']);
+    }
 }
