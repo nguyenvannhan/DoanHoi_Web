@@ -45,11 +45,4 @@ class ClassesController extends Controller {
 
         return redirect('/class')->with(['success_alert' => 'Cập nhật Lớp học thành công!']);
     }
-
-    public function getDeleteClass($id) {
-        $classOb = Classes::find($id);
-        $classOb->delete();
-
-        return redirect('/class')->with(['success_alert' => 'Xóa Lớp học thành công!']);
-    }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Classes;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class EditClassRequest extends FormRequest
 {
@@ -23,8 +25,9 @@ class EditClassRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'txtEditClassName' => 'unique:classes,nameClass,.|required|max:6|numeric',
+            'txtEditClassName' => 'required|digits:6|numeric|unique:classes,nameClass,'.$this->id,
             'slEditScienceId' => 'required'
         ];
     }
@@ -35,7 +38,7 @@ class EditClassRequest extends FormRequest
             'txtEditClassName.unique' => 'Tên lớp học đã tồn tại.',
             'txtEditClassName.numeric' => 'Tên lớp học chỉ nên là chữ số.',
             'txtEditClassName.required' => 'Vui lòng điền tên lớp học.',
-            'txtEditClassName.max' => 'Tên lớp học quá dài (nên là 6 chữ số).',
+            'txtEditClassName.digits' => 'Tên lớp học quá dài (nên là 6 chữ số).',
             'slEditScienceId.required' => 'Vui lòng chọn khóa học.'
         ];
     }

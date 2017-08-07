@@ -80,7 +80,7 @@
                         @foreach($classList as $classOb)
                             <tr>
                                 <td>
-                                      {{ $i++ }}
+                                    {{ $i++ }}
                                 </td>
                                 <td>{{ $classOb->nameClass }}</td>
                                 <td>{{ $classOb->Science->nameScience }}</td>
@@ -88,8 +88,11 @@
                                     <a href="#">Danh sách SV Lớp {{ $classOb->nameClass }} </a>
                                 </td>
                                 <td class="action-column">
-                                    <a class="edit_class_button" data-id="{{ $classOb->id }}"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="{{ route('get_delete_class_route', ['id' => $classOb->id]) }}"><i class="fa fa-trash" title="Xóa"></i></a>
+                                    <a class="edit_class_button" data-id="{{ $classOb->id }}"><i class="fa fa-edit"
+                                                                                                 title="Chỉnh sửa"></i></a>
+                                    <a href="{{ route('get_delete_class_route', ['id' => $classOb->id]) }}"><i
+                                                class="fa fa-trash" title="Xóa"></i></a>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -104,7 +107,8 @@
 
 @section('modals')
     <!-- The Modal Add Class-->
-    <div id="add_class_modal" class="modal_add_class" style="display: {{ old('txtAddClassName') !== null ? 'block;' : 'none;' }}">
+    <div id="add_class_modal" class="modal_add_class"
+         style="display: {{ old('txtAddClassName') !== null ? 'block;' : 'none;' }}">
         <!-- Modal content -->
         <div class="modal-content_add_class">
             <div class="modal-header_add_class">
@@ -130,7 +134,8 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Lớp Học : </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" class="form-control" name="txtAddClassName" required value="{{ old('txtAddClassName') }}">
+                                    <input type="text" class="form-control" name="txtAddClassName" required
+                                           value="{{ old('txtAddClassName') }}">
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -160,7 +165,8 @@
     </div>
 
     <!-- The Modal Edit Class-->
-    <div id="edit_class_modal" class="modal_add_class" style="display: {{ old('txtEditClassName') !== null ? 'block;' : 'none;' }};">
+    <div id="edit_class_modal" class="modal_add_class"
+         style="display: {{ old('txtEditClassName') !== null ? 'block;' : 'none;' }};">
         <!-- Modal content -->
         <div class="modal-content_add_class">
             <div class="modal-header_add_class">
@@ -184,10 +190,12 @@
                         <form class="form-horizontal" action="#" method="POST">
                             {{ csrf_field() }}
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Lớp Học : </label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Lớp Học
+                                    : </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="hidden" name="txtIdClass" value="{{ old('txtIdClass') }}">
-                                    <input type="text" class="form-control" name="txtEditClassName" required value="{{ old('txtEditClassName') }}">
+                                    <input type="text" class="form-control" name="txtEditClassName" required
+                                           value="{{ old('txtEditClassName') }}">
                                 </div>
                             </div>
                             <div class="item form-group">

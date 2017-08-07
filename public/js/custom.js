@@ -5197,17 +5197,14 @@ $('#edit_class_modal #btnSubmit').on('click', function() {
    $(this).attr('type', 'submit');
 });
 
-
-// End Js process Class Add and edit Modal
-
 $('#add_student_active').on('click', function() {
 
     document.getElementById('add_student_active_modal').style.display="block";
     $('#close_add_active_class').on('click',function(){
     	document.getElementById('add_student_active_modal').style.display="none";
     });
-    $('#btncancel').on('click',function(){
-    	document.getElementById('add_class_modal').style.display="none";
+    $('#btncancelactive').on('click',function(){
+    	document.getElementById('add_student_active_modal').style.display="none";
     });
 
 });

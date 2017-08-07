@@ -25,7 +25,7 @@ class AddClassRequest extends FormRequest
     public function rules()
     {
         return [
-            'txtAddClassName' => 'required|unique:classes,nameClass|max:6|numeric',
+            'txtAddClassName' => 'required|unique:classes,nameClass|digits:6|numeric',
             'slAddScienceId' => 'required'
         ];
     }
@@ -35,7 +35,7 @@ class AddClassRequest extends FormRequest
         return [
             'txtAddClassName.required' => 'Vui lòng nhập tên Khóa học.',
             'txtAddClassName.unique' => 'Lớp học đã tồn tại.',
-            'txtAddClassName.max' => 'Tên lớp học quá dài (nên là 6 chữ số).',
+            'txtAddClassName.digits' => 'Tên lớp học quá dài (nên là 6 chữ số).',
             'txtAddClassName.numeric' => 'Tên lớp học chỉ nên là chữ số.',
             'slAddScienceId.required' => 'Vui lòng chọn Khóa học.'
         ];
