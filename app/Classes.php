@@ -19,4 +19,7 @@ class Classes extends Model {
     public function Science() {
         return $this->belongsTo('App\Science', 'scienceId', 'id');
     }
+    public function Studentes(){
+    	return $this->hasMany('App\Studentes','classId','mssv');
+    }
 }
