@@ -2603,6 +2603,10 @@ if (typeof NProgress != 'undefined') {
 
 				TableManageButtons.init();
 
+				$('.science_list_table').dataTable({
+                    'order': [0, 'asc']
+                });
+
 			};
 
 			/* CHART - MORRIS  */
@@ -5114,7 +5118,7 @@ $(".datatable").dataTable({
 });
 
 $('#addScience').on('click', function() {
-    $('#dialog-add-science').dialog({
+    $('#dialog-confirm-add-science').dialog({
         resizable: false,
       height: "auto",
       width: 400,

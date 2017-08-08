@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ScienceController extends Controller
 {
     public function getAllList() {
-        $scienceList = Science::all();
+        $scienceList = Science::orderBy('id', 'desc')->get();
 
         return view('science.scienceList', ['scienceList' => $scienceList]);
     }
@@ -25,12 +25,5 @@ class ScienceController extends Controller
         $science->save();
 
         return response()->json(['response' => true]);
-    }
-    public function posttAddScience(Request $request){
-        $khoahoc= $request->txtKhoaHoc;
-        $khoahocob = new Science;
-        $khoahocob->nameScience = $khoahoc;
-        $khoahocob->save();
-        return redirect('/science')->with(['success_alert' => 'Thêm Khóa Học Thành Công']);
     }
 }
