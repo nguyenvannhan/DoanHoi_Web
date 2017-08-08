@@ -7,7 +7,7 @@
  * });
  */
 
-var URI = "http://localhost/official_cyu_management/public";
+var URI = "http://localhost:8080/official_cyu_management/public";
 
 (function($,sr){
     // debouncing function from John Hann

@@ -16,9 +16,7 @@ Route::get('/', function () {
 });
 
 Route::prefix('student')->group(function() {
-    Route::get('/', function() {
-        return view('student.studentList');
-    })->name('student_index_route');
+    Route::get('/', 'StudentesController@getStudentList')->name('student_index_route');
 
     Route::get('add', function() {
         return view('student.addStudent');

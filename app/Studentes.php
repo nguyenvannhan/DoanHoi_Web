@@ -20,7 +20,4 @@ class Studentes extends Model
     public function Classes() {
         return $this->belongsTo('App\Classes', 'classId', 'id');
     }
-    public function Science() {
-        return $this->belongsTo('App\Science', 'scieneId', 'id');
-    }
 }
