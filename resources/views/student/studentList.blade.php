@@ -189,39 +189,39 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($studentList as $studentOB)
+                                    @foreach($studentList as $studentOb)
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="flat" name="table_records" />
                                             </td>
-                                            <td> {{ $studentOB->mssv }} </td>
-                                            <td> {{ $studentOB->student_name }} </td>
+                                            <td> {{ $studentOb->mssv }} </td>
+                                            <td> {{ $studentOb->student_name }} </td>
                                             <td>
                                                 @php
 
-                                                    if( $studentOB->is_female ==0) 
+                                                    if( $studentOb->is_female ==0) 
                                                         $gt='nam';
                                                     else
                                                         $gt='nu';
                                                 @endphp
                                                 {{$gt}}
                                             </td>
-                                            <td> {{ $studentOB->birthday }} </td>
-                                            <td> {{ $studentOB->Classes->nameClass }} </td>
+                                            <td> {{ $studentOb->birthday }} </td>
+                                            <td> {{ $studentOb->Classes->nameClass }} </td>
                                             <td>
-                                                <i class="fa fa-check-square fa-2x green"></i>
+                                                <i class="fa {{ $studentOb->is_doanvien == 1 ? 'fa-check-square' : 'fa-square-o' }} fa-2x green"></i>
                                             </td>
                                             <td>
                                                 <span class="label label-success">
                                                 @php
 
-                                                    if( $studentOB->status ==1) {
+                                                    if( $studentOb->status ==1) {
                                                         $t='Đang học';
                                                     }
-                                                    else { if( $studentOB->status ==2){
+                                                    else { if( $studentOb->status ==2){
                                                                 $t='Đã tốt nghiệp';
                                                             }
-                                                            else { if( $studentOB->status ==3){ 
+                                                            else { if( $studentOb->status ==3){ 
                                                                         $t='Đang bảo lưu';
                                                                     }
                                                                     else{
@@ -233,7 +233,7 @@
                                                 {{$t}}  </span>
                                             </td>
                                             <td class="action-column">
-                                                <a href="#profile" data-toggle="modal"><i class="fa fa-list" title="Chi tiết"></i></a>
+                                                <a href="#profile" class="info_student" data-toggle="modal" data-id="{{ $studentOb->mssv }}"><i class="fa fa-list" title="Chi tiết"></i></a>
                                                 <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                                 <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                             </td>
@@ -285,7 +285,7 @@
                     <center>
                         <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
                         <div class="label-holder">
-                            <span class="label label-warning">Bảo lưu</span>
+                            <span name="status" id="status" class="label label-warning"></span>
                         </div>
                     </center>
 
@@ -306,27 +306,27 @@
                                                 <table>
                                                     <tr>
                                                         <td> Họ tên: </td>
-                                                        <td> Nguyễn Văn Nhàn </td>
+                                                        <td name="name">  </td>
                                                     </tr>
                                                     <tr>
                                                         <td> Năm sinh: </td>
-                                                        <td> 08/10/1995 </td>
+                                                        <td name="birth" > </td>
                                                     </tr>
                                                     <tr>
                                                         <td> Giới tính: </td>
-                                                        <td> Nam </td>
+                                                        <td name="is_female" > </td>
                                                     </tr>
                                                     <tr>
                                                         <td> Quê quán </td>
-                                                        <td> Bình Định </td>
+                                                        <td name="country" >  </td>
                                                     </tr>
                                                     <tr>
                                                         <td> Niên khóa: </td>
-                                                        <td> 2013 </td>
+                                                        <td name="science" >  </td>
                                                     </tr>
                                                     <tr>
                                                         <td> Lớp học: </td>
-                                                        <td> 139100 </td>
+                                                        <td name="class" >  </td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -350,11 +350,11 @@
                                                 <table>
                                                     <tr>
                                                         <td> Email: </td>
-                                                        <td> nguyenvannhan0810@gmail.com </td>
+                                                        <td name="email"> </td>
                                                     </tr>
                                                     <tr>
                                                         <td> SĐT: </td>
-                                                        <td> 0121-983-3537 </td>
+                                                        <td name="sdt">  </td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -375,18 +375,16 @@
                                                 <table>
                                                     <tr>
                                                         <td> Là Đoàn viên: </td>
-                                                        <td>
-                                                            <i class="fa fa-square-o fa-2x green"></i>
+                                                        <td name="doanvien">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td> Là Đảng viên: </td>
-                                                        <td>
-                                                            <i class="fa fa-square-o fa-2x green"></i>
+                                                        <td name="dangvien" >
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td> Số HĐ đã tham gia: </td>
+                                                        <td> Điểm Rèn Luyện: </td>
                                                         <td> 0 </td>
                                                     </tr>
                                                     <tr>
@@ -408,7 +406,6 @@
                     </div>
                 </div>
                 <!-- /modal body -->
-
                 <!-- modal footer -->
                 <div class="modal-footer">
                     <center>

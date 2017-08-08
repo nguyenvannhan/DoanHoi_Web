@@ -186,7 +186,7 @@
                                     </ul>
                                 </div>
                             @endif
-                        </div>
+                        </div> 
                         <form class="form-horizontal" action="#" method="POST">
                             {{ csrf_field() }}
                             <div class="item form-group">

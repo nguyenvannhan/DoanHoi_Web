@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::prefix('student')->group(function() {
     Route::get('/', 'StudentesController@getStudentList')->name('student_index_route');
-
+    Route::get('info/{mssv}', 'StudentesController@getInfoStudent')->name('get_info_student_route');
     Route::get('add', function() {
         return view('student.addStudent');
     })->name('student_add_route');
