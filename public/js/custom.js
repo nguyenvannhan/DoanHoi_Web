@@ -5117,6 +5117,7 @@ $(".datatable").dataTable({
     'order': [[ 0, 'asc'], [1, 'desc']],
 });
 
+//JS Add Science
 $('#addScience').on('click', function() {
     $('#dialog-confirm-add-science').dialog({
         resizable: false,
@@ -5125,12 +5126,7 @@ $('#addScience').on('click', function() {
       modal: true,
       buttons: {
         "Có": function() {
-            $(this).dialog("close");
-            $.get(URI+"/science/add", function(data) {
-                if(data['response'] === true) {
-                    window.location.href = URI + "/science";
-                }
-            });
+            window.location.href = URI + '/science/add';
         },
         "Không": function() {
           $( this ).dialog( "close" );
@@ -5139,26 +5135,26 @@ $('#addScience').on('click', function() {
     });
 });
 
+//JS Add School Year
 $('#addSchoolYear').on('click', function() {
     $('#dialog-add-school-year').dialog({
         resizable: false,
-      height: "auto",
-      width: 400,
-      modal: true,
-      buttons: {
-        "Có": function() {
-            //Ajax Insert a Science
-            alert(1);
-        },
-        "Không": function() {
-          $( this ).dialog( "close" );
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+            "Có": function() {
+                window.location.href = URI + "/school-year/add";
+            },
+
+            "Không": function() {
+                $( this ).dialog( "close" );
+            }
         }
-      }
     });
 });
 
 //Js process Class Add and edit Modal
-
 $('#ClassAdd').on('click', function() {
     $('#add_class_modal form').attr('action', URI+'/class/add');
 

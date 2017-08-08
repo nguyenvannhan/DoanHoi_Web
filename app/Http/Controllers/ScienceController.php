@@ -24,6 +24,6 @@ class ScienceController extends Controller
 
         $science->save();
 
-        return response()->json(['response' => true]);
+        return redirect('/science')->width(['success_alert' => 'Thêm Khóa học thành công!']);
     }
 }

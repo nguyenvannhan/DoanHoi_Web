@@ -31,14 +31,13 @@ Route::prefix('student')->group(function() {
 Route::prefix('science')->group(function() {
     Route::get('/', 'ScienceController@getAllList')->name('science_index_route');
 
-    Route::get('/add', 'ScienceController@getAddScience')->name('get_add_science');
-    Route::post('add-new','ScienceController@posttAddScience')->name('science_add_route');
+    Route::get('add', 'ScienceController@getAddScience')->name('get_add_science');
 });
 
 //Route chool year
 Route::prefix('school-year')->group(function() {
     Route::get('/','School_YearesController@getAllList')->name('school_year_index_route');
-    Route::post('add','School_YearesController@AddSchool_Year')->name('school_year_add_route');
+    Route::get('add','School_YearesController@getAddSchool_Year')->name('get_school_year_add_route');
 });
 
 //Route class

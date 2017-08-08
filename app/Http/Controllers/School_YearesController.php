@@ -14,11 +14,18 @@ class School_YearesController extends Controller
 
         return view('school_year.schoolYearList', ['school_yearList' => $school_yearList]);
     }
-    public function AddSchool_Year(Request $request) {
-      $namhoc= $request->txtNamHoc;
-      $school_yearob = new School_Yeares;
-      $school_yearob->school_year_name = $namhoc;
-      $school_yearob->save();
-      return redirect('/school-year')->with(['success_alert' => 'Thêm Năm Học Thành Công']);
+
+    public function getAddSchool_Year(Request $request) {
+         $topSchoolYear = School_Yeares::orderBy('id', 'desc')->take(1)->first();
+         $endSchoolName = substr($topSchoolYear->school_year_name, -2);
+
+
+         $namhoc = '20'.$endSchoolName.' - 20'.($endSchoolName + 1);
+
+         $school_yearob = new School_Yeares;
+         $school_yearob->school_year_name = $namhoc;
+         $school_yearob->save();
+
+         return redirect('/school-year')->with(['success_alert' => 'Thêm Năm Học Thành Công']);
     }
 }
