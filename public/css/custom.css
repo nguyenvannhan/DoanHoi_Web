@@ -4442,3 +4442,8 @@ table.center, tr, td, th  {
 div.alert {
     margin-left: 20px;
 }
+
+div.jquery-ui-dialog span {
+    margin: 0 12px 20px 0;
+    float: left;
+}

@@ -43,7 +43,9 @@ Route::prefix('school-year')->group(function() {
 
 //Route class
 Route::prefix('class')->group(function() {
-    Route::get('/', 'ClassesController@getClassList')->name('class_index_route');
+    Route::get('/{scienceId?}', 'ClassesController@getClassList')->name('class_index_route');
+
+    Route::get('{scienceId}', 'ClassesController@getClassListBySearch')->name('class_search_route');
 
     Route::post('add', 'ClassesController@postAddClass')->name('post_add_class_route');
 

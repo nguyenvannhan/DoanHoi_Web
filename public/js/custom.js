@@ -5171,7 +5171,6 @@ $('.edit_class_button').on('click', function() {
         $('#edit_class_modal input[name="txtEditClassName"]').val(classOb.nameClass);
         $('#edit_class_modal select[name="slEditScienceId"]').val(classOb.scienceId);
         $('#edit_class_modal input[name="txtIdClass"]').val(id);
-
     });
 
     $('#edit_class_modal form').attr('action', URI+'/class/edit/'+id);
@@ -5204,6 +5203,12 @@ $('.info_student').on('click',function(){
     });
 });
 
+$('#edit_class_modal #btnSubmit').on('click', function() {
+    var id = $('#edit_class_modal input[name="txtIdClass"]').val();
+    $('#edit_class_modal form').attr('action', URI+'/class/edit/'+id);
+    $(this).attr('type', 'submit');
+});
+
 $('#add_class_modal .close_add_class, #add_class_modal .btncancel').on('click', function() {
     $('#add_class_modal select[name="slAddScienceId"]').prop('selectedIndex', 0);
     $('#add_class_modal input[name="txtAddClassName"]').val("");
@@ -5217,10 +5222,33 @@ $('#edit_class_modal .close_add_class, #edit_class_modal .btncancel').on('click'
     $('#edit_class_modal').css('display', 'none');
 });
 
-$('#edit_class_modal #btnSubmit').on('click', function() {
-    var id = $('#edit_class_modal input[name="txtIdClass]').val();
-   $('#edit_class_modal form').attr('action', URI+'/class/edit/'+id);
-   $(this).attr('type', 'submit');
+$('.delete_class_button').on('click', function(){
+    var id = $(this).attr('data-id');
+
+    $( "#dialog-confirm-delete-class" ).dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+            "Có": function() {
+                window.location.href = URI+'/class/delete/' + id;
+            },
+            "Không": function() {
+                $( this ).dialog( "close" );
+            }
+        }
+    });
+});
+
+$('#searchClass a.btn').on('click', function() {
+   var scienceId = $('#searchClass select[name="slScienceIdSearch"]').val();
+
+   if(scienceId == 0) {
+       window.location.href = URI + "/class";
+   } else {
+       window.location.href = URI + "/class/" + scienceId;
+   }
 });
 
 $('#add_student_active').on('click', function() {

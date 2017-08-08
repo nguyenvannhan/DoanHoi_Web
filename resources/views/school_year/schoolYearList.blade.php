@@ -98,7 +98,7 @@
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12 center">
                                     <button id="btncancel"  class="btn btn-primary">Cancel</button>
-                                    <button  type="submit" class="btn btn-success">Submit</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
                         </form>

@@ -9,11 +9,18 @@ use App\Science;
 use Illuminate\Http\Request;
 
 class ClassesController extends Controller {
-    public function getClassList() {
-        $classList = Classes::with('Science')->orderBy('id', 'desc')->get();
-        $scienceList = Science::orderBy('id', 'desc')->get();
+    public function getClassList($scienceId = 0) {
+        if($scienceId != 0) {
+            $classList = Classes::with('Science')->where('scienceId', $scienceId)->orderBy('id', 'desc')->get();
+            $scienceList = Science::orderBy('id', 'desc')->get();
 
-        return view('class.classList', ['classList' => $classList, 'scienceList' => $scienceList]);
+            return view('class.classList', ['classList' => $classList, 'scienceList' => $scienceList, 'scienceIdSearch' => $scienceId]);
+        } else {
+            $classList = Classes::with('Science')->orderBy('id', 'desc')->get();
+            $scienceList = Science::orderBy('id', 'desc')->get();
+
+            return view('class.classList', ['classList' => $classList, 'scienceList' => $scienceList]);
+        }
     }
 
     public function postAddClass(AddClassRequest $request) {
@@ -35,7 +42,9 @@ class ClassesController extends Controller {
         return response()->json(['classOb' => $classOb]);
     }
 
-    public function postEditClass(EditClassRequest $request, $id) {
+    public function postEditClass(Request $request, $id) {
+        echo $id;
+
         $classOb = Classes::find($id);
 
         $classOb->nameClass = $request->txtEditClassName;
@@ -44,5 +53,12 @@ class ClassesController extends Controller {
         $classOb->save();
 
         return redirect('/class')->with(['success_alert' => 'Cập nhật Lớp học thành công!']);
+    }
+
+    public function getDeleteClass($id) {
+        $classOb = Classes::find($id);
+        $classOb->delete();
+
+        return redirect('/class')->with(['success_alert' => 'Xóa Lớp học thành công!']);
     }
 }
