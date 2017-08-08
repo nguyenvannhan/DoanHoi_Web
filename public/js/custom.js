@@ -5180,6 +5180,32 @@ $('.edit_class_button').on('click', function() {
     $('#edit_class_modal form').attr('action', URI+'/class/edit/'+id);
     $('#edit_class_modal').css('display', 'block');
 });
+$('.info_student').on('click',function(){
+	var mssv = $(this).attr('data-id');
+	$.get(URI+'/student/info/'+mssv, function(data) {
+        var studentOb = data['studentOb'];
+        $('#profile span.label').html(studentOb.status);
+        $('#profile td[name="name"]').html(studentOb.student_name);
+        $('#profile td[name="birth"]').html(studentOb.birthday);
+        var gt="Nữ";
+        if(studentOb.is_female==0)
+        	gt="Nam";
+        $('#profile td[name="is_female"]').html(gt);
+        $('#profile td[name="country"]').html(studentOb.hometown);
+        $('#profile td[name="science"]').html(studentOb.scieneId);
+        $('#profile td[name="class"]').html(studentOb.classId);
+        $('#profile td[name="email"]').html(studentOb.email);
+        $('#profile td[name="sdt"]').html(studentOb.number_phone);
+        var check='<i class="fa fa-check-square fa-2x green"></i>';
+        	if(studentOb.is_doanvien == 0)
+        		check='<i class="fa fa-square fa-2x green"></i>'
+        $('#profile td[name="doanvien"]').html(check);
+        var checkdv='<i class="fa fa-check-square fa-2x green"></i>';
+        	if(studentOb.is_dangvien == 0)
+        		checkdv='<i class="fa fa-square fa-2x green"></i>'
+        $('#profile td[name="dangvien"]').html(checkdv);
+    });
+});
 
 $('#edit_class_modal #btnSubmit').on('click', function() {
     var id = $('#edit_class_modal input[name="txtIdClass"]').val();

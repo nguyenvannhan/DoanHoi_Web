@@ -15,4 +15,9 @@ class StudentesController extends Controller
 
         return view('student.studentList', ['classList' => $classList, 'studentList' => $studentList]);
     }
+    public function getInfoStudent($mssv){
+    	$studentOb = Studentes::find($mssv);
+
+        return response()->json(['studentOb' => $studentOb]);
+    }
 }
