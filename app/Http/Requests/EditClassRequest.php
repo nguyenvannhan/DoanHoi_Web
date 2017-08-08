@@ -25,9 +25,8 @@ class EditClassRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
-            'txtEditClassName' => 'required|digits:6|numeric|unique:classes,nameClass,'.$this->id,
+            'txtEditClassName' => 'required|digits:6|numeric|unique:classes,nameClass,'.$this->txtIdClass,
             'slEditScienceId' => 'required'
         ];
     }

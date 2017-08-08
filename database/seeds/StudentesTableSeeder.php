@@ -13,10 +13,10 @@ class StudentesTableSeeder extends Seeder
     {
         DB::table('studentes')->insert([
             [
-                'mssv' => '14110032',
+                'mssv' => '12110032',
                 'student_name'=>'Huỳnh Quốc Đại',
-                'classId'=>'6',
-                'scieneId'=>'5',
+                'classId'=>'1',
+                'scieneId'=>'1',
                 'is_female'=>false,
                 'is_doanvien'=>true,
                 'is_dangvien'=>false,
@@ -29,7 +29,7 @@ class StudentesTableSeeder extends Seeder
             [
                 'mssv' => '13110113',
                 'student_name'=>'Nguyễn Văn Nhàn',
-                'classId'=>'7',
+                'classId'=>'2',
                 'scieneId'=>'2',
                 'is_female'=>false,
                 'is_doanvien'=>true,

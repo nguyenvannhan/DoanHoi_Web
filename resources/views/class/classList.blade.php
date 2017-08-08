@@ -33,23 +33,24 @@
                             </a>
                         </div>
                     </div>
-                    <div class="row">
-                        <form>
-                            <div class="col-md-1 col-md-offset-3 col-sm-6 col-xs-12 ">
-                                <label style="margin-top: 10px;">Khóa học: </label>
-                            </div>
-                            <div class="col-md-2 col-sm-6 col-xs-12">
-                                <select class="form-control">
-                                    @foreach($scienceList as $science)
-                                        <option value="{{ $science->id }}">{{ $science->nameScience }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-2 col-sm-6 col-xs-12" id="submit-filter-div">
-                                <a class="btn btn-primary btn-block">
-                                    <i class="fa fa-search"></i> Tìm Kiếm </a>
-                            </div>
-                        </form>
+                    <div class="row" id="searchClass">
+                        <div class="col-md-1 col-md-offset-3 col-sm-6 col-xs-12 ">
+                            <label style="margin-top: 10px;">Khóa học: </label>
+                        </div>
+                        <div class="col-md-2 col-sm-6 col-xs-12">
+                            <select class="form-control" name="slScienceIdSearch">
+                                <option value="0" {{ (isset($scienceIdSearch) && $scienceIdSearch == 0) ? "selected" : "" }}>
+                                    Tất cả
+                                </option>
+                                @foreach($scienceList as $science)
+                                    <option value="{{ $science->id }}" {{ (isset($scienceIdSearch) && $scienceIdSearch == $science->id) ? "selected" : "" }}>{{ $science->nameScience }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-sm-6 col-xs-12" id="submit-filter-div">
+                            <a class="btn btn-primary btn-block" href="javascript:;">
+                                <i class="fa fa-search"></i> Tìm Kiếm </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,7 +91,7 @@
                                 <td class="action-column">
                                     <a class="edit_class_button" data-id="{{ $classOb->id }}"><i class="fa fa-edit"
                                                                                                  title="Chỉnh sửa"></i></a>
-                                    <a href="{{ route('get_delete_class_route', ['id' => $classOb->id]) }}"><i
+                                    <a class="delete_class_button" data-id="{{ $classOb->id }}" href="javascript:;"><i
                                                 class="fa fa-trash" title="Xóa"></i></a>
 
                                 </td>
@@ -103,6 +104,12 @@
         </div>
     </div>
     <!--Science List Table-->
+
+    <!-- Form confirm delete class -->
+    <div id="dialog-confirm-delete-class" class="jquery-ui-dialog" title="Xóa Lớp học?" hidden>
+        <p><span class="ui-icon ui-icon-alert"></span>Bạn có chắc muốn <strong>xóa Lớp học</strong> đã chọn?</p>
+    </div>
+    <!-- /Form confirm delete class -->
 @stop
 
 @section('modals')
@@ -212,7 +219,7 @@
                             <div class="form-group">
                                 <div class="col-md-12 col-sm-12 col-xs-12 center">
                                     <button type="button" class="btn btn-primary btncancel">Cancel</button>
-                                    <button id="btnSubmit" class="btn btn-success">Submit</button>
+                                    <button id="btnSubmit" type="button" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
                         </form>
