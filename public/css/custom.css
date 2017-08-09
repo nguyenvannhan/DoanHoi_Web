@@ -4447,3 +4447,7 @@ div.jquery-ui-dialog span {
     margin: 0 12px 20px 0;
     float: left;
 }
+
+select.form-control.select2 {
+    display: block;
+}

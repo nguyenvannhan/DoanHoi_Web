@@ -14,5 +14,6 @@ class School_Yeares extends Model
 
     protected $primaryKey = 'id';
     protected $fillable = ['school_year_name'];
+
     public $timestamps = true;
 }

@@ -2603,6 +2603,10 @@ if (typeof NProgress != 'undefined') {
 
 				TableManageButtons.init();
 
+				$('.science_list_table').dataTable({
+                    'order': [0, 'asc']
+                });
+
 			};
 
 			/* CHART - MORRIS  */
@@ -5113,20 +5117,16 @@ $(".datatable").dataTable({
     'order': [[ 0, 'asc'], [1, 'desc']],
 });
 
+//JS Add Science
 $('#addScience').on('click', function() {
-    $('#dialog-add-science').dialog({
+    $('#dialog-confirm-add-science').dialog({
         resizable: false,
       height: "auto",
       width: 400,
       modal: true,
       buttons: {
         "Có": function() {
-            $(this).dialog("close");
-            $.get(URI+"/science/add", function(data) {
-                if(data['response'] === true) {
-                    window.location.href = URI + "/science";
-                }
-            });
+            window.location.href = URI + '/science/add';
         },
         "Không": function() {
           $( this ).dialog( "close" );
@@ -5135,26 +5135,73 @@ $('#addScience').on('click', function() {
     });
 });
 
+$('a.add-new-science').on('click', function() {
+    var editScienceId = $('select[name="slEditScienceId"]').val();
+    var searchScienceId = $('select[name="slScienceIdSearch"]').val();
+
+    $.get(URI + '/ajax/add-science', function(data) {
+        var scienceList = data['scienceList'];
+
+        var htmlContent = "";
+        scienceList.forEach(function(science) {
+            htmlContent += '<option value="' + science['id'] +'">' + science['nameScience'] + '</option>'
+        });
+
+        $('select[name="slAddScienceId"]').html(htmlContent);
+
+        htmlContent = "";
+        scienceList.forEach(function(science) {
+            if(science.id == editScienceId) {
+                htmlContent += '<option value="' + science['id'] +'" selected>' + science['nameScience'] + '</option>'
+            } else {
+                htmlContent += '<option value="' + science['id'] +'">' + science['nameScience'] + '</option>'
+            }
+        });
+
+        $('select[name="slEditScienceId"]').html(htmlContent);
+
+        htmlContent = "";
+        if(searchScienceId == 0) {
+            htmlContent += '<option value="0" selected> Tất cả </option>';
+            scienceList.forEach(function(science) {
+                htmlContent += '<option value="' + science['id'] +'">' + science['nameScience'] + '</option>';
+            });
+        } else {
+            htmlContent += '<option value="0"> Tất cả </option>';
+            scienceList.forEach(function(science) {
+                if(science.id == editScienceId) {
+                    htmlContent += '<option value="' + science['id'] +'" selected>' + science['nameScience'] + '</option>'
+                } else {
+                    htmlContent += '<option value="' + science['id'] +'">' + science['nameScience'] + '</option>'
+                }
+            });
+        }
+        $('select[name="slScienceIdSearch"]').html(htmlContent);
+
+        alert('Thêm Khóa học thành công!!!');
+   });
+});
+
+//JS Add School Year
 $('#addSchoolYear').on('click', function() {
     $('#dialog-add-school-year').dialog({
         resizable: false,
-      height: "auto",
-      width: 400,
-      modal: true,
-      buttons: {
-        "Có": function() {
-            //Ajax Insert a Science
-            alert(1);
-        },
-        "Không": function() {
-          $( this ).dialog( "close" );
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+            "Có": function() {
+                window.location.href = URI + "/school-year/add";
+            },
+
+            "Không": function() {
+                $( this ).dialog( "close" );
+            }
         }
-      }
     });
 });
 
 //Js process Class Add and edit Modal
-
 $('#ClassAdd').on('click', function() {
     $('#add_class_modal form').attr('action', URI+'/class/add');
 
@@ -5176,6 +5223,7 @@ $('.edit_class_button').on('click', function() {
     $('#edit_class_modal form').attr('action', URI+'/class/edit/'+id);
     $('#edit_class_modal').css('display', 'block');
 });
+
 $('.info_student').on('click',function(){
 	var mssv = $(this).attr('data-id');
 	$.get(URI+'/student/info/'+mssv, function(data) {
@@ -5293,3 +5341,5 @@ $('#add_student_active').on('click', function() {
 });
 
 $('div.alert').delay(2000).fadeOut('slow');
+
+$('.select2').select2();

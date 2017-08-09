@@ -30,6 +30,8 @@
     <link href="{{ URL::asset('vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
     <!-- Jquery UI -->
     <link href="{{ URL::asset('vendors/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="{{ URL::asset('vendors/select2/dist/css/select2.css') }}" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="{{ URL::asset('css/custom.css') }}" rel="stylesheet">
@@ -109,6 +111,8 @@
 <!-- bootstrap-daterangepicker -->
 <script src="{{ URL::asset('vendors/moment/min/moment.min.js') }}"></script>
 <script src="{{ URL::asset('vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ URL::asset('vendors/select2/dist/js/select2.js') }}"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="{{ URL::asset('js/custom.js') }}"></script>

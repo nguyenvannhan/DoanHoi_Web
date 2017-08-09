@@ -41,7 +41,7 @@
                                         <option value="">2016</option>
                                     </select>
                                 </div>
-                                <div class="col-md-2 col-sm-6 col-xs-12" style="text-align: top" id="submit-filter-div">
+                                <div class="col-md-2 col-sm-6 col-xs-12" id="submit-filter-div">
                                     <a  class="btn btn-primary btn-block">
                                         <i class="fa fa-search"></i> Tìm Kiếm </a>
                                 </div>
