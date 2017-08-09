@@ -24,6 +24,7 @@ class StudentesTableSeeder extends Seeder
                 'number_phone'=>'01689383061',
                 'birthday'=>'1996/10/20',
                 'email'=>'daihuynh2010@gmail.com',
+                'diem_ctxh'=>50,
                 'status'=>1
             ],
             [
@@ -38,6 +39,7 @@ class StudentesTableSeeder extends Seeder
                 'number_phone'=>'01219833537',
                 'birthday'=>'1995/10/08',
                 'email'=>'NguyenVanNhan@gmail.com',
+                'diem_ctxh'=>40,
                 'status'=>'1'
             ]
         ]);

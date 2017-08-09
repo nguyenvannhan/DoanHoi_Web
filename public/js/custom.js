@@ -5228,26 +5228,54 @@ $('.info_student').on('click',function(){
 	var mssv = $(this).attr('data-id');
 	$.get(URI+'/student/info/'+mssv, function(data) {
         var studentOb = data['studentOb'];
-        $('#profile span.label').html(studentOb.status);
+        var stt="Đang học";
+        if(studentOb.status==2){
+        	stt="Đã tốt nghiệp";
+        }
+        if(studentOb.status==3){
+        	stt="Đang bảo lưu";
+        }
+        if(studentOb.status==4){		
+        	stt="Bị đuổi học";
+        }
+        $('#profile span.label').html(stt);
+
         $('#profile td[name="name"]').html(studentOb.student_name);
+
         $('#profile td[name="birth"]').html(studentOb.birthday);
+
         var gt="Nữ";
         if(studentOb.is_female==0)
         	gt="Nam";
         $('#profile td[name="is_female"]').html(gt);
+
         $('#profile td[name="country"]').html(studentOb.hometown);
-        $('#profile td[name="science"]').html(studentOb.scieneId);
-        $('#profile td[name="class"]').html(studentOb.classId);
+
+        $.get(URI+'/science/edit/'+studentOb.scieneId, function(data) {
+        	var scienceOb = data['scienceOb'];
+        	$('#profile td[name="science"]').html(scienceOb.nameScience);
+        });
+
+        $.get(URI+'/class/edit/'+studentOb.classId, function(data) {
+        	var classOb = data['classOb'];
+        	$('#profile td[name="class"]').html(classOb.nameClass);
+        });
+
         $('#profile td[name="email"]').html(studentOb.email);
+
         $('#profile td[name="sdt"]').html(studentOb.number_phone);
+
         var check='<i class="fa fa-check-square fa-2x green"></i>';
         	if(studentOb.is_doanvien == 0)
         		check='<i class="fa fa-square fa-2x green"></i>'
         $('#profile td[name="doanvien"]').html(check);
+
         var checkdv='<i class="fa fa-check-square fa-2x green"></i>';
         	if(studentOb.is_dangvien == 0)
         		checkdv='<i class="fa fa-square fa-2x green"></i>'
         $('#profile td[name="dangvien"]').html(checkdv);
+        
+        $('#profile td[name="ctxh"]').html(studentOb.diem_ctxh);
     });
 });
 
@@ -5297,6 +5325,19 @@ $('#searchClass a.btn').on('click', function() {
    } else {
        window.location.href = URI + "/class/" + scienceId;
    }
+});
+
+$('#science_addstudent').on('change',function(){
+	var scieneStudentId=$('#science_addstudent').val();
+	$.get(URI+'/class/search/'+scieneStudentId, function(data){
+		var classOb = data['classOb'];
+		var htmlContent = "";
+        classOb.forEach(function(classes) {
+            htmlContent += '<option value="' + classes['id'] +'">' + classes['nameClass'] + '</option>'
+        });
+
+        $('select[name="slclass"]').html(htmlContent);
+	});
 });
 
 $('#add_student_active').on('click', function() {

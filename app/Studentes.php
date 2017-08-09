@@ -13,13 +13,18 @@ class Studentes extends Model
     public $incrementing = true;
 
     protected $primaryKey = 'mssv';
-    protected $fillable = ['student_name','classId','scieneId','is_female','is_doanvien','is_dangvien','hometown','number_phone','birthday','email','status'];
+
+    protected $fillable = ['student_name','classId','scienceId','is_female','is_doanvien','is_dangvien','hometown','number_phone','birthday','email','status'];
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
     public $timestamps = true;
 
     public function Classes() {
         return $this->belongsTo('App\Classes', 'classId', 'id');
+    }
+
+    public function Science() {
+        return $this->belongsTo('App\Science', 'scienceId', 'id');
     }
 
     public function ActivitiesLeader() {

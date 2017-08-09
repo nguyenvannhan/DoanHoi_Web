@@ -20,4 +20,7 @@ class Science extends Model {
     public function Classes() {
         return $this->hasMany('App\Classes', 'scienceId', 'id');
     }
+    public function Studentes(){
+    	return $this->hasMany('App\Studentes','scienceId','mssv');
+    }
 }

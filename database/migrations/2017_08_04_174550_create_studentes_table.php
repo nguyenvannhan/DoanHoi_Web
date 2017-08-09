@@ -29,6 +29,7 @@ class CreateStudentesTable extends Migration
             $table->string('number_phone', 20)->unique();
             $table->date('birthday', 20);
             $table->string('email', 200)->unique();
+            $table->integer('diem_ctxh')->unsigned();
             $table->integer('status')->unsigned();
             $table->softDeletes();
             $table->timestamps();

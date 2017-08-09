@@ -26,6 +26,18 @@ class ScienceController extends Controller
 
         return redirect('/science')->width(['success_alert' => 'Thêm Khóa học thành công!']);
     }
+    public function getEditScience($id) {
+        $scienceOb = Science::find($id);
+
+        return response()->json(['scienceOb' => $scienceOb]);
+    }
+    public function posttAddScience(Request $request){
+        $khoahoc= $request->txtKhoaHoc;
+        $khoahocob = new Science;
+        $khoahocob->nameScience = $khoahoc;
+        $khoahocob->save();
+        return redirect('/science')->with(['success_alert' => 'Thêm Khóa Học Thành Công']);
+    }
 
     public function getAjaxAddScience() {
         $topScience = Science::orderBy('id', 'desc')->take(1)->first();

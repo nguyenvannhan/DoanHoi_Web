@@ -200,13 +200,13 @@
                                                 @php
 
                                                     if( $studentOb->is_female ==0) 
-                                                        $gt='nam';
+                                                        $gt='Nam';
                                                     else
-                                                        $gt='nu';
+                                                        $gt='Nữ';
                                                 @endphp
                                                 {{$gt}}
                                             </td>
-                                            <td> {{ $studentOb->birthday }} </td>
+                                            <td> {{ date('d/m/Y', strtotime( $studentOb->birthday )) }} </td>
                                             <td> {{ $studentOb->Classes->nameClass }} </td>
                                             <td>
                                                 <i class="fa {{ $studentOb->is_doanvien == 1 ? 'fa-check-square' : 'fa-square-o' }} fa-2x green"></i>
@@ -234,7 +234,7 @@
                                             </td>
                                             <td class="action-column">
                                                 <a href="#profile" class="info_student" data-toggle="modal" data-id="{{ $studentOb->mssv }}"><i class="fa fa-list" title="Chi tiết"></i></a>
-                                                <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
+                                                <a href="{{ route('get_edit_student_route',['mssv'=> $studentOb->mssv]) }}" ><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                                 <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                             </td>
                                         </tr>
@@ -384,12 +384,12 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td> Điểm Rèn Luyện: </td>
+                                                        <td> Số Hoạt Động Tham Gia: </td>
                                                         <td> 0 </td>
                                                     </tr>
                                                     <tr>
                                                         <td> Điểm CTXH tích lũy: </td>
-                                                        <td> 400 </td>
+                                                        <td name="ctxh"></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2" class="right"><a>Xem chi tiết</a></td>
@@ -410,11 +410,11 @@
                 <div class="modal-footer">
                     <center>
                         <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <button class="btn btn-primary btn-block"><i class="fa fa-edit"></i> Cập nhật </button>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <button class="btn btn-default btn-block" data-dismiss="modal"><i class="fa fa-close"></i> Đóng </button>
+                            <!-- <div class="col-md-6 col-sm-6 col-xs-12">
+                                <button  class="btn btn-primary btn-block"><i class="fa fa-edit"></i> Cập nhật </button>
+                            </div> -->
+                            <div class="col-md-10 col-md-offset-1 col-sm-6 col-xs-12">
+                                <button class="btn btn-primary btn-block" data-dismiss="modal"><i class="fa fa-close"></i> Đóng </button>
                             </div>
                         </div>
                     </center>
