@@ -26,6 +26,11 @@ class ScienceController extends Controller
 
         return response()->json(['response' => true]);
     }
+    public function getEditScience($id) {
+        $scienceOb = Science::find($id);
+
+        return response()->json(['scienceOb' => $scienceOb]);
+    }
     public function posttAddScience(Request $request){
         $khoahoc= $request->txtKhoaHoc;
         $khoahocob = new Science;

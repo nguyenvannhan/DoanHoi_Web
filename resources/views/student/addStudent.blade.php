@@ -12,78 +12,127 @@
 
 @section('main_content')
 <div class="clearfix"></div>
-<div class="">
+<div class=""><!-- 
+    @if(session('success_alert'))
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="alert alert-success">
+                    {{ session('success_alert') }}
+                </div>
+            </div>
+        </div>
+    @endif -->
     <div class="x_panel">
         <div class="x_content"><br />
-            <form class="form-horizontal ">
+            <form class="form-horizontal " action="{{ route('post_student_add_route')}}" method="POSt">
+                {{ csrf_field() }}
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Mã Sinh Viên : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" required="required">
+                        <input type="text" name="txtmssv" class="form-control" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Sinh Viên : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" required="required">
+                        <input type="text" name="txtname_student" class="form-control" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Ngày Sinh : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" id="single_cal4" aria-describedby="inputSuccess2Status">
+                        <input type="text" class="form-control" name="txtbirth" id="single_cal4" aria-describedby="inputSuccess2Status">
+                    </div>
+                </div>
+                <div class="item form-group" id="add_science_student">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="form-control" name="slscience">
+                         @foreach($scienceList as $science)
+                            <option value="{{ $science->id }}" {{ (isset($scienceIdSearch) && $scienceIdSearch == $science->id) ? "selected" : "" }}>{{ $science->nameScience }}</option>
+                        @endforeach
+                            <option value="0" {{ (isset($scienceIdSearch) && $scienceIdSearch == 0) ? "selected" : "" }}>
+                                    Tất cả
+                            </option>
+                        </select>
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Lớp : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" required="required">
-                    </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="form-control">
-                            <option value="">2017</option>
-                            <option value="">2017</option>
-                            <option value="">2017</option>
-                            <option value="">2017</option>
-                            <option value="">2017</option>
-                            <option value="">2017</option>
+                        <select class="form-control" name="slclass">
+                         @foreach($classList as $class)
+                            <option value="{{ $class->id }}">{{ $class->nameClass }}</option>
+                        @endforeach
                         </select>
                     </div>
-                </div>
+                </div>                
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Giới Tính : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <div id="gender" class="btn-group" data-toggle="buttons" required="required">
-                            <input type="radio" name="gender" value="false" > &nbsp; Nam &nbsp;
-                            <input type="radio" name="gender" value="true" > Nữ
-                        </div>
+                        <select class="form-control" name="slGT">
+                            <option value="0">Nam</option>
+                            <option value="1">Nữ</option>
+                        </select>
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Quên Quán : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" required="required">
+                        <input type="text" class="form-control" name="txthome" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Email : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="Email" class="form-control" required="required">
+                        <input type="Email" class="form-control" name="txtemail" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Số Điện Thoại : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" required="required">
+                        <input type="text" class="form-control" name="txtsdt" required="required">
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tình Trạng Đoàn Viên : </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="form-control" name="slDoanVien">
+                            <option value="1">Là Đoàn Viên</option>
+                            <option value="0">Chưa Vào Đoàn</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tình Trạng Đảng Viên : </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="form-control" name="slDangVien">
+                            <option value="1">Chưa Vào Đảng</option>
+                            <option value="0">Là Đảng Viên</option>                            
+                        </select>
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Số Điểm CTXH : </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" class="form-control" value="0" name="txtctxh" required="required">
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tình Trạng Sinh Viên : </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="form-control" name="slTTSV">
+                            <option value="1">Đang học</option>
+                            <option value="2">Đã tốt nghiệp</option>
+                            <option value="3">Đang bảo lưu</option>
+                            <option value="4">Bị đuổi học</option>
+                        </select>
                     </div>
                 </div>
                 <div class="ln_solid"></div>
                 <div class="form-group">
                     <div class="col-md-12 col-sm-12 col-xs-12 center">
-                        <button class="btn btn-primary" >Cancel</button>
+                        <a class="btn btn-primary" href="{{ route('student_index_route')}}">Cancel</a>
                         <button type="Submit" class="btn btn-success">Submit</button>
                     </div>
                 </div>

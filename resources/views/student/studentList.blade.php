@@ -200,13 +200,13 @@
                                                 @php
 
                                                     if( $studentOb->is_female ==0) 
-                                                        $gt='nam';
+                                                        $gt='Nam';
                                                     else
-                                                        $gt='nu';
+                                                        $gt='Nữ';
                                                 @endphp
                                                 {{$gt}}
                                             </td>
-                                            <td> {{ $studentOb->birthday }} </td>
+                                            <td> {{ date('d/m/Y', strtotime( $studentOb->birthday )) }} </td>
                                             <td> {{ $studentOb->Classes->nameClass }} </td>
                                             <td>
                                                 <i class="fa {{ $studentOb->is_doanvien == 1 ? 'fa-check-square' : 'fa-square-o' }} fa-2x green"></i>
@@ -384,12 +384,12 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td> Điểm Rèn Luyện: </td>
+                                                        <td> Số Hoạt Động Tham Gia: </td>
                                                         <td> 0 </td>
                                                     </tr>
                                                     <tr>
                                                         <td> Điểm CTXH tích lũy: </td>
-                                                        <td> 400 </td>
+                                                        <td name="ctxh"></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2" class="right"><a>Xem chi tiết</a></td>

@@ -18,9 +18,8 @@ Route::get('/', function () {
 Route::prefix('student')->group(function() {
     Route::get('/', 'StudentesController@getStudentList')->name('student_index_route');
     Route::get('info/{mssv}', 'StudentesController@getInfoStudent')->name('get_info_student_route');
-    Route::get('add', function() {
-        return view('student.addStudent');
-    })->name('student_add_route');
+    Route::get('add','StudentesController@getAddStudentList')->name('student_add_route');
+    Route::post('add','StudentesController@postAddStudent')->name('post_student_add_route');
 
     Route::get('add-list', function() {
         return view('student.addListStudent');
@@ -30,7 +29,7 @@ Route::prefix('student')->group(function() {
 //Route science
 Route::prefix('science')->group(function() {
     Route::get('/', 'ScienceController@getAllList')->name('science_index_route');
-
+    Route::get('edit/{id}', 'ScienceController@getEditScience')->name('get_edit_science_route');
     Route::get('/add', 'ScienceController@getAddScience')->name('get_add_science');
     Route::post('add-new','ScienceController@posttAddScience')->name('science_add_route');
 });
