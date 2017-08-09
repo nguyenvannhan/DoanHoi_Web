@@ -42,6 +42,17 @@ class ClassesController extends Controller {
         return response()->json(['classOb' => $classOb]);
     }
 
+    public function getClassListByScienceId($scienceId)
+    {
+        if($scienceId != 0) {
+            $classOb = Classes::with('Science')->where('scienceId', $scienceId)->orderBy('id', 'desc')->get();
+        }
+        else{
+            $classOb = Classes::with('Science')->orderBy('id', 'desc')->get();
+        }
+        return response()->json(['classOb'=>$classOb]);
+    }
+
     public function postEditClass(Request $request, $id) {
         echo $id;
 

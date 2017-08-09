@@ -27,6 +27,13 @@ class StudentesController extends Controller
 
         return response()->json(['studentOb' => $studentOb]);
     }
+    public function getEditStudent($mssv){
+        $studentList = Studentes::with('Classes')->where('mssv', $mssv)->orderBy('mssv', 'desc')->get();
+        $classList = Classes::orderBy('id', 'desc')->get();
+        $scienceList=Science::orderBy('id','desc')->get();
+
+        return view('student.editStudent', ['classList'=>$classList,'studentList'=>$studentList,'scienceList'=>$scienceList]);
+    }
     public function postAddStudent(Request $request){
         $studentOb = new Studentes;
         $studentOb->mssv = $request->txtmssv;
@@ -45,6 +52,6 @@ class StudentesController extends Controller
 
         $studentOb->save();
 
-        return redirect('/student')->with(['success_alert' => 'Thêm Sinh Viên Thành Công']);
+        return redirect('/student/add')->with(['success_alert' => 'Thêm Sinh Viên Thành Công']);
     }
 }

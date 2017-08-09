@@ -5,7 +5,7 @@
 @section('header_page')
 <div class="page-title">
     <div class="title_left">
-        <h3>Nhập Thông Tin Sinh Viên</h3>
+        <h3>Cập Nhật Thông Tin Sinh Viên</h3>
     </div>
 </div>
 @stop
@@ -22,26 +22,27 @@
             </div>
         </div>
     @endif
-    <div class="x_panel">
+    <div class="x_panel" id="editstudent">
         <div class="x_content"><br />
-            <form class="form-horizontal " action="{{ route('post_student_add_route')}}" method="POSt">
+        @foreach($studentList as $student)
+            <form class="form-horizontal " action="" method="POSt">
                 {{ csrf_field() }}
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Mã Sinh Viên : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" name="txtmssv" class="form-control" required="required">
+                        <input type="text" name="txtmssv" class="form-control" value="{{$student->mssv}}" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Sinh Viên : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" name="txtname_student" class="form-control" required="required">
+                        <input type="text" name="txtname_student" class="form-control" value="{{$student->student_name}}" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Ngày Sinh : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="txtbirth" id="single_cal4" aria-describedby="inputSuccess2Status">
+                        <input type="text" class="form-control" name="txtbirth" id="single_cal4" value="{{date('d/m/Y', strtotime( $student->birthday )) }}" aria-describedby="inputSuccess2Status">
                     </div>
                 </div>
                 <div class="item form-group" >
@@ -69,27 +70,27 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Giới Tính : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <select class="form-control" name="slGT">
-                            <option value="0">Nam</option>
-                            <option value="1">Nữ</option>
+                            <option value="0" >Nam</option>
+                            <option value="1" >Nữ</option>
                         </select>
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Quên Quán : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="txthome" required="required">
+                        <input type="text" class="form-control" name="txthome" value="{{$student->hometown}}" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Email : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="Email" class="form-control" name="txtemail" required="required">
+                        <input type="Email" class="form-control" name="txtemail" value="{{$student->email}}" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Số Điện Thoại : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="txtsdt" required="required">
+                        <input type="text" class="form-control" name="txtsdt" value="{{$student->number_phone}}" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
@@ -113,7 +114,7 @@
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Số Điểm CTXH : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" value="0" name="txtctxh" required="required">
+                        <input type="text" class="form-control" name="txtctxh" value="{{$student->diem_ctxh}}" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
@@ -131,10 +132,11 @@
                 <div class="form-group">
                     <div class="col-md-12 col-sm-12 col-xs-12 center">
                         <a class="btn btn-primary" href="{{ route('student_index_route')}}">Cancel</a>
-                        <button type="Submit" class="btn btn-success">Submit</button>
+                        <button type="Submit" class="btn btn-success">Save</button>
                     </div>
                 </div>
             </form>
+        @endforeach
         </div>
     </div>
 </div>

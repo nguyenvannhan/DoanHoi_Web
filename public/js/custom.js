@@ -5327,6 +5327,18 @@ $('#searchClass a.btn').on('click', function() {
    }
 });
 
+$('#science_addstudent').on('change',function(){
+	var scieneStudentId=$('#science_addstudent').val();
+	$.get(URI+'/class/search/'+scieneStudentId, function(data){
+		var classOb = data['classOb'];
+		var htmlContent = "";
+        classOb.forEach(function(classes) {
+            htmlContent += '<option value="' + classes['id'] +'">' + classes['nameClass'] + '</option>'
+        });
+
+        $('select[name="slclass"]').html(htmlContent);
+	});
+});
 
 $('#add_student_active').on('click', function() {
 
