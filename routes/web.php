@@ -95,3 +95,9 @@ Route::prefix('BCH-Lop')->group(function() {
         return view('BCH_Lop.addListBCH_Lop');
     })->name('BCH_Lop_add_list_route');
 });
+
+
+//Route ajax
+Route::prefix('ajax')->group(function() {
+    Route::get('add-science', 'ScienceController@getAjaxAddScience')->name('ajax_add_science_route');
+});

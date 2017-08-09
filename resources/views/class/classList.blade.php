@@ -38,7 +38,7 @@
                             <label style="margin-top: 10px;">Khóa học: </label>
                         </div>
                         <div class="col-md-2 col-sm-6 col-xs-12">
-                            <select class="form-control" name="slScienceIdSearch">
+                            <select class="form-control select2" name="slScienceIdSearch">
                                 <option value="0" {{ (isset($scienceIdSearch) && $scienceIdSearch == 0) ? "selected" : "" }}>
                                     Tất cả
                                 </option>
@@ -46,6 +46,7 @@
                                     <option value="{{ $science->id }}" {{ (isset($scienceIdSearch) && $scienceIdSearch == $science->id) ? "selected" : "" }}>{{ $science->nameScience }}</option>
                                 @endforeach
                             </select>
+                            <a class="add-new-science" href="javascript:;">Thêm Khóa học</a>
                         </div>
                         <div class="col-md-2 col-sm-6 col-xs-12" id="submit-filter-div">
                             <a class="btn btn-primary btn-block" href="javascript:;">
@@ -143,16 +144,19 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" class="form-control" name="txtAddClassName" required
                                            value="{{ old('txtAddClassName') }}">
+
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select class="form-control" name="slAddScienceId">
+                                    <select class="form-control select2" name="slAddScienceId">
+                                        <a href="#" class="btn btn-success btn-block">Thêm mới</a>
                                         @foreach($scienceList as $science)
                                             <option value="{{ $science->id }}" {{ old('slAddScienceId') == $science->id ? "selected" : "" }}> {{ $science->nameScience }} </option>
                                         @endforeach
                                     </select>
+                                    <a class="add-new-science" href="javascript:;">Thêm Khóa học</a>
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -208,11 +212,14 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select class="form-control" name="slEditScienceId">
+                                    <select class="select2 form-control" name="slEditScienceId">
                                         @foreach($scienceList as $science)
                                             <option value="{{ $science->id }}" {{ old('slEditScienceId') == $science->id ? "selected" : "" }}> {{ $science->nameScience }} </option>
                                         @endforeach
                                     </select>
+                                    <div>
+                                        <a class="add-new-science" href="javascript:;">Thêm Khóa học</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
