@@ -13,6 +13,7 @@ class Classes extends Model {
 
     protected $primaryKey = 'id';
     protected $fillable = ['nameClass', 'scienceId'];
+    protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
     public $timestamps = true;
 
@@ -21,5 +22,9 @@ class Classes extends Model {
     }
     public function Studentes(){
     	return $this->hasMany('App\Studentes','classId','mssv');
+    }
+
+    public function Activities() {
+        return $this->hasMany('App\Activity', 'classId', 'id');
     }
 }

@@ -13,6 +13,7 @@ class Science extends Model {
 
     protected $primaryKey = 'id';
     protected $fillable = ['nameScience'];
+    protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
     public $timestamps = true;
 

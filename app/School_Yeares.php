@@ -14,6 +14,11 @@ class School_Yeares extends Model
 
     protected $primaryKey = 'id';
     protected $fillable = ['school_year_name'];
+    protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
     public $timestamps = true;
+
+    public function Activities() {
+        return $this->hasMany('App\Acitivity', 'schoolYearId', 'id');
+    }
 }

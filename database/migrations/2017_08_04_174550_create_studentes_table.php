@@ -21,7 +21,7 @@ class CreateStudentesTable extends Migration
             $table->string('mssv',8);
             $table->string('student_name', 100)->unique();
             $table->integer('classId')->unsigned();
-            $table->integer('scieneId')->unsigned();
+            $table->integer('scienceId')->unsigned();
             $table->boolean('is_female')->default(true);
             $table->boolean('is_doanvien')->default(true);
             $table->boolean('is_dangvien')->default(false);
@@ -34,7 +34,7 @@ class CreateStudentesTable extends Migration
             $table->timestamps();
 
             $table->primary('mssv');
-            $table->foreign('scieneId')->references('id')->on('sciences')->onDelete('cascade');
+            $table->foreign('scienceId')->references('id')->on('sciences')->onDelete('cascade');
             $table->foreign('classId')->references('id')->on('classes')->onDelete('cascade');
         });
     }
