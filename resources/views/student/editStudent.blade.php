@@ -24,36 +24,40 @@
     @endif
     <div class="x_panel" id="editstudent">
         <div class="x_content"><br />
-        @foreach($studentList as $student)
-            <form class="form-horizontal " action="" method="POSt">
+            <form class="form-horizontal " action="{{route('post_edit_student_route',['mssv'=> $student->mssv])}}" method="POSt">
                 {{ csrf_field() }}
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Mã Sinh Viên : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" name="txtmssv" class="form-control" value="{{$student->mssv}}" required="required">
+                        <input type="text" name="txtEditmssv" class="form-control" value="{{$student->mssv}}" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Sinh Viên : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" name="txtname_student" class="form-control" value="{{$student->student_name}}" required="required">
+                        <input type="text" name="txtEditname_student" class="form-control" value="{{$student->student_name}}" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Ngày Sinh : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="txtbirth" id="single_cal4" value="{{date('d/m/Y', strtotime( $student->birthday )) }}" aria-describedby="inputSuccess2Status">
+                        <input type="text" class="form-control" name="txtEditbirth" id="single_cal4" value="{{date('m/d/Y', strtotime( $student->birthday )) }}" aria-describedby="inputSuccess2Status">
                     </div>
                 </div>
                 <div class="item form-group" >
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select  class="form-control select2" style="color: red" id="science_addstudent" name="slscience">
-                            <option value="0" {{ (isset($scienceIdSearch) && $scienceIdSearch == 0) ? "selected" : "" }}>
+                        <select  class="form-control select2"  id="science_addstudent" name="slscience">
+                            <option value="0" >
                                     Tất cả
                             </option>
                             @foreach($scienceList as $science)
-                            <option value="{{ $science->id }}" {{ (isset($scienceIdSearch) && $scienceIdSearch == $science->id) ? "selected" : "" }}>{{ $science->nameScience }}</option>
+                                    @if( $science->id == $student->scienceId )
+                                        <option value="{{ $science->id }}" selected >{{ $science->nameScience }}</option>
+                                    @else 
+                                        <option value="{{ $science->id }}" >{{ $science->nameScience }}</option>
+                                    @endif
+                               
                             @endforeach
                             
                         </select>
@@ -63,68 +67,119 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Lớp : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <select class="form-control select2" name="slclass">
+                            @foreach($classList as $class)
+                                @if( $class->id == $student->classId)
+                                    <option value="{{$class->id}}" selected>{{$class->nameClass}}</option>
+                                @else
+                                    <option value="{{$class->id}}">{{$class->nameClass}}</option>
+                                @endif
+                            @endforeach
                         </select>
                     </div>
                 </div>                
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Giới Tính : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="form-control" name="slGT">
-                            <option value="0" >Nam</option>
-                            <option value="1" >Nữ</option>
+                        <select class="form-control" name="slEditGT">
+                                @if( $student->is_female ==0) 
+                                    <option value="0" selected>Nam</option>
+                                    <option value="1'" >Nữ</option>
+                            
+                                @else 
+                                    <option value="0" >Nam</option>
+                                    <option value="1" selected>Nữ</option>
+                                
+                                @endif
                         </select>
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Quên Quán : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="txthome" value="{{$student->hometown}}" required="required">
+                        <input type="text" class="form-control" name="txtEdithome" value="{{$student->hometown}}" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Email : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="Email" class="form-control" name="txtemail" value="{{$student->email}}" required="required">
+                        <input type="Email" class="form-control" name="txtEditemail" value="{{$student->email}}" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Số Điện Thoại : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="txtsdt" value="{{$student->number_phone}}" required="required">
+                        <input type="text" class="form-control" name="txtEditsdt" value="{{$student->number_phone}}" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Tình Trạng Đoàn Viên : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="form-control" name="slDoanVien">
-                            <option value="1">Là Đoàn Viên</option>
-                            <option value="0">Chưa Vào Đoàn</option>
+                        <select class="form-control" name="slEditDoanVien">
+                                @if($student->is_doanvien==0)
+                                    <option value="1">Là Đoàn Viên</option>
+                                    <option value="0" selected>Chưa Vào Đoàn</option>
+                                
+                                @else 
+                                    <option value="1" selected>Là Đoàn Viên</option>
+                                    <option value="0" >Chưa Vào Đoàn</option>
+                                
+                                @endif
                         </select>
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Tình Trạng Đảng Viên : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="form-control" name="slDangVien">
-                            <option value="0">Chưa Vào Đảng</option>
-                            <option value="1">Là Đảng Viên</option>                            
+                        <select class="form-control" name="slEditDangVien">
+                                @if($student->is_dangvien==0)
+                                    <option value="0" selected>Chưa Vào Đảng</option>
+                                    <option value="1" >Là Đảng Viên</option>    
+                                
+                                @else 
+                                    <option value="0">Chưa Vào Đảng</option>
+                                    <option value="1" selected>Là Đảng Viên</option>       
+                                
+                                @endif                
                         </select>
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Số Điểm CTXH : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="txtctxh" value="{{$student->diem_ctxh}}" required="required">
+                        <input type="text" class="form-control" name="txtEditctxh" value="{{$student->diem_ctxh}}" required="required">
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Tình Trạng Sinh Viên : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="form-control" name="slTTSV">
-                            <option value="1">Đang học</option>
-                            <option value="2">Đã tốt nghiệp</option>
-                            <option value="3">Đang bảo lưu</option>
-                            <option value="4">Bị đuổi học</option>
+                        <select class="form-control" name="slEditTTSV">
+                            @if($student->status==1)
+                                <option value="1" selected>Đang học</option>
+                                <option value="2">Đã tốt nghiệp</option>
+                                <option value="3">Đang bảo lưu</option>
+                                <option value="4">Bị đuổi học</option>
+                            
+                            @else  @if($student->status==2)
+                                        <option value="1" >Đang học</option>
+                                        <option value="2" selected>Đã tốt nghiệp</option>
+                                        <option value="3">Đang bảo lưu</option>
+                                        <option value="4">Bị đuổi học</option>
+                                    
+                                    @else
+                                        @if($student->status==3)
+                                            <option value="1" >Đang học</option>
+                                            <option value="2">Đã tốt nghiệp</option>
+                                            <option value="3" selected>Đang bảo lưu</option>
+                                            <option value="4">Bị đuổi học</option>
+                                        
+                                        @else
+                                            <option value="1" >Đang học</option>
+                                            <option value="2">Đã tốt nghiệp</option>
+                                            <option value="3">Đang bảo lưu</option>
+                                            <option value="4" selected>Bị đuổi học</option>
+                                        @endif
+                                    @endif
+                            @endif
                         </select>
                     </div>
                 </div>
@@ -136,7 +191,6 @@
                     </div>
                 </div>
             </form>
-        @endforeach
         </div>
     </div>
 </div>

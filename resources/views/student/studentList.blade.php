@@ -15,6 +15,15 @@
 @section('main_content')
 <div>
 <!-- top tiles -->
+      @if(session('success_alert'))
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="alert alert-success">
+                    {{ session('success_alert') }}
+                </div>
+            </div>
+        </div>
+    @endif
                 <div class="row tile_count">
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top blue">
@@ -235,7 +244,7 @@
                                             <td class="action-column">
                                                 <a href="#profile" class="info_student" data-toggle="modal" data-id="{{ $studentOb->mssv }}"><i class="fa fa-list" title="Chi tiết"></i></a>
                                                 <a href="{{ route('get_edit_student_route',['mssv'=> $studentOb->mssv]) }}" ><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                                <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
+                                                <a class="delete_student" data-id="{{ $studentOb->mssv }}" href="javascript:;"><i class="fa fa-trash" title="Xóa"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -245,6 +254,12 @@
                         </div>
                     </div>
                     <!-- /Student List Table-->
+
+                    <!-- Form confirm delete class -->
+                    <div id="dialog-confirm-delete-student" class="jquery-ui-dialog" title="Xóa Sinh Viên?" hidden>
+                        <p><span class="ui-icon ui-icon-alert"></span>Bạn có chắc muốn <strong>Xóa Sinh Viên</strong> đã chọn?</p>
+                    </div>
+                    <!-- /Form confirm delete class -->
 
                     <!-- Action Area -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
