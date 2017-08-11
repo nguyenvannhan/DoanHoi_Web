@@ -5299,7 +5299,7 @@ $('.info_student').on('click',function(){
 
         $('#profile td[name="country"]').html(studentOb.hometown);
 
-        $.get(URI+'/science/edit/'+studentOb.scieneId, function(data) {
+        $.get(URI+'/science/edit/'+studentOb.scienceId, function(data) {
         	var scienceOb = data['scienceOb'];
         	$('#profile td[name="science"]').html(scienceOb.nameScience);
         });
@@ -5365,6 +5365,25 @@ $('.delete_class_button').on('click', function(){
     });
 });
 
+$('.delete_student').on('click',function(){
+	var mssv = $(this).attr('data-id');
+
+    $( "#dialog-confirm-delete-student" ).dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+            "Có": function() {
+                window.location.href = URI+'/student/delete/' + mssv;
+            },
+            "Không": function() {
+                $( this ).dialog( "close" );
+            }
+        }
+    });
+});
+
 $('#searchClass a.btn').on('click', function() {
    var scienceId = $('#searchClass select[name="slScienceIdSearch"]').val();
 
@@ -5376,8 +5395,8 @@ $('#searchClass a.btn').on('click', function() {
 });
 
 $('#science_addstudent').on('change',function(){
-	var scieneStudentId=$('#science_addstudent').val();
-	$.get(URI+'/class/search/'+scieneStudentId, function(data){
+	var scienceStudentId=$('#science_addstudent').val();
+	$.get(URI+'/class/search/'+scienceStudentId, function(data){
 		var classOb = data['classOb'];
 		var htmlContent = "";
         classOb.forEach(function(classes) {

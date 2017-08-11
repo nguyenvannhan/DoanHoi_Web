@@ -48,11 +48,11 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <select  class="form-control select2" style="color: red" id="science_addstudent" name="slscience">
-                            <option value="0" {{ (isset($scienceIdSearch) && $scienceIdSearch == 0) ? "selected" : "" }}>
+                            <option value="0" >
                                     Tất cả
                             </option>
                             @foreach($scienceList as $science)
-                            <option value="{{ $science->id }}" {{ (isset($scienceIdSearch) && $scienceIdSearch == $science->id) ? "selected" : "" }}>{{ $science->nameScience }}</option>
+                            <option value="{{ $science->id }}" >{{ $science->nameScience }}</option>
                             @endforeach
                             
                         </select>

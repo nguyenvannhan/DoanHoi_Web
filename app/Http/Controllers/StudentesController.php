@@ -27,19 +27,45 @@ class StudentesController extends Controller
 
         return response()->json(['studentOb' => $studentOb]);
     }
+
     public function getEditStudent($mssv){
-        $studentList = Studentes::with('Classes')->where('mssv', $mssv)->orderBy('mssv', 'desc')->get();
+        $student = Studentes::with('Classes')->where('mssv', $mssv)->first(); //Cho nay tu orderby tro di e bo dc ak Dai. Xai first() thoi la dc. Ben file blade khi do ko can foreach
         $classList = Classes::orderBy('id', 'desc')->get();
         $scienceList=Science::orderBy('id','desc')->get();
 
-        return view('student.editStudent', ['classList'=>$classList,'studentList'=>$studentList,'scienceList'=>$scienceList]);
+        return view('student.editStudent', ['classList'=>$classList,'student'=>$student,'scienceList'=>$scienceList]);
     }
+
+    public function postEditStudent(Request $request, $mssv)
+    {
+        $studentOb=Studentes::find($mssv);
+
+        $studentOb->mssv = $request->txtEditmssv;
+        $studentOb->student_name = $request->txtEditname_student;
+        $studentOb->classId=$request->slclass;
+        $studentOb->scienceId=$request->slscience;
+        $studentOb->is_female=$request->slEditGT;
+        $studentOb->is_doanvien=$request->slEditDoanVien;
+        $studentOb->is_dangvien=$request->slEditDangVien;
+        $studentOb->hometown=$request->txtEdithome;
+        $studentOb->number_phone=$request->txtEditsdt;
+        $studentOb->birthday=date('y-m-d', strtotime( $request->txtEditbirth ));
+        $studentOb->email=$request->txtEditemail;
+        $studentOb->diem_ctxh=$request->txtEditctxh;
+        $studentOb->status=$request->slEditTTSV;
+
+        $studentOb->save();
+
+        return redirect('/student')->with(['success_alert' => 'Cập nhật thông tin sinh viên thành công!']);
+    }
+
     public function postAddStudent(Request $request){
         $studentOb = new Studentes;
+
         $studentOb->mssv = $request->txtmssv;
         $studentOb->student_name = $request->txtname_student;
         $studentOb->classId=$request->slclass;
-        $studentOb->scieneId=$request->slscience;
+        $studentOb->scienceId=$request->slscience;
         $studentOb->is_female=$request->slGT;
         $studentOb->is_doanvien=$request->slDoanVien;
         $studentOb->is_dangvien=$request->slDangVien;
@@ -52,7 +78,14 @@ class StudentesController extends Controller
 
         $studentOb->save();
 
-        return redirect('/student/add')->with(['success_alert' => 'Thêm Sinh Viên Thành Công']);
+        return redirect('/student')->with(['success_alert' => 'Thêm Sinh Viên Thành Công']);
+    }
+
+    public function getDeleteStudent($mssv) {
+        $studentOb=Studentes::find($mssv);
+        $studentOb->delete();
+
+        return redirect('/student')->with(['success_alert' => 'Xóa Sinh Viên thành công!']);
     }
 
     public function getAjaxSearchStudent($searchKey) {
