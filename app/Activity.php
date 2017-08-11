@@ -22,7 +22,7 @@ class Activity extends Model {
         return $this->belongsTo('App\Studentes', 'leader', 'mssv');
     }
 
-    public function Classes() {
+    public function ClassOb() {
         return $this->belongsTo('App\Classes', 'classId', 'id');
     }
 

@@ -47,7 +47,7 @@
 
                     <ul class="nav child_menu">
                         <li><a href="{{ route('activity_index_route') }}">Danh Sách Hoạt Động</a></li>
-                        <li><a href="{{ route('activity_add_route') }}">Thêm Hoạt Động</a></li>
+                        <li><a href="{{ route('get_activity_add_route') }}">Thêm Hoạt Động</a></li>
                     </ul>
                 </li>
                 <li>

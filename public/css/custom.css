@@ -4435,7 +4435,7 @@ td.right {
     color: white;
 }
 
-table.center, tr, td, th  {
+table.center tr td, tr.center td, thead.center tr th, tbody.center tr td  {
     text-align: center;
 }
 
@@ -4450,4 +4450,69 @@ div.jquery-ui-dialog span {
 
 select.form-control.select2 {
     display: block;
+}
+
+#activity-list-table tr td {
+    max-width: 150px;
+}
+
+#activity-list-table tr td:last-child {
+    min-width: 50px;
+}
+
+table.activity-detail {
+    width: 100%;
+}
+
+table.activity-detail tr {
+    width: 100%;
+}
+
+table.activity-detail tr td {
+    width: 25%;
+}
+
+table.activity-detail tr td:nth-child(1), table.activity-detail tr td:nth-child(3) {
+    width: 18%;
+    font-weight: bold;
+    text-align: right;
+    padding-right: 30px;
+}
+
+table.activity-detail tr td:nth-child(2), table.activity-detail tr td:nth-child(4) {
+    text-align: left;
+    padding-left: 10px;
+}
+
+div.action {
+    margin-bottom: 20px;
+}
+
+.searchLeader {
+    display: none;
+    border: 1px solid #e2e2e2;
+    background-color: #fff;
+    position: absolute;
+    width: 400px;
+    left: 10px;
+    top:34px;
+    z-index: 9;
+    padding-left: 12px;
+}
+
+ul.searchLeader li {
+    display: block;
+    text-decoration: none;
+    overflow: hidden;
+    border-bottom: 1px dotted #ccc;
+    margin-bottom: 5px;
+    z-index: 10;
+}
+
+a.search-leader {
+    z-index: 20;
+}
+
+#level-activity-radio label input[type='radio']{
+    display: none;
 }

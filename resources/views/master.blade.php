@@ -113,7 +113,8 @@
 <script src="{{ URL::asset('vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 <!-- Select2 -->
 <script src="{{ URL::asset('vendors/select2/dist/js/select2.js') }}"></script>
-
+<!-- TinyMCE -->
+<script src="{{ URL::asset('vendors/tinymce/tinymce.min.js') }}"></script>
 <!-- Custom Theme Scripts -->
 <script src="{{ URL::asset('js/custom.js') }}"></script>
 </body>

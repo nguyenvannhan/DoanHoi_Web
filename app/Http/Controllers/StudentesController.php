@@ -54,4 +54,15 @@ class StudentesController extends Controller
 
         return redirect('/student/add')->with(['success_alert' => 'Thêm Sinh Viên Thành Công']);
     }
+
+    public function getAjaxSearchStudent($searchKey) {
+        $studentList = Studentes::where('mssv', 'LIKE', '%'.$searchKey.'%')->orWhere('student_name', 'LIKE', '%'.$searchKey.'%')->get();
+
+        return response()->json(['studentList' => $studentList]);
+    }
+
+    public function getClassFromId($studentId) {
+        $student = Studentes::find($studentId)->first();
+        return response()->json(['classOb' => $student->Classes]);
+    }
 }

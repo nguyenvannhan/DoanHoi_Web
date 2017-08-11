@@ -151,7 +151,6 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select class="form-control select2" name="slAddScienceId">
-                                        <a href="#" class="btn btn-success btn-block">Thêm mới</a>
                                         @foreach($scienceList as $science)
                                             <option value="{{ $science->id }}" {{ old('slAddScienceId') == $science->id ? "selected" : "" }}> {{ $science->nameScience }} </option>
                                         @endforeach

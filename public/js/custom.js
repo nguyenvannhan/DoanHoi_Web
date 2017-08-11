@@ -9,6 +9,16 @@
 
 var URI = "http://localhost:8080/official_cyu_management/public";
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+var currentDate = new Date();
+var currentYear = currentDate.getFullYear();
+var currentMonth = currentDate.getMonth() + 1;
+
 (function($,sr){
     // debouncing function from John Hann
     // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
@@ -1765,9 +1775,12 @@ if (typeof NProgress != 'undefined') {
 			});
 			$('.single_cal4').daterangepicker({
 			  singleDatePicker: true,
-			  singleClasses: "picker_4"
+			  singleClasses: "picker_4",
+                locale: {
+			      format: 'DD/MM/YYYY'
+                }
 			}, function(start, end, label) {
-			  console.log(start.toISOString(), end.toISOString(), label);
+			    console.log(start.toISOString(), end.toISOString(), label);
 			});
 
 
@@ -5093,6 +5106,7 @@ $('#partisan-radio > label.btn').on('click', function() {
     $checked.addClass("btn-default");
     $(this).removeClass("btn-default");
     $(this).addClass("btn-primary");
+    $(this).removeClass('active');
     $input.prop('checked', true);
 });
 
@@ -5104,8 +5118,42 @@ $('#unionist-radio > label.btn').on('click', function() {
     $checked.addClass("btn-default");
     $(this).removeClass("btn-default");
     $(this).addClass("btn-primary");
+    $(this).removeClass('active');
     $('#unionist-radio > label.btn-primary > input').prop('checked', true);
     $inputOld.prop('checked', false);
+});
+
+$('#level-activity-radio > label.btn').on('click', function() {
+    var checked = $('#level-activity-radio > label.btn.btn-primary');
+    var inputOld = $('#level-activity-radio > label.btn.btn-primary > input');
+
+    checked.removeClass("btn-primary");
+    checked.addClass("btn-default");
+    $(this).removeClass("btn-default");
+    $(this).addClass("btn-primary");
+    var newRadio = $('#level-activity-radio > label.btn-primary > input')
+    newRadio.attr('checked', true);
+    var checkValue = newRadio.val();
+    if(checkValue == 0) {
+        $('input[name="txtClassName"]').attr('required', true);
+        $('label.label-class-name').html('<small><i class="red">(*)</i></small> Tên Lớp: ');
+
+        var studentId = $('input[name="txtHiddenActivityLeader"]').val();
+        $.get(URI+'/ajax/get-class-from-student-id/'+studentId, function(data) {
+            var classOb = data['classOb'];
+            if(classOb !== null) {
+                $('input[name="txtClassName"]').val(classOb['nameClass']);
+                $('input[name="txtClassId"]').val(classOb['id']);
+            } else {
+                $('input[name="txtClassName"]').val("");
+                $('input[name="txtClassId"]').val("");
+            }
+        });
+    } else {
+        $('input[name="txtClassName"]').attr('required', false);
+        $('input[name="txtClassName"]').val("");
+        $('label.label-class-name').html('Tên Lớp: ');
+    }
 });
 
 //Custom add list student
@@ -5114,7 +5162,7 @@ $("#datatable-import-student").dataTable({
 });
 
 $(".datatable").dataTable({
-    'order': [[ 0, 'asc'], [1, 'desc']],
+    'order': [[ 0, 'asc']],
 });
 
 //JS Add Science
@@ -5355,3 +5403,73 @@ $('#add_student_active').on('click', function() {
 $('div.alert').delay(2000).fadeOut('slow');
 
 $('.select2').select2();
+
+$('input[name="txtActivityLeader"]').on('keyup', function() {
+	var searchKey = $(this).val().trim();
+
+	if(searchKey != '') {
+        $.get(URI + '/ajax/search-student/' + searchKey, function(data) {
+            var studentList = data['studentList'];
+
+            var htmlContent = '';
+            studentList.forEach(function(student) {
+               htmlContent += '<li><a href="javascript:;">'+student['mssv']+' - '+student['student_name']+'</a></li>';
+            });
+
+            $('ul.searchLeader').html(htmlContent);
+            $('ul.searchLeader').css('display','block');
+            $('ul.searchLeader li a').addClass('search-leader');
+
+            if(searchKey.length > 8) {
+                $('input[name="txtHiddenActivityLeader"]').val(searchKey.substring(0, 8));
+            } else {
+                $('input[name="txtHiddenActivityLeader"]').val(searchKey);
+            }
+
+            $('a.search-leader').on('click', function() {
+                $('input[name="txtActivityLeader"]').val($(this).text());
+                $('ul.searchLeader').css('display', 'none');
+                $('input[name="txtHiddenActivityLeader"]').val($(this).text().substr(0, 8));
+            });
+        });
+    }
+});
+
+$(document).on('click', function() {
+   $('ul.searchLeader').css('display', 'none');
+});
+
+tinymce.init({
+    selector: 'textarea',
+    height: 200,
+    menubar: false,
+    content_style: "p { margin: 10px 0 !important;}",
+    plugins: [
+        'advlist autolink lists link image charmap print preview anchor',
+        'searchreplace visualblocks code fullscreen',
+        'insertdatetime media table contextmenu paste code'
+    ],
+    toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | preview',
+    content_css: [
+        '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+        '//www.tinymce.com/css/codepen.min.css'
+    ]
+});
+
+
+$('a.ajax-add-school-year').on('click', function() {
+    var currentSchoolYear = $('select[name="slSchoolYear"]').val();
+
+    $.get(URI + '/ajax/add-school-year', function(data) {
+        var schoolYearList = data['schoolYearList'];
+
+        var htmlContent = "";
+
+        schoolYearList.forEach(function(schoolYear) {
+            htmlContent += '<option value="'+schoolYear['id']+'">'+schoolYear['school_year_name']+'</option>';
+        });
+        $('select[name="slSchoolYear"]').html(htmlContent);
+
+        alert('Thêm Năm học mới thành công!');
+    });
+});
