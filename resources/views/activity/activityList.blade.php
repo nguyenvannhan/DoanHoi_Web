@@ -120,7 +120,7 @@
                             <td class="action-column center">
                                 <a href="{{ route('activity_detail_route', ['id' => $activity->id]) }}"><i class="fa fa-list"
                                                                                   title="Chi tiết"></i></a>
-                                <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
+                                <a href="{{ route('get_edit_activity_route', ['activityId' => $activity->id]) }}"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                 <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                             </td>
                         </tr>
