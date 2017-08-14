@@ -30,4 +30,8 @@ class Studentes extends Model
     public function ActivitiesLeader() {
         return $this->hasMany('App\Activity', 'leader', 'mssv');
     }
+
+    public function BCH_Khoa(){
+        return $this->belongsToMany('App\BCH_Khoa')->using('App\BCH_Khoa_Studentes');
+    }
 }

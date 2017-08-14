@@ -178,15 +178,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                     @foreach($studentList as $studentOb)
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="flat" name="table_records" />
                                             </td>
                                             <td>1</td>
-                                            <td> 13110113 </td>
-                                            <td> Nguyễn Văn Nhàn </td>
-                                            <td> Nam </td>
-                                            <td> 08/10/1995 </td>
+                                            <td> {{ $studentOb->mssv }} </td>
+                                            <td> {{ $studentOb->student_name }}  </td>
+                                            <td>  @php
+
+                                                    if( $studentOb->is_female ==0) 
+                                                        $gt='Nam';
+                                                    else
+                                                        $gt='Nữ';
+                                                @endphp
+                                                {{$gt}}
+                                            </td>
+                                            <td>{{ date('d/m/Y', strtotime( $studentOb->birthday )) }} </td>
                                             <td> 139100 </td>
                                             <td>
                                                 <i class="fa fa-check-square fa-2x green"></i>
@@ -201,6 +210,7 @@
                                                 <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                             </td>
                                         </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

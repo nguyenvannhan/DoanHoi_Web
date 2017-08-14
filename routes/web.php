@@ -88,9 +88,7 @@ Route::prefix('activity')->group(function() {
 
 //Route faculty commitee
 Route::prefix('BCH-Khoa')->group(function() {
-    Route::get('/', function() {
-        return view('BCH_Khoa.BCH_KhoaList');
-    })->name('BCH_Khoa_index_route');
+   Route::get('/', 'BCH_KhoaController@getBCH_KhoaList')->name('BCH_Khoa_index_route');
     Route::get('add', function() {
         return view('BCH_Khoa.addBCH_Khoa');
     })->name('BCH_Khoa_add_route');

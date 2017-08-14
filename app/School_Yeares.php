@@ -21,4 +21,7 @@ class School_Yeares extends Model
     public function Activities() {
         return $this->hasMany('App\Acitivity', 'schoolYearId', 'id');
     }
+    public function BCH_Khoa(){
+        return $this->hasMany('App\BCH_Khoa','school_yearId','school_yearId');
+    }
 }
