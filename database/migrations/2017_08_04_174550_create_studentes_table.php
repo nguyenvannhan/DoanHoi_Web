@@ -20,17 +20,18 @@ class CreateStudentesTable extends Migration
 
             $table->string('mssv',8);
             $table->string('student_name', 100)->unique();
-            $table->integer('classId')->unsigned();
+            $table->integer('classId')->unsigned()->nullable();
             $table->integer('scienceId')->unsigned();
             $table->boolean('is_female')->default(true);
             $table->boolean('is_doanvien')->default(true);
             $table->boolean('is_dangvien')->default(false);
-            $table->string('hometown', 200)->unique();
-            $table->string('number_phone', 20)->unique();
-            $table->date('birthday', 20);
-            $table->string('email', 200)->unique();
-            $table->integer('diem_ctxh')->unsigned();
-            $table->integer('status')->unsigned();
+            $table->string('hometown', 200)->nullable();
+            $table->string('number_phone', 20)->nullable()->unique();
+            $table->date('birthday', 20)->nullable();
+            $table->string('email', 200)->unique()->nullable();
+            $table->integer('diem_ctxh')->unsigned()->nullable();
+            $table->integer('status')->unsigned()->default(0);
+            $table->boolean('is_it_student')->default(false);
             $table->softDeletes();
             $table->timestamps();
 
