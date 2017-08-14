@@ -74,6 +74,13 @@ Route::prefix('activity')->group(function() {
     Route::get('add', 'ActivityController@getAddActivity')->name('get_activity_add_route');
     Route::post('add', 'ActivityController@postAddActivity')->name('post_activity_add_route');
 
+    Route::get('edit/{activityId}', 'ActivityController@getEditActivity')->name('get_edit_activity_route');
+    Route::post('edit/{activityId}', 'ActivityController@postEditActivity')->name('post_edit_activity_route');
+
+    Route::get('add-list', function() {
+        return view('activity.addListStudentActivity');
+    })->name('get_activity_list_add_route');
+
     Route::get('add-list-student-activity', function() {
         return view('activity.addListStudentActivity');
     })->name('activity_list_student_route');

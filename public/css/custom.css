@@ -4516,3 +4516,17 @@ a.search-leader {
 #level-activity-radio label input[type='radio']{
     display: none;
 }
+
+#add-attender {
+    margin-bottom: 10px;
+    display: none;
+}
+
+#add-attender label {
+    text-align: center;
+    margin-top: 5px;
+}
+
+#add-attender .row {
+    margin-bottom: 10px;
+}

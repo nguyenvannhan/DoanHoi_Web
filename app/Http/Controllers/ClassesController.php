@@ -54,7 +54,6 @@ class ClassesController extends Controller {
     }
 
     public function postEditClass(Request $request, $id) {
-        echo $id;
 
         $classOb = Classes::find($id);
 

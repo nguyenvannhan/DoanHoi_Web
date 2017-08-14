@@ -33,6 +33,9 @@
                             <a href="{{ route('get_activity_add_route') }}" class="btn btn-block btn-success"><i
                                         class="fa fa-plus"></i> Thêm Hoạt Động </a>
                         </div>
+                        <div class="col-md-2 col-md-offset-2 col-sm-2 col-xs-6">
+                            <a href="{{ route('get_activity_list_add_route') }}" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm danh sách </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -120,7 +123,7 @@
                             <td class="action-column center">
                                 <a href="{{ route('activity_detail_route', ['id' => $activity->id]) }}"><i class="fa fa-list"
                                                                                   title="Chi tiết"></i></a>
-                                <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
+                                <a href="{{ route('get_edit_activity_route', ['activityId' => $activity->id]) }}"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                 <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                             </td>
                         </tr>
