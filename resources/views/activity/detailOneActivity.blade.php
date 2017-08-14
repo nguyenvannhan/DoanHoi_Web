@@ -22,8 +22,11 @@
                 <div class="x_panel">
                     <div class="x_content">
                         <div class="row">
-                            <div class="col-md-2 col-sm-3 col-sm-12 col-md-offset-10">
-                                <a class="btn btn-block btn-primary">Cập nhật Thông tin</a>
+                            <div class="col-md-2 col-md-offset-3 col-sm-3 col-xs-12">
+                                <a class="btn btn-block btn-success">Danh sách Hoạt động</a>
+                            </div>
+                            <div class="col-md-2 col-md-offset-3 col-sm-3 col-xs-12">
+                                <a class="btn btn-block btn-primary" href="{{ route('get_edit_activity_route', ['activityId' => $activity->id]) }}">Cập nhật Thông tin</a>
                             </div>
                         </div>
                         <div class="row">
@@ -117,7 +120,7 @@
                         <!-- Action area -->
                         <div class="row action">
                             <div class="col-md-2 col-sm-2 col-xs-6" style="margin-left: 50px;">
-                                <a id="add_student_active" class="btn btn-block btn-success"><i class="fa fa-user"></i>
+                                <a id="add-one-student-activity-button" class="btn btn-block btn-success"><i class="fa fa-user"></i>
                                     Thêm 1 Sinh viên </a>
                             </div>
                             <div class="col-md-2 col-md-offset-1 col-sm-2 col-xs-6">
@@ -133,6 +136,46 @@
                             </div>
                         </div>
                         <!-- /Action area -->
+                        <div id="add-attender">
+                            <form class="form-horizontal">
+                                <div class="row">
+                                    <div class="col-md-offset-5">
+                                        <h3>THÊM 1 SINH VIÊN</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1 center col-md-offset-2">
+                                        <label>MSSV:</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control"/>
+                                    </div>
+                                    <div class="col-md-1 center">
+                                        <label>Họ tên:</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" readonly />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1 center col-md-offset-2">
+                                        <label>SĐT:</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" readonly />
+                                    </div>
+                                    <div class="col-md-1 center">
+                                        <label>Email:</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-md-offset-5">
+                                    <a href="#" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm</a>
+                                </div>
+                            </form>
+                        </div>
 
                         <table id="datatable-checkbox"
                                class="table table-striped table-bordered jambo_table bulk_action">
@@ -142,9 +185,10 @@
                                 <th>STT</th>
                                 <th class="column-title"> MSSV</th>
                                 <th class="column-title"> Họ tên</th>
-                                <th class="column-title"> Giới tính</th>
-                                <th class="column-title"> Ngày tháng năm sinh</th>
-                                <th class="column-title"> Lớp</th>
+                                <th class="column-title"> Khoa </th>
+                                <th class="column-title"> SĐT </th>
+                                <th class="column-title"> Email </th>
+                                <th class="column-title"> Điểm danh </th>
                                 <th class="column-title"> Action</th>
                                 <th class="bulk-actions" colspan="8">
                                     <a class="antoo" style="color:#fff; font-weight:500;"><span
@@ -160,13 +204,15 @@
                                 <td>1</td>
                                 <td> 13110113</td>
                                 <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
+                                <td> CNTT </td>
+                                <td>
+                                    01219833537
+                                </td>
+                                <td> nguyenvannhan0810@gmail.com</td>
+                                <td>
+                                    <input type="checkbox" class="flat" />
+                                </td>
                                 <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
                             </tr>
@@ -177,13 +223,15 @@
                                 <td>1</td>
                                 <td> 13110113</td>
                                 <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
+                                <td> CNTT </td>
+                                <td>
+                                    01219833537
+                                </td>
+                                <td> nguyenvannhan0810@gmail.com</td>
+                                <td>
+                                    <input type="checkbox" class="flat" />
+                                </td>
                                 <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
                             </tr>
@@ -194,13 +242,15 @@
                                 <td>1</td>
                                 <td> 13110113</td>
                                 <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
+                                <td> CNTT </td>
+                                <td>
+                                    01219833537
+                                </td>
+                                <td> nguyenvannhan0810@gmail.com</td>
+                                <td>
+                                    <input type="checkbox" class="flat" />
+                                </td>
                                 <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
                             </tr>
@@ -211,13 +261,15 @@
                                 <td>1</td>
                                 <td> 13110113</td>
                                 <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
+                                <td> CNTT </td>
+                                <td>
+                                    01219833537
+                                </td>
+                                <td> nguyenvannhan0810@gmail.com</td>
+                                <td>
+                                    <input type="checkbox" class="flat" />
+                                </td>
                                 <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
                             </tr>
@@ -228,13 +280,15 @@
                                 <td>1</td>
                                 <td> 13110113</td>
                                 <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
+                                <td> CNTT </td>
+                                <td>
+                                    01219833537
+                                </td>
+                                <td> nguyenvannhan0810@gmail.com</td>
+                                <td>
+                                    <input type="checkbox" class="flat" />
+                                </td>
                                 <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
                             </tr>
@@ -245,336 +299,15 @@
                                 <td>1</td>
                                 <td> 13110113</td>
                                 <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
+                                <td> CNTT </td>
                                 <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
+                                    01219833537
                                 </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
+                                <td> nguyenvannhan0810@gmail.com</td>
                                 <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
+                                    <input type="checkbox" class="flat" />
                                 </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
                                 <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                    <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="flat" name="table_records"/>
-                                </td>
-                                <td>1</td>
-                                <td> 13110113</td>
-                                <td> Nguyễn Văn Nhàn</td>
-                                <td> Nam</td>
-                                <td> 08/10/1995</td>
-                                <td> 139100</td>
-                                <td class="action-column">
-                                    <a href="#profile" data-toggle="modal"><i class="fa fa-list"
-                                                                              title="Chi tiết"></i></a>
-                                    <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                     <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
                                 </td>
                             </tr>
@@ -588,167 +321,6 @@
     </div>
 @stop
 @section('modals')
-    <!-- Model detail Student Info -->
-    <div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="Student-Profile"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- modal body -->
-                <div class="modal-body about">
-                    <center>
-                        <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"
-                             name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
-                        <div class="label-holder">
-                            <span class="label label-warning">Bảo lưu</span>
-                        </div>
-                    </center>
-
-                    <hr>
-
-                    <div class="row" id="content-profile-modal">
-                        <div class="row">
-                            <!-- Basic Info -->
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="accordion" role="tablist" aria-multiselectable="true">
-                                    <div class="panel">
-                                        <a class="panel-heading" role="tab" data-parent="#accordion" aria-expanded="true"
-                                        aria-controls="collapseOne">
-                                        <h4 class="panel-title">Thông tin sinh viên</h4>
-                                        </a>
-
-                                        <div class="profile-modal-content panel-collapse collapse in" role="tabpanel"
-                                             aria-labelledby="headingOne">
-                                            <div class="panel-body">
-                                                <table>
-                                                    <tr>
-                                                        <td> Họ tên:</td>
-                                                        <td> Nguyễn Văn Nhàn</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> Năm sinh:</td>
-                                                        <td> 08/10/1995</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> Giới tính:</td>
-                                                        <td> Nam</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> Quê quán</td>
-                                                        <td> Bình Định</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> Niên khóa:</td>
-                                                        <td> 2013</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> Lớp học:</td>
-                                                        <td> 139100</td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Basic Info -->
-
-                            <!-- Contact and cyu Info -->
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <!-- Contact Info -->
-                                <div class="accordion" role="tablist" aria-multiselectable="true">
-                                    <div class="panel">
-                                        <a class="panel-heading" role="tab" data-parent=#accordion" aria-expanded="true"
-                                        aria-controls="collapseOne">
-                                        <h4 class="panel-title"> THÔNG TIN LIÊN LẠC </h4>
-                                        </a>
-
-                                        <div class="profile-modal-content panel-collapse collapse in" role="tabpanel"
-                                             aria-labelledby="headingOne">
-                                            <div class="panel-body">
-                                                <table>
-                                                    <tr>
-                                                        <td> Email:</td>
-                                                        <td> nguyenvannhan0810@gmail.com</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> SĐT:</td>
-                                                        <td> 0121-983-3537</td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Contact Info -->
-
-                                <!--Acti info -->
-                                <div class="accordion" role="tablist" aria-multiselectable="true">
-                                    <div class="panel">
-                                        <a class="panel-heading" role="tab" data-parent="#accordion" aria-expanded="true"
-                                        aria-controls="collapseOne">
-                                        <h4 class="panel-title"> HĐ ĐOÀN - HỘI TẠI KHOA </h4>
-                                        </a>
-
-                                        <div class="profile-modal-content panel-collapse collapse in" role="tabpanel"
-                                             aria-labelledby="headingOne">
-                                            <div class="panel-body">
-                                                <table>
-                                                    <tr>
-                                                        <td> Là Đoàn viên:</td>
-                                                        <td>
-                                                            <i class="fa fa-square-o fa-2x green"></i>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> Là Đảng viên:</td>
-                                                        <td>
-                                                            <i class="fa fa-square-o fa-2x green"></i>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> Số HĐ đã tham gia:</td>
-                                                        <td> 0</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> Điểm CTXH tích lũy:</td>
-                                                        <td> 400</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2" class="right"><a>Xem chi tiết</a></td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/Acti info -->
-                            </div>
-                            <!-- Contact and cyu Info -->
-                        </div>
-                    </div>
-                </div>
-                <!-- /modal body -->
-
-                <!-- modal footer -->
-                <div class="modal-footer">
-                    <center>
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <button class="btn btn-primary btn-block"><i class="fa fa-edit"></i> Cập nhật</button>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <button class="btn btn-default btn-block" data-dismiss="modal"><i
-                                            class="fa fa-close"></i> Đóng
-                                </button>
-                            </div>
-                        </div>
-                    </center>
-                </div>
-                <!-- modal footer -->
-            </div>
-        </div>
-    </div>
-    <!-- /Model detail Student Info -->
 
     <!-- Model add 1 Student  -->
     <div id="add_student_active_modal" class="modal_add_class" style="display: none;">

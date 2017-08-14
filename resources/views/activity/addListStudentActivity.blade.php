@@ -17,7 +17,7 @@
         <!-- Choose file -->
         <div class="row">
             <div class="col-md-offset-1 col-md-9 col-sm-6 col-xs-12">
-                <input type="file" class="form-control" />
+                <input type="file" class="form-control" id="input-file-activity-list"/>
             </div>
             <div class="col-md-2 col-sm-6 col-xs-12">
                 <button type="submit" class="btn btn-success btn-block">Lưu</button>
@@ -53,7 +53,7 @@
             <!-- /Info Error -->
 
             <div>
-                <table id="datatable-checkbox" class="table table-striped table-bordered jambo_table table-responsive">
+                <table id="test-xlsx" class="datatable table table-striped table-bordered jambo_table table-responsive">
                                     <thead>
                                         <tr class="headings">
                                             <th><i class="fa fa-exclamation-circle red"></i></th>

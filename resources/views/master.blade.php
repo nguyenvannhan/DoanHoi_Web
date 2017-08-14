@@ -11,7 +11,7 @@
     <title> @yield('title_site') </title>
 
     <!-- Bootstrap -->
-    <link href="{{ URL::asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('vendors/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{{ URL::asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- NProgress -->
@@ -73,7 +73,7 @@
 <!--JQuery UI -->
 <script src="{{ URL::asset('vendors/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- Bootstrap -->
-<script src="{{ URL::asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset('vendors/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- FastClick -->
 <script src="{{ URL::asset('vendors/fastclick/lib/fastclick.js') }}"></script>
 <!-- NProgress -->
@@ -115,6 +115,8 @@
 <script src="{{ URL::asset('vendors/select2/dist/js/select2.js') }}"></script>
 <!-- TinyMCE -->
 <script src="{{ URL::asset('vendors/tinymce/tinymce.min.js') }}"></script>
+<!-- js-xslx -->
+<script src="{{ URL::asset('vendors/js-xlsx/dist/xlsx.full.min.js') }}"></script>
 <!-- Custom Theme Scripts -->
 <script src="{{ URL::asset('js/custom.js') }}"></script>
 </body>
