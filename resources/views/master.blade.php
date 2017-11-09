@@ -35,6 +35,7 @@
 
     <!-- Custom Theme Style -->
     <link href="{{ URL::asset('css/custom.css') }}" rel="stylesheet">
+    @yield('css_area')
 </head>
 
 <body class="nav-md">
@@ -117,8 +118,16 @@
 <script src="{{ URL::asset('vendors/tinymce/tinymce.min.js') }}"></script>
 <!-- js-xslx -->
 <script src="{{ URL::asset('vendors/js-xlsx/dist/xlsx.full.min.js') }}"></script>
+<script src="{{ URL::asset('js/moment.min.js') }}"></script>
+
+<script type="text/javascript">
+    var BASE_URL = '{{ URL::asset("/") }}';
+</script>
+
 <!-- Custom Theme Scripts -->
 <script src="{{ URL::asset('js/custom.js') }}"></script>
+
+@yield('js_area');
 </body>
 
 </html>

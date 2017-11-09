@@ -19,7 +19,7 @@ class CreateStudentesTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->string('mssv',8);
-            $table->string('student_name', 100)->unique();
+            $table->string('student_name', 100);
             $table->integer('classId')->unsigned()->nullable();
             $table->integer('scienceId')->unsigned();
             $table->boolean('is_female')->default(true);
@@ -31,7 +31,7 @@ class CreateStudentesTable extends Migration
             $table->string('email', 200)->unique()->nullable();
             $table->integer('diem_ctxh')->unsigned()->nullable();
             $table->integer('status')->unsigned()->default(0);
-            $table->boolean('is_it_student')->default(false);
+            $table->boolean('is_it_student')->default(true);
             $table->softDeletes();
             $table->timestamps();
 

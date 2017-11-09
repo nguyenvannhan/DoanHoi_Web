@@ -15,6 +15,7 @@ class StudentesController extends Controller
 
         return view('student.studentList', ['classList' => $classList, 'studentList' => $studentList]);
     }
+
     public function getAddStudentList(){
     	$studentList = Studentes::with('Classes')->orderBy('mssv', 'desc')->get();
         $classList = Classes::orderBy('id', 'desc')->get();
@@ -22,6 +23,7 @@ class StudentesController extends Controller
 
     	return view('student.addStudent', ['classList' => $classList, 'studentList' => $studentList,'scienceList'=>$scienceList]);
     }
+
     public function getInfoStudent($mssv){
     	$studentOb = Studentes::find($mssv);
 
@@ -60,6 +62,7 @@ class StudentesController extends Controller
     }
 
     public function postAddStudent(Request $request){
+
         $studentOb = new Studentes;
 
         $studentOb->mssv = $request->txtmssv;
@@ -71,7 +74,7 @@ class StudentesController extends Controller
         $studentOb->is_dangvien=$request->slDangVien;
         $studentOb->hometown=$request->txthome;
         $studentOb->number_phone=$request->txtsdt;
-        $studentOb->birthday=date('y-m-d', strtotime( $request->txtbirth ));
+        $studentOb->birthday=date('y-m-d', strtotime( $request->txtEditbirth ));
         $studentOb->email=$request->txtemail;
         $studentOb->diem_ctxh=$request->txtctxh;
         $studentOb->status=$request->slTTSV;

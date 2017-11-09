@@ -41,7 +41,7 @@
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Ngày Sinh : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="txtbirth" id="single_cal4" aria-describedby="inputSuccess2Status">
+                        <input type="text" class="form-control datepicker" readonly="true" name="txtbirth" aria-describedby="inputSuccess2Status">
                     </div>
                 </div>
                 <div class="item form-group" >
@@ -138,4 +138,13 @@
         </div>
     </div>
 </div>
+@stop
+
+@section('css_area')
+<link rel="stylesheet" type="text/css" href="{{ URL::asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" />
+@stop
+
+@section('js_area')
+<script type="text/javascript" src="{{ URL::asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/student.js') }}"></script>
 @stop

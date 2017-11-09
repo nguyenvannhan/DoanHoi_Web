@@ -7,8 +7,6 @@
  * });
  */
 
-var URI = "http://localhost:8080/official_cyu_management/public";
-
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -120,13 +118,13 @@ function init_sidebar() {
             $SIDEBAR_MENU.find('li.active ul').hide();
             $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
             $logo = $('.sidebar-banner');
-            $logo.attr('src', URI + "/images/faculty_banner.png");
+            $logo.attr('src', BASE_URL + "/images/faculty_banner.png");
             $logo.width(50);
         } else {
             $SIDEBAR_MENU.find('li.active-sm ul').show();
             $SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
 
-            $logo.attr('src', URI + "/images/banner.png");
+            $logo.attr('src', BASE_URL + "/images/banner.png");
             $logo.width(150);
         }
 
@@ -5466,7 +5464,7 @@ $('#level-activity-radio > label.btn').on('click', function () {
         $('label.label-class-name').html('<small><i class="red">(*)</i></small> Tên Lớp: ');
 
         var studentId = $('input[name="txtHiddenActivityLeader"]').val();
-        $.get(URI + '/ajax/get-class-from-student-id/' + studentId, function (data) {
+        $.get(BASE_URL + '/ajax/get-class-from-student-id/' + studentId, function (data) {
             var classOb = data['classOb'];
             if (classOb !== null) {
                 $('input[name="txtClassName"]').val(classOb['nameClass']);
@@ -5501,7 +5499,7 @@ $('#addScience').on('click', function () {
         modal: true,
         buttons: {
             "Có": function () {
-                window.location.href = URI + '/science/add';
+                window.location.href = BASE_URL + '/science/add';
             },
             "Không": function () {
                 $(this).dialog("close");
@@ -5514,7 +5512,7 @@ $('a.add-new-science').on('click', function () {
     var editScienceId = $('select[name="slEditScienceId"]').val();
     var searchScienceId = $('select[name="slScienceIdSearch"]').val();
 
-    $.get(URI + '/ajax/add-science', function (data) {
+    $.get(BASE_URL + '/ajax/add-science', function (data) {
         var scienceList = data['scienceList'];
 
         var htmlContent = "";
@@ -5558,7 +5556,7 @@ $('a.add-new-science').on('click', function () {
 });
 
 $('a.add-new-BCH-Khoa').on('click', function () {
-    $.get(URI + '/ajax/add-BCH_Khoa', function (data) {
+    $.get(BASE_URL + '/ajax/add-BCH_Khoa', function (data) {
         if(data !=''){
             $('select[name="slBCH_KhoaIdSearch"]').html(data);
 
@@ -5578,7 +5576,7 @@ $('#addSchoolYear').on('click', function () {
         modal: true,
         buttons: {
             "Có": function () {
-                window.location.href = URI + "/school-year/add";
+                window.location.href = CURRENT_URL + "/add";
             },
 
             "Không": function () {
@@ -5590,7 +5588,7 @@ $('#addSchoolYear').on('click', function () {
 
 //Js process Class Add and edit Modal
 $('#ClassAdd').on('click', function () {
-    $('#add_class_modal form').attr('action', URI + '/class/add');
+    $('#add_class_modal form').attr('action', BASE_URL + '/class/add');
 
     $('#add_class_modal').css('display', 'block');
 });
@@ -5599,7 +5597,7 @@ $('#ClassAdd').on('click', function () {
 $('.edit_class_button').on('click', function () {
     var id = $(this).attr('data-id');
 
-    $.get(URI + '/class/edit/' + id, function (data) {
+    $.get(BASE_URL + '/class/edit/' + id, function (data) {
         var classOb = data['classOb'];
 
         $('#edit_class_modal input[name="txtEditClassName"]').val(classOb.nameClass);
@@ -5607,13 +5605,13 @@ $('.edit_class_button').on('click', function () {
         $('#edit_class_modal input[name="txtIdClass"]').val(id);
     });
 
-    $('#edit_class_modal form').attr('action', URI + '/class/edit/' + id);
+    $('#edit_class_modal form').attr('action', BASE_URL + '/class/edit/' + id);
     $('#edit_class_modal').css('display', 'block');
 });
 
 $('.info_student').on('click', function () {
     var mssv = $(this).attr('data-id');
-    $.get(URI + '/student/info/' + mssv, function (data) {
+    $.get(BASE_URL + '/student/info/' + mssv, function (data) {
         var studentOb = data['studentOb'];
         var stt = "Đang học";
         if (studentOb.status == 2) {
@@ -5638,12 +5636,12 @@ $('.info_student').on('click', function () {
 
         $('#profile td[name="country"]').html(studentOb.hometown);
 
-        $.get(URI + '/science/edit/' + studentOb.scienceId, function (data) {
+        $.get(BASE_URL + '/science/edit/' + studentOb.scienceId, function (data) {
             var scienceOb = data['scienceOb'];
             $('#profile td[name="science"]').html(scienceOb.nameScience);
         });
 
-        $.get(URI + '/class/edit/' + studentOb.classId, function (data) {
+        $.get(BASE_URL + '/class/edit/' + studentOb.classId, function (data) {
             var classOb = data['classOb'];
             $('#profile td[name="class"]').html(classOb.nameClass);
         });
@@ -5668,7 +5666,7 @@ $('.info_student').on('click', function () {
 
 $('#edit_class_modal #btnSubmit').on('click', function () {
     var id = $('#edit_class_modal input[name="txtIdClass"]').val();
-    $('#edit_class_modal form').attr('action', URI + '/class/edit/' + id);
+    $('#edit_class_modal form').attr('action', BASE_URL + '/class/edit/' + id);
     $(this).attr('type', 'submit');
 });
 
@@ -5695,7 +5693,7 @@ $('.delete_class_button').on('click', function () {
         modal: true,
         buttons: {
             "Có": function () {
-                window.location.href = URI + '/class/delete/' + id;
+                window.location.href = BASE_URL + '/class/delete/' + id;
             },
             "Không": function () {
                 $(this).dialog("close");
@@ -5714,7 +5712,7 @@ $('.delete_student').on('click', function () {
         modal: true,
         buttons: {
             "Có": function () {
-                window.location.href = URI + '/student/delete/' + mssv;
+                window.location.href = BASE_URL + '/student/delete/' + mssv;
             },
             "Không": function () {
                 $(this).dialog("close");
@@ -5727,9 +5725,9 @@ $('#searchClass a.btn').on('click', function () {
     var scienceId = $('#searchClass select[name="slScienceIdSearch"]').val();
 
     if (scienceId == 0) {
-        window.location.href = URI + "/class";
+        window.location.href = BASE_URL + "/class";
     } else {
-        window.location.href = URI + "/class/" + scienceId;
+        window.location.href = BASE_URL + "/class/" + scienceId;
     }
 });
 
@@ -5737,15 +5735,15 @@ $('#searchBCH_Khoa a.btn').on('click', function () {
     var BCH_KhoaId = $('#searchBCH_Khoa select[name="slBCH_KhoaIdSearch"]').val();
 
     if (BCH_KhoaId == 0) {
-        window.location.href = URI + "/BCH-Khoa";
+        window.location.href = BASE_URL + "/BCH-Khoa";
     } else {
-        window.location.href = URI + "/BCH-Khoa/" + BCH_KhoaId;
+        window.location.href = BASE_URL + "/BCH-Khoa/" + BCH_KhoaId;
     }
 });
 
 $('#science_addstudent').on('change', function () {
     var scienceStudentId = $('#science_addstudent').val();
-    $.get(URI + '/class/search/' + scienceStudentId, function (data) {
+    $.get(BASE_URL + '/class/search/' + scienceStudentId, function (data) {
         var classOb = data['classOb'];
         var htmlContent = "";
         classOb.forEach(function (classes) {
@@ -5776,7 +5774,7 @@ $('input[name="txtActivityLeader"]').on('keyup', function () {
     var searchKey = $(this).val().trim();
 
     if (searchKey != '') {
-        $.get(URI + '/ajax/search-student/' + searchKey, function (data) {
+        $.get(BASE_URL + '/ajax/search-student/' + searchKey, function (data) {
             var studentList = data['studentList'];
 
             var htmlContent = '';
@@ -5828,7 +5826,7 @@ tinymce.init({
 $('a.ajax-add-school-year').on('click', function () {
     var currentSchoolYear = $('select[name="slSchoolYear"]').val();
 
-    $.get(URI + '/ajax/add-school-year', function (data) {
+    $.get(BASE_URL + '/ajax/add-school-year', function (data) {
         var schoolYearList = data['schoolYearList'];
 
         var htmlContent = "";

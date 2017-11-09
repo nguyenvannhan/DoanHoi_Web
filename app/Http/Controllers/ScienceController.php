@@ -16,15 +16,19 @@ class ScienceController extends Controller
     public function getAddScience() {
         $topScience = Science::orderBy('id', 'desc')->take(1)->first();
 
-        $maxScienceId = substr($topScience->nameScience, -2);
-        $newScienceName = '20'.($maxScienceId + 1);
+        $newScienceName = date('Y');
+
+        if(!is_null($topScience)) {
+            $maxScienceId = substr($topScience->nameScience, -2);
+            $newScienceName = '20'.($maxScienceId + 1);
+        }
 
         $science = new Science();
         $science->nameScience = $newScienceName;
 
         $science->save();
 
-        return redirect('/science')->width(['success_alert' => 'Thêm Khóa học thành công!']);
+        return redirect('/science')->with(['success_alert' => 'Thêm Khóa học thành công!']);
     }
     public function getEditScience($id) {
         $scienceOb = Science::find($id);
