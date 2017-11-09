@@ -110,10 +110,10 @@
                             <div class="panel_body">
                                 <div class="row">
                                     <div class="col-md-2 col-sm-2 col-xs-6" style="margin-left: 50px;">
-                                        <a href="{{ route('BCH_Khoa_add_route') }}" class="btn btn-block btn-success"><i class="fa fa-user"></i> Thêm 1 Thành viên </a>
+                                        <a href="" class="btn btn-block btn-success"><i class="fa fa-user"></i> Thêm 1 Thành viên </a>
                                     </div>
                                     <div class="col-md-2 col-md-offset-1 col-sm-2 col-xs-6">
-                                        <a href="{{ route('BCH_Khoa_add_list_route') }}" class="btn btn-block btn-success"><i class="fa fa-users"></i> Nhập file Excel </a>
+                                        <a href="" class="btn btn-block btn-success"><i class="fa fa-users"></i> Nhập file Excel </a>
                                     </div>
                                     <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-6">
                                         <a href="#" class="btn btn-block btn-danger" disabled><i class="fa fa-trash"></i> Xóa SV được chọn </a>

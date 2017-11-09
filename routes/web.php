@@ -88,10 +88,11 @@ Route::prefix('activity')->group(function() {
 
 //Route faculty commitee
 Route::prefix('BCH-Khoa')->group(function() {
-   Route::get('/', 'BCH_KhoaController@getBCH_KhoaList')->name('BCH_Khoa_index_route');
-    Route::get('add', function() {
-        return view('BCH_Khoa.addBCH_Khoa');
-    })->name('BCH_Khoa_add_route');
+   Route::get('/{BCH_KhoaId?}', 'BCH_KhoaController@getBCH_KhoaList')->name('BCH_Khoa_index_route');
+
+    Route::get('add-student','BCH_KhoaController@getAddBCH_Khoa_Student')->name('get_BCH_Khoa_Student_add_route');
+    Route::post('add-student','BCH_KhoaController@postAddBCH_Khoa_Student')->name('post_BCH_Khoa_Stuent_add_route');
+
     Route::get('add-list', function() {
         return view('BCH_Khoa.addListBCH_Khoa');
     })->name('BCH_Khoa_add_list_route');
@@ -119,5 +120,7 @@ Route::prefix('ajax')->group(function() {
 
     Route::get('search-student/{searchKey}', 'StudentesController@getAjaxSearchStudent')->name('ajax_search_student_route');
 
-    Route::get('get-class-from-student-id/{studentId}', 'StudentesController@getClassFromId')->name('ajax_get_class_from_student_id');
+    Route::get('get-class-from-student-id/{studentId}','StudentesController@getClassFromId')->name('ajax_get_class_from_student_id');
+
+    Route::get('add-BCH_Khoa','BCH_KhoaController@getAjaxAddBCH_khoa')->name('ajax_add_BCH_Khoa_route');
 });

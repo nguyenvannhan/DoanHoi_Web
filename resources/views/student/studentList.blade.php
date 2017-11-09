@@ -406,9 +406,6 @@
                                                         <td> Điểm CTXH tích lũy: </td>
                                                         <td name="ctxh"></td>
                                                     </tr>
-                                                    <tr>
-                                                        <td colspan="2" class="right"><a>Xem chi tiết</a></td>
-                                                    </tr>
                                                 </table>
                                             </div>
                                         </div>

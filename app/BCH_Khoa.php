@@ -12,7 +12,7 @@ class BCH_Khoa extends Model
     protected $table = 'bch_khoa';
     public $incrementing = true;
 
-    protected $primaryKey = ['id'];
+    protected $primaryKey = 'id';
     protected $fillable = ['school_yearId'];
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
@@ -24,7 +24,7 @@ class BCH_Khoa extends Model
     }
 
     
-    public function studentes(){
-        return $this->belongsToMany('App\Studentes', 'bch_khoa_student', 'id_bch_khoa', 'mssv_student');
+    public function Studentes(){
+        return $this->belongsToMany('App\Studentes', 'bch_khoa_student', 'id_bch_khoa', 'mssv_student')->withPivot('position','is_cbdoan');
     }
 }

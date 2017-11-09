@@ -5557,6 +5557,18 @@ $('a.add-new-science').on('click', function () {
     });
 });
 
+$('a.add-new-BCH-Khoa').on('click', function () {
+    $.get(URI + '/ajax/add-BCH_Khoa', function (data) {
+        if(data !=''){
+            $('select[name="slBCH_KhoaIdSearch"]').html(data);
+
+            alert('Thêm Nhiệm Kỳ thành công!!!');
+        }
+        else{
+            alert('Không thể thêm "Nhiệm Kỳ" vượt năm học');
+        }
+    });
+});
 //JS Add School Year
 $('#addSchoolYear').on('click', function () {
     $('#dialog-add-school-year').dialog({
@@ -5718,6 +5730,16 @@ $('#searchClass a.btn').on('click', function () {
         window.location.href = URI + "/class";
     } else {
         window.location.href = URI + "/class/" + scienceId;
+    }
+});
+
+$('#searchBCH_Khoa a.btn').on('click', function () {
+    var BCH_KhoaId = $('#searchBCH_Khoa select[name="slBCH_KhoaIdSearch"]').val();
+
+    if (BCH_KhoaId == 0) {
+        window.location.href = URI + "/BCH-Khoa";
+    } else {
+        window.location.href = URI + "/BCH-Khoa/" + BCH_KhoaId;
     }
 });
 
