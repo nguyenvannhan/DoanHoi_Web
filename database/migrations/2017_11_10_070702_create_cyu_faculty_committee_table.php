@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBchKhoaTable extends Migration
+class CreateCyuFacultyCommitteeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateBchKhoaTable extends Migration
      */
     public function up()
     {
-        Schema::create('bch_khoa', function (Blueprint $table) {
-            $table->charset = 'utf8';
+        Schema::create('cyu_faculty_committee', function (Blueprint $table) {
+             $table->charset = 'utf8';
             $table->collation = 'utf8_unicode_ci';
             $table->engine = 'InnoDB';
 
@@ -35,6 +35,6 @@ class CreateBchKhoaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bch_khoa');
+        Schema::dropIfExists('cyu_faculty_committee');
     }
 }

@@ -19,12 +19,12 @@ class CreateClassTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('id');
-            $table->string('nameClass', 6)->unique();
-            $table->integer('scienceId')->unsigned();
+            $table->string('name', 6)->unique();
+            $table->integer('science_id')->unsigned();
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('scienceId')->references('id')->on('sciences')->onDelete('cascade');
+            $table->foreign('science_id')->references('id')->on('sciences')->onDelete('cascade');
         });
     }
 
