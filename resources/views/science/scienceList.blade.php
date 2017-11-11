@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title_site', "IT's CYU | Quản lý Khóa học")
+@section('title_site', "Quản lý Khóa học | IT CYU HCMUTE")
 
 @section('header_page')
 <div class="row">
@@ -45,9 +45,9 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <table class="center table table-striped table-bordered jambo_table science_list_table">
+                <table class="table table-striped table-bordered jambo_table datatable" id="science_list_table">
                     <thead>
-                        <tr class="headings">
+                        <tr class="headings text-center">
                             <th class="column-title"> STT </th>
                             <th class="column-title"> Khóa Học </th>
                             <th class="column-title"> Action </th>

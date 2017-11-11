@@ -11,30 +11,17 @@
     <title> @yield('title_site') </title>
 
     <!-- Bootstrap -->
-    <link href="{{ URL::asset('vendors/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('vendors/bootstrap-3.3.7/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="{{ URL::asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="{{ URL::asset('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('vendors/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- iCheck -->
-    <link href="{{ URL::asset('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('vendors/icheck/skins/flat/green.css') }}" rel="stylesheet">
     <!-- Datatables -->
-    <link href="{{ URL::asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
-    <!-- bootstrap-progressbar -->
-    <link href="{{ URL::asset('vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}"
-          rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="{{ URL::asset('vendors/jqvmap/dist/jqvmap.min.css') }}" rel="stylesheet"/>
-    <!-- bootstrap-daterangepicker -->
-    <link href="{{ URL::asset('vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
-    <!-- Jquery UI -->
-    <link href="{{ URL::asset('vendors/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet">
-    <!-- Select2 -->
-    <link href="{{ URL::asset('vendors/select2/dist/css/select2.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('vendors/datatable/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="{{ URL::asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('css/common.css') }}" rel="stylesheet">
+
     @yield('css_area')
 </head>
 
@@ -70,62 +57,21 @@
 
 
 <!-- jQuery -->
-<script src="{{ URL::asset('vendors/jquery/dist/jquery.min.js') }}"></script>
-<!--JQuery UI -->
-<script src="{{ URL::asset('vendors/jquery-ui/jquery-ui.min.js') }}"></script>
+<script src="{{ URL::asset('js/jquery-3.2.1.min.js') }}"></script>
 <!-- Bootstrap -->
-<script src="{{ URL::asset('vendors/bootstrap/js/bootstrap.min.js') }}"></script>
-<!-- FastClick -->
-<script src="{{ URL::asset('vendors/fastclick/lib/fastclick.js') }}"></script>
-<!-- NProgress -->
-<script src="{{ URL::asset('vendors/nprogress/nprogress.js') }}"></script>
-<!-- Chart.js -->
-<script src="{{ URL::asset('vendors/Chart.js/dist/Chart.min.js') }}"></script>
-<!-- gauge.js -->
-<script src="{{ URL::asset('vendors/gauge.js/dist/gauge.min.js') }}"></script>
-<!-- bootstrap-progressbar -->
-<script src="{{ URL::asset('vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') }}"></script>
+<script src="{{ URL::asset('vendors/bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
 <!-- iCheck -->
-<script src="{{ URL::asset('vendors/iCheck/icheck.min.js') }}"></script>
+<script src="{{ URL::asset('vendors/icheck/icheck.min.js') }}"></script>
 <!-- Datatables -->
-<script src="{{ URL::asset('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ URL::asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-<script src="{{ URL::asset('vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
-<!-- Skycons -->
-<script src="{{ URL::asset('vendors/skycons/skycons.js') }}"></script>
-<!-- Flot -->
-<script src="{{ URL::asset('vendors/Flot/jquery.flot.js') }}"></script>
-<script src="{{ URL::asset('vendors/Flot/jquery.flot.pie.js') }}"></script>
-<script src="{{ URL::asset('vendors/Flot/jquery.flot.time.js') }}"></script>
-<script src="{{ URL::asset('vendors/Flot/jquery.flot.stack.js') }}"></script>
-<script src="{{ URL::asset('vendors/Flot/jquery.flot.resize.js') }}"></script>
-<!-- Flot plugins -->
-<script src="{{ URL::asset('vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}"></script>
-<script src="{{ URL::asset('vendors/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
-<script src="{{ URL::asset('vendors/flot.curvedlines/curvedLines.js') }}"></script>
-<!-- DateJS -->
-<script src="{{ URL::asset('vendors/DateJS/build/date.js') }}"></script>
-<!-- JQVMap -->
-<script src="{{ URL::asset('vendors/jqvmap/dist/jquery.vmap.js') }}"></script>
-<script src="{{ URL::asset('vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
-<script src="{{ URL::asset('vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
-<!-- bootstrap-daterangepicker -->
-<script src="{{ URL::asset('vendors/moment/min/moment.min.js') }}"></script>
-<script src="{{ URL::asset('vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-<!-- Select2 -->
-<script src="{{ URL::asset('vendors/select2/dist/js/select2.js') }}"></script>
-<!-- TinyMCE -->
-<script src="{{ URL::asset('vendors/tinymce/tinymce.min.js') }}"></script>
-<!-- js-xslx -->
-<script src="{{ URL::asset('vendors/js-xlsx/dist/xlsx.full.min.js') }}"></script>
-<script src="{{ URL::asset('js/moment.min.js') }}"></script>
+<script src="{{ URL::asset('vendors/datatables/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ URL::asset('vendors/datatables/js/dataTables.bootstrap.min.js') }}"></script>
 
 <script type="text/javascript">
     var BASE_URL = '{{ URL::asset("/") }}';
 </script>
 
 <!-- Custom Theme Scripts -->
-<script src="{{ URL::asset('js/custom.js') }}"></script>
+<script src="{{ URL::asset('js/common.js') }}"></script>
 
 @yield('js_area');
 </body>
