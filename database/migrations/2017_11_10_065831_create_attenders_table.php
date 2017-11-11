@@ -18,18 +18,16 @@ class CreateAttendersTable extends Migration
             $table->collation = 'utf8_unicode_ci';
             $table->engine = 'InnoDB';
 
-            $table->string('activityId');
-            $table->string('studentId', 8);
-            $table->string('studentName');
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();
+            $table->unsignedInteger('activity_id');
+            $table->string('student_id', 8);
             $table->boolean('check')->default(0);
 
             $table->softDeletes();
             $table->timestamps();
 
-            $table->primary(['activityId', 'studentId']);
-            $table->foreign('activityId')->references('id')->on('activities')->onDelete('cascade');
+            $table->primary(['activity_id', 'student_id']);
+            $table->foreign('activity_id')->references('id')->on('activities')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
         });
     }
 

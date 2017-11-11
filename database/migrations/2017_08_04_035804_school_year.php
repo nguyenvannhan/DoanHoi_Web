@@ -19,7 +19,7 @@ class SchoolYear extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('id');
-            $table->string('school_year_name', 15)->unique();
+            $table->string('name', 15)->unique();
             $table->softDeletes();
             $table->timestamps();
         });
