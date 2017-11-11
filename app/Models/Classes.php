@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,16 +12,16 @@ class Classes extends Model {
     public $incrementing = true;
 
     protected $primaryKey = 'id';
-    protected $fillable = ['nameClass', 'scienceId'];
+    protected $fillable = ['name', 'science_id'];
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
     public $timestamps = true;
 
     public function Science() {
-        return $this->belongsTo('App\Science', 'scienceId', 'id');
+        return $this->belongsTo('App\Science', 'science_id', 'id');
     }
-    public function Studentes(){
-    	return $this->hasMany('App\Studentes','classId','mssv');
+    public function Students(){
+    	return $this->hasMany('App\Students','class_id','id');
     }
 
     public function Activities() {

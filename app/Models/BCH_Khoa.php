@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,7 +23,7 @@ class BCH_Khoa extends Model
         return $this->belongsTo('App\School_Yeares','school_yearId','id');
     }
 
-    
+
     public function Studentes(){
         return $this->belongsToMany('App\Studentes', 'bch_khoa_student', 'id_bch_khoa', 'mssv_student')->withPivot('position','is_cbdoan');
     }

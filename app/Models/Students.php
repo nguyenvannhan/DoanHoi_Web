@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,7 +9,7 @@ class Studentes extends Model
 {
      use SoftDeletes;
 
-    protected $table = 'studentes';
+    protected $table = 'students';
     public $incrementing = true;
 
     protected $primaryKey = 'mssv';

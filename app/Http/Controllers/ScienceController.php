@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Science;
+use App\Models\Science;
 use Illuminate\Http\Request;
 
 class ScienceController extends Controller
