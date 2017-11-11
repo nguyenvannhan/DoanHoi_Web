@@ -7,20 +7,24 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <title> @yield('title_site') </title>
 
     <!-- Bootstrap -->
-    <link href="{{ URL::asset('vendors/bootstrap-3.3.7/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('public/vendors/bootstrap-3.3.7/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="{{ URL::asset('vendors/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('public/vendors/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- iCheck -->
-    <link href="{{ URL::asset('vendors/icheck/skins/flat/green.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('public/vendors/icheck/skins/flat/green.css') }}" rel="stylesheet">
     <!-- Datatables -->
-    <link href="{{ URL::asset('vendors/datatable/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('public/vendors/datatable/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Bootstrap3-dialog -->
+    <link href="{{ URL::asset('public/vendors/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css') }}" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="{{ URL::asset('css/common.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('public/css/common.css') }}" rel="stylesheet">
 
     @yield('css_area')
 </head>
@@ -57,21 +61,23 @@
 
 
 <!-- jQuery -->
-<script src="{{ URL::asset('js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ URL::asset('public/js/jquery-3.2.1.min.js') }}"></script>
 <!-- Bootstrap -->
-<script src="{{ URL::asset('vendors/bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset('public/vendors/bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
 <!-- iCheck -->
-<script src="{{ URL::asset('vendors/icheck/icheck.min.js') }}"></script>
+<script src="{{ URL::asset('public/vendors/icheck/icheck.min.js') }}"></script>
 <!-- Datatables -->
-<script src="{{ URL::asset('vendors/datatables/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ URL::asset('vendors/datatables/js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset('public/vendors/datatables/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ URL::asset('public/vendors/datatables/js/dataTables.bootstrap.min.js') }}"></script>
+<!-- Bootstrap3-Dialog -->
+<script src="{{ URL::asset('public/vendors/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js') }}"></script>
 
 <script type="text/javascript">
     var BASE_URL = '{{ URL::asset("/") }}';
 </script>
 
 <!-- Custom Theme Scripts -->
-<script src="{{ URL::asset('js/common.js') }}"></script>
+<script src="{{ URL::asset('public/js/common.js') }}"></script>
 
 @yield('js_area');
 </body>

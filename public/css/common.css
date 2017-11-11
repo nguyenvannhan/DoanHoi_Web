@@ -4401,6 +4401,11 @@ tr.text-center td, tr.text-center th {
     text-align: center;
 }
 
+/*Dialog Boostrap*/
+.bootstrap-dialog.type-success .modal-header {
+    background-color: #169F85;
+}
+
 /* New CSS For Science*/
 #science_list_table tr td:last-child {
     width: 50%;

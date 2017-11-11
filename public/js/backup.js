@@ -5490,7 +5490,7 @@ $(".datatable").dataTable({
 });
 
 //JS Add Science
-$('#addScience').on('click', function () {
+$('#add-science').on('click', function () {
     $('#dialog-confirm-add-science').dialog({
         resizable: false,
         height: "auto",

@@ -114,7 +114,7 @@ Route::prefix('BCH-Lop')->group(function() {
 
 //Route ajax
 Route::prefix('ajax')->group(function() {
-    Route::get('add-science', 'ScienceController@getAjaxAddScience')->name('ajax_add_science_route');
+    Route::post('add-science', 'ScienceController@postAjaxAddScience')->name('ajax_add_science_route');
 
     Route::get('add-school-year', 'School_YearesController@getAjaxAddSchoolYear')->name('ajax_add_school_year');
 
