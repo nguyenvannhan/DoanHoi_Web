@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCyuClassCommitteeTable extends Migration
+class CreateCyuFacultyCommitteeMembersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,22 @@ class CreateCyuClassCommitteeTable extends Migration
      */
     public function up()
     {
-        Schema::create('cyu_class_committee', function (Blueprint $table) {
+        Schema::create('cyu_faculty_members', function (Blueprint $table) {
             $table->charset = 'utf8';
             $table->collation = 'utf8_unicode_ci';
             $table->engine = 'InnoDB';
 
-            $table->integer ('id_bch_khoa')->unsigned();
-            $table->string('mssv_student',8);
-            $table->integer('position')->unsigned();
-            $table->integer('is_cbdoan')->unsigned();
+            $table->unsignedInteger ('committee_id');
+            $table->string('student_id',8);
+            $table->unsignedInteger('position');
+            $table->boolean('is_young_union');
 
             $table->softDeletes();
             $table->timestamps();
 
-            $table->primary(['id_bch_khoa','mssv_student']);
-            $table->foreign('id_bch_khoa')->references('id')->on('bch_khoa')->onDelete('cascade');
-            $table->foreign('mssv_student')->references('mssv')->on('studentes')->onDelete('cascade');
+            $table->primary(['committee_id','student_id']);
+            $table->foreign('committee_id')->references('id')->on('cyu_faculty_committee')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
         });
     }
 

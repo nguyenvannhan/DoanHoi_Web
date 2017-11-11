@@ -38,7 +38,7 @@ class CreateActivitiesTable extends Migration
 
             $table->foreign('leader')->references('id')->on('students')->onDelete('cascade');
             $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
-            $table->foreign('school_year_id')->references('id')->on('school_yeares')->onDelete('cascade');
+            $table->foreign('school_year_id')->references('id')->on('school_years')->onDelete('cascade');
         });
     }
 

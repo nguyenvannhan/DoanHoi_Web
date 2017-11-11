@@ -25,7 +25,7 @@ class CreateStudentsTable extends Migration
             $table->boolean('is_female')->default(true);
             $table->boolean('is_cyu')->default(true);
             $table->boolean('is_partisan')->default(false);
-            $table->string('hometown', 200)->nullable()->nullable();
+            $table->string('hometown', 200)->nullable();
             $table->string('number_phone', 20)->nullable()->unique();
             $table->date('birthday', 20)->nullable();
             $table->string('email', 200)->unique()->nullable();

@@ -13,7 +13,7 @@ class SchoolYear extends Migration
      */
     public function up()
     {
-        Schema::create('school_yeares', function (Blueprint $table) {
+        Schema::create('school_years', function (Blueprint $table) {
             $table->charset = 'utf8';
             $table->collation = 'utf8_unicode_ci';
             $table->engine = 'InnoDB';
@@ -32,6 +32,6 @@ class SchoolYear extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('school_yeares');
+        Schema::dropIfExists('school_years');
     }
 }
