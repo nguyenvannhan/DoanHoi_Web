@@ -29,7 +29,7 @@
             <div class="panel_body">
                 <div class="row">
                     <div class="col-md-2 col-sm-2 col-xs-6">
-                        <a id="addSchoolYear" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm Năm học </a>
+                        <a id="add-school-year" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm Năm học </a>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <table class="datatable center table table-striped table-bordered jambo_table bulk_action">
+                <table class="datatable center table table-striped table-bordered jambo_table" id="school_year_list_table">
                     <thead>
                         <tr class="headings">
                             <th class="column-title center"> STT </th>
@@ -57,7 +57,7 @@
                     @php
                         $i=1;
                     @endphp
-                    @foreach ($school_yearList as $school_year)
+                    @foreach ($school_year_list as $school_year)
                         <tr>
                             <td>{{ $i++ }}</td>
                             <td>{{ $school_year->school_year_name }}</td>
@@ -73,11 +73,9 @@
     </div>
     <!--Science List Table-->
 
-    <!-- UI Dialog Confirm Add SchooYear -->
-    <div id="dialog-add-school-year" class="jquery-ui-dialog" title="Xóa Lớp học?" hidden>
-        <p><span class="ui-icon ui-icon-alert"></span>Bạn có chắc muốn <strong>Thêm Năm học mới</strong> không?</p>
-    </div>
-    <!-- /UI Dialog Confirm Add SchoolYear -->
-
 </div>
+@stop
+
+@section('js_area')
+    <script type="text/javascript" src="{{ URL::asset('public/js/school_year.js')}}"></script>
 @stop

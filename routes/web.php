@@ -34,21 +34,14 @@ Route::prefix('student')->group(function() {
 });
 
 //Route science
-Route::prefix('science')->group(function() {
+Route::prefix('khoa-hoc')->group(function() {
     Route::get('/', 'ScienceController@getAllList')->name('science_index_route');
-
-    Route::get('edit/{id}', 'ScienceController@getEditScience')->name('get_edit_science_route');
-    Route::get('/add', 'ScienceController@getAddScience')->name('get_add_science');
-    Route::post('add-new','ScienceController@posttAddScience')->name('science_add_route');
-
-
-    Route::get('add', 'ScienceController@getAddScience')->name('get_add_science');
 });
 
 //Route chool year
-Route::prefix('school-year')->group(function() {
-    Route::get('/','School_YearesController@getAllList')->name('school_year_index_route');
-    Route::get('add','School_YearesController@getAddSchool_Year')->name('get_school_year_add_route');
+Route::prefix('nam-hoc')->group(function() {
+    Route::get('/','School_YearController@getAllList')->name('school_year_index_route');
+    Route::get('add','School_YearController@getAddSchool_Year')->name('get_school_year_add_route');
 });
 
 //Route class
@@ -116,7 +109,7 @@ Route::prefix('BCH-Lop')->group(function() {
 Route::prefix('ajax')->group(function() {
     Route::post('add-science', 'ScienceController@postAjaxAddScience')->name('ajax_add_science_route');
 
-    Route::get('add-school-year', 'School_YearesController@getAjaxAddSchoolYear')->name('ajax_add_school_year');
+    Route::post('add-school-year', 'School_YearesController@postAjaxAddSchoolYear')->name('ajax_add_school_year');
 
     Route::get('search-student/{searchKey}', 'StudentesController@getAjaxSearchStudent')->name('ajax_search_student_route');
 

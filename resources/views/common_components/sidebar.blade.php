@@ -1,6 +1,6 @@
 <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
-        <a href="#" class="site_title center"><img src="{{URL('images/banner.png')}}" class="sidebar-banner"></a>
+        <a href="#" class="site_title center"><img src="{{URL('public/images/banner.png')}}" class="sidebar-banner"></a>
     </div>
 
     <div class="clearfix"></div>
@@ -8,7 +8,7 @@
     <!-- menu profile quick info -->
     <div class="profile clearfix">
         <div class="profile_pic">
-            <img src="{{ URL('/images/avatars/default.png') }}" alt="..." class="img-circle profile_img">
+            <img src="{{ URL('public/images/avatars/default.png') }}" alt="..." class="img-circle profile_img">
         </div>
         <div class="profile_info">
             <span>Welcome,</span>
