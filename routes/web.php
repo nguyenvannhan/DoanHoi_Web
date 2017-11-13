@@ -15,18 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('student')->group(function() {
-    Route::get('/', 'StudentesController@getStudentList')->name('student_index_route');
+Route::prefix('sinh-vien')->group(function() {
+    Route::get('/', 'StudentController@getStudentList')->name('student_index_route');
 
-    Route::get('info/{mssv}', 'StudentesController@getInfoStudent')->name('get_info_student_route');
+    Route::get('info/{mssv}', 'StudentController@getInfoStudent')->name('get_info_student_route');
 
-    Route::get('add','StudentesController@getAddStudentList')->name('student_add_route');
-    Route::post('add','StudentesController@postAddStudent')->name('post_student_add_route');
+    Route::get('add','StudentController@getAddStudentList')->name('student_add_route');
+    Route::post('add','StudentController@postAddStudent')->name('post_student_add_route');
 
-    Route::get('edit/{mssv}','StudentesController@getEditStudent')->name('get_edit_student_route');
-    Route::post('edit/{mssv}','StudentesController@postEditStudent')->name('post_edit_student_route');
+    Route::get('edit/{mssv}','StudentController@getEditStudent')->name('get_edit_student_route');
+    Route::post('edit/{mssv}','StudentController@postEditStudent')->name('post_edit_student_route');
 
-    Route::get('delete/{mssv}', 'StudentesController@getDeleteStudent')->name('get_delete_student_route');
+    Route::get('delete/{mssv}', 'StudentController@getDeleteStudent')->name('get_delete_student_route');
 
     Route::get('add-list', function() {
         return view('student.addListStudent');

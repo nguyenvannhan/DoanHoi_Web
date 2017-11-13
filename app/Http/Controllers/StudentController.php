@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes;
-use App\Science;
-use App\Studentes;
+use App\Models\Classes;
+use App\Models\Science;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
-class StudentesController extends Controller
+class StudentController extends Controller
 {
     public function getStudentList() {
-        $studentList = Studentes::with('Classes')->orderBy('mssv', 'desc')->get();
-        $classList = Classes::orderBy('id', 'desc')->get();
+        $this->data['studentList'] = Student::getStudentList();
+        $this->data['classList'] = Classes::getClassList();
 
-        return view('student.studentList', ['classList' => $classList, 'studentList' => $studentList]);
+        return view('student.studentList', $this->data);
     }
 
     public function getAddStudentList(){
-    	$studentList = Studentes::with('Classes')->orderBy('mssv', 'desc')->get();
+    	$studentList = Student::with('Classes')->orderBy('mssv', 'desc')->get();
         $classList = Classes::orderBy('id', 'desc')->get();
     	$scienceList=Science::orderBy('id','desc')->get();
 
@@ -25,13 +25,13 @@ class StudentesController extends Controller
     }
 
     public function getInfoStudent($mssv){
-    	$studentOb = Studentes::find($mssv);
+    	$studentOb = Student::find($mssv);
 
         return response()->json(['studentOb' => $studentOb]);
     }
 
     public function getEditStudent($mssv){
-        $student = Studentes::with('Classes')->where('mssv', $mssv)->first(); //Cho nay tu orderby tro di e bo dc ak Dai. Xai first() thoi la dc. Ben file blade khi do ko can foreach
+        $student = Student::with('Classes')->where('mssv', $mssv)->first(); //Cho nay tu orderby tro di e bo dc ak Dai. Xai first() thoi la dc. Ben file blade khi do ko can foreach
         $classList = Classes::orderBy('id', 'desc')->get();
         $scienceList=Science::orderBy('id','desc')->get();
 
@@ -40,7 +40,7 @@ class StudentesController extends Controller
 
     public function postEditStudent(Request $request, $mssv)
     {
-        $studentOb=Studentes::find($mssv);
+        $studentOb=Student::find($mssv);
 
         $studentOb->mssv = $request->txtEditmssv;
         $studentOb->student_name = $request->txtEditname_student;
@@ -63,7 +63,7 @@ class StudentesController extends Controller
 
     public function postAddStudent(Request $request){
 
-        $studentOb = new Studentes;
+        $studentOb = new Student;
 
         $studentOb->mssv = $request->txtmssv;
         $studentOb->student_name = $request->txtname_student;
@@ -85,20 +85,20 @@ class StudentesController extends Controller
     }
 
     public function getDeleteStudent($mssv) {
-        $studentOb=Studentes::find($mssv);
+        $studentOb=Student::find($mssv);
         $studentOb->delete();
 
         return redirect('/student')->with(['success_alert' => 'Xóa Sinh Viên thành công!']);
     }
 
     public function getAjaxSearchStudent($searchKey) {
-        $studentList = Studentes::where('mssv', 'LIKE', '%'.$searchKey.'%')->orWhere('student_name', 'LIKE', '%'.$searchKey.'%')->get();
+        $studentList = Student::where('mssv', 'LIKE', '%'.$searchKey.'%')->orWhere('student_name', 'LIKE', '%'.$searchKey.'%')->get();
 
         return response()->json(['studentList' => $studentList]);
     }
 
     public function getClassFromId($studentId) {
-        $student = Studentes::find($studentId)->first();
+        $student = Student::find($studentId)->first();
         return response()->json(['classOb' => $student->Classes]);
     }
 }
