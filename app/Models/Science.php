@@ -18,9 +18,9 @@ class Science extends Model {
     public $timestamps = true;
 
     public function Classes() {
-        return $this->hasMany('App\Classes', 'science_id', 'id');
+        return $this->hasMany('App\Models\Classes', 'science_id', 'id');
     }
     public function Students(){
-    	return $this->hasMany('App\Students','science_id','id');
+    	return $this->hasMany('App\Models\Students','science_id','id');
     }
 }

@@ -19,6 +19,6 @@ class School_Year extends Model
     public $timestamps = true;
 
     public function Activities() {
-        return $this->hasMany('App\Acitivity', 'school_year_id', 'id');
+        return $this->hasMany('App\Models\Acitivity', 'school_year_id', 'id');
     }
 }

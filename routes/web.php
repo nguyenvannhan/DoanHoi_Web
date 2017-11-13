@@ -109,7 +109,7 @@ Route::prefix('BCH-Lop')->group(function() {
 Route::prefix('ajax')->group(function() {
     Route::post('add-science', 'ScienceController@postAjaxAddScience')->name('ajax_add_science_route');
 
-    Route::post('add-school-year', 'School_YearesController@postAjaxAddSchoolYear')->name('ajax_add_school_year');
+    Route::post('add-school-year', 'School_YearController@postAjaxAddSchoolYear')->name('ajax_add_school_year');
 
     Route::get('search-student/{searchKey}', 'StudentesController@getAjaxSearchStudent')->name('ajax_search_student_route');
 

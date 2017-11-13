@@ -60,9 +60,9 @@
                     @foreach ($school_year_list as $school_year)
                         <tr>
                             <td>{{ $i++ }}</td>
-                            <td>{{ $school_year->school_year_name }}</td>
+                            <td>{{ $school_year->name }}</td>
                             <td class="action-column">
-                                <a href="#"> Xem danh sách hoạt động năm học {{ $school_year->school_year_name }}</a>
+                                <a href="#"> Xem danh sách hoạt động năm học {{ $school_year->name }}</a>
                             </td>
                         </tr>
                     @endforeach

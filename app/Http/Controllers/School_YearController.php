@@ -17,10 +17,15 @@ class School_YearController extends Controller {
 
     public function postAjaxAddSchoolYear() {
         $topSchoolYear = School_Year::orderBy('id', 'desc')->take(1)->first();
-        $endSchoolName = substr($topSchoolYear->name, -2);
 
-
-        $namhoc = '20'.$endSchoolName.' - 20'.($endSchoolName + 1);
+        $namhoc = '';
+        if(!is_null($topSchoolYear)) {
+            $endSchoolName = substr($topSchoolYear->name, -2);
+            $namhoc = '20'.$endSchoolName.' - 20'.($endSchoolName + 1);
+        } else {
+            $namhoc = date('Y');
+            $namhoc = $namhoc.' - '.($namhoc + 1);
+        }
 
         $school_yearob = new School_Year;
         $school_yearob->name = $namhoc;

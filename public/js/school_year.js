@@ -12,7 +12,7 @@ $('#add-school-year').on('click', function() {
         }, {
             label: 'Có',
             cssClass: 'btn btn-success',
-            action: function(e) {
+            action: function(bte) {
                 $.ajax({
                     url: BASE_URL + 'ajax/add-school-year',
                     method: 'POST'
@@ -29,8 +29,8 @@ $('#add-school-year').on('click', function() {
                     }
                 }).fail(function(xhr, status, error) {
                     console.log(this.url);
-                    bte.close();
                     console.log(error);
+                    bte.close();
                     BootstrapDialog.alert({
                         title: 'Lỗi',
                         message: 'Không thể kết nối',
