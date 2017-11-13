@@ -22,6 +22,8 @@
     <link href="{{ URL::asset('public/vendors/datatable/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <!-- Bootstrap3-dialog -->
     <link href="{{ URL::asset('public/vendors/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css') }}" rel="stylesheet">
+    <!-- Bootstarp Select -->
+    <link href="{{ URL::asset('public/vendors/bootstrap-select/css/bootstrap-select.min.css') }}" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="{{ URL::asset('public/css/common.css') }}" rel="stylesheet">
@@ -71,6 +73,8 @@
 <script src="{{ URL::asset('public/vendors/datatables/js/dataTables.bootstrap.min.js') }}"></script>
 <!-- Bootstrap3-Dialog -->
 <script src="{{ URL::asset('public/vendors/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js') }}"></script>
+<!-- Bootstrap select -->
+<script src="{{ URL::asset('public/vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
 
 <script type="text/javascript">
     var BASE_URL = '{{ URL::asset("/") }}';

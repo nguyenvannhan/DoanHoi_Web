@@ -21,6 +21,6 @@ class Science extends Model {
         return $this->hasMany('App\Models\Classes', 'science_id', 'id');
     }
     public function Students(){
-    	return $this->hasMany('App\Models\Students','science_id','id');
+    	return $this->hasMany('App\Models\Student','science_id','id');
     }
 }

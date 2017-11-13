@@ -2,44 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes;
+use App\Models\Classes;
 use App\Http\Requests\AddClassRequest;
 use App\Http\Requests\EditClassRequest;
-use App\Science;
+use App\Models\Science;
 use Illuminate\Http\Request;
 
 class ClassesController extends Controller {
-    public function getClassList($scienceId = 0) {
-        if($scienceId != 0) {
-            $classList = Classes::with('Science')->where('scienceId', $scienceId)->orderBy('id', 'desc')->get();
-            $scienceList = Science::orderBy('id', 'desc')->get();
+    public function getClassList() {
+        // if($scienceId != 0) {
+        //     $classList = Classes::getClassList();
+        //     $scienceList = Science::orderBy('id', 'desc')->get();
+        //
+        //     return view('class.classList', ['classList' => $classList, 'scienceList' => $scienceList, 'scienceIdSearch' => $scienceId]);
+        // } else {
+        //     $classList = Classes::with('Science')->orderBy('id', 'desc')->get();
+        //     $scienceList = Science::orderBy('id', 'desc')->get();
+        //
+        //     return view('class.classList', ['classList' => $classList, 'scienceList' => $scienceList]);
+        // }
 
-            return view('class.classList', ['classList' => $classList, 'scienceList' => $scienceList, 'scienceIdSearch' => $scienceId]);
-        } else {
-            $classList = Classes::with('Science')->orderBy('id', 'desc')->get();
-            $scienceList = Science::orderBy('id', 'desc')->get();
+        $this->data['classList'] = Classes::getClassList();
+        $this->data['scienceList'] = Science::orderBy('id', 'desc')->get();
 
-            return view('class.classList', ['classList' => $classList, 'scienceList' => $scienceList]);
-        }
+        // return $this->data;
+
+        return view('class.classList', $this->data);
     }
 
     public function postAddClass(AddClassRequest $request) {
         $className = $request->txtAddClassName;
-        $scienceId = $request->slAddScienceId;
+        $scienceId = $request->slAddClassScienceId;
 
         $classOb = new Classes;
-        $classOb->nameClass = $className;
-        $classOb->scienceId = $scienceId;
+        $classOb->name = $className;
+        $classOb->science_id = $scienceId;
 
         $classOb->save();
 
-        return redirect('/class')->with(['success_alert' => 'Thêm Lớp Học Thành Công']);
-    }
-
-    public function getEditClass($id) {
-        $classOb = Classes::find($id);
-
-        return response()->json(['classOb' => $classOb]);
+        return redirect('/lop-hoc')->with(['success_alert' => 'Thêm Lớp Học Thành Công']);
     }
 
     public function getClassListByScienceId($scienceId)
@@ -54,21 +55,29 @@ class ClassesController extends Controller {
     }
 
     public function postEditClass(Request $request, $id) {
-
         $classOb = Classes::find($id);
 
-        $classOb->nameClass = $request->txtEditClassName;
-        $classOb->scienceId = $request->slEditScienceId;
+        $classOb->name = $request->txtEditClassName;
+        $classOb->science_id = $request->slEditClassScienceId;
 
         $classOb->save();
 
-        return redirect('/class')->with(['success_alert' => 'Cập nhật Lớp học thành công!']);
+        return redirect('/lop-hoc')->with(['success_alert' => 'Cập nhật Lớp học thành công!']);
     }
 
-    public function getDeleteClass($id) {
-        $classOb = Classes::find($id);
+    public function postDeleteClass(Request $request) {
+        $classOb = Classes::find($request->id);
         $classOb->delete();
 
-        return redirect('/class')->with(['success_alert' => 'Xóa Lớp học thành công!']);
+        $this->data['classList'] = Classes::getClassList();
+
+        return response()->view('class.classListTable', $this->data);
+    }
+
+    public function ajaxGetClassInfo($class_id) {
+        $this->data['classOb'] = Classes::find($class_id);
+        $this->data['scienceList'] = Science::orderBy('id', 'desc')->get();
+
+        return response()->view('class.getClassInfo', $this->data);
     }
 }

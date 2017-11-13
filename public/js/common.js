@@ -153,7 +153,16 @@ function init_DataTables() {
     $('.datatable').DataTable();
 }
 
+function init_SelectPicker() {
+    $('.selectpicker').selectpicker();
+}
+
+function init_success_alert() {
+    $('.success_alert').delay(3000).fadeOut();
+}
+
 $(document).ready(function() {
     init_sidebar();
     init_DataTables();
+    init_SelectPicker();
 });

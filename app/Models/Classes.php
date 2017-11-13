@@ -18,13 +18,33 @@ class Classes extends Model {
     public $timestamps = true;
 
     public function Science() {
-        return $this->belongsTo('App\Science', 'science_id', 'id');
+        return $this->belongsTo('App\Models\Science', 'science_id', 'id');
     }
     public function Students(){
-    	return $this->hasMany('App\Students','class_id','id');
+    	return $this->hasMany('App\Models\Student','class_id','id');
     }
 
     public function Activities() {
-        return $this->hasMany('App\Activity', 'classId', 'id');
+        return $this->hasMany('App\Models\Activity', 'class_id', 'id');
+    }
+
+    public static function getClassList($id_list = [], $science_id_list = [], $orderByColumn = '') {
+        $classList = self::orderBy('id', 'desc');
+
+        if(!empty($science_id)) {
+            $classList = $classList->whereIn('science_id', $science_id_list);
+        }
+
+        if(!empty($id)) {
+            $classList = $classList->whereIn('id', $id_list);
+        }
+
+        if($orderByColumn != '') {
+            $classList = $classList->orderBy($orderByColumn, 'desc');
+        } else {
+            $classList = $classList->orderBy('id', 'desc');
+        }
+
+        return $classList->with('Science')->get();
     }
 }

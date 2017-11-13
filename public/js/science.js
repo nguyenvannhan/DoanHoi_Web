@@ -29,8 +29,8 @@ $('#add-science').on('click', function () {
                     }
                 }).fail(function(xhr, status, error) {
                     console.log(this.url);
-                    bte.close();
                     console.log(error);
+                    bte.close();
                     BootstrapDialog.alert({
                         title: 'Lỗi',
                         message: 'Không thể kết nối',

@@ -45,17 +45,15 @@ Route::prefix('nam-hoc')->group(function() {
 });
 
 //Route class
-Route::prefix('class')->group(function() {
-    Route::get('/{scienceId?}', 'ClassesController@getClassList')->name('class_index_route');
+Route::prefix('lop-hoc')->group(function() {
+    Route::get('/', 'ClassesController@getClassList')->name('class_index_route');
 
     Route::get('search/{scienceId}', 'ClassesController@getClassListByScienceId')->name('class_search_route');
 
-    Route::post('add', 'ClassesController@postAddClass')->name('post_add_class_route');
+    Route::post('them-moi', 'ClassesController@postAddClass')->name('post_add_class_route');
+    Route::post('cap-nhat/{id}', 'ClassesController@postEditClass')->name('post_edit_class_route');
 
-    Route::get('edit/{id}', 'ClassesController@getEditClass')->name('get_edit_class_route');
-    Route::post('edit/{id}', 'ClassesController@postEditClass')->name('post_edit_class_route');
-
-    Route::get('delete/{id}', 'ClassesController@getDeleteClass')->name('get_delete_class_route');
+    Route::post('xoa', 'ClassesController@postDeleteClass')->name('get_delete_class_route');
 });
 
 //Route activities
@@ -110,6 +108,8 @@ Route::prefix('ajax')->group(function() {
     Route::post('add-science', 'ScienceController@postAjaxAddScience')->name('ajax_add_science_route');
 
     Route::post('add-school-year', 'School_YearController@postAjaxAddSchoolYear')->name('ajax_add_school_year');
+
+    Route::get('get-class-info/{class_id}', 'ClassesController@ajaxGetClassInfo')->name('ajax_get_class_info');
 
     Route::get('search-student/{searchKey}', 'StudentesController@getAjaxSearchStudent')->name('ajax_search_student_route');
 

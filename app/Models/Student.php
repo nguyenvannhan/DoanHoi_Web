@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Studentes extends Model
+class Student extends Model
 {
      use SoftDeletes;
 
@@ -14,7 +14,7 @@ class Studentes extends Model
 
     protected $primaryKey = 'mssv';
 
-    protected $fillable = ['student_name','classId','scienceId','is_female','is_doanvien','is_dangvien','hometown','number_phone','birthday','email','status'];
+    protected $fillable = ['name','class_id','science_id','is_female','is_cyu','is_partisan','hometown','number_phone','birthday', 'social_mark', 'email','status', 'is_it_student', 'faculty_id'];
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
     public $timestamps = true;
