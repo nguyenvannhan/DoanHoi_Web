@@ -16,12 +16,11 @@ class StudentController extends Controller
         return view('student.studentList', $this->data);
     }
 
-    public function getAddStudentList(){
-    	$studentList = Student::with('Classes')->orderBy('mssv', 'desc')->get();
-        $classList = Classes::orderBy('id', 'desc')->get();
-    	$scienceList=Science::orderBy('id','desc')->get();
+    public function getAddStudent(){
+        $this->data['classList'] = Classes::getClassList();
+    	$this->data['scienceList'] = Science::orderBy('id','desc')->get();
 
-    	return view('student.addStudent', ['classList' => $classList, 'studentList' => $studentList,'scienceList'=>$scienceList]);
+    	return view('student.addStudent', $this->data);
     }
 
     public function getInfoStudent($mssv){

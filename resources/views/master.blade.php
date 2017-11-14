@@ -24,6 +24,8 @@
     <link href="{{ URL::asset('public/vendors/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css') }}" rel="stylesheet">
     <!-- Bootstarp Select -->
     <link href="{{ URL::asset('public/vendors/bootstrap-select/css/bootstrap-select.min.css') }}" rel="stylesheet">
+    <!-- Bootstrap Datepicker -->
+    <link href="{{ URL::asset('public/vendors/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="{{ URL::asset('public/css/common.css') }}" rel="stylesheet">
@@ -75,6 +77,8 @@
 <script src="{{ URL::asset('public/vendors/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js') }}"></script>
 <!-- Bootstrap select -->
 <script src="{{ URL::asset('public/vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+<!-- Bootstrap Datepicker -->
+<script src="{{ URL::asset('public/vendors/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
 
 <script type="text/javascript">
     var BASE_URL = '{{ URL::asset("/") }}';

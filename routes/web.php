@@ -20,7 +20,7 @@ Route::prefix('sinh-vien')->group(function() {
 
     Route::get('info/{mssv}', 'StudentController@getInfoStudent')->name('get_info_student_route');
 
-    Route::get('add','StudentController@getAddStudentList')->name('student_add_route');
+    Route::get('them','StudentController@getAddStudent')->name('get_student_add_route');
     Route::post('add','StudentController@postAddStudent')->name('post_student_add_route');
 
     Route::get('edit/{mssv}','StudentController@getEditStudent')->name('get_edit_student_route');

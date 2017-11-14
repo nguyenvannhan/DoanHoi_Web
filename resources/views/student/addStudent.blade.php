@@ -13,37 +13,54 @@
 @section('main_content')
 <div class="clearfix"></div>
 <div class="">
-    @if(session('success_alert'))
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="alert alert-success">
-                    {{ session('success_alert') }}
-                </div>
-            </div>
-        </div>
-    @endif
     <div class="x_panel">
         <div class="x_content"><br />
             <form class="form-horizontal " action="{{ route('post_student_add_route')}}" method="POSt">
                 {{ csrf_field() }}
-                <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Mã Sinh Viên : </label>
+                <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" name="txtmssv" class="form-control" required="required">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <b>THÔNG TIN CƠ BẢN</b>
+                            </div>
+                            <div class="panel-body">
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Mã Sinh Viên : </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" name="txtmssv" class="form-control" required="required">
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Sinh Viên : </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" name="txtname_student" class="form-control" required="required">
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Giới Tính : </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <select class="form-control selectpicker" name="slGT">
+                                            <option value="0">Nam</option>
+                                            <option value="1">Nữ</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Ngày Sinh : </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control datepicker" readonly="true" name="txtbirth" aria-describedby="inputSuccess2Status">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Sinh Viên : </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" name="txtname_student" class="form-control" required="required">
-                    </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Ngày Sinh : </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control datepicker" readonly="true" name="txtbirth" aria-describedby="inputSuccess2Status">
-                    </div>
-                </div>
+
+
+
                 <div class="item form-group" >
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -54,7 +71,7 @@
                             @foreach($scienceList as $science)
                             <option value="{{ $science->id }}" >{{ $science->nameScience }}</option>
                             @endforeach
-                            
+
                         </select>
                     </div>
                 </div>
@@ -64,16 +81,8 @@
                         <select class="form-control select2" name="slclass">
                         </select>
                     </div>
-                </div>                
-                <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Giới Tính : </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="form-control" name="slGT">
-                            <option value="0">Nam</option>
-                            <option value="1">Nữ</option>
-                        </select>
-                    </div>
                 </div>
+
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Quên Quán : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -106,7 +115,7 @@
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <select class="form-control" name="slDangVien">
                             <option value="0">Chưa Vào Đảng</option>
-                            <option value="1">Là Đảng Viên</option>                            
+                            <option value="1">Là Đảng Viên</option>
                         </select>
                     </div>
                 </div>
@@ -140,11 +149,7 @@
 </div>
 @stop
 
-@section('css_area')
-<link rel="stylesheet" type="text/css" href="{{ URL::asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" />
-@stop
 
 @section('js_area')
-<script type="text/javascript" src="{{ URL::asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('js/student.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('public/js/student.js') }}"></script>
 @stop

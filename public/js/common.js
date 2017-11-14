@@ -158,11 +158,22 @@ function init_SelectPicker() {
 }
 
 function init_success_alert() {
-    $('.success_alert').delay(3000).fadeOut();
+    $('div.alert-success').delay(3000).fadeOut();
+}
+
+function init_BSDatepicker() {
+    $('.datepicker').datepicker({
+		format: 'dd/mm/yyyy',
+		autoclose: true,
+		immediateUpdates: true,
+	})
+	.datepicker('setDate', new Date());
 }
 
 $(document).ready(function() {
     init_sidebar();
     init_DataTables();
     init_SelectPicker();
+    init_success_alert();
+    init_BSDatepicker();
 });
