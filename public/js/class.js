@@ -11,7 +11,7 @@ $('.edit-class-button').on('click', function() {
     }).fail(function(xhr, status, error) {
         console.log(this.url);
         console.log(error);
-    })
+    });
 });
 
 $('.delete-class-button').on('click', function() {

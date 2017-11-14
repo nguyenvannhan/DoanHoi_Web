@@ -170,10 +170,15 @@ function init_BSDatepicker() {
 	.datepicker('setDate', new Date());
 }
 
+function init_InputMask() {
+    $(".date-input-mask").mask("99/99/9999");
+}
+
 $(document).ready(function() {
     init_sidebar();
     init_DataTables();
     init_SelectPicker();
     init_success_alert();
     init_BSDatepicker();
+    init_InputMask();
 });

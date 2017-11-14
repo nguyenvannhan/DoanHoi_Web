@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classes;
 use App\Models\Science;
 use App\Models\Student;
+use App\Models\Faculty;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -17,8 +18,8 @@ class StudentController extends Controller
     }
 
     public function getAddStudent(){
-        $this->data['classList'] = Classes::getClassList();
     	$this->data['scienceList'] = Science::orderBy('id','desc')->get();
+        $this->data['facultyList'] = Faculty::getFacultyList($is_other_faculty = true);
 
     	return view('student.addStudent', $this->data);
     }
@@ -88,6 +89,18 @@ class StudentController extends Controller
         $studentOb->delete();
 
         return redirect('/student')->with(['success_alert' => 'Xóa Sinh Viên thành công!']);
+    }
+
+    public function ajaxGetInfoAddStudent($is_it_student, $science_id = 0) {
+        if($is_it_student) {
+            $this->data['classList'] = Classes::getClassList($science_id_list = [$science_id]);
+            $this->data['faculty'] = Faculty::getFaculty($is_other_faculty = false);
+
+            return response()->json($this->data);
+        } else {
+            $this->data['facultyList'] = Faculty::getFacultyList($is_other_faculty = true);
+            return response()->json($this->data);
+        }
     }
 
     public function getAjaxSearchStudent($searchKey) {

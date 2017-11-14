@@ -79,6 +79,8 @@
 <script src="{{ URL::asset('public/vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
 <!-- Bootstrap Datepicker -->
 <script src="{{ URL::asset('public/vendors/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+<!-- Input Mask -->
+<script src="{{ URL::asset('public/js/jquery.maskedinput.min.js') }}"></script>
 
 <script type="text/javascript">
     var BASE_URL = '{{ URL::asset("/") }}';

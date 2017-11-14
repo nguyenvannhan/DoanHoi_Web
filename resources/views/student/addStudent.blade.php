@@ -25,23 +25,23 @@
                             </div>
                             <div class="panel-body">
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Mã Sinh Viên : </label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Mã Sinh Viên: </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" name="txtmssv" class="form-control" required="required">
+                                        <input type="text" name="id" class="form-control" required="required">
                                     </div>
                                 </div>
 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Sinh Viên : </label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Sinh Viên: </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" name="txtname_student" class="form-control" required="required">
+                                        <input type="text" name="name" class="form-control" required="required">
                                     </div>
                                 </div>
 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Giới Tính : </label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Giới Tính: </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <select class="form-control selectpicker" name="slGT">
+                                        <select class="form-control selectpicker" name="gender">
                                             <option value="0">Nam</option>
                                             <option value="1">Nữ</option>
                                         </select>
@@ -49,9 +49,104 @@
                                 </div>
 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Ngày Sinh : </label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Ngày Sinh: </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control datepicker" readonly="true" name="txtbirth" aria-describedby="inputSuccess2Status">
+                                        <input type="text" class="form-control date-input-mask" name="birthday" aria-describedby="inputSuccess2Status">
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Quên Quán: </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="hometown" required="required">
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Email: </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="Email" class="form-control" name="email" required="required">
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Số Điện Thoại: </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="numberphone" required="required">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <b>THÔNG TIN KHOA - ĐOÀN - HỘI</b>
+                            </div>
+                            <div class="panel-body">
+                                <div class="item form-group" >
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Khóa học: </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <select  class="form-control selectpicker" data-live-search="true" id="science_addstudent" name="science_id" title="Chọn khóa học">
+                                            @foreach($scienceList as $science)
+                                            <option value="{{ $science->id }}" >{{ $science->name }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">SV Khoa CNTT: </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
+                                        <label class="switch">
+                                            <input type="checkbox" class="blue" checked="true" name="is_it_student">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="item form-group" >
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Khoa: </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <select  class="form-control selectpicker" data-live-search="true" id="science_addstudent" name="faculty_id" disabled>
+                                            @foreach($facultyList as $faculty)
+                                            <option value="{{ $science->id }}" {{ $faculty->id == 1 ? 'selected' : '' }} >{{ $faculty->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group" >
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Lớp học: </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <select  class="form-control selectpicker" data-live-search="true" title="Lớp học" id="science_addstudent" name="class_id">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Đoàn viên: </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
+                                        <label class="switch">
+                                            <input type="checkbox" class="green" name="is_cyu">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Đảng viên: </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
+                                        <label class="switch">
+                                            <input type="checkbox" class="red" name="is_partisan">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tình Trạng SV: </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <select class="form-control selectpicker" name="status">
+                                            <option value="1">Đang học</option>
+                                            <option value="2">Đã tốt nghiệp</option>
+                                            <option value="3">Đang bảo lưu</option>
+                                            <option value="4">Bị đuổi học</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -59,83 +154,6 @@
                     </div>
                 </div>
 
-
-
-                <div class="item form-group" >
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select  class="form-control select2" style="color: red" id="science_addstudent" name="slscience">
-                            <option value="0" >
-                                    Tất cả
-                            </option>
-                            @foreach($scienceList as $science)
-                            <option value="{{ $science->id }}" >{{ $science->nameScience }}</option>
-                            @endforeach
-
-                        </select>
-                    </div>
-                </div>
-                <div class="item form-group" >
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Lớp : </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="form-control select2" name="slclass">
-                        </select>
-                    </div>
-                </div>
-
-                <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Quên Quán : </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="txthome" required="required">
-                    </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Email : </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="Email" class="form-control" name="txtemail" required="required">
-                    </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Số Điện Thoại : </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="txtsdt" required="required">
-                    </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tình Trạng Đoàn Viên : </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="form-control" name="slDoanVien">
-                            <option value="1">Là Đoàn Viên</option>
-                            <option value="0">Chưa Vào Đoàn</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tình Trạng Đảng Viên : </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="form-control" name="slDangVien">
-                            <option value="0">Chưa Vào Đảng</option>
-                            <option value="1">Là Đảng Viên</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Số Điểm CTXH : </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" value="0" name="txtctxh" required="required">
-                    </div>
-                </div>
-                <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tình Trạng Sinh Viên : </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="form-control" name="slTTSV">
-                            <option value="1">Đang học</option>
-                            <option value="2">Đã tốt nghiệp</option>
-                            <option value="3">Đang bảo lưu</option>
-                            <option value="4">Bị đuổi học</option>
-                        </select>
-                    </div>
-                </div>
                 <div class="ln_solid"></div>
                 <div class="form-group">
                     <div class="col-md-12 col-sm-12 col-xs-12 center">

@@ -21,7 +21,7 @@ Route::prefix('sinh-vien')->group(function() {
     Route::get('info/{mssv}', 'StudentController@getInfoStudent')->name('get_info_student_route');
 
     Route::get('them','StudentController@getAddStudent')->name('get_student_add_route');
-    Route::post('add','StudentController@postAddStudent')->name('post_student_add_route');
+    Route::post('them','StudentController@postAddStudent')->name('post_student_add_route');
 
     Route::get('edit/{mssv}','StudentController@getEditStudent')->name('get_edit_student_route');
     Route::post('edit/{mssv}','StudentController@postEditStudent')->name('post_edit_student_route');
@@ -111,9 +111,13 @@ Route::prefix('ajax')->group(function() {
 
     Route::get('get-class-info/{class_id}', 'ClassesController@ajaxGetClassInfo')->name('ajax_get_class_info');
 
+    Route::get('get-info-add-student/{is_it_student}/{science_id?}', 'StudentController@ajaxGetInfoAddStudent')->name('ajax_get_info_student');
+
     Route::get('search-student/{searchKey}', 'StudentesController@getAjaxSearchStudent')->name('ajax_search_student_route');
 
     Route::get('get-class-from-student-id/{studentId}','StudentesController@getClassFromId')->name('ajax_get_class_from_student_id');
 
     Route::get('add-BCH_Khoa','BCH_KhoaController@getAjaxAddBCH_khoa')->name('ajax_add_BCH_Khoa_route');
+
+
 });
