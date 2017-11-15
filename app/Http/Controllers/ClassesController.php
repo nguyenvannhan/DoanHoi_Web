@@ -22,7 +22,7 @@ class ClassesController extends Controller {
         //     return view('class.classList', ['classList' => $classList, 'scienceList' => $scienceList]);
         // }
 
-        $this->data['classList'] = Classes::getClassList();
+        $this->data['classList'] = Classes::orderBy('id', 'desc')->get();
         $this->data['scienceList'] = Science::orderBy('id', 'desc')->get();
 
         // return $this->data;
@@ -69,7 +69,7 @@ class ClassesController extends Controller {
         $classOb = Classes::find($request->id);
         $classOb->delete();
 
-        $this->data['classList'] = Classes::getClassList();
+        $this->data['classList'] = Classes::orderBy('id', 'desc')->get();
 
         return response()->view('class.classListTable', $this->data);
     }

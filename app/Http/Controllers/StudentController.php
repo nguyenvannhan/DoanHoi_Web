@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Config;
+
 use App\Models\Classes;
 use App\Models\Science;
 use App\Models\Student;
 use App\Models\Faculty;
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
-{
+class StudentController extends Controller {
+
     public function getStudentList() {
         $this->data['studentList'] = Student::getStudentList();
         $this->data['classList'] = Classes::getClassList();
@@ -17,9 +19,9 @@ class StudentController extends Controller
         return view('student.studentList', $this->data);
     }
 
-    public function getAddStudent(){
+    public function getAddStudent() {
     	$this->data['scienceList'] = Science::orderBy('id','desc')->get();
-        $this->data['facultyList'] = Faculty::getFacultyList($is_other_faculty = true);
+        $this->data['facultyList'] = Faculty::where('id', 1)->get();
 
     	return view('student.addStudent', $this->data);
     }
@@ -93,7 +95,8 @@ class StudentController extends Controller
 
     public function ajaxGetInfoAddStudent($is_it_student, $science_id = 0) {
         if($is_it_student) {
-            $this->data['classList'] = Classes::getClassList($science_id_list = [$science_id]);
+            $this->data['classList'] = Classes::getClassList([], [$science_id], '');
+            return $this->data;
             $this->data['faculty'] = Faculty::getFaculty($is_other_faculty = false);
 
             return response()->json($this->data);

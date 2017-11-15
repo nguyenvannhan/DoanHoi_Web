@@ -27,24 +27,4 @@ class Classes extends Model {
     public function Activities() {
         return $this->hasMany('App\Models\Activity', 'class_id', 'id');
     }
-
-    public static function getClassList($id_list = [], $science_id_list = [], $orderByColumn = '') {
-        $classList = self::orderBy('id', 'desc');
-
-        if(!empty($science_id)) {
-            $classList = $classList->whereIn('science_id', $science_id_list);
-        }
-
-        if(!empty($id)) {
-            $classList = $classList->whereIn('id', $id_list);
-        }
-
-        if($orderByColumn != '') {
-            $classList = $classList->orderBy($orderByColumn, 'desc');
-        } else {
-            $classList = $classList->orderBy('id', 'desc');
-        }
-
-        return $classList->with('Science')->get();
-    }
 }
