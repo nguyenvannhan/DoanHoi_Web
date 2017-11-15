@@ -181,9 +181,7 @@
                             <div class="x_content">
                                 <table id="datatable-checkbox" class="table table-striped table-bordered jambo_table bulk_action">
                                     <thead>
-                                        <tr class="headings">
-                                            <th>
-                                            </th>
+                                        <tr class="headings text-center">
                                             <th class="column-title"> MSSV </th>
                                             <th class="column-title"> Họ tên </th>
                                             <th class="column-title"> Giới tính </th>
@@ -200,27 +198,24 @@
                                     <tbody>
                                     @foreach($studentList as $studentOb)
                                         <tr>
-                                            <td>
-                                                <input type="checkbox" class="flat" name="table_records" />
-                                            </td>
-                                            <td> {{ $studentOb->mssv }} </td>
-                                            <td> {{ $studentOb->student_name }} </td>
-                                            <td>
+                                            <td class="center"> {{ $studentOb->id }} </td>
+                                            <td> {{ $studentOb->name }} </td>
+                                            <td class="center">
                                                 @php
 
-                                                    if( $studentOb->is_female ==0) 
+                                                    if( $studentOb->is_female ==0)
                                                         $gt='Nam';
                                                     else
                                                         $gt='Nữ';
                                                 @endphp
-                                                {{$gt}}
+                                                {{ $gt }}
                                             </td>
-                                            <td> {{ date('d/m/Y', strtotime( $studentOb->birthday )) }} </td>
-                                            <td> {{ $studentOb->Classes->nameClass }} </td>
-                                            <td>
-                                                <i class="fa {{ $studentOb->is_doanvien == 1 ? 'fa-check-square' : 'fa-square-o' }} fa-2x green"></i>
+                                            <td class="center"> {{ date('d/m/Y', strtotime( $studentOb->birthday )) }} </td>
+                                            <td class="center"> {{ $studentOb->ClassOb->name }} </td>
+                                            <td class="center">
+                                                <i class="fa {{ $studentOb->is_cyu == 1 ? 'fa-check-square' : 'fa-square-o' }} green"></i>
                                             </td>
-                                            <td>
+                                            <td class="center">
                                                 <span class="label label-success">
                                                 @php
 
@@ -230,7 +225,7 @@
                                                     else { if( $studentOb->status ==2){
                                                                 $t='Đã tốt nghiệp';
                                                             }
-                                                            else { if( $studentOb->status ==3){ 
+                                                            else { if( $studentOb->status ==3){
                                                                         $t='Đang bảo lưu';
                                                                     }
                                                                     else{
@@ -241,10 +236,10 @@
                                                 @endphp
                                                 {{$t}}  </span>
                                             </td>
-                                            <td class="action-column">
-                                                <a href="#profile" class="info_student" data-toggle="modal" data-id="{{ $studentOb->mssv }}"><i class="fa fa-list" title="Chi tiết"></i></a>
-                                                <a href="{{ route('get_edit_student_route',['mssv'=> $studentOb->mssv]) }}" ><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                                <a class="delete_student" data-id="{{ $studentOb->mssv }}" href="javascript:;"><i class="fa fa-trash" title="Xóa"></i></a>
+                                            <td class="action-column center">
+                                                <a href="#profile" class="info_student" data-toggle="modal" data-id="{{ $studentOb->id }}"><i class="fa fa-list" title="Chi tiết"></i></a>
+                                                <a href="{{ route('get_edit_student_route',['id'=> $studentOb->id]) }}" ><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
+                                                <a class="delete_student" data-id="{{ $studentOb->id }}" href="javascript:;"><i class="fa fa-trash" title="Xóa"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -255,19 +250,13 @@
                     </div>
                     <!-- /Student List Table-->
 
-                    <!-- Form confirm delete class -->
-                    <div id="dialog-confirm-delete-student" class="jquery-ui-dialog" title="Xóa Sinh Viên?" hidden>
-                        <p><span class="ui-icon ui-icon-alert"></span>Bạn có chắc muốn <strong>Xóa Sinh Viên</strong> đã chọn?</p>
-                    </div>
-                    <!-- /Form confirm delete class -->
-
                     <!-- Action Area -->
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="panel_body">
                                 <div class="row">
                                     <div class="col-md-2 col-sm-2 col-xs-6">
-                                        <a href="{{ route('student_add_route') }}" class="btn btn-block btn-success"><i class="fa fa-user"></i> Thêm 1 Sinh viên </a>
+                                        <a href="{{ route('get_student_add_route') }}" class="btn btn-block btn-success"><i class="fa fa-user"></i> Thêm 1 Sinh viên </a>
                                     </div>
                                     <div class="col-md-2 col-sm-2 col-xs-6">
                                         <a href="{{ route('student_add_list_route') }}" class="btn btn-block btn-success"><i class="fa fa-users"></i> Nhập file Excel </a>
@@ -275,10 +264,7 @@
                                     <div class="col-md-2 col-sm-2 col-xs-6">
                                         <a href="#" class="btn btn-block btn-primary"><i class="fa fa-graduation-cap"></i> Update tình trạng </a>
                                     </div>
-                                    <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-6">
-                                        <a href="#" class="btn btn-block btn-danger" disabled><i class="fa fa-trash"></i> Xóa SV được chọn </a>
-                                    </div>
-                                    <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-6">
+                                    <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-6 pull-right">
                                         <a href="#" class="btn btn-block btn-info">Xuất ra file Excel</a>
                                     </div>
                                 </div>

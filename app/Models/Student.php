@@ -12,7 +12,7 @@ class Student extends Model
     protected $table = 'students';
     public $incrementing = true;
 
-    protected $primaryKey = 'mssv';
+    protected $primaryKey = 'id';
 
     protected $fillable = ['name','class_id','science_id','is_female','is_cyu','is_partisan','hometown','number_phone','birthday', 'social_mark', 'email','status', 'is_it_student', 'faculty_id'];
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
@@ -20,15 +20,19 @@ class Student extends Model
     public $timestamps = true;
 
     public function ClassOb() {
-        return $this->belongsTo('App\Models\Classes', 'classId', 'id');
+        return $this->belongsTo('App\Models\Classes', 'class_id', 'id');
     }
 
     public function Science() {
-        return $this->belongsTo('App\Models\Science', 'scienceId', 'id');
+        return $this->belongsTo('App\Models\Science', 'class_id', 'id');
+    }
+
+    public function Faculty() {
+        return $this->belongsTo('App\Models\Faculty', 'faculty_id', 'id');
     }
 
     public function ActivitiesLeader() {
-        return $this->hasMany('App\Models\Activity', 'leader', 'mssv');
+        return $this->hasMany('App\Models\Activity', 'leader', 'id');
     }
 
     public function BCH_Khoa(){
