@@ -11,7 +11,7 @@ $('select[name="science_id"]').on('change', function() {
 
 $('input[name="is_it_student"]').on('change', function() {
     var science_id = $('select[name="science_id"]').val();
-    var is_it = $(this).val();
+    var is_it = $(this).prop('checked');
 
     if(science_id) {
         if(is_it) {
@@ -123,4 +123,12 @@ $('.delete-student').on('click', function() {
             }
         }]
     });
+});
+
+$('input[name="fil-faculty"]').on('change', function() {
+    var oldLabel = $('#filter-student > label.btn-primary');
+    oldLabel.removeClass('btn-primary').addClass('btn-default');
+
+    $(this).parent().removeClass('btn-default').addClass('btn-primary');
+    $(this).prop('checked', true);
 });

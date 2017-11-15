@@ -30,7 +30,7 @@
                             <i class="fa fa-user"></i> Tổng số Sinh viên
                         </span>
                         <div class="count blue">
-                            2500
+                            {{ $studentList->where('is_it_student', 1)->count() }}
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -81,90 +81,21 @@
                     <div class="col-md-12 col-sm-12 col-xs-12" id="filter">
                         <div class="x_panel">
                             <div class="x_content">
-                                <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
-                                    <div class="panel">
-                                        <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-paren "#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            <h4 class="panel-title">Lọc danh sách</h4>
-                                        </a>
 
-                                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                            <div class="panel-body">
-                                                <div class="row">
-                                                    <form>
-                                                        <!--Filter Course Year-->
-                                                        <div class="col-md-2 col-sm-6 col-xs-12">
-                                                            <label>Khóa học: </label>
-                                                            <select class="form-control">
-                                                                <option value="">2016</option>
-                                                                <option value="">2016</option>
-                                                                <option value="">2016</option>
-                                                                <option value="">2016</option>
-                                                                <option value="">2016</option>
-                                                                <option value="">2016</option>
-                                                                <option value="">2016</option>
-                                                                <option value="">2016</option>
-                                                            </select>
-                                                        </div>
-                                                        <!--/Filter Course Year-->
-
-                                                        <!--Filter Class -->
-                                                        <div class="col-md-2 col-sm-6 col-xs-12">
-                                                            <label>Lớp học: </label>
-                                                            <select class="form-control">
-                                                                <option value="">129100</option>
-                                                                <option value="">2016</option>
-                                                                <option value="">2016</option>
-                                                                <option value="">2016</option>
-                                                                <option value="">2016</option>
-                                                                <option value="">2016</option>
-                                                                <option value="">2016</option>
-                                                                <option value="">2016</option>
-                                                            </select>
-                                                        </div>
-                                                        <!-- /Filter Class -->
-
-                                                        <!--Filter Unionist -->
-                                                        <div class="col-md-3 col-sm-6 col-xs-12">
-                                                            <label> Đoàn viên: </label>
-                                                            <div id="partisan-radio" class="btn-group" data-toggle="buttons" style="width: 100%;">
-                                                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                                    <input type="radio" name="gender" value="male"> &nbsp; None &nbsp;
-                                                                </label>
-                                                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                                    <input type="radio" name="gender" value="male"> &nbsp; Yes &nbsp;
-                                                                </label>
-                                                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                                    <input type="radio" name="gender" value="female"> No
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /Filter Unionists -->
-
-                                                        <!--Filter Partisian -->
-                                                        <div class="col-md-3 col-sm-6 col-xs-12">
-                                                            <label>Đảng viên: </label>
-                                                            <div id="partisan-radio" class="btn-group" data-toggle="buttons" style="width: 100%;">
-                                                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                                    <input type="radio" name="gender" value="male"> &nbsp; None &nbsp;
-                                                                </label>
-                                                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                                    <input type="radio" name="gender" value="male"> &nbsp; Yes &nbsp;
-                                                                </label>
-                                                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                                    <input type="radio" name="gender" value="female"> No
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /Filter Partisian -->
-                                                        <div class="col-md-2 col-sm-6 col-xs-12" id="submit-filter-div">
-                                                            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-filter"></i> Lọc </button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div id="filter-student" class="btn-group" data-toggle="buttons" style="width: 100%;">
+                                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                            <input type="radio" name="fil-faculty" value="-1"> &nbsp; Tất cả &nbsp;
+                                        </label>
+                                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                            <input type="radio" name="fil-faculty" value="1"> &nbsp; Khoa CNTT &nbsp;
+                                        </label>
+                                        <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                            <input type="radio" name="fil-faculty" value="0"> Ngoài Khoa CNTT
+                                        </label>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -185,8 +116,9 @@
                                             <th class="column-title"> MSSV </th>
                                             <th class="column-title"> Họ tên </th>
                                             <th class="column-title"> Giới tính </th>
-                                            <th class="column-title"> Ngày tháng năm sinh </th>
+                                            <th class="column-title"> Năm sinh </th>
                                             <th class="column-title"> Lớp </th>
+                                            <th class="column-title"> Khóa </th>
                                             <th class="column-title"> Đoàn viên </th>
                                             <th class="column-title"> Tình trạng </th>
                                             <th class="column-title"> Action </th>
@@ -209,6 +141,7 @@
                                             </td>
                                             <td class="center"> {{ date('d/m/Y', strtotime($studentOb->birthday)) }} </td>
                                             <td class="center"> {{ $studentOb->ClassOb->name }} </td>
+                                            <td class="center"> {{ $studentOb->Science->name }} </td>
                                             <td class="center">
                                                 <i class="fa {{ $studentOb->is_cyu == 1 ? 'fa-check-square' : 'fa-square-o' }} green"></i>
                                             </td>

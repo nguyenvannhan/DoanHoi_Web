@@ -66,6 +66,11 @@ a:hover {
     font-size: 27px;
     margin: 13px 0 0 3px
 }
+
+.btn-primary.active, .btn-primary:active, .open > .dropdown-toggle.btn-primary {
+    background-color: #4800ff !important;
+}
+
 .site_title i {
     border: 1px solid #EAEAEA;
     padding: 5px 6px;

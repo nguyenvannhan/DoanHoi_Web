@@ -58,7 +58,11 @@ class StudentController extends Controller {
         $studentOb->name = $request->name;
         $studentOb->class_id = $request->class_id;
         $studentOb->science_id = $request->science_id;
-        $studentOb->is_it_student = $request->is_it_student;
+        if($request->is_it_student) {
+            $studentOb->is_it_student = $request->is_it_student;
+        } else {
+            $studentOb->is_it_student = 0;
+        }
         $studentOb->is_female = $request->gender;
         if($request->is_cyu != 1) {
             $studentOb->is_cyu = 0;
@@ -88,15 +92,18 @@ class StudentController extends Controller {
         return redirect()->route('student_index_route');
     }
 
-    public function postAddStudent(AddStudentRequest $request){
-
+    public function postAddStudent(AddStudentRequest $request) {
         $studentOb = new Student;
 
         $studentOb->id = $request->id;
         $studentOb->name = $request->name;
         $studentOb->class_id = $request->class_id;
         $studentOb->science_id = $request->science_id;
-        $studentOb->is_it_student = $request->is_it_student;
+        if($request->is_it_student) {
+            $studentOb->is_it_student = $request->is_it_student;
+        } else {
+            $studentOb->is_it_student = 0;
+        }
         $studentOb->is_female = $request->gender;
         if($request->is_cyu != 1) {
             $studentOb->is_cyu = 0;

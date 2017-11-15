@@ -33,9 +33,6 @@
                             <a href="{{ route('get_activity_add_route') }}" class="btn btn-block btn-success"><i
                                         class="fa fa-plus"></i> Thêm Hoạt Động </a>
                         </div>
-                        <div class="col-md-2 col-md-offset-2 col-sm-2 col-xs-6">
-                            <a href="{{ route('get_activity_list_add_route') }}" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm danh sách </a>
-                        </div>
                     </div>
                 </div>
             </div>

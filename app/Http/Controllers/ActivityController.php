@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Activity;
-use App\Classes;
+use App\Models\Activity;
+use App\Models\Classes;
 use App\Http\Requests\AddActivityRequest;
 use App\Http\Requests\EditActivityRequest;
-use App\School_Yeares;
-use Faker\Provider\DateTime;
+use App\Models\School_Year;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller {
     public function getActivityList() {
-        $activityList = Activity::with('Leader', 'ClassOb', 'SchoolYear')->orderBy('startDate', 'desc')->get();
-        $choolYearList = School_Yeares::orderBy('id', 'desc')->get();
+        $this->data['activityList'] = Activity::with('Leader', 'ClassOb', 'SchoolYear')->orderBy('start_date', 'desc')->get();
+        $this->data['schoolYearList'] = School_Year::orderBy('id', 'desc')->get();
 
-        return view('activity.activityList', ['activityList' => $activityList, 'schoolYearList' => $choolYearList]);
+        return view('activity.activityList', $this->data);
     }
 
     public function getDetailActivity($id) {
