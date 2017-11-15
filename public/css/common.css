@@ -1043,6 +1043,11 @@ legend {
 .profile_details .profile_left {
     background: white
 }
+
+.pagination {
+    margin: 0;
+}
+
 .pagination.pagination-split li {
     display: inline-block;
     margin-right: 3px
@@ -1053,6 +1058,11 @@ legend {
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px
 }
+
+table.datatable {
+    margin-bottom: 5px;
+}
+
 table.tile h3,
 table.tile h4,
 table.tile span {

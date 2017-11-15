@@ -179,7 +179,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <table id="student-list-table" class="table table-striped table-bordered jambo_table bulk_action">
+                                <table id="student-list-table" class="table table-striped table-bordered jambo_table datatable">
                                     <thead>
                                         <tr class="headings text-center">
                                             <th class="column-title"> MSSV </th>
@@ -190,9 +190,6 @@
                                             <th class="column-title"> Đoàn viên </th>
                                             <th class="column-title"> Tình trạng </th>
                                             <th class="column-title"> Action </th>
-                                            <th class="bulk-actions" colspan="8">
-                                                <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
-                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
