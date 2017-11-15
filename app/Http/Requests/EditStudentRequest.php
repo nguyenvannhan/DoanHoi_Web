@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddStudentRequest extends FormRequest
+class EditStudentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class AddStudentRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'alpha_num|required|size:8|unique:students,id',
+            'id' => 'alpha_num|required|size:8|unique:students,id,'.Request->segment(3),
             'name' => 'required|string',
             'birthday' => 'required|date',
             'hometown' => 'nullable|string',

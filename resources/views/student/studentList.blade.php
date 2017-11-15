@@ -179,7 +179,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <table id="datatable-checkbox" class="table table-striped table-bordered jambo_table bulk_action">
+                                <table id="student-list-table" class="table table-striped table-bordered jambo_table bulk_action">
                                     <thead>
                                         <tr class="headings text-center">
                                             <th class="column-title"> MSSV </th>
@@ -210,7 +210,7 @@
                                                 @endphp
                                                 {{ $gt }}
                                             </td>
-                                            <td class="center"> {{ date('d/m/Y', strtotime( $studentOb->birthday )) }} </td>
+                                            <td class="center"> {{ date('d/m/Y', strtotime($studentOb->birthday)) }} </td>
                                             <td class="center"> {{ $studentOb->ClassOb->name }} </td>
                                             <td class="center">
                                                 <i class="fa {{ $studentOb->is_cyu == 1 ? 'fa-check-square' : 'fa-square-o' }} green"></i>
@@ -239,7 +239,7 @@
                                             <td class="action-column center">
                                                 <a href="#profile" class="info_student" data-toggle="modal" data-id="{{ $studentOb->id }}"><i class="fa fa-list" title="Chi tiết"></i></a>
                                                 <a href="{{ route('get_edit_student_route',['id'=> $studentOb->id]) }}" ><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                                <a class="delete_student" data-id="{{ $studentOb->id }}" href="javascript:;"><i class="fa fa-trash" title="Xóa"></i></a>
+                                                <a class="delete-student" data-id="{{ $studentOb->id }}" href="javascript:;"><i class="fa fa-trash" title="Xóa"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -422,4 +422,8 @@
         </div>
     </div>
     <!-- /Model detail Student Info -->
+@stop
+
+@section('js_area')
+<script type="text/javascript" src="{{ URL::asset('public/js/student.js') }}"></script>
 @stop

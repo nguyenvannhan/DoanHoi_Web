@@ -26,7 +26,7 @@ Route::prefix('sinh-vien')->group(function() {
     Route::get('cap-nhat/{id}','StudentController@getEditStudent')->name('get_edit_student_route');
     Route::post('cap-nhat/{id}','StudentController@postEditStudent')->name('post_edit_student_route');
 
-    Route::get('delete/{id}', 'StudentController@getDeleteStudent')->name('get_delete_student_route');
+    Route::post('xoa', 'StudentController@postDeleteStudent')->name('get_delete_student_route');
 
     Route::get('add-list', function() {
         return view('student.addListStudent');
