@@ -57,13 +57,13 @@ Route::prefix('lop-hoc')->group(function() {
 });
 
 //Route activities
-Route::prefix('activity')->group(function() {
+Route::prefix('hoat-dong')->group(function() {
     Route::get('/', 'ActivityController@getActivityList')->name('activity_index_route');
 
     Route::get('detail/{id}', 'ActivityController@getDetailActivity')->name('activity_detail_route');
 
-    Route::get('add', 'ActivityController@getAddActivity')->name('get_activity_add_route');
-    Route::post('add', 'ActivityController@postAddActivity')->name('post_activity_add_route');
+    Route::get('them-moi', 'ActivityController@getAddActivity')->name('get_activity_add_route');
+    Route::post('them-moi', 'ActivityController@postAddActivity')->name('post_activity_add_route');
 
     Route::get('edit/{activityId}', 'ActivityController@getEditActivity')->name('get_edit_activity_route');
     Route::post('edit/{activityId}', 'ActivityController@postEditActivity')->name('post_edit_activity_route');

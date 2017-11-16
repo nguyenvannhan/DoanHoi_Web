@@ -24,10 +24,8 @@ class ActivityController extends Controller {
     }
 
     public function getAddActivity() {
-        $newActivityId = $this->getNewActivityId();
-        $schoolYearList = School_Yeares::orderBy('id', 'desc')->get();
-
-        return view('activity.addActivity', ['newActivityId' => $newActivityId, 'schoolYearList' => $schoolYearList]);
+        $this->data['schoolYearList'] = School_Year::orderBy('name', 'desc')->get();
+        return view('activity.addActivity', $this->data);
     }
 
     public function postAddActivity(AddActivityRequest $request) {
@@ -99,17 +97,6 @@ class ActivityController extends Controller {
         $activity->save();
 
         return redirect('/activity')->with(['success_alert' => 'Cập nhật hoạt động mã '.$activityId.' thành công!']);
-    }
-
-    private function getNewActivityId() {
-        $activityTop = Activity::orderBy('id', 'desc')->take(1)->first();
-        $createNumberId = (string)(substr($activityTop->id,2) + 1);
-        while(strlen($createNumberId) < 3) {
-            $createNumberId = '0'.$createNumberId;
-        }
-        $newActivityId = 'HD'.$createNumberId;
-
-        return $newActivityId;
     }
 
     private function getIdYoutue($url) {

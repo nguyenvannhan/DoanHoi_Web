@@ -45,17 +45,9 @@
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-3">
                             <small><i class="red">(*)</i></small>
-                            Mã Hoạt Động: </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" value="{{ $newActivityId }}" disabled>
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3">
-                            <small><i class="red">(*)</i></small>
                             Tên Hoạt Động: </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" required="required" name="txtActivityName" value="{{ old('txtActivityName') }}">
+                            <input type="text" class="form-control" name="txtActivityName" value="{{ old('txtActivityName') }}">
                         </div>
                     </div>
                     <div class="item form-group">
@@ -63,8 +55,8 @@
                             <small><i class="red">(*)</i></small>
                             Sinh viên đứng Chính : </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" required="required" name="txtActivityLeader" value="{{ old('txtActivityLeader') }}">
-                            <input type="hidden" class="form-control" required="required"
+                            <input type="text" class="form-control" name="txtActivityLeader" value="{{ old('txtActivityLeader') }}">
+                            <input type="hidden" class="form-control"
                                    name="txtHiddenActivityLeader" value="{{ old('txtHiddenActivityLeader') }}">
                             <ul class="searchLeader">
                             </ul>
@@ -140,7 +132,7 @@
                             <small><i class="red">(*)</i></small>
                             Điểm Rèn Luyện : </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="number" name="txtConductMark" class="form-control" required="required" value="{{ old('txtConductMark') }}">
+                            <input type="number" name="txtConductMark" class="form-control" value="{{ old('txtConductMark') }}">
                         </div>
                     </div>
                     <div class="item form-group">
@@ -148,7 +140,7 @@
                             <small><i class="red">(*)</i></small>
                             Điểm CTXH : </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="number" name="txtSocialMark" class="form-control" required="required" value="{{ old('txtSocialMark') }}">
+                            <input type="number" name="txtSocialMark" class="form-control" value="{{ old('txtSocialMark') }}">
                         </div>
                     </div>
                     <div class="item form-group">

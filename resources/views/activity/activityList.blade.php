@@ -37,29 +37,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12" id="filter">
-            <div class="x_panel">
-                <div class="x_content">
-                    <form>
-                        <div class="col-md-1 col-md-offset-3 col-sm-6 col-xs-12 ">
-                            <label style="margin-top: 10px;">Năm học: </label>
-                        </div>
-                        <div class="col-md-2 col-sm-6 col-xs-12">
-                            <select class="select2 form-control">
-                                <option value="0"> Tất cả </option>
-                                @foreach($schoolYearList as $schoolYear)
-                                <option value="{{ $schoolYear->id }}"> {{ $schoolYear->school_year_name }} </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-2 col-sm-6 col-xs-12" id="submit-filter-div">
-                            <a class="btn btn-primary btn-block">
-                                <i class="fa fa-search"></i> Tìm Kiếm </a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
         <!--Science List Table-->
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
@@ -71,14 +48,12 @@
                     <table class="datatable table table-striped table-bordered jambo_table table-responsive" id="activity-list-table">
                         <thead>
                         <tr class="headings center">
-                            <th class="column-title"> STT</th>
                             <th class="column-title"> Mã HĐ</th>
                             <th class="column-title"> Tên Hoạt Động</th>
                             <th class="column-title"> Năm học</th>
                             <th class="column-title"> Thời Gian diễn ra</th>
                             <th class="column-title"> Người Đứng Chính</th>
                             <th class="column-title"> Cấp HĐ</th>
-                            <th class="column-ttitle"> Tình trạng</th>
                             <th class="column-title"> Action</th>
                         </tr>
                         </thead>
