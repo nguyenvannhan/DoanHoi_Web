@@ -19,7 +19,7 @@
     <!-- iCheck -->
     <link href="{{ URL::asset('public/vendors/icheck/skins/flat/green.css') }}" rel="stylesheet">
     <!-- Datatables -->
-    <link href="{{ URL::asset('public/vendors/datatable/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('public/vendors/datatables/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <!-- Bootstrap3-dialog -->
     <link href="{{ URL::asset('public/vendors/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css') }}" rel="stylesheet">
     <!-- Bootstarp Select -->
@@ -34,62 +34,62 @@
 </head>
 
 <body class="nav-md">
-<div class="container body">
-    <div class="main_container">
-        <div class="col-md-3 left_col">
-            @include('common_components.sidebar')
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                @include('common_components.sidebar')
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                @include('common_components.top_nav')
+            </div>
+            <!-- /top navigation -->
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+                @yield('header_page')
+
+                @yield('main_content')
+            </div>
+            <!-- page content -->
+
+            <!-- footer content -->
+            @include('common_components.footer_page')
+            <!-- /footer content -->
+
+            @yield('modals')
+
         </div>
-
-        <!-- top navigation -->
-        <div class="top_nav">
-            @include('common_components.top_nav')
-        </div>
-        <!-- /top navigation -->
-
-        <!-- page content -->
-        <div class="right_col" role="main">
-            @yield('header_page')
-
-            @yield('main_content')
-        </div>
-        <!-- page content -->
-
-        <!-- footer content -->
-    @include('common_components.footer_page')
-    <!-- /footer content -->
-
-        @yield('modals')
-
     </div>
-</div>
 
 
-<!-- jQuery -->
-<script src="{{ URL::asset('public/js/jquery-3.2.1.min.js') }}"></script>
-<!-- Bootstrap -->
-<script src="{{ URL::asset('public/vendors/bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
-<!-- iCheck -->
-<script src="{{ URL::asset('public/vendors/icheck/icheck.min.js') }}"></script>
-<!-- Datatables -->
-<script src="{{ URL::asset('public/vendors/datatables/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ URL::asset('public/vendors/datatables/js/dataTables.bootstrap.min.js') }}"></script>
-<!-- Bootstrap3-Dialog -->
-<script src="{{ URL::asset('public/vendors/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js') }}"></script>
-<!-- Bootstrap select -->
-<script src="{{ URL::asset('public/vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
-<!-- Bootstrap Datepicker -->
-<script src="{{ URL::asset('public/vendors/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-<!-- Input Mask -->
-<script src="{{ URL::asset('public/js/jquery.maskedinput.min.js') }}"></script>
+    <!-- jQuery -->
+    <script src="{{ URL::asset('public/js/jquery-3.2.1.min.js') }}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ URL::asset('public/vendors/bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
+    <!-- iCheck -->
+    <script src="{{ URL::asset('public/vendors/icheck/icheck.min.js') }}"></script>
+    <!-- Datatables -->
+    <script src="{{ URL::asset('public/vendors/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ URL::asset('public/vendors/datatables/js/dataTables.bootstrap.min.js') }}"></script>
+    <!-- Bootstrap3-Dialog -->
+    <script src="{{ URL::asset('public/vendors/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js') }}"></script>
+    <!-- Bootstrap select -->
+    <script src="{{ URL::asset('public/vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+    <!-- Bootstrap Datepicker -->
+    <script src="{{ URL::asset('public/vendors/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <!-- Input Mask -->
+    <script src="{{ URL::asset('public/js/jquery.maskedinput.min.js') }}"></script>
 
-<script type="text/javascript">
-    var BASE_URL = '{{ URL::asset("/") }}';
-</script>
+    <script type="text/javascript">
+    var BASE_URL = '{{ URL::asset("/") }}'
+    </script>
 
-<!-- Custom Theme Scripts -->
-<script src="{{ URL::asset('public/js/common.js') }}"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="{{ URL::asset('public/js/common.js') }}"></script>
 
-@yield('js_area');
+    @yield('js_area')
 </body>
 
 </html>

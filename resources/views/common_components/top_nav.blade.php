@@ -8,7 +8,7 @@
             <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                    aria-expanded="false">
-                    <img src="{{ URL('/images/avatars/default.png') }}" alt=""/>John Doe
+                    <img src="{{ URL('/public/images/avatars/default.png') }}" alt=""/>John Doe
                     <span class="fa fa-angle-down"></span>
                 </a>
 

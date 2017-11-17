@@ -24,7 +24,7 @@ class Student extends Model
     }
 
     public function Science() {
-        return $this->belongsTo('App\Models\Science', 'class_id', 'id');
+        return $this->belongsTo('App\Models\Science', 'science_id', 'id');
     }
 
     public function Faculty() {

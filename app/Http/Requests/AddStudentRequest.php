@@ -26,7 +26,7 @@ class AddStudentRequest extends FormRequest
         return [
             'id' => 'alpha_num|required|size:8|unique:students,id',
             'name' => 'required|string',
-            'birthday' => 'required|date',
+            'birthday' => 'date|nullable',
             'hometown' => 'nullable|string',
             'email' => 'nullable|email',
             'numberphone' => 'nullable|alpha_numeric|max:11|min:10',
@@ -45,7 +45,6 @@ class AddStudentRequest extends FormRequest
             'name.string' => 'Tên sinh viên không đúng.',
             'name.size' => 'Tên sinh viên quá dài.',
             'birthday.date' => 'Ngày sinh không đúng (dd/mm/yyyy).',
-            'birthday.required' => 'Nhập ngày sinh.',
             'hometown.string' => 'Quê quán không đúng.',
             'email.email' => 'Không đúng định dạng email.',
             'numberphone.alpha_numeric' => 'SĐT không đúng.',
