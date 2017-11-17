@@ -82,15 +82,15 @@
                         <div class="x_panel">
                             <div class="x_content">
 
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div id="filter-student" class="btn-group" data-toggle="buttons" style="width: 100%;">
-                                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <div class="col-md-12 col-sm-12 col-xs-12 center">
+                                    <div id="filter-student" class="btn-group" data-toggle="buttons">
+                                        <label class="btn  btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                                             <input type="radio" name="fil-faculty" value="-1"> &nbsp; Tất cả &nbsp;
                                         </label>
-                                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="fil-faculty" value="1"> &nbsp; Khoa CNTT &nbsp;
-                                        </label>
                                         <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                            <input type="radio" name="fil-faculty" value="1" checked> &nbsp; Khoa CNTT &nbsp;
+                                        </label>
+                                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                                             <input type="radio" name="fil-faculty" value="0"> Ngoài Khoa CNTT
                                         </label>
                                     </div>

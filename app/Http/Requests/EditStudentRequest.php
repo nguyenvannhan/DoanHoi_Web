@@ -1,4 +1,4 @@
-``<?php
+<?php
 
 namespace App\Http\Requests;
 
@@ -26,13 +26,13 @@ class EditStudentRequest extends FormRequest
         return [
             'id' => 'alpha_num|required|size:8|unique:students,id,'.Request->segment(3),
             'name' => 'required|string',
-            'birthday' => 'required|date',
+            'birthday' => 'date|nullable',
             'hometown' => 'nullable|string',
             'email' => 'nullable|email',
             'numberphone' => 'nullable|alpha_numeric|max:11|min:10',
             'science_id' => 'required',
             'faculty_id' => 'required_if:is_it_student,0',
-            'class_id' => 'required_if:is_it_student,1',
+            'class_id' => 'required_if:is_it_student,1'
         ];
     }
 
@@ -45,7 +45,6 @@ class EditStudentRequest extends FormRequest
             'name.string' => 'Tên sinh viên không đúng.',
             'name.size' => 'Tên sinh viên quá dài.',
             'birthday.date' => 'Ngày sinh không đúng (dd/mm/yyyy).',
-            'birthday.required' => 'Nhập ngày sinh.',
             'hometown.string' => 'Quê quán không đúng.',
             'email.email' => 'Không đúng định dạng email.',
             'numberphone.alpha_numeric' => 'SĐT không đúng.',

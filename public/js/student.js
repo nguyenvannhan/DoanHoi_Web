@@ -130,5 +130,18 @@ $('input[name="fil-faculty"]').on('change', function() {
     oldLabel.removeClass('btn-primary').addClass('btn-default');
 
     $(this).parent().removeClass('btn-default').addClass('btn-primary');
-    $(this).prop('checked', true);
+
+    var type_id = $(this).val();
+
+    $.ajax({
+        url: BASE_URL + 'sinh-vien/lay-danh-sach/' + type_id,
+        method: 'GET'
+    }).done(function(data) {
+        $('#student-list-table').html(data);
+
+        $('#student-list-table').dataTable().fnDraw();
+    }).fail(function(xhr, status, error) {
+        console.log(this.url);
+        console.log(error);
+    });
 });

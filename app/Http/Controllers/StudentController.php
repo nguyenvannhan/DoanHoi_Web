@@ -24,14 +24,14 @@ class StudentController extends Controller {
     }
 
     public function getAddStudent() {
-    	$this->data['scienceList'] = Science::orderBy('id','desc')->get();
+        $this->data['scienceList'] = Science::orderBy('id','desc')->get();
         $this->data['facultyList'] = Faculty::where('id', config('constants.IT_FACULTY_ID'))->get();
 
-    	return view('student.addStudent', $this->data);
+        return view('student.addStudent', $this->data);
     }
 
     public function getInfoStudent($id){
-    	$studentOb = Student::find($id);
+        $studentOb = Student::find($id);
 
         return response()->json(['studentOb' => $studentOb]);
     }
@@ -76,7 +76,9 @@ class StudentController extends Controller {
         }
         $studentOb->hometown=$request->hometown;
         $studentOb->number_phone=$request->numberphone;
-        $studentOb->birthday= Carbon::createFromFormat('d/m/Y', $request->birthday)->format('Y-m-d');
+        if($request->birthday) {
+            $studentOb->birthday = Carbon::createFromFormat('d/m/Y', $request->birthday)->format('Y-m-d');
+        }
         $studentOb->email=$request->email;
         $studentOb->social_mark = 0;
         $studentOb->status=$request->status;
@@ -117,7 +119,9 @@ class StudentController extends Controller {
         }
         $studentOb->hometown=$request->hometown;
         $studentOb->number_phone=$request->numberphone;
-        $studentOb->birthday = Carbon::createFromFormat('d/m/Y', $request->birthday)->format('Y-m-d');
+        if($request->birthday) {
+            $studentOb->birthday = Carbon::createFromFormat('d/m/Y', $request->birthday)->format('Y-m-d');
+        }
         $studentOb->email=$request->email;
         $studentOb->social_mark = 0;
         $studentOb->status=$request->status;
@@ -153,8 +157,16 @@ class StudentController extends Controller {
         }
     }
 
-    public function getClassFromId($studentId) {
-        $student = Student::find($studentId)->first();
-        return response()->json(['classOb' => $student->Classes]);
+    public function ajaxGetStudentList($type_id) {
+        $studentList = Student::orderBy('id', 'desc');
+
+        if($type_id != -1) {
+            $studentList = $studentList->where('is_it_student', $type_id);
+        }
+
+        $this->data['studentList'] = $studentList->with('ClassOb', 'Faculty', 'Science')->get();
+        $this->data['type_id'] = $type_id;
+
+        return response()->view('student.student-list-table', $this->data);
     }
 }

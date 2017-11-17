@@ -5,14 +5,14 @@ $.ajaxSetup({
 });
 
 var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
-    $BODY = $('body'),
-    $MENU_TOGGLE = $('#menu_toggle'),
-    $SIDEBAR_MENU = $('#sidebar-menu'),
-    $SIDEBAR_FOOTER = $('.sidebar-footer'),
-    $LEFT_COL = $('.left_col'),
-    $RIGHT_COL = $('.right_col'),
-    $NAV_MENU = $('.nav_menu'),
-    $FOOTER = $('footer');
+$BODY = $('body'),
+$MENU_TOGGLE = $('#menu_toggle'),
+$SIDEBAR_MENU = $('#sidebar-menu'),
+$SIDEBAR_FOOTER = $('.sidebar-footer'),
+$LEFT_COL = $('.left_col'),
+$RIGHT_COL = $('.right_col'),
+$NAV_MENU = $('.nav_menu'),
+$FOOTER = $('footer');
 
 
 (function ($, sr) {
@@ -54,15 +54,15 @@ var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
 
 // Sidebar
 function init_sidebar() {
-// TODO: This is some kind of easy fix, maybe we can improve this
+    // TODO: This is some kind of easy fix, maybe we can improve this
     var setContentHeight = function () {
         // reset height
         $RIGHT_COL.css('min-height', $(window).height());
 
         var bodyHeight = $BODY.outerHeight(),
-            footerHeight = $BODY.hasClass('footer_fixed') ? -10 : $FOOTER.height(),
-            leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
-            contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
+        footerHeight = $BODY.hasClass('footer_fixed') ? -10 : $FOOTER.height(),
+        leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
+        contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
 
         // normalize content
         contentHeight -= $NAV_MENU.height() + footerHeight;
@@ -97,7 +97,7 @@ function init_sidebar() {
         }
     });
 
-// toggle small or large menu
+    // toggle small or large menu
     $MENU_TOGGLE.on('click', function () {
 
         if ($BODY.hasClass('nav-md')) {
@@ -163,11 +163,11 @@ function init_success_alert() {
 
 function init_BSDatepicker() {
     $('.datepicker').datepicker({
-		format: 'dd/mm/yyyy',
-		autoclose: true,
-		immediateUpdates: true,
-	})
-	.datepicker('setDate', new Date());
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+        immediateUpdates: true,
+    })
+    .datepicker('setDate', new Date());
 }
 
 function init_InputMask() {

@@ -28,6 +28,8 @@ Route::prefix('sinh-vien')->group(function() {
 
     Route::post('xoa', 'StudentController@postDeleteStudent')->name('get_delete_student_route');
 
+    Route::get('lay-danh-sach/{type_id}', 'StudentController@ajaxGetStudentList')->name('get_ajax_student_list');
+
     Route::get('add-list', function() {
         return view('student.addListStudent');
     })->name('student_add_list_route');
@@ -116,6 +118,4 @@ Route::prefix('ajax')->group(function() {
     Route::get('get-class-from-student-id/{studentId}','StudentesController@getClassFromId')->name('ajax_get_class_from_student_id');
 
     Route::get('add-BCH_Khoa','BCH_KhoaController@getAjaxAddBCH_khoa')->name('ajax_add_BCH_Khoa_route');
-
-
 });
