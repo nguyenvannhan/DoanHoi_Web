@@ -29,9 +29,31 @@ $('input[name="is_it_student"]').on('change', function() {
     }
 });
 
+$('input[name="fil-faculty"]').on('change', function() {
+    var oldLabel = $('#filter-student > label.btn-primary');
+    oldLabel.removeClass('btn-primary').addClass('btn-default');
+
+    $(this).parent().removeClass('btn-default').addClass('btn-primary');
+
+    var type_id = $(this).val();
+
+    $.ajax({
+        url: BASE_URL + 'sinh-vien/lay-danh-sach/' + type_id,
+        method: 'GET'
+    }).done(function(data) {
+        $('#student-list-table').html(data);
+
+        $('#student-list-table').dataTable().fnDraw();
+        getDetailInfo();
+    }).fail(function(xhr, status, error) {
+        console.log(this.url);
+        console.log(error);
+    });
+});
+
 function getItClass(science_id) {
     $.ajax({
-        url: BASE_URL + 'ajax/get-info-add-student/1/' + science_id,
+        url: BASE_URL + 'sinh-vien/get-info-add-student/1/' + science_id,
         method: 'GET'
     }).done(function(data) {
         $('select[name="class_id"]').prop('disabled', false);
@@ -59,7 +81,7 @@ function getItClass(science_id) {
 
 function getOtherFaculty() {
     $.ajax({
-        url: BASE_URL + 'ajax/get-info-add-student/0/',
+        url: BASE_URL + 'sinh-vien/get-info-add-student/0/',
         method: 'GET'
     }).done(function(data) {
         if(data) {
@@ -125,28 +147,6 @@ $('.delete-student').on('click', function() {
                 });
             }
         }]
-    });
-});
-
-$('input[name="fil-faculty"]').on('change', function() {
-    var oldLabel = $('#filter-student > label.btn-primary');
-    oldLabel.removeClass('btn-primary').addClass('btn-default');
-
-    $(this).parent().removeClass('btn-default').addClass('btn-primary');
-
-    var type_id = $(this).val();
-
-    $.ajax({
-        url: BASE_URL + 'sinh-vien/lay-danh-sach/' + type_id,
-        method: 'GET'
-    }).done(function(data) {
-        $('#student-list-table').html(data);
-
-        $('#student-list-table').dataTable().fnDraw();
-        getDetailInfo();
-    }).fail(function(xhr, status, error) {
-        console.log(this.url);
-        console.log(error);
     });
 });
 
