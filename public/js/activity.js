@@ -30,6 +30,22 @@ $('input[name="activity_level"]').on('change', function() {
     }
 });
 
+$('.detail-activity').on('click', function() {
+    var id = $(this).data('id');
+
+    $.ajax({
+        url: BASE_URL + 'hoat-dong/detail/' + id,
+        method: 'GET'
+    }).done(function(data) {
+        console.log(data);
+        $('#detail-activity').html(data);
+        $('#detail-activity').modal('show');
+    }).fail(function(xhr, status, error) {
+        console.log(this.url);
+        console.log(error);
+    });
+});
+
 function postDeleteActivity() {
     $('.delete-activity').on('click', function() {
         var id = $(this).data('id');

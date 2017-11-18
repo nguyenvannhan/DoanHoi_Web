@@ -39,9 +39,9 @@ class ActivityController extends Controller {
     }
 
     public function getDetailActivity($id) {
-        $activity = Activity::find($id);
+        $this->data['activity'] = Activity::find($id);
 
-        return view('activity.detailOneActivity', ['activity' => $activity]);
+        return response()->view('activity.detail-activity-modal', $this->data);
     }
 
     public function getAddActivity() {
