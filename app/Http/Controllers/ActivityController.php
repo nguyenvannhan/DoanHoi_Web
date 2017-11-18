@@ -116,6 +116,18 @@ class ActivityController extends Controller {
         return redirect()->route('activity_index_route');
     }
 
+    public function postDeleteActivity(Request $request) {
+        $id = $request->id;
+        $schoolYearId = $request->schoolYearId;
+
+        $activity = Activity::find($id);
+        $activity->delete();
+
+        $this->data['activityList'] = Activity::with('Leader', 'ClassOb', 'SchoolYear')->where('school_year_id', $schoolYearId)->orderBy('start_date', 'desc')->get();
+
+        return response()->view('activity.activity-list-table', $this->data);
+    }
+
     public function ajaxGetLeader($searchKey) {
         $leaderList = Student::where('status', 1)->where('is_it_student', 1)->where(function($query) use($searchKey) {
             $query->where('id', 'LIKE', '%'.$searchKey.'%')->orwhere('name', 'LIKE', '%'.$searchKey.'%');

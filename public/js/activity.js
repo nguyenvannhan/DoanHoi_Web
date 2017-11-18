@@ -1,3 +1,5 @@
+postDeleteActivity();
+
 $('#leader').on('input', function() {
     var searchKey = $(this).val();
     $.ajax({
@@ -27,6 +29,60 @@ $('input[name="activity_level"]').on('change', function() {
         $('input[name="class_id"]').val('');
     }
 });
+
+function postDeleteActivity() {
+    $('.delete-activity').on('click', function() {
+        var id = $(this).data('id');
+        var schoolYearId = $('select[name="schoolyear_id"]').val();
+        BootstrapDialog.show({
+            title: 'Xóa hoạt động',
+            message: 'Bạn có muốn xóa hoạt động đã chọn?',
+            type: 'type-danger',
+            buttons: [{
+                label: 'Không',
+                cssClass: 'btn',
+                action: function(e) {
+                    e.close();
+                }
+            }, {
+                label: 'Có, chắc chắn.',
+                cssClass: 'btn btn-danger',
+                action: function(e) {
+                    e.close();
+                    $.ajax({
+                        url: BASE_URL + 'hoat-dong/xoa',
+                        method: 'POST',
+                        data: {
+                            'id': id,
+                            'schoolYearId': schoolYearId
+                        }
+                    }).done(function(data) {
+                        if(data) {
+                            console.log(data);
+                            $('#activity-list-table').html(data);
+                            $('#activity-list-table').dataTable().fnDraw();
+                            e.close();
+                            BootstrapDialog.alert({
+                                title: 'Xóa hoạt động',
+                                message: 'Thành công!',
+                                type: 'type-success'
+                            });
+                        }
+                    }).fail(function(xhr, status, error) {
+                        console.log(this.url);
+                        console.log(error);
+                        e.close();
+                        BootstrapDialog.alert({
+                            title: 'Lỗi',
+                            message: 'Không thể kết nối',
+                            type: 'type-danger'
+                        });
+                    });
+                }
+            }]
+        });
+    });
+}
 
 function getLeader() {
     $('#dropdown-leader li a').on('click',function() {

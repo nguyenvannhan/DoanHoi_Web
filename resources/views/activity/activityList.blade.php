@@ -40,7 +40,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="center mb-10">
                 <label class="label-control mr-10">Năm học: </label>
-                <select class="selectpicker" data-live-search="true    ">
+                <select class="selectpicker" name="schoolyear_id" data-live-search="true">
                     @foreach($schoolYearList as $schoolyear)
                     <option value="{{ $schoolyear->id }}" {{ $schoolyear->id == $schoolYearId ? 'selected' : ''}}>{{ $schoolyear->name }}</option>
                     @endforeach
@@ -87,7 +87,7 @@
                                 <a href="{{ route('activity_detail_route', ['id' => $activity->id]) }}"><i class="fa fa-list"
                                                                                   title="Chi tiết"></i></a>
                                 <a href="{{ route('get_edit_activity_route', ['id' => $activity->id]) }}"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
+                                <a href="#" class="delete-activity" data-id="{{ $activity->id }}"><i class="fa fa-trash" title="Xóa"></i></a>
                             </td>
                         </tr>
                         @endforeach
@@ -97,4 +97,8 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('js_area')
+<script src="{{ URL::asset('public/js/activity.js') }}"></script>
 @stop
