@@ -54,7 +54,7 @@ class ClassesController extends Controller {
         return response()->json(['classOb'=>$classOb]);
     }
 
-    public function postEditClass(Request $request, $id) {
+    public function postEditClass(EditClassRequest $request, $id) {
         $classOb = Classes::find($id);
 
         $classOb->name = $request->txtEditClassName;

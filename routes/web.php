@@ -30,6 +30,8 @@ Route::prefix('sinh-vien')->group(function() {
 
     Route::get('lay-danh-sach/{type_id}', 'StudentController@ajaxGetStudentList')->name('get_ajax_student_list');
 
+    Route::get('lay-thong-tin/{id}', 'StudentController@ajaxGetStudentInfo')->name('get_ajax_student_info');
+
     Route::get('add-list', function() {
         return view('student.addListStudent');
     })->name('student_add_list_route');

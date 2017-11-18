@@ -23,10 +23,10 @@ class EditClassRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(Request $request)
+    public function rules()
     {
         return [
-            'txtEditClassName' => 'required|digits:6|numeric|unique:classes,name,'.$request->txtEditClassName,
+            'txtEditClassName' => 'required|digits:6|numeric|unique:classes,name,'.Request::segment(3),
             'slEditClassScienceId' => 'required'
         ];
     }

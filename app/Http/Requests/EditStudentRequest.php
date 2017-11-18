@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class EditStudentRequest extends FormRequest
 {
@@ -24,7 +25,6 @@ class EditStudentRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'alpha_num|required|size:8|unique:students,id,'.Request->segment(3),
             'name' => 'required|string',
             'birthday' => 'date|nullable',
             'hometown' => 'nullable|string',
@@ -38,9 +38,6 @@ class EditStudentRequest extends FormRequest
 
     public function messages() {
         return [
-            'id.alpha_num' => 'Mã sinh viên không đúng.',
-            'id.required' => 'Nhập mã sinh viên.',
-            'id.unique' => 'Đã tồn tại mã sinh viên.',
             'name.required' => 'Nhập tên sinh viên',
             'name.string' => 'Tên sinh viên không đúng.',
             'name.size' => 'Tên sinh viên quá dài.',

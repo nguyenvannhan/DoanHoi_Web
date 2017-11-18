@@ -24,8 +24,16 @@ a:hover {
     background: #2A3F54
 }
 
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
 .pb-0 {
     padding-bottom: 0 !important;
+}
+
+.black-color {
+    color: #000;
 }
 
 .nav-sm .container.body .col-md-3.left_col {

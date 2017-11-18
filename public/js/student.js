@@ -1,3 +1,6 @@
+getDetailInfo();
+
+
 $('select[name="science_id"]').on('change', function() {
     var science_id = $(this).val();
     var checkFaculty = $('input[name="is_it_student"]').prop('checked');
@@ -140,8 +143,27 @@ $('input[name="fil-faculty"]').on('change', function() {
         $('#student-list-table').html(data);
 
         $('#student-list-table').dataTable().fnDraw();
+        getDetailInfo();
     }).fail(function(xhr, status, error) {
         console.log(this.url);
         console.log(error);
     });
 });
+
+function getDetailInfo() {
+    $('.info_student').on('click', function() {
+        var id = $(this).data('id');
+
+        $.ajax({
+            url: BASE_URL + 'sinh-vien/lay-thong-tin/' + id,
+            method: 'GET'
+        }).done(function(data) {
+            console.log(data);
+            $('#profile').html(data);
+            $('#profile').modal('show');
+        }).fail(function(xhr, status, error) {
+            console.log(this.url);
+            console.log(error);
+        });
+    });
+}

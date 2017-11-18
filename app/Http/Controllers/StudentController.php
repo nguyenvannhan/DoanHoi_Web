@@ -169,4 +169,10 @@ class StudentController extends Controller {
 
         return response()->view('student.student-list-table', $this->data);
     }
+
+    public function ajaxGetStudentInfo($id) {
+        $this->data['student'] = Student::find($id);
+
+        return response()->view('student.student-detail-modal', $this->data);
+    }
 }
