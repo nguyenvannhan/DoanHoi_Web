@@ -24,68 +24,68 @@ class EditActivityRequest extends FormRequest
     public function rules()
     {
         return [
-            'txtActivityName' => 'required|string',
-            'txtHiddenActivityLeader' => 'required|exists:studentes,mssv|size:8|string',
-            'dtpStartDate' => 'required|date_format:d/m/Y',
-            'dtpEndDate' => 'required|date_format:d/m/Y|after_or_equal:dtpStartDate',
-            'dtpStartRegisDate' => 'required|date_format:d/m/Y|before_or_equal:dtpEndRegisDate',
-            'dtpEndRegisDate' => 'required|date_format:d/m/Y|before_or_equal:dtpStartDate',
-            'slSchoolYear' => 'required|numeric|exists:school_yeares,id',
-            'txtConductMark' => 'required|integer|min:0',
-            'txtSocialMark' => 'required|integer|min:0',
-            'rdActivityLevel' => 'required|integer|between:0,2',
-            'txtClassId' => 'required_if:rdActivityLevel,0|nullable|exists:classes,id',
-            'txtMaxNumber' => 'integer|nullable',
-            'txtTrailerURL' => 'url|nullable'
+            'name' => 'required|string',
+            'leader_id' => 'required|exists:students,id|size:8|string',
+            'start_date' => 'required|date_format:d/m/Y',
+            'end_date' => 'required|date_format:d/m/Y|after_or_equal:start_date',
+            'start_regis_date' => 'required|date_format:d/m/Y|before_or_equal:end_regis_date',
+            'end_regis_date' => 'required|date_format:d/m/Y|before_or_equal:start_date',
+            'schoolyear_id' => 'required|numeric|exists:school_years,id',
+            'conduct_mark' => 'required|integer|min:0',
+            'social_mark' => 'required|integer|min:0',
+            'activity_level' => 'required|integer|between:0,2',
+            'class_id' => 'required_if:activity_level,0|nullable|exists:classes,id',
+            'max_number' => 'integer|nullable',
+            'trailer' => 'url|nullable'
         ];
     }
 
     public function messages() {
         return [
-            'txtActivityName.required' => 'Vui lòng điền Tên hoạt động',
+            'name.required' => 'Vui lòng điền Tên hoạt động',
 
-            'txtHiddenActivityLeader.required' => 'Vui lòng điền MSSV người đứng chính',
-            'txtHiddenActivityLeader.exists' => 'Thông tin người đứng chính không đúng',
-            'txtHiddenActivityLeader.size' => 'Thông tin Người đứng chính không đúng',
-            'txtHiddenActivityLeader.string' => 'Thông tin người đứng chính không đúng',
+            'leader_id.required' => 'Vui lòng điền MSSV người đứng chính',
+            'leader_id.exists' => 'Thông tin người đứng chính không đúng',
+            'leader_id.size' => 'Thông tin Người đứng chính không đúng',
+            'leader_id.string' => 'Thông tin người đứng chính không đúng',
 
-            'dtpStartDate.required' => 'Vui lòng chọn ngày bắt đầu hoạt động',
-            'dtpStartDate.date_format' => 'Định dạng ngày bắt đầu hoạt động sai',
+            'start_date.required' => 'Vui lòng chọn ngày bắt đầu hoạt động',
+            'start_date.date_format' => 'Định dạng ngày bắt đầu hoạt động sai',
 
-            'dtpEndDate.required' => 'Vui lòng chọn ngày kết thúc hoạt động',
-            'dtpEndDate.date_format' => 'Định dạng ngày kết thúc hoạt động sai',
-            'dtpEndDate.after_or_equal' => 'Ngày kết thúc hoạt động phải sau hoặc bằng  ngày bắt đầu',
+            'end_date.required' => 'Vui lòng chọn ngày kết thúc hoạt động',
+            'end_date.date_format' => 'Định dạng ngày kết thúc hoạt động sai',
+            'end_date.after_or_equal' => 'Ngày kết thúc hoạt động phải sau hoặc bằng  ngày bắt đầu',
 
-            'dtpStartRegisDate.required' => 'Vui lòng chọn ngày bắt đầu đăng ký',
-            'dtpStartRegisDate.date_format' => 'Định dạng ngày bắt đầu đăng ký không đúng',
-            'dtpStartRegisDate.before_or_equal' => 'Ngày bắt đầu đăng ký phải nhỏ hơn hoặc bằng ngày kết thúc đăng ký',
+            'start_regis_date.required' => 'Vui lòng chọn ngày bắt đầu đăng ký',
+            'start_regis_date.date_format' => 'Định dạng ngày bắt đầu đăng ký không đúng',
+            'start_regis_date.before_or_equal' => 'Ngày bắt đầu đăng ký phải nhỏ hơn hoặc bằng ngày kết thúc đăng ký',
 
-            'dtpEndRegisDate.required' => 'Vui lòng chọn ngày kết thúc đăng ký.',
-            'dtpEndRegisDate.date_format' => 'Định dạng ngày kết thúc đăng ký sai.',
-            'dtpEndRegisDate.before_or_equal' => 'Ngày kết thúc đăng ký phải trước hoặc giống ngày bắt đầu hoạt động.',
+            'end_regis_date.required' => 'Vui lòng chọn ngày kết thúc đăng ký.',
+            'end_regis_date.date_format' => 'Định dạng ngày kết thúc đăng ký sai.',
+            'end_regis_date.before_or_equal' => 'Ngày kết thúc đăng ký phải trước hoặc giống ngày bắt đầu hoạt động.',
 
-            'slSchoolYear.required' => 'Vui lòng chọn năm học.',
-            'slSchoolYear.numeric' => 'Giá trị năm học không đúng.',
-            'slSchoolYear.exists' => 'Năm học không tồn tại.',
+            'schoolyear_id.required' => 'Vui lòng chọn năm học.',
+            'schoolyear_id.numeric' => 'Giá trị năm học không đúng.',
+            'schoolyear_id.exists' => 'Năm học không tồn tại.',
 
-            'txtConductMark.required' =>'Vui lòng nhập Điểm rèn luyện. (Tối thiểu: 0)',
-            'txtConductMark.integer' =>'Điểm rèn luyện phải là số.',
-            'txtConductMark.min' =>'Điểm rèn luyện có giá trị tối thiểu là 0.',
+            'conduct_mark.required' =>'Vui lòng nhập Điểm rèn luyện. (Tối thiểu: 0)',
+            'conduct_mark.integer' =>'Điểm rèn luyện phải là số.',
+            'conduct_mark.min' =>'Điểm rèn luyện có giá trị tối thiểu là 0.',
 
-            'txtSocialMark.required' =>'Vui lòng nhập điểm CTXH.',
-            'txtSocialMark.integer' =>'Điểm CTXH phải là số.',
-            'txtSocialMark.min' =>'Điểm CTXH có giá trị tối thiểu là 0.',
+            'social_mark.required' =>'Vui lòng nhập điểm CTXH.',
+            'social_mark.integer' =>'Điểm CTXH phải là số.',
+            'social_mark.min' =>'Điểm CTXH có giá trị tối thiểu là 0.',
 
-            'rdActivityLevel.required' =>'Vui lòng chọn cấp hoạt động.',
-            'rdActivityLevel.integer' =>'Cấp hoạt động được chọn không đúng.',
-            'rdActivityLevel.between' =>'Cấp hoạt động được chọn không đúng.',
+            'activity_level.required' =>'Vui lòng chọn cấp hoạt động.',
+            'activity_level.integer' =>'Cấp hoạt động được chọn không đúng.',
+            'activity_level.between' =>'Cấp hoạt động được chọn không đúng.',
 
-            'txtClassId.required_if' => 'Vui lòng điền tên lớp.',
-            'txtClassId.exists' => 'Tên lớp không tồn tại.',
+            'class_id.required_if' => 'Vui lòng điền tên lớp.',
+            'class_id.exists' => 'Tên lớp không tồn tại.',
 
-            'txtMaxNumber.integer' => 'Số lượng tối đa tham gia phải là số.',
+            'max_number.integer' => 'Số lượng tối đa tham gia phải là số.',
 
-            'txtTrailerURL.url' => 'Link video trailer không đúng.',
+            'trailer.url' => 'Link video trailer không đúng.',
         ];
     }
 }

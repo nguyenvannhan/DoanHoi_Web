@@ -13,8 +13,27 @@ use \Carbon\Carbon;
 
 class ActivityController extends Controller {
     public function getActivityList() {
-        $this->data['activityList'] = Activity::with('Leader', 'ClassOb', 'SchoolYear')->orderBy('start_date', 'desc')->get();
-        $this->data['schoolYearList'] = School_Year::orderBy('id', 'desc')->get();
+        $schoolYearList = School_Year::orderBy('name', 'desc')->get();
+
+
+        $schoolYearId = $schoolYearList->first()->id;
+
+        $currentYear = date('Y');
+        $currentMonth = date('m');
+
+        if ($currentMonth <= 7) {
+            $currentYear -= 1;
+        }
+
+        foreach($schoolYearList as $choolyear) {
+            if($currentYear == substr($choolyear->name, 0, 4)) {
+                $schoolYearId = $choolyear->id;
+            }
+        }
+
+        $this->data['activityList'] = Activity::with('Leader', 'ClassOb', 'SchoolYear')->where('school_year_id', $schoolYearId)->orderBy('start_date', 'desc')->get();
+        $this->data['schoolYearList'] = $schoolYearList;
+        $this->data['schoolYearId'] = $schoolYearId;
 
         return view('activity.activityList', $this->data);
     }
@@ -43,7 +62,7 @@ class ActivityController extends Controller {
         $newActivity->conduct_mark = $request->conduct_mark;
         $newActivity->social_mark = $request->social_mark;
         $newActivity->activity_level = $request->activity_level;
-        if($request->activity_level == 0) {
+        if($request->activity_level == config('constants.CLASS_ACTIVITY_LEVEL_ID')) {
             $newActivity->class_id = $request->class_id;
         } else {
             $newActivity->class_id = null;
@@ -60,42 +79,41 @@ class ActivityController extends Controller {
         return redirect()->route('activity_index_route');
     }
 
-    public function getEditActivity($activityId) {
-        $activity = Activity::find($activityId);
-        $schoolYearList = School_Yeares::orderBy('id', 'desc')->get();
-
-        return view('activity.editActivity', ['activity' => $activity, 'schoolYearList' => $schoolYearList]);
+    public function getEditActivity($id) {
+        $this->data['activity'] = Activity::find($id);
+        $this->data['schoolYearList'] = School_Year::orderBy('id', 'desc')->get();
+        return view('activity.editActivity', $this->data);
     }
 
     public function postEditActivity(EditActivityRequest $request, $activityId) {
         $activity = Activity::find($activityId);
 
-        $activity->activityName = $request->txtActivityName;
-        $activity->leader = $request->txtHiddenActivityLeader;
-        $activity->startDate = date('Y/m/d', strtotime(str_replace('/', '-',$request->dtpStartDate)));
-        $activity->endDate = date('Y/m/d', strtotime(str_replace('/', '-',$request->dtpEndDate)));
-        $activity->startRegistrationDate = date('Y/m/d', strtotime(str_replace('/', '-',$request->dtpStartRegisDate)));
-        $activity->endRegistrationDate = date('Y/m/d', strtotime(str_replace('/', '-',$request->dtpEndRegisDate)));
-        $activity->content = $request->txtContent;
-        $activity->schoolYearId = $request->slSchoolYear;
-        $activity->conductMark = $request->txtConductMark;
-        $activity->socialMark = $request->txtSocialMark;
-        $activity->activityLevel = $request->rdActivityLevel;
-        if($request->rdActivityLevel == 0) {
-            $activity->classId = $request->txtClassId;
+        $activity->name = $request->name;
+        $activity->leader = $request->leader_id;
+        $activity->start_date = Carbon::createFromFormat('d/m/Y', $request->start_date)->format('Y-m-d');
+        $activity->end_date = Carbon::createFromFormat('d/m/Y', $request->end_date)->format('Y-m-d');
+        $activity->start_regis_date = Carbon::createFromFormat('d/m/Y', $request->start_regis_date)->format('Y-m-d');
+        $activity->end_regis_date = Carbon::createFromFormat('d/m/Y', $request->end_regis_date)->format('Y-m-d');
+        $activity->content = $request->content;
+        $activity->school_year_id = $request->schoolyear_id;
+        $activity->conduct_mark = $request->conduct_mark;
+        $activity->social_mark = $request->social_mark;
+        $activity->activity_level = $request->activity_level;
+        if($request->activity_level == config('constants.CLASS_ACTIVITY_LEVEL_ID')) {
+            $activity->class_id = $request->class_id;
         } else {
-            $activity->classId = null;
+            $activity->class_id = null;
         }
-        $activity->maxRegisNumber = $request->txtMaxNumber;
-        if($request->txtTrailerURL != null) {
-            $activity->trailer = $this->getIdYoutue($request->txtTrailerURL);
+        $activity->max_regis_number = $request->max_number;
+        if($request->trailer != null) {
+            $activity->trailer = $this->getIdYoutue($request->trailer);
         } else {
             $activity->trailer = null;
         }
 
         $activity->save();
 
-        return redirect('/activity')->with(['success_alert' => 'Cập nhật hoạt động mã '.$activityId.' thành công!']);
+        return redirect()->route('activity_index_route');
     }
 
     public function ajaxGetLeader($searchKey) {

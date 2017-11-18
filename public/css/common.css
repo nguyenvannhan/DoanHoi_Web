@@ -28,6 +28,18 @@ a:hover {
     margin-bottom: 0 !important;
 }
 
+.mr-5 {
+    margin-right: 5px !important;
+}
+
+.mr-10 {
+    margin-right: 10px !important;
+}
+
+.mb-10 {
+    margin-bottom: 10px !important;
+}
+
 .pb-0 {
     padding-bottom: 0 !important;
 }

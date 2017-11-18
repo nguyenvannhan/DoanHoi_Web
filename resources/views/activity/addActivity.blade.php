@@ -166,14 +166,14 @@ if ($currentMonth <= 7) {
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div id="level-activity-radio" class="btn-group" style="width: 100%;">
-                            <label class="btn btn-default">
+                            <label class="btn btn-default label-activity-level">
                                 <input type="radio" name="activity_level" class="form-control" value="0" {{ old('activity_level') == 0 ? "checked" : "" }}> Chi đoàn
                             </label>
-                            <label class="btn btn-primary">
+                            <label class="btn btn-primary label-activity-level">
                                 <input type="radio" name="activity_level" class="form-control" value="1"
                                 {{ old('activity_level') == null || old('activity_level') == 1 ? "checked" : "" }}> Cấp Khoa
                             </label>
-                            <label class="btn btn-default">
+                            <label class="btn btn-default label-activity-level">
                                 <input type="radio" name="activity_level" class="form-control" value="2" {{ old('activity_level') == 2 ? "checked" : "" }}> Cấp
                                 Trường
                             </label>

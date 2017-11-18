@@ -71,8 +71,8 @@ Route::prefix('hoat-dong')->group(function() {
     Route::get('them-moi', 'ActivityController@getAddActivity')->name('get_activity_add_route');
     Route::post('them-moi', 'ActivityController@postAddActivity')->name('post_activity_add_route');
 
-    Route::get('edit/{activityId}', 'ActivityController@getEditActivity')->name('get_edit_activity_route');
-    Route::post('edit/{activityId}', 'ActivityController@postEditActivity')->name('post_edit_activity_route');
+    Route::get('cap-nhat/{id}', 'ActivityController@getEditActivity')->name('get_edit_activity_route');
+    Route::post('cap-nhat/{id}', 'ActivityController@postEditActivity')->name('post_edit_activity_route');
 
     Route::get('get-leader/{searchKey}', 'ActivityController@ajaxGetLeader')->name('ajax_get_leader');
     Route::get('get-class/{student_id}', 'ActivityController@ajaxGetClass')->name('ajax_get_classs');

@@ -29,4 +29,8 @@ class Activity extends Model {
     public function SchoolYear() {
         return $this->belongsTo('App\Models\School_Year', 'school_year_id', 'id');
     }
+
+    public function Attenders() {
+        return $this->hasMany('App\Models\Attender', 'activity_id', 'id');
+    }
 }
