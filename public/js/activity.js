@@ -46,6 +46,21 @@ $('.detail-activity').on('click', function() {
     });
 });
 
+$('select[name="schoolyear_id"]').on('change', function() {
+    var id = $(this).val();
+
+    $.ajax({
+        url: BASE_URL + 'hoat-dong/get-activity-list/' + id,
+        method: 'GET'
+    }).done(function(data) {
+        $('#activity-list-table').html(data);
+        $('#activity-list-table').dataTable().fnDraw();
+    }).fail(function(xhr, status, error) {
+        console.log(this.url);
+        console.log(error);
+    });
+});
+
 function postDeleteActivity() {
     $('.delete-activity').on('click', function() {
         var id = $(this).data('id');
@@ -74,7 +89,6 @@ function postDeleteActivity() {
                         }
                     }).done(function(data) {
                         if(data) {
-                            console.log(data);
                             $('#activity-list-table').html(data);
                             $('#activity-list-table').dataTable().fnDraw();
                             e.close();

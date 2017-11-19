@@ -65,6 +65,7 @@ Route::prefix('lop-hoc')->group(function() {
 //Route activities
 Route::prefix('hoat-dong')->group(function() {
     Route::get('/', 'ActivityController@getActivityList')->name('activity_index_route');
+    Route::get('/get-activity-list/{schoolyear_id}', 'ActivityController@getActivityListBySchoolYear')->name('ajax_get_list_by_schoolyear');
 
     Route::get('detail/{id}', 'ActivityController@getDetailActivity')->name('activity_detail_route');
 

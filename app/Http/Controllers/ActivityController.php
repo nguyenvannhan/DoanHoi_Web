@@ -38,6 +38,12 @@ class ActivityController extends Controller {
         return view('activity.activityList', $this->data);
     }
 
+    public function getActivityListBySchoolYear($schoolyear_id) {
+        $this->data['activityList'] = Activity::with('Leader', 'ClassOb', 'SchoolYear')->where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
+
+        return response()->view('activity.activity-list-table', $this->data);
+    }
+
     public function getDetailActivity($id) {
         $this->data['activity'] = Activity::find($id);
 
