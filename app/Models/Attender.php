@@ -12,10 +12,16 @@ class Attender extends Model {
     public $incrementing = false;
 
     protected $primaryKey = ['activity_id', 'student_id'];
-    protected $fillable = ['check'];
+    protected $fillable = ['time_id', 'check', 'conduct_mark', 'social_mark', 'minus_conduct_mark', 'minus_social_mark'];
 
     protected $dates = ['deleted_at', 'updated_at', 'created_at'];
     public $timestamps = true;
 
+    public function Student() {
+        return $this->belongsTo('App\Models\Student', 'student_id', 'id')->withTrashed();
+    }
 
+    public function Activity() {
+        return $this->belongsTo('App\Models\Activity', 'activity_id', 'id')->withTrashed();
+    }
 }

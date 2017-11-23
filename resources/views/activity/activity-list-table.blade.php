@@ -15,7 +15,7 @@
 @endphp
 @foreach($activityList as $activity)
 <tr>
-    {{--<td class="center"> {{ $activity->id }} </td>
+    <td class="center"> {{ $activity->id }} </td>
     <td> {{ $activity->name }} </td>
     <td class="center {{ ($currentDate > $activity->start_date) ? 'green' : 'blue'}}"> {{ $activity->start_date == $activity->end_date ? date('d/m/Y', strtotime($activity->start_date)) : date('d/m/Y', strtotime($activity->start_date)) . ' - ' . date('d/m/Y', strtotime($activity->end_date)) }}</td>
     <td> {{ $activity->Leader->id . ' - ' . $activity->Leader->name }} </td>
@@ -34,8 +34,6 @@
         <a href="{{ route('get_edit_activity_route', ['id' => $activity->id]) }}"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
         <a href="#" class="delete-activity" data-id="{{ $activity->id }}"><i class="fa fa-trash" title="Xóa"></i></a>
     </td>
-    --}}
-    <td>13110113</td>
 </tr>
 @endforeach
 </tbody>

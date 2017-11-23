@@ -10,22 +10,8 @@ use Illuminate\Http\Request;
 
 class ClassesController extends Controller {
     public function getClassList() {
-        // if($scienceId != 0) {
-        //     $classList = Classes::getClassList();
-        //     $scienceList = Science::orderBy('id', 'desc')->get();
-        //
-        //     return view('class.classList', ['classList' => $classList, 'scienceList' => $scienceList, 'scienceIdSearch' => $scienceId]);
-        // } else {
-        //     $classList = Classes::with('Science')->orderBy('id', 'desc')->get();
-        //     $scienceList = Science::orderBy('id', 'desc')->get();
-        //
-        //     return view('class.classList', ['classList' => $classList, 'scienceList' => $scienceList]);
-        // }
-
         $this->data['classList'] = Classes::orderBy('id', 'desc')->get();
         $this->data['scienceList'] = Science::orderBy('id', 'desc')->get();
-
-        // return $this->data;
 
         return view('class.classList', $this->data);
     }
@@ -46,12 +32,12 @@ class ClassesController extends Controller {
     public function getClassListByScienceId($scienceId)
     {
         if($scienceId != 0) {
-            $classOb = Classes::with('Science')->where('scienceId', $scienceId)->orderBy('id', 'desc')->get();
+            $classList = Classes::with('Science')->where('science_id', $scienceId)->orderBy('id', 'desc')->get();
         }
         else{
-            $classOb = Classes::with('Science')->orderBy('id', 'desc')->get();
+            $classList = Classes::with('Science')->orderBy('id', 'desc')->get();
         }
-        return response()->json(['classOb'=>$classOb]);
+        return response()->json(['classList'=>$classList]);
     }
 
     public function postEditClass(EditClassRequest $request, $id) {

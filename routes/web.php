@@ -87,6 +87,15 @@ Route::prefix('hoat-dong')->group(function() {
     Route::get('add-list-student-activity', function() {
         return view('activity.addListStudentActivity');
     })->name('activity_list_student_route');
+
+    Route::prefix('tham-gia')->group(function() {
+        Route::get('/', 'AttenderController@index')->name('get_attender_index_route');
+
+        Route::get('/get-activity-list-attender/{schoolyear_id}', 'AttenderController@getActivityListBySchoolYear')->name('ajax_get_list_by_schoolyear_attender');
+        Route::get('/get-student-info/{id}', 'AttenderController@getStudentInfo')->name('ajax_get_student_info_attender');
+
+        Route::post('add-attender', 'AttenderController@postAddAttender')->name('post_add_attender_route');
+    });
 });
 
 //Route faculty commitee

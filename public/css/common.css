@@ -4521,3 +4521,10 @@ input:checked + .slider:before {
 .slider.round:before {
  border-radius: 50%;
 }
+
+
+.add-attender-input {
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+    float: left !important;
+}
