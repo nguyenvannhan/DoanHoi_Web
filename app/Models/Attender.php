@@ -9,10 +9,10 @@ class Attender extends Model {
     use SoftDeletes;
 
     protected $table = 'attenders';
-    public $incrementing = false;
+    public $incrementing = true;
 
-    protected $primaryKey = ['activity_id', 'student_id'];
-    protected $fillable = ['time_id', 'check', 'conduct_mark', 'social_mark', 'minus_conduct_mark', 'minus_social_mark'];
+    protected $primaryKey = 'id';
+    protected $fillable = ['activity_id', 'student_id', 'time_id', 'check', 'conduct_mark', 'social_mark', 'minus_conduct_mark', 'minus_social_mark'];
 
     protected $dates = ['deleted_at', 'updated_at', 'created_at'];
     public $timestamps = true;

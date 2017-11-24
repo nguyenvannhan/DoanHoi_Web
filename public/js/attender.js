@@ -264,19 +264,28 @@ function resetValueInputAdd() {
 function checkAttend() {
     $('.check_attend').on('click', function() {
         var id = $(this).data('id');
-        var activity_id = $('select[name="activity_id"]').val();
-        console.log(activity_id);
-        console.log(id);
+        var component = $(this);
 
         $.ajax({
             url: BASE_URL + 'hoat-dong/tham-gia/check-attend',
             method: 'POST',
             data: {
-                'activity_id': activity_id,
                 'id': id
             }
         }).done(function(data) {
-            console.log(data);
+            if(data.result) {
+                if(data.check) {
+                    component.find('i.fa').removeClass('fa-times-circle').removeClass('red').addClass('fa-check-circle').addClass('green');
+                } else {
+                    component.find('i.fa').removeClass('fa-check-circle').removeClass('green').addClass('fa-times-circle').addClass('red');
+                }
+            } else {
+                BootstrapDialog.alert({
+                    title: 'Lỗi',
+                    message: 'Không cập nhật được!!',
+                    type: 'type-danger'
+                });
+            }
         }).fail(function(xhr, status, error) {
             console.log(this.url);
             console.log(error);

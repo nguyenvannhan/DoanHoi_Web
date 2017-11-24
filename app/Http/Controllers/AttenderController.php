@@ -25,14 +25,16 @@ class AttenderController extends Controller {
     }
 
     public function postCheckAttend(Request $request) {
-        $attender = Attender::where('student_id', $request->id)->where('activity_id', $request->activity_id)->first();
+        $attender = Attender::find($request->id);
         if(!is_null($attender)) {
             if($attender->check) {
-                $check = 0;
+                $attender->check = 0;
+                $this->data['check'] = false;
             } else {
-                $check = 1;
+                $attender->check = 1;
+                $this->data['check'] = true;
             }
-            DB::table('attenders')->where('$student_id', $request->id)->where('activity_id', $request->activity_id)->update(['check' => $check]);
+            $attender->save();
             $this->data['result'] = true;
         } else {
             $this->data['result'] = false;
@@ -135,6 +137,10 @@ class AttenderController extends Controller {
 
                 $activity->max_regis_number += 1;
                 $activity->save();
+            } else {
+                $errors[0] = 'Hoạt động đã đủ người!!!';
+                $this->data['errors'] = $errors;
+                return response()->json($this->data);
             }
 
             \DB::commit();

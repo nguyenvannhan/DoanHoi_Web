@@ -22,9 +22,9 @@
         <td class="center">{{ $attender->time_id }}</td>
         <td class="center">
             @if($attender->check)
-            <a class="check_attend" data-id="{{ $attender->student_id }}"><i class="fa fa-check-circle green"></i></a>
+            <a class="check_attend" data-id="{{ $attender->id }}"><i class="fa fa-check-circle green"></i></a>
             @else
-            <a class="check_attend" data-id="{{ $attender->student_id }}"><i class="fa fa-times-circle red"></i></a>
+            <a class="check_attend" data-id="{{ $attender->id }}"><i class="fa fa-times-circle red"></i></a>
             @endif
         </td>
         <td class="center {{ $attender->minus_conduct_mark > 0 ? 'red' : '' }}">

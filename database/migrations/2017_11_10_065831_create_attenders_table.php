@@ -17,7 +17,8 @@ class CreateAttendersTable extends Migration
             $table->charset = 'utf8';
             $table->collation = 'utf8_unicode_ci';
             $table->engine = 'InnoDB';
-
+            
+            $table->increments('id');
             $table->unsignedInteger('activity_id');
             $table->string('student_id', 8);
             $table->timestamp('time_id')->default(DB::raw('CURRENT_TIMESTAMP'));
@@ -30,7 +31,7 @@ class CreateAttendersTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->primary(['activity_id', 'student_id']);
+            $table->unique(['activity_id', 'student_id']);
             $table->foreign('activity_id')->references('id')->on('activities')->onDelete('cascade');
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
         });
