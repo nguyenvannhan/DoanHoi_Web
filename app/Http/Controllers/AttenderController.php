@@ -24,6 +24,23 @@ class AttenderController extends Controller {
         return response()->view('attender.load-attender-table', $this->data);
     }
 
+    public function postCheckAttend(Request $request) {
+        $attender = Attender::where('student_id', $request->id)->where('activity_id', $request->activity_id)->first();
+        if(!is_null($attender)) {
+            if($attender->check) {
+                $check = 0;
+            } else {
+                $check = 1;
+            }
+            DB::table('attenders')->where('$student_id', $request->id)->where('activity_id', $request->activity_id)->update(['check' => $check]);
+            $this->data['result'] = true;
+        } else {
+            $this->data['result'] = false;
+        }
+        // $attender->save();
+        return response()->json($this->data);
+    }
+
     public function getActivityListBySchoolYear($schoolyear_id) {
         $activityList = Activity::with('Leader', 'ClassOb', 'SchoolYear')->where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
 
@@ -103,7 +120,7 @@ class AttenderController extends Controller {
                     $student->save();
                 }
 
-                $newAttender = Attender::where('student_id', $attender->id)->first();
+                $newAttender = Attender::where('student_id', $attender->id)->where('activity_id', $attender->activity_id)->first();
 
                 if(!is_null($newAttender)) {
                     $errors[0] = 'Người đăng ký đã tồn tại!';

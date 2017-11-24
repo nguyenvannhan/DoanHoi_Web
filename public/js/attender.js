@@ -1,5 +1,9 @@
 setDisabled();
 
+$('.datatable').on('init.dt', function() {
+    checkAttend();
+});
+
 $('select[name="schoolyear_id"]').on('change', function() {
     var id = $(this).val();
 
@@ -255,4 +259,27 @@ function resetValueInputAdd() {
     $('select[name="class_id"]').html('');
 
     $('selectpicker').selectpicker('refresh');
+}
+
+function checkAttend() {
+    $('.check_attend').on('click', function() {
+        var id = $(this).data('id');
+        var activity_id = $('select[name="activity_id"]').val();
+        console.log(activity_id);
+        console.log(id);
+
+        $.ajax({
+            url: BASE_URL + 'hoat-dong/tham-gia/check-attend',
+            method: 'POST',
+            data: {
+                'activity_id': activity_id,
+                'id': id
+            }
+        }).done(function(data) {
+            console.log(data);
+        }).fail(function(xhr, status, error) {
+            console.log(this.url);
+            console.log(error);
+        });
+    });
 }
