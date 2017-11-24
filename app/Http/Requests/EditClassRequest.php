@@ -26,7 +26,7 @@ class EditClassRequest extends FormRequest
     public function rules()
     {
         return [
-            'txtEditClassName' => 'required|digits:6|numeric|unique:classes,name,'.Request->segment(2),
+            'txtEditClassName' => 'required|digits:6|numeric|unique:classes,name,'.Request::segment(3),
             'slEditClassScienceId' => 'required'
         ];
     }

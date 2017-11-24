@@ -9,7 +9,7 @@ class Activity extends Model {
     use SoftDeletes;
 
     protected $table = 'activities';
-    public $incrementing = false;
+    public $incrementing = true;
 
     protected $primaryKey = 'id';
     protected $fillable = ['name', 'leader', 'start_date', 'end_date', 'start_regis_date', 'end_regis_date',
@@ -19,14 +19,18 @@ class Activity extends Model {
     public $timestamps = true;
 
     public function Leader() {
-        return $this->belongsTo('App\Students', 'leader', 'id');
+        return $this->belongsTo('App\Models\Student', 'leader', 'id');
     }
 
     public function ClassOb() {
-        return $this->belongsTo('App\Classes', 'class_id', 'id');
+        return $this->belongsTo('App\Models\Classes', 'class_id', 'id');
     }
 
     public function SchoolYear() {
-        return $this->belongsTo('App\School_Years', 'school_year_id', 'id');
+        return $this->belongsTo('App\Models\School_Year', 'school_year_id', 'id');
+    }
+
+    public function Attenders() {
+        return $this->hasMany('App\Models\Attender', 'activity_id', 'id');
     }
 }

@@ -30,6 +30,10 @@ Route::prefix('sinh-vien')->group(function() {
 
     Route::get('lay-danh-sach/{type_id}', 'StudentController@ajaxGetStudentList')->name('get_ajax_student_list');
 
+    Route::get('lay-thong-tin/{id}', 'StudentController@ajaxGetStudentInfo')->name('get_ajax_student_info');
+
+    Route::get('get-info-add-student/{is_it_student}/{science_id?}', 'StudentController@ajaxGetInfoAddStudent')->name('ajax_get_info_student');
+
     Route::get('add-list', function() {
         return view('student.addListStudent');
     })->name('student_add_list_route');
@@ -61,14 +65,20 @@ Route::prefix('lop-hoc')->group(function() {
 //Route activities
 Route::prefix('hoat-dong')->group(function() {
     Route::get('/', 'ActivityController@getActivityList')->name('activity_index_route');
+    Route::get('/get-activity-list/{schoolyear_id}', 'ActivityController@getActivityListBySchoolYear')->name('ajax_get_list_by_schoolyear');
 
     Route::get('detail/{id}', 'ActivityController@getDetailActivity')->name('activity_detail_route');
 
     Route::get('them-moi', 'ActivityController@getAddActivity')->name('get_activity_add_route');
     Route::post('them-moi', 'ActivityController@postAddActivity')->name('post_activity_add_route');
 
-    Route::get('edit/{activityId}', 'ActivityController@getEditActivity')->name('get_edit_activity_route');
-    Route::post('edit/{activityId}', 'ActivityController@postEditActivity')->name('post_edit_activity_route');
+    Route::get('cap-nhat/{id}', 'ActivityController@getEditActivity')->name('get_edit_activity_route');
+    Route::post('cap-nhat/{id}', 'ActivityController@postEditActivity')->name('post_edit_activity_route');
+
+    Route::post('xoa', 'ActivityController@postDeleteActivity')->name('post_delete_activity_route');
+
+    Route::get('get-leader/{searchKey}', 'ActivityController@ajaxGetLeader')->name('ajax_get_leader');
+    Route::get('get-class/{student_id}', 'ActivityController@ajaxGetClass')->name('ajax_get_classs');
 
     Route::get('add-list', function() {
         return view('activity.addListStudentActivity');
@@ -77,6 +87,15 @@ Route::prefix('hoat-dong')->group(function() {
     Route::get('add-list-student-activity', function() {
         return view('activity.addListStudentActivity');
     })->name('activity_list_student_route');
+
+    Route::prefix('tham-gia')->group(function() {
+        Route::get('/', 'AttenderController@index')->name('get_attender_index_route');
+
+        Route::get('/get-activity-list-attender/{schoolyear_id}', 'AttenderController@getActivityListBySchoolYear')->name('ajax_get_list_by_schoolyear_attender');
+        Route::get('/get-student-info/{id}', 'AttenderController@getStudentInfo')->name('ajax_get_student_info_attender');
+
+        Route::post('add-attender', 'AttenderController@postAddAttender')->name('post_add_attender_route');
+    });
 });
 
 //Route faculty commitee
@@ -112,10 +131,6 @@ Route::prefix('ajax')->group(function() {
     Route::post('add-school-year', 'School_YearController@postAjaxAddSchoolYear')->name('ajax_add_school_year');
 
     Route::get('get-class-info/{class_id}', 'ClassesController@ajaxGetClassInfo')->name('ajax_get_class_info');
-
-    Route::get('get-info-add-student/{is_it_student}/{science_id?}', 'StudentController@ajaxGetInfoAddStudent')->name('ajax_get_info_student');
-
-    Route::get('get-class-from-student-id/{studentId}','StudentesController@getClassFromId')->name('ajax_get_class_from_student_id');
 
     Route::get('add-BCH_Khoa','BCH_KhoaController@getAjaxAddBCH_khoa')->name('ajax_add_BCH_Khoa_route');
 });

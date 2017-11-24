@@ -20,7 +20,12 @@ class CreateAttendersTable extends Migration
 
             $table->unsignedInteger('activity_id');
             $table->string('student_id', 8);
+            $table->timestamp('time_id')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->boolean('check')->default(0);
+            $table->unsignedInteger('conduct_mark')->default(0);
+            $table->unsignedInteger('social_mark')->default(0);
+            $table->unsignedInteger('minus_conduct_mark')->default(0);
+            $table->unsignedInteger('minus_social_mark')->default(0);
 
             $table->softDeletes();
             $table->timestamps();

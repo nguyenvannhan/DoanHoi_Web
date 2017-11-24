@@ -37,7 +37,7 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Mã Sinh Viên: </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" name="id" class="form-control" value="{{ old('id') ? old('id') : $student->id }}">
+                                        <input type="text" name="id" class="form-control" value="{{ old('id') ? old('id') : $student->id }}" readonly>
                                     </div>
                                 </div>
 

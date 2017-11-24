@@ -32,7 +32,7 @@ class CreateActivitiesTable extends Migration
             $table->unsignedTinyInteger('activity_level');
             $table->unsignedInteger('class_id')->nullable();
             $table->string('trailer')->nullable();
-            $table->unsignedInteger('max_regis_number')->nullable();
+            $table->unsignedInteger('max_regis_number')->default(0);
             $table->softDeletes();
             $table->timestamps();
 

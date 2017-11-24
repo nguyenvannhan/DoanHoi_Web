@@ -24,8 +24,28 @@ a:hover {
     background: #2A3F54
 }
 
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.mr-5 {
+    margin-right: 5px !important;
+}
+
+.mr-10 {
+    margin-right: 10px !important;
+}
+
+.mb-10 {
+    margin-bottom: 10px !important;
+}
+
 .pb-0 {
     padding-bottom: 0 !important;
+}
+
+.black-color {
+    color: #000;
 }
 
 .nav-sm .container.body .col-md-3.left_col {
@@ -4500,4 +4520,11 @@ input:checked + .slider:before {
 
 .slider.round:before {
  border-radius: 50%;
+}
+
+
+.add-attender-input {
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+    float: left !important;
 }

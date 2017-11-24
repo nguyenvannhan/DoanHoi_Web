@@ -104,13 +104,13 @@ function init_sidebar() {
             $SIDEBAR_MENU.find('li.active ul').hide();
             $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
             $logo = $('.sidebar-banner');
-            $logo.attr('src', BASE_URL + "/images/faculty_banner.png");
+            $logo.attr('src', BASE_URL + "public/images/faculty_banner.png");
             $logo.width(50);
         } else {
             $SIDEBAR_MENU.find('li.active-sm ul').show();
             $SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
 
-            $logo.attr('src', BASE_URL + "/images/banner.png");
+            $logo.attr('src', BASE_URL + "public/images/banner.png");
             $logo.width(150);
         }
 
