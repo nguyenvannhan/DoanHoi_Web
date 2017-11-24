@@ -6,11 +6,13 @@ $('#leader').on('input', function() {
         url: BASE_URL + 'hoat-dong/get-leader/'+searchKey,
         method: 'GET'
     }).done(function(data) {
-        $('#dropdown-leader').css('display', 'block');
-        $('#dropdown-leader').html(data.htmlContent);
-        $('#dropdown-leader').dropdown('toggle');
+        if(data) {
+            $('#dropdown-leader').css('display', 'block');
+            $('#dropdown-leader').html(data.htmlContent);
+            $('#dropdown-leader').dropdown('toggle');
 
-        getLeader();
+            getLeader();
+        }
     }).fail(function(xhr, status, error) {
         console.log(this.url);
         console.log(error);
@@ -118,6 +120,8 @@ function getLeader() {
     $('#dropdown-leader li a').on('click',function() {
         var text = $(this).text();
         var id = text.trim().substr(0,8).trim();
+        console.log(text);
+        console.log(id);
 
         $('#leader').val(text);
         $('input[name="leader_id"]').val(id);

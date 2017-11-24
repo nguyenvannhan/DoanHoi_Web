@@ -41,9 +41,9 @@ $('input[name="fil-faculty"]').on('change', function() {
         url: BASE_URL + 'sinh-vien/lay-danh-sach/' + type_id,
         method: 'GET'
     }).done(function(data) {
+        $('#student-list-table').dataTable().fnDestroy();
         $('#student-list-table').html(data);
-
-        $('#student-list-table').dataTable().fnDraw();
+        $('#student-list-table').dataTable();
         getDetailInfo();
     }).fail(function(xhr, status, error) {
         console.log(this.url);
@@ -81,7 +81,7 @@ function getItClass(science_id) {
 
 function getOtherFaculty() {
     $.ajax({
-        url: BASE_URL + 'sinh-vien/get-info-add-student/0/',
+        url: BASE_URL + 'sinh-vien/get-info-add-student/0',
         method: 'GET'
     }).done(function(data) {
         if(data) {

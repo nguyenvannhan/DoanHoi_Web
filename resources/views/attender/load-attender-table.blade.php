@@ -16,10 +16,10 @@
     @endphp
     @foreach($attenderList as $attender)
     <tr>
-        <td>{{ $stt++ }}</td>
-        <td>{{ $attender->Student->id }}</td>
+        <td class="center">{{ $stt++ }}</td>
+        <td class="center">{{ $attender->Student->id }}</td>
         <td>{{ $attender->Student->name }}</td>
-        <td>{{ $attender->time_id }}</td>
+        <td class="center">{{ $attender->time_id }}</td>
         <td class="center">
             @if($attender->check)
             <i class="fa fa-check-circle green"></i>
@@ -41,7 +41,7 @@
             {{ '-'.$attender->minus_social_mark }}
             @endif
         </td>
-        <td>
+        <td class="center">
             <a class="delete-attender red"><i class="fa fa-trash"></i></a>
         </td>
     </tr>

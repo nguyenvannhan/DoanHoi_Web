@@ -71,13 +71,41 @@ $('#add-student').on('click', function(e) {
                 'class_id': $('select[name="class_id"]').val(),
             }
         }).done(function(data) {
-            console.log(data);
-            $('#attender-table').html(data);
+            if(data.errors) {
+                BootstrapDialog.alert({
+                    title: 'Lỗi',
+                    message: data.errors,
+                    type: 'type-danger'
+                });
+            } else {
+                $('.datatable').dataTable().fnDestroy();
+
+                $('#attender-table').html(data);
+                $('.datatable').dataTable();
+
+                resetValueInputAdd();
+                setDisabled();
+            }
         }).fail(function(xhr, status, error) {
             console.log(this.url);
             console.log(error);
         });
     }
+});
+
+$('select[name="activity_id"]').on('change', function() {
+    var activity_id = $(this).val();
+    $.ajax({
+        url: BASE_URL + 'hoat-dong/tham-gia/lay-danh-sach/' + activity_id,
+        method: 'GET'
+    }).done(function(data) {
+        $('.datatable').dataTable().fnDestroy();
+        $('#attender-table').html(data);
+        $('.datatable').dataTable();
+    }).fail(function(xhr, status, error) {
+        console.log(this.url);
+        console.log(error);
+    });
 });
 
 function getInfoStudent($id) {
@@ -215,4 +243,16 @@ function getClassByScience_Attender(science_id) {
         console.log(this.url);
         console.log(error);
     });
+}
+
+function resetValueInputAdd() {
+    $('input[name="id"]').val('');
+    $('input[name="name"]').val('');
+    $('input[name="email"]').val('');
+    $('input[name="numberphone"]').val('');
+    $('select[name="science_id"]').html('');
+    $('select[name="faculty_id"]').html('');
+    $('select[name="class_id"]').html('');
+
+    $('selectpicker').selectpicker('refresh');
 }

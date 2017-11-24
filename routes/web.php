@@ -90,6 +90,7 @@ Route::prefix('hoat-dong')->group(function() {
 
     Route::prefix('tham-gia')->group(function() {
         Route::get('/', 'AttenderController@index')->name('get_attender_index_route');
+        Route::get('/lay-danh-sach/{activity_id}', 'AttenderController@getAttenderList')->name('ajax_get_attender_list');
 
         Route::get('/get-activity-list-attender/{schoolyear_id}', 'AttenderController@getActivityListBySchoolYear')->name('ajax_get_list_by_schoolyear_attender');
         Route::get('/get-student-info/{id}', 'AttenderController@getStudentInfo')->name('ajax_get_student_info_attender');

@@ -18,6 +18,12 @@ class AttenderController extends Controller {
         return view('attender.index', $this->data);
     }
 
+    public function getAttenderList($activity_id) {
+        $this->data['attenderList'] = Attender::with('Student', 'Activity')->where('activity_id', $activity_id)->orderBy('updated_at', 'desc')->get();
+
+        return response()->view('attender.load-attender-table', $this->data);
+    }
+
     public function getActivityListBySchoolYear($schoolyear_id) {
         $activityList = Activity::with('Leader', 'ClassOb', 'SchoolYear')->where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
 
@@ -67,15 +73,7 @@ class AttenderController extends Controller {
                     }
                     $student->save();
 
-                    return "1";
 
-                    $newAttender = new Attender;
-                    $newAttender->activity_id = $attender->activity_id;
-                    $newAttender->student_id = $attender->id;
-                    $newAttender->save();
-
-                    $activity->max_regis_number += 1;
-                    $activity->save();
                 } else {
                     $attender->validate([
                         'name' => 'required',
@@ -103,17 +101,23 @@ class AttenderController extends Controller {
                         $student->is_it_student = 0;
                     }
                     $student->save();
-
-                    $newAttender = new Attender;
-                    $newAttender->activity_id = $attender->activity_id;
-                    $newAttender->student_id = $attender->id;
-                    $newAttender->save();
-
-                    return "2";
-
-                    $activity->max_regis_number += 1;
-                    $activity->save();
                 }
+
+                $newAttender = Attender::where('student_id', $attender->id)->first();
+
+                if(!is_null($newAttender)) {
+                    $errors[0] = 'Người đăng ký đã tồn tại!';
+                    $this->data['errors'] = $errors;
+                    return response()->json($this->data);
+                }
+
+                $newAttender = new Attender;
+                $newAttender->activity_id = $attender->activity_id;
+                $newAttender->student_id = $attender->id;
+                $newAttender->save();
+
+                $activity->max_regis_number += 1;
+                $activity->save();
             }
 
             \DB::commit();

@@ -147,7 +147,7 @@ if ($currentMonth <= 7) {
                         Điểm Rèn Luyện :
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" name="conduct_mark" class="form-control" value="{{ old('conduct_mark') }}">
+                        <input type="number" name="conduct_mark" class="form-control" value="{{ old('conduct_mark') != null ? old('conduct_mark') : '0' }}">
                     </div>
                 </div>
                 <div class="item form-group">
@@ -156,7 +156,7 @@ if ($currentMonth <= 7) {
                         Điểm CTXH :
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" name="social_mark" class="form-control" value="{{ old('social_mark') }}">
+                        <input type="number" name="social_mark" class="form-control" value="{{ old('social_mark') != null ? old('social_mark') : '0' }}">
                     </div>
                 </div>
                 <div class="item form-group">
@@ -190,7 +190,7 @@ if ($currentMonth <= 7) {
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Số Lượng Đăng Ký Tối Đa : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="number" name="max_number" class="form-control" value="{{ old('max_number') }}">
+                        <input type="number" name="max_number" class="form-control" value="{{ old('max_number') != null ? old('max_number') : '0' }}">
                     </div>
                 </div>
                 <div class="item form-group">

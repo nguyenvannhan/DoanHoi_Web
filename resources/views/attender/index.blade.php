@@ -88,18 +88,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <td class="center">1</td>
-                        <td class="center">13110113</td>
-                        <td>Nguyen Van Nhan</td>
-                        <td class="center">2017-23-23 23:23:23</td>
-                        <td class="center">
-                            <a class="attender-check"><i class="fa fa-check-circle green"></i></a>
-                        </td>
-                        <td class="center">10</td>
-                        <td class="center">10</td>
-                        <td class="center">
-                            <a class="delete-attender red"><i class="fa fa-trash"></i></a>
-                        </td>
                     </tbody>
                 </table>
             </div>
