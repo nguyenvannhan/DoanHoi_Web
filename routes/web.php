@@ -97,6 +97,8 @@ Route::prefix('hoat-dong')->group(function() {
         Route::get('/get-student-info/{id}', 'AttenderController@getStudentInfo')->name('ajax_get_student_info_attender');
 
         Route::post('add-attender', 'AttenderController@postAddAttender')->name('post_add_attender_route');
+        Route::post('update-conduct', 'AttenderController@postUpdateConduct')->name('post_update_conduct_route');
+        Route::post('update-social', 'AttenderController@postUpdateSocial')->name('post_update_social_route');
     });
 });
 

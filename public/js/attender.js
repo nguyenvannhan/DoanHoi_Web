@@ -2,6 +2,7 @@ setDisabled();
 
 $('.datatable').on('init.dt', function() {
     checkAttend();
+    updateConductMark();
 });
 
 $('select[name="schoolyear_id"]').on('change', function() {
@@ -30,6 +31,8 @@ $('input[name="id"]').on('blur', function(e) {
 }).on('input', function() {
     if($(this).val().trim().length >= 8) {
         $(this).val($(this).val().trim().substr(0,8).trim());
+
+        setDisabled();
     }
 
     if($(this).val().trim().length == 8) {
@@ -38,6 +41,10 @@ $('input[name="id"]').on('blur', function(e) {
         if(!$('select[name="science_id"]').val() && !$('select[name="faculty_id"]').val()) {
             getInfoStudent(id);
         }
+    }
+
+    if($(this).val().trim().length < 8) {
+        setDisabled();
     }
 });
 
@@ -91,8 +98,12 @@ $('#add-student').on('click', function(e) {
                 setDisabled();
             }
         }).fail(function(xhr, status, error) {
-            console.log(this.url);
-            console.log(error);
+            if(xhr.status == 422) {
+                console.log(error);
+            } else {
+                console.log(this.url);
+                console.log(error);
+            }
         });
     }
 });
@@ -290,5 +301,46 @@ function checkAttend() {
             console.log(this.url);
             console.log(error);
         });
+    });
+}
+
+function updateConductMark() {
+    $('input[name="conduct_mark"]').on('blur', function() {
+        var id = $(this).data('id');
+        var conduct_mark = $(this).val();
+
+        if(conduct_mark != '') {
+            $.ajax({
+                url: BASE_URL + 'hoat-dong/tham-gia/update-conduct',
+                data: {
+                    'id': id,
+                    'conduct_mark': conduct_mark
+                },
+                method: 'POST'
+            }).done(function(data) {
+                if(data) {
+                    BootstrapDialog.show({
+                        title: 'Cập nhật ĐRL',
+                        message: 'Cập nhật điểm rèn luyện thành công',
+                        type: 'type-success'
+                    });
+                } else {
+                    BootstrapDialog.show({
+                        title: 'Cập nhật ĐRL',
+                        message: 'Cập nhật điểm rèn luyện thất bại',
+                        type: 'type-danger'
+                    });
+                }
+            }).fail(function(xhr, status, error) {
+                console.log(this.url);
+                console.log(error);
+            });
+        } else {
+            BootstrapDialog.show({
+                title: 'Cập nhật ĐRL',
+                message: 'Điền Điểm rèn luyện',
+                type: 'type-warning'
+            });
+        }
     });
 }

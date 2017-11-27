@@ -151,4 +151,42 @@ class AttenderController extends Controller {
             return false;
         }
     }
+
+    public function postUpdateConduct(Request $request) {
+        $attender = Attender::find($request->id);
+
+        if(!is_null($attender)) {
+            if($request->conduct_mark < 0) {
+                $attender->conduct_mark = 0;
+                $attender->minus_conduct_mark = (-1)*$request->conduct_mark;
+            } else {
+                $attender->minus_conduct_mark = 0;
+                $attender->conduct_mark = $request->conduct_mark;
+            }
+
+            $attender->save();
+
+            return true;
+        }
+        return false;
+    }
+
+    public function postUpdateSocial(Request $request) {
+        $attender = Attender::find($request->id);
+
+        if(!is_null($attender)) {
+            if($request->social_mark < 0) {
+                $attender->social_mark = 0;
+                $attender->minus_social_mark = (-1)*$request->social_mark;
+            } else {
+                $attender->minus_social_mark = 0;
+                $attender->social_mark = $request->social_mark;
+            }
+
+            $attender->save();
+
+            return true;
+        }
+        return false;
+    }
 }

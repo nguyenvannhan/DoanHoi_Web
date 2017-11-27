@@ -29,16 +29,16 @@
         </td>
         <td class="center {{ $attender->minus_conduct_mark > 0 ? 'red' : '' }}">
             @if($attender->minus_conduct_mark == 0)
-            {{ $attender->conduct_mark }}
+            <input type="number" class="form-control mark" name="conduct_mark" data-id="{{ $attender->id }}" value="{{ $attender->conduct_mark }}" style="max-width: 20px; padding: 2px 5px;">
             @else
-            {{ '-'.$attender->minus_conduct_mark }}
+            <input type="number" class="form-control mark" name="conduct_mark" data-id="{{ $attender->id }}" value="{{ '-'.$attender->conduct_mark }}" style="max-width: 20px; padding: 2px 5px;">
             @endif
         </td>
         <td class="center {{ $attender->minus_social_mark > 0 ? 'red' : '' }}">
             @if($attender->minus_social_mark == 0)
-            {{ $attender->social_mark }}
+            <input class="form-control mark" name="social_mark" data-id="{{ $attender->id }}" value="{{ $attender->social_mark }}" style="max-width: 20px; padding: 2px 5px;">
             @else
-            {{ '-'.$attender->minus_social_mark }}
+            <input class="form-control mark" name="social_mark" data-id="{{ $attender->id }}" value="{{ '-'.$attender->minus_social_mark }}" style="max-width: 20px; padding: 2px 5px;">
             @endif
         </td>
         <td class="center">
