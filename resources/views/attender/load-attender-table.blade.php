@@ -15,7 +15,7 @@
     $stt = 1;
     @endphp
     @foreach($attenderList as $attender)
-    <tr>
+    <tr id="attender-{{ $attender->id }}">
         <td class="center">{{ $stt++ }}</td>
         <td class="center">{{ $attender->Student->id }}</td>
         <td>{{ $attender->Student->name }}</td>
@@ -29,19 +29,20 @@
         </td>
         <td class="center {{ $attender->minus_conduct_mark > 0 ? 'red' : '' }}">
             @if($attender->minus_conduct_mark == 0)
-            <input type="number" class="form-control mark" name="conduct_mark" data-id="{{ $attender->id }}" value="{{ $attender->conduct_mark }}" style="max-width: 20px; padding: 2px 5px;">
+            <input type="text" class="form-control mark {{ $attender->check ? '' : 'red' }}" data-mark="{{ $attender->conduct_mark }}" data-id="{{ $attender->id }}" name="conduct_mark" value="{{ $attender->conduct_mark }}">
             @else
-            <input type="number" class="form-control mark" name="conduct_mark" data-id="{{ $attender->id }}" value="{{ '-'.$attender->conduct_mark }}" style="max-width: 20px; padding: 2px 5px;">
+            <input type="text" class="form-control mark {{ $attender->check ? '' : 'red' }}" data-mark="{{ '-'.$attender->conduct_mark }}" data-id="{{ $attender->id }}" name="conduct_mark" value="{{ '-'.$attender->conduct_mark }}">
             @endif
         </td>
         <td class="center {{ $attender->minus_social_mark > 0 ? 'red' : '' }}">
             @if($attender->minus_social_mark == 0)
-            <input class="form-control mark" name="social_mark" data-id="{{ $attender->id }}" value="{{ $attender->social_mark }}" style="max-width: 20px; padding: 2px 5px;">
+            <input class="form-control mark {{ $attender->check ? '' : 'red' }}" data-mark="{{ $attender->social_mark }}" data-id="{{ $attender->id }}" name="social_mark" value="{{ $attender->social_mark }}">
             @else
-            <input class="form-control mark" name="social_mark" data-id="{{ $attender->id }}" value="{{ '-'.$attender->minus_social_mark }}" style="max-width: 20px; padding: 2px 5px;">
+            <input class="form-control mark {{ $attender->check ? '' : 'red' }}" data-mark="{{ '-'.$attender->social_mark }}" data-id="{{ $attender->id }}" name="social_mark" value="{{ '-'.$attender->minus_social_mark }}">
             @endif
         </td>
         <td class="center">
+            <a class="update-attender blue hidden" data-id="{{ $attender->id }}"><i class="fa fa-floppy-o"></i></a>
             <a class="delete-attender red"><i class="fa fa-trash"></i></a>
         </td>
     </tr>

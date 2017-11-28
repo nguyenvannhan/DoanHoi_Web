@@ -26,12 +26,72 @@ class AttenderController extends Controller {
 
     public function postCheckAttend(Request $request) {
         $attender = Attender::find($request->id);
+
+        $conduct_mark = 0;
+        $social_mark = 0;
+
         if(!is_null($attender)) {
             if($attender->check) {
                 $attender->check = 0;
+
+                if($attender->Activity->social_mark > 0) {
+                    if($attender->social_mark == 0) {
+
+                        $attender->minus_social_mark = $attender->Activity->social_mark;
+                    } else {
+                        $attender->social_mark = $attender->social_mark;
+                    }
+                } else {
+                    $attender->minus_social_mark = 0;
+                }
+
+                $social_mark = -1 * $attender->minus_social_mark;
+
+                if($attender->Activity->conduct_mark > 0) {
+                    if($attender->conduct_mark == 0) {
+                        $attender->minus_conduct_mark = $attender->Activity->conduct_mark;
+                    } else {
+                        $attender->minus_conduct_mark = $attender->conduct_mark;
+                    }
+                } else {
+                    $attender->minus_conduct_mark = 0;
+                }
+
+                $conduct_mark = -1 * $attender->minus_conduct_mark;
+
+                $attender->social_mark = 0;
+                $attender->conduct_mark = 0;
+
                 $this->data['check'] = false;
             } else {
                 $attender->check = 1;
+
+                if($attender->Activity->social_mark > 0) {
+                    if($attender->minus_social_mark == 0) {
+
+                        $attender->social_mark = $attender->Activity->social_mark;
+                    } else {
+                        $attender->social_mark = $attender->minus_social_mark;
+                    }
+                } else {
+                    $attender->social_mark = 0;
+                }
+                $social_mark = $attender->social_mark;
+
+                if($attender->Activity->conduct_mark > 0) {
+                    if($attender->minus_conduct_mark == 0) {
+                        $attender->conduct_mark = $attender->Activity->conduct_mark;
+                    } else {
+                        $attender->conduct_mark = $attender->minus_conduct_mark;
+                    }
+                } else {
+                    $attender->conduct_mark = 0;
+                }
+                $conduct_mark = $attender->conduct_mark;
+
+                $attender->minus_social_mark = 0;
+                $attender->minus_conduct_mark = 0;
+
                 $this->data['check'] = true;
             }
             $attender->save();
@@ -39,7 +99,9 @@ class AttenderController extends Controller {
         } else {
             $this->data['result'] = false;
         }
-        // $attender->save();
+        $this->data['conduct_mark'] = $conduct_mark;
+        $this->data['social_mark'] = $social_mark;
+
         return response()->json($this->data);
     }
 
@@ -94,7 +156,8 @@ class AttenderController extends Controller {
 
 
                 } else {
-                    $attender->validate([
+                    return $request;
+                    $request->validate([
                         'name' => 'required',
                         'science_id' => 'required',
                         'faculty_id' => 'required',
@@ -152,41 +215,42 @@ class AttenderController extends Controller {
         }
     }
 
-    public function postUpdateConduct(Request $request) {
+    public function postUpdateMark(Request $request) {
         $attender = Attender::find($request->id);
 
         if(!is_null($attender)) {
-            if($request->conduct_mark < 0) {
-                $attender->conduct_mark = 0;
-                $attender->minus_conduct_mark = (-1)*$request->conduct_mark;
+            if($request->conduct_mark <= $attender->Activity->conduct_mark) {
+                if($request->conduct_mark < 0) {
+                    $attender->conduct_mark = 0;
+                    $attender->minus_conduct_mark = (-1)*$request->conduct_mark;
+                } else {
+                    $attender->minus_conduct_mark = 0;
+                    $attender->conduct_mark = $request->conduct_mark;
+                }
+
+                if($request->social_mark <= $attender->Activity->social_mark) {
+                    if($request->social_mark < 0) {
+                        $attender->social_mark = 0;
+                        $attender->minus_social_mark = (-1)*$request->social_mark;
+                    } else {
+                        $attender->minus_social_mark = 0;
+                        $attender->social_mark = $request->social_mark;
+                    }
+                    $attender->save();
+                    $this->data['result'] = true;
+                } else {
+                    $this->data['result'] = false;
+                    $this->data['error'] = 'Điểm Rèn luyện quá mức!!!';
+                }
             } else {
-                $attender->minus_conduct_mark = 0;
-                $attender->conduct_mark = $request->conduct_mark;
+                $this->data['result'] = false;
+                $this->data['error'] = 'Điểm Rèn luyện quá mức!!!';
+
             }
-
-            $attender->save();
-
-            return true;
+        } else {
+            $this->data['result'] = false;
+            $this->data['error'] = 'Điểm Rèn luyện quá mức!!!';
         }
-        return false;
-    }
-
-    public function postUpdateSocial(Request $request) {
-        $attender = Attender::find($request->id);
-
-        if(!is_null($attender)) {
-            if($request->social_mark < 0) {
-                $attender->social_mark = 0;
-                $attender->minus_social_mark = (-1)*$request->social_mark;
-            } else {
-                $attender->minus_social_mark = 0;
-                $attender->social_mark = $request->social_mark;
-            }
-
-            $attender->save();
-
-            return true;
-        }
-        return false;
+        return response()->json($this->data);
     }
 }

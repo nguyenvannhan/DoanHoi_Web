@@ -4528,3 +4528,11 @@ input:checked + .slider:before {
     padding-left: 10px !important;
     float: left !important;
 }
+
+input.mark {
+    padding: 0;
+    width: 100%; 
+    text-align: center;
+    border: none;
+    height: 24px;
+}

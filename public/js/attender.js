@@ -1,8 +1,12 @@
+var old_conduct_mark = -100;
+var old_social_mark = -100;
+
 setDisabled();
+
 
 $('.datatable').on('init.dt', function() {
     checkAttend();
-    updateConductMark();
+    updateMark();
 });
 
 $('select[name="schoolyear_id"]').on('change', function() {
@@ -67,6 +71,11 @@ $('#add-student').on('click', function(e) {
 
     if(id.length != 8 || !activity_id || activity_id < 0) {
         e.preventDefault();
+        BootstrapDialog.alert({
+            type: 'type-danger',
+            title: 'Thêm người tham gia',
+            message: 'Mã SV không đúng hoặc Chưa chọn hoạt động!!!'
+        });
     } else {
         $.ajax({
             url: BASE_URL + 'hoat-dong/tham-gia/add-attender',
@@ -82,6 +91,7 @@ $('#add-student').on('click', function(e) {
                 'class_id': $('select[name="class_id"]').val(),
             }
         }).done(function(data) {
+            console.log(data);
             if(data.errors) {
                 BootstrapDialog.alert({
                     title: 'Lỗi',
@@ -98,12 +108,9 @@ $('#add-student').on('click', function(e) {
                 setDisabled();
             }
         }).fail(function(xhr, status, error) {
-            if(xhr.status == 422) {
-                console.log(error);
-            } else {
                 console.log(this.url);
                 console.log(error);
-            }
+                console.log(xhr);
         });
     }
 });
@@ -287,8 +294,12 @@ function checkAttend() {
             if(data.result) {
                 if(data.check) {
                     component.find('i.fa').removeClass('fa-times-circle').removeClass('red').addClass('fa-check-circle').addClass('green');
+                    $('tr#attender-'+id).find('input[name="conduct_mark"]').data('mark', data.conduct_mark).val(data.conduct_mark).removeClass('red');
+                    $('tr#attender-'+id).find('input[name="social_mark"]').data('mark', data.social_mark).val(data.social_mark).removeClass('red');
                 } else {
                     component.find('i.fa').removeClass('fa-check-circle').removeClass('green').addClass('fa-times-circle').addClass('red');
+                    $('tr#attender-'+id).find('input[name="conduct_mark"]').data('mark', data.conduct_mark).val(data.conduct_mark).addClass('red');
+                    $('tr#attender-'+id).find('input[name="social_mark"]').data('mark', data.social_mark).val(data.social_mark).addClass('red');
                 }
             } else {
                 BootstrapDialog.alert({
@@ -304,43 +315,96 @@ function checkAttend() {
     });
 }
 
-function updateConductMark() {
-    $('input[name="conduct_mark"]').on('blur', function() {
+function updateMark() {
+    $('input[name="social_mark"]').on('focusin', function() {
         var id = $(this).data('id');
-        var conduct_mark = $(this).val();
+        old_social_mark = $(this).data('mark');
+        var new_social_value = $(this).val();
+        //
+        old_conduct_mark = $('tr#attender-'+id).find('input[name="conduct_mark"]').data('mark');
+        var new_conduct_value = $('tr#attender-'+id).find('input[name="conduct_mark"]').val();
 
-        if(conduct_mark != '') {
-            $.ajax({
-                url: BASE_URL + 'hoat-dong/tham-gia/update-conduct',
-                data: {
-                    'id': id,
-                    'conduct_mark': conduct_mark
-                },
-                method: 'POST'
-            }).done(function(data) {
-                if(data) {
-                    BootstrapDialog.show({
-                        title: 'Cập nhật ĐRL',
-                        message: 'Cập nhật điểm rèn luyện thành công',
-                        type: 'type-success'
-                    });
-                } else {
-                    BootstrapDialog.show({
-                        title: 'Cập nhật ĐRL',
-                        message: 'Cập nhật điểm rèn luyện thất bại',
-                        type: 'type-danger'
-                    });
-                }
-            }).fail(function(xhr, status, error) {
-                console.log(this.url);
-                console.log(error);
-            });
+        if(old_social_mark == new_social_value && old_conduct_mark == new_conduct_value) {
+            $('a.update-attender').addClass('hidden');
         } else {
-            BootstrapDialog.show({
-                title: 'Cập nhật ĐRL',
-                message: 'Điền Điểm rèn luyện',
-                type: 'type-warning'
-            });
+            $('a.update-attender').removeClass('hidden');
         }
+    }).on('input', function() {
+        var id = $(this).data('id');
+        old_social_mark = $(this).data('mark');
+        var new_social_value = $(this).val();
+        //
+        old_conduct_mark = $('tr#attender-'+id).find('input[name="conduct_mark"]').data('mark');
+        var new_conduct_value = $('tr#attender-'+id).find('input[name="conduct_mark"]').val();
+
+        if(old_social_mark == new_social_value && old_conduct_mark == new_conduct_value) {
+            $('a.update-attender').addClass('hidden');
+        } else {
+            $('a.update-attender').removeClass('hidden');
+        }
+    });
+
+    $('input[name="conduct_mark"]').on('focusin', function() {
+        var id = $(this).data('id');
+        old_conduct_mark = $(this).data('mark');
+        var new_conduct_mark = $(this).val();
+        //
+        old_social_mark = $('tr#attender-'+id).find('input[name="social_mark"]').data('mark');
+        var new_social_mark = $('tr#attender-'+id).find('input[name="social_mark"]').val();
+
+        if(old_conduct_mark == new_conduct_mark && old_social_mark == new_social_mark) {
+            $('a.update-attender').addClass('hidden');
+        } else {
+            $('a.update-attender').removeClass('hidden');
+        }
+    }).on('input', function() {
+        var id = $(this).data('id');
+        old_conduct_mark = $(this).data('mark');
+        var new_conduct_mark = $(this).val();
+        //
+        old_social_mark = $('tr#attender-'+id).find('input[name="social_mark"]').data('mark');
+        var new_social_value = $('tr#attender-'+id).find('input[name="social_mark"]').val();
+
+        if(old_conduct_mark == new_conduct_mark && old_social_mark == new_social_value) {
+            $('a.update-attender').addClass('hidden');
+        } else {
+            $('a.update-attender').removeClass('hidden');
+        }
+    });
+
+    $('a.update-attender').on('click', function() {
+        var id = $(this).data('id');
+        var conduct_mark = $('tr#attender-'+id).find('input[name="conduct_mark"]').val();
+        var social_mark = $('tr#attender-'+id).find('input[name="social_mark"]').val();
+
+        $.ajax({
+            url: BASE_URL + 'hoat-dong/tham-gia/update-mark',
+            data: {
+                'id': id,
+                'conduct_mark': conduct_mark,
+                'social_mark': social_mark
+            },
+            method: 'POST'
+        }).done(function(data) {
+            if(data.result) {
+                $('tr#attender-'+id).find('input[name="social_mark"]').data('mark', social_mark);
+                $('tr#attender-'+id).find('input[name="conduct_mark"]').data('mark', conduct_mark);
+                $('tr#attender-'+id).find('a.update-attender').addClass('hidden');
+                BootstrapDialog.show({
+                    title: 'Cập nhật điểm',
+                    message: 'Cập nhật thành công cho sinh viên',
+                    type: 'type-success'
+                });
+            } else {
+                BootstrapDialog.show({
+                    title: 'Cập nhật điểm',
+                    message: data.error,
+                    type: 'type-danger'
+                });
+            }
+        }).fail(function(xhr, status, error) {
+            console.log(this.url);
+            console.log(error);
+        });
     });
 }
