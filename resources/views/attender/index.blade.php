@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <dvi class="col-xs-12">
+    <div class="col-xs-12">
         <div class="x_panel">
             <div class="x_content">
                 <div class="row">

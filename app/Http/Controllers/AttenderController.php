@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
+
+use App\Http\Requests\AddAttenderRequest;
 use Illuminate\Http\Request;
 use App\Models\School_Year;
 use App\Models\Activity;
@@ -135,7 +138,7 @@ class AttenderController extends Controller {
         return response()->json($this->data);
     }
 
-    public function postAddAttender(Request $request) {
+    public function postAddAttender(AddAttenderRequest $request) {
         $attender = $request;
         $student = Student::find($attender->id);
         $check_number = Attender::where('activity_id', $attender->activity_id)->count();
@@ -156,19 +159,6 @@ class AttenderController extends Controller {
 
 
                 } else {
-                    return $request;
-                    $request->validate([
-                        'name' => 'required',
-                        'science_id' => 'required',
-                        'faculty_id' => 'required',
-                        'class_id' => 'required_if:faculty_id,1'
-                    ], [
-                        'name.required' => 'Tên sinh viên',
-                        'science_id.required' => 'Chọn khóa học',
-                        'faculty_id.required' => 'Chọn Khoa',
-                        'class_id.required_if' => 'Chọn lớp học.'
-                    ]);
-
                     $student = new Student;
                     $student->id = $attender->id;
                     $student->name = $attender->name;

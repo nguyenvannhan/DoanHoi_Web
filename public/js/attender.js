@@ -108,9 +108,19 @@ $('#add-student').on('click', function(e) {
                 setDisabled();
             }
         }).fail(function(xhr, status, error) {
-                console.log(this.url);
+            if(xhr.status == 422) {
+                var msg = xhr.responseText;
                 console.log(error);
-                console.log(xhr);
+
+                BootstrapDialog.show({
+                    type: 'type-danger',
+                    title: 'Lỗi',
+                    message: msg
+                });
+            } else {
+                console.log(error);
+                console.log(xhr.status);
+            }
         });
     }
 });
