@@ -243,4 +243,18 @@ class AttenderController extends Controller {
         }
         return response()->json($this->data);
     }
+
+    public function postDeleteAttender(Request $request) {
+        $attender = Attender::find($request->id);
+
+        if(!is_null($attender)) {
+            $attender->forceDelete();
+            $this->data['result'] = true;
+        } else {
+            $this->data['error'] = 'Không tồn tại Người tham gia!';
+            $this->data['result'] = false;
+        }
+
+        return response()->json($this->data);
+    }
 }

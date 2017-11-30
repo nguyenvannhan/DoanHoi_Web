@@ -7,6 +7,7 @@ setDisabled();
 $('.datatable').on('init.dt', function() {
     checkAttend();
     updateMark();
+    deleteAttender();
 });
 
 $('select[name="schoolyear_id"]').on('change', function() {
@@ -93,7 +94,6 @@ $('#add-student').on('click', function(e) {
                 'class_id': $('select[name="class_id"]').val(),
             }
         }).done(function(data) {
-            console.log(data);
             if(data.errors) {
                 BootstrapDialog.alert({
                     title: 'Lỗi',
@@ -112,7 +112,6 @@ $('#add-student').on('click', function(e) {
         }).fail(function(xhr, status, error) {
             if(xhr.status == 422) {
                 var msg = xhr.responseJSON;
-                console.log(msg);
                 var htmlError = '<ul>';
                 if(msg.name) {
                     msg.name.forEach(function(e) {
@@ -460,6 +459,62 @@ function updateMark() {
         }).fail(function(xhr, status, error) {
             console.log(this.url);
             console.log(error);
+        });
+    });
+}
+
+function deleteAttender() {
+    $('.delete-attender').on('click', function() {
+        var id = $(this).data('id');
+
+        BootstrapDialog.show({
+            title: 'Xóa sinh viên tham gia',
+            message: 'Bạn có muốn xóa sinh viên tham gia đã chọn?',
+            type: 'type-danger',
+            buttons: [{
+                label: 'Không',
+                cssClass: 'btn',
+                action: function(e) {
+                    e.close();
+                }
+            }, {
+                label: 'Có, chắc chắn.',
+                cssClass: 'btn btn-danger',
+                action: function(e) {
+                    e.close();
+                    $.ajax({
+                        url: BASE_URL+'hoat-dong/tham-gia/delete-attender',
+                        data: {
+                            'id': id
+                        },
+                        method: 'POST'
+                    }).done(function(data) {
+                        if(data.result) {
+                            $('tr#attender-' + id).remove();
+                            BootstrapDialog.show({
+                                title: 'Xóa người tham gia',
+                                message: 'Xóa thành công',
+                                type: 'type-success'
+                            });
+                        } else {
+                            BootstrapDialog.show({
+                                title: 'Xóa người tham gia',
+                                message: data.error,
+                                type: 'type-danger'
+                            });
+                        }
+                    }).fail(function(xhr, status, error) {
+                        console.log(this.url);
+                        console.log(error);
+                        e.close();
+                        BootstrapDialog.alert({
+                            title: 'Lỗi',
+                            message: 'Không thể kết nối',
+                            type: 'type-danger'
+                        });
+                    });
+                }
+            }]
         });
     });
 }

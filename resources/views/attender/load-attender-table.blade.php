@@ -43,7 +43,7 @@
         </td>
         <td class="center">
             <a class="update-attender blue hidden" data-id="{{ $attender->id }}"><i class="fa fa-floppy-o"></i></a>
-            <a class="delete-attender red"><i class="fa fa-trash"></i></a>
+            <a class="delete-attender red" data-id="{{ $attender->id }}"><i class="fa fa-trash"></i></a>
         </td>
     </tr>
     @endforeach

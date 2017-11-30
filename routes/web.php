@@ -98,6 +98,7 @@ Route::prefix('hoat-dong')->group(function() {
 
         Route::post('add-attender', 'AttenderController@postAddAttender')->name('post_add_attender_route');
         Route::post('update-mark', 'AttenderController@postUpdateMark')->name('post_update_mark_route');
+        Route::post('delete-attender', 'AttenderController@postDeleteAttender')->name('post_delete_attender_route');
     });
 });
 
