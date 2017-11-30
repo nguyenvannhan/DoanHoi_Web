@@ -32,8 +32,9 @@ $('input[name="id"]').on('blur', function(e) {
             getInfoStudent(id);
         }
     }
-}).on('input', function() {
-    if($(this).val().trim().length >= 8) {
+}).on('input change', function() {
+
+    if($(this).val().trim().length > 8) {
         $(this).val($(this).val().trim().substr(0,8).trim());
 
         setDisabled();
@@ -48,6 +49,7 @@ $('input[name="id"]').on('blur', function(e) {
     }
 
     if($(this).val().trim().length < 8) {
+        refreshValueInputAdd();
         setDisabled();
     }
 });
@@ -109,13 +111,45 @@ $('#add-student').on('click', function(e) {
             }
         }).fail(function(xhr, status, error) {
             if(xhr.status == 422) {
-                var msg = xhr.responseText;
-                console.log(error);
+                var msg = xhr.responseJSON;
+                console.log(msg);
+                var htmlError = '<ul>';
+                if(msg.name) {
+                    msg.name.forEach(function(e) {
+                        htmlError += '<li>'+e+'</li>';
+                    });
+                }
+                if(msg.email) {
+                    msg.email.forEach(function(e) {
+                        htmlError += '<li>'+e+'</li>';
+                    });
+                }
+                if(msg.numberphone) {
+                    msg.numberphone.forEach(function(e) {
+                        htmlError += '<li>'+e+'</li>';
+                    });
+                }
+                if(msg.science_id) {
+                    msg.science_id.forEach(function(e) {
+                        htmlError += '<li>'+e+'</li>';
+                    });
+                }
+                if(msg.faculty_id) {
+                    msg.faculty_id.forEach(function(e) {
+                        htmlError += '<li>'+e+'</li>';
+                    });
+                }
+                if(msg.class_id) {
+                    msg.class_id.forEach(function(e) {
+                        htmlError += '<li>'+e+'</li>';
+                    });
+                }
 
+                htmlError += '</ul>';
                 BootstrapDialog.show({
                     type: 'type-danger',
                     title: 'Lỗi',
-                    message: msg
+                    message: htmlError
                 });
             } else {
                 console.log(error);
@@ -279,6 +313,17 @@ function getClassByScience_Attender(science_id) {
 
 function resetValueInputAdd() {
     $('input[name="id"]').val('');
+    $('input[name="name"]').val('');
+    $('input[name="email"]').val('');
+    $('input[name="numberphone"]').val('');
+    $('select[name="science_id"]').html('');
+    $('select[name="faculty_id"]').html('');
+    $('select[name="class_id"]').html('');
+
+    $('selectpicker').selectpicker('refresh');
+}
+
+function refreshValueInputAdd() {
     $('input[name="name"]').val('');
     $('input[name="email"]').val('');
     $('input[name="numberphone"]').val('');

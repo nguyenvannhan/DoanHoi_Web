@@ -37,7 +37,7 @@ class AddAttenderRequest extends FormRequest
     public function messages() {
         return [
             'id.required' => 'Điền MSSV',
-            'name.required' => 'Tên sinh viên',
+            'name.required' => 'Tên sinh viên không thể để trống',
             'science_id.required' => 'Chọn khóa học',
             'faculty_id.required' => 'Chọn Khoa',
             'class_id.required_if' => 'Chọn lớp học.',
