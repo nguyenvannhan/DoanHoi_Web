@@ -34,9 +34,8 @@ Route::prefix('sinh-vien')->group(function() {
 
     Route::get('get-info-add-student/{is_it_student}/{science_id?}', 'StudentController@ajaxGetInfoAddStudent')->name('ajax_get_info_student');
 
-    Route::get('add-list', function() {
-        return view('student.addListStudent');
-    })->name('student_add_list_route');
+    Route::get('add-list', 'StudentController@getAddList')->name('student_get_add_list_route');
+    Route::post('add-list', 'StudentController@postAddList')->name('student_post_add_list_route');
 });
 
 //Route science
