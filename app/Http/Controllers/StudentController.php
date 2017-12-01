@@ -13,6 +13,8 @@ use App\Http\Requests\EditStudentRequest;
 use App\Http\Requests\AddStudentRequest;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
+use Excel;
+use File;
 
 class StudentController extends Controller {
 
@@ -174,5 +176,85 @@ class StudentController extends Controller {
         $this->data['student'] = Student::find($id);
 
         return response()->view('student.student-detail-modal', $this->data);
+    }
+
+    public function getAddList() {
+        return view('student.addListStudent');
+    }
+
+    public function postAddList(Request $request) {
+        //Read Excell
+        if($request->hasFile('import')) {
+            $result = Excel::load($request->import, function($reader){})->get()->toArray();
+            $studentList = [];
+
+            foreach($result as $student) {
+                $student = array_values($student);
+                $newStudent = new Student;
+                $newStudent->id = $student[1];
+                $newStudent->name = $student[2];
+                if($student[3] == NULL) {
+                    $newStudent->is_female = 0;
+                } else {
+                    $newStudent->is_female = 1;
+                }
+                $newStudent->birthday = Carbon::createFromFormat('d/m/Y', $student[4])->format('Y-m-d');
+                $newStudent->hometown = $student[5];
+                $newStudent->email = $student[6];
+                $newStudent->number_phone = $student[7];
+                $newStudent->science_id = $student[8];
+                $newStudent->class_id = $student[9];
+                $newStudent->faculty_id = 1;
+
+                array_push($studentList, $newStudent);
+            }
+            // $this->data['studentList'] = $studentList;
+
+            $errors = [];
+            $class_names = [];
+            $science_names = [];
+            //Check error
+            foreach($studentList as $student) {
+                //check tồn tại sinh viên
+                $check = Student::find($student->id);
+                if(!is_null($check)) {
+                    array_push($errors, "MSSV ".$student->id." đã tồn tại.");
+                }
+
+                $science = Science::where('name', $student->science_id)->first();
+                if(is_null($science)) {
+                    array_push($errors, "Khóa học của SV ".$student->id." không tồn tại.");
+                    array_push($science_names, NULL);
+                } else {
+                    $student->science_id = $science->id;
+                    array_push($science_names, $science->name);
+                }
+
+                $classOb = Classes::where('name', $student->class_id)->first();
+                if(is_null($classOb)) {
+                    array_push($errors, "Lớp học của SV ".$student->id." không tồn tại.");
+                    array_push($class_names, NULL);
+                } else {
+                    $student->class_id = $classOb->id;
+                    array_push($class_names, $classOb->name);
+                }
+
+                if($student->email && !filter_var($student->email, FILTER_VALIDATE_EMAIL)) {
+                    array_push($errors, "Email của SV ".$student->id." không đúng.");
+                }
+
+                if($student->number_phone && !ctype_alpha($student->number_phone)) {
+                    array_push($errors, "SĐT của SV ".$student->id." không đúng.");
+                }
+            }
+
+            $this->data['studentList'] = $studentList;
+            $this->data['errors'] = $errors;
+            $this->data['class_names'] = $class_names;
+            $this->data['science_names'] = $science_names;
+
+            return view('student.addListStudent', $this->data);
+        }
+        return redirect()->route('student_get_add_list_route');
     }
 }
