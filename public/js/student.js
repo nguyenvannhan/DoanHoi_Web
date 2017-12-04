@@ -51,6 +51,10 @@ $('input[name="fil-faculty"]').on('change', function() {
     });
 });
 
+$('#submit-list').on('click', function() {
+    console.log(studentList);
+});
+
 function getItClass(science_id) {
     $.ajax({
         url: BASE_URL + 'sinh-vien/get-info-add-student/1/' + science_id,

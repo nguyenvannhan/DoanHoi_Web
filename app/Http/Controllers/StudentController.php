@@ -184,10 +184,9 @@ class StudentController extends Controller {
 
     public function postAddList(Request $request) {
         //Read Excell
-        $studentList = [];
         if($request->hasFile('import')) {
             $result = Excel::load($request->import, function($reader){})->get()->toArray();
-
+            $studentList = [];
 
             foreach($result as $student) {
                 $student = array_values($student);

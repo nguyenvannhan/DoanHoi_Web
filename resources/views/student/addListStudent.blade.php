@@ -22,7 +22,7 @@
                     <input type="file" name="import" class="form-control" />
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
-                    <button type="submit" class="btn btn-success btn-block">Lưu</button>
+                    <button type="submit" class="btn btn-success btn-block">Load</button>
                 </div>
             </div>
         </form>
@@ -37,7 +37,7 @@
     </div>
     <div class="x_content">
         <div class="col-xs-12">
-            @if(count($errors) > 0)
+            @if(isset($errors) && count($errors) > 0)
             <div class="col-md-2">
                 <button class="btn btn-block btn-danger" data-toggle="modal" data-target="#show-errors">
                     THÔNG TIN LỖI
@@ -83,7 +83,7 @@
                     </thead>
 
                     <tbody>
-                        @if(count($studentList > 0))
+                        @if(isset($studentList) && count($studentList > 0))
                         @php
                         $count = 0;;
                         $class_name_arr = array_values($class_names);
@@ -113,6 +113,16 @@
     </div>
 </div>
 <!-- /Table preview list -->
+@if(isset($studentList) && count($errors) == 0)
+<div class="row">
+    <div class="col-md-2 pull-right">
+        <button class="btn btn-block btn-success" id="submit-list">Lưu và Thoát</button>
+    </div>
+</div>
+@endif
+<script type="text/javascript">
+    var studentList = {{ $studentList }};
+</script>
 @stop
 
 @section('js_area')
