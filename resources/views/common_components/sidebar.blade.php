@@ -48,17 +48,18 @@
                     <ul class="nav child_menu">
                         <li><a href="{{ route('activity_index_route') }}">Danh Sách Hoạt Động</a></li>
                         <li><a href="{{ route('get_activity_add_route') }}">Thêm Hoạt Động</a></li>
+                        <li><a href="{{ route('get_attender_index_route') }}">Danh sách tham gia</a></li>
                     </ul>
                 </li>
-                <li>
+                <!-- <li>
                     <a><i class="fa fa-graduation-cap"></i> Quản Lý BCH Khoa<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{{ route('BCH_Khoa_index_route') }}">Danh Sách Thành Viên</a></li>
                         <li><a href="{{ route('get_BCH_Khoa_Student_add_route') }}">Thêm Thành Viên</a></li>
                         <li><a href="{{ route('BCH_Khoa_add_list_route') }}">Thêm Danh Sách Thành Viên</a></li>
                     </ul>
-                </li>
-                <li>
+                </li> -->
+                <!-- <li>
                     <a><i class="fa fa-graduation-cap"></i> Quản Lý BCH Lớp <span class="fa fa-chevron-down"></span></a>
 
                     <ul class="nav child_menu">
@@ -66,7 +67,7 @@
                         <li><a href="{{ route('BCH_Lop_add_route') }}">Thêm Thành Viên</a></li>
                         <li><a href="{{ route('BCH_Lop_add_list_route') }}">Thêm Danh Sách Thành Viên</a></li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>

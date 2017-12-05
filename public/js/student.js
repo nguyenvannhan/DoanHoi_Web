@@ -43,12 +43,18 @@ $('input[name="fil-faculty"]').on('change', function() {
     }).done(function(data) {
         $('#student-list-table').dataTable().fnDestroy();
         $('#student-list-table').html(data);
-        $('#student-list-table').dataTable();
+        $('#student-list-table').dataTable({
+            "pageLength": 20
+        });
         getDetailInfo();
     }).fail(function(xhr, status, error) {
         console.log(this.url);
         console.log(error);
     });
+});
+
+$('#submit-list').on('click', function() {
+    console.log(studentList);
 });
 
 function getItClass(science_id) {

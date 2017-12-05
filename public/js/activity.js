@@ -56,7 +56,10 @@ $('select[name="schoolyear_id"]').on('change', function() {
         method: 'GET'
     }).done(function(data) {
         $('#activity-list-table').html(data);
-        $('#activity-list-table').dataTable().fnDraw();
+        $('#activity-list-table').dataTable().fnDestroy();
+        $('#activity-list-table').dataTable({
+            "pageLength": 20
+        });
     }).fail(function(xhr, status, error) {
         console.log(this.url);
         console.log(error);
@@ -92,7 +95,10 @@ function postDeleteActivity() {
                     }).done(function(data) {
                         if(data) {
                             $('#activity-list-table').html(data);
-                            $('#activity-list-table').dataTable().fnDraw();
+                            $('#activity-list-table').dataTable().fnDestroy();
+                            $('#activity-list-table').dataTable({
+                                "pageLength": 20
+                            });
                             e.close();
                             BootstrapDialog.alert({
                                 title: 'Xóa hoạt động',

@@ -104,7 +104,9 @@ $('#add-student').on('click', function(e) {
                 $('.datatable').dataTable().fnDestroy();
 
                 $('#attender-table').html(data);
-                $('.datatable').dataTable();
+                $('.datatable').dataTable({
+                    "pageLength": 20
+                });
 
                 resetValueInputAdd();
                 setDisabled();
@@ -166,7 +168,9 @@ $('select[name="activity_id"]').on('change', function() {
     }).done(function(data) {
         $('.datatable').dataTable().fnDestroy();
         $('#attender-table').html(data);
-        $('.datatable').dataTable();
+        $('.datatable').dataTable({
+            "pageLength": 20
+        });
     }).fail(function(xhr, status, error) {
         console.log(this.url);
         console.log(error);

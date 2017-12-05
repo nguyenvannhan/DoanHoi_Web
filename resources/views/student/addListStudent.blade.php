@@ -39,7 +39,7 @@
         <div class="col-xs-12">
             @if(isset($errors) && count($errors) > 0)
             <div class="col-md-2">
-                <button class="btn btn-block btn-danger" data-toggle="modal" data-target="#show-errors">
+                <button type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#show-errors">
                     THÔNG TIN LỖI
                     <span style="background-color: #fff; border-radius: 50%; color: #000; padding: 3px;">
                         {{ count($errors) }}
@@ -91,13 +91,13 @@
                         @endphp
                         @foreach($studentList as $student)
                         <tr>
-                            <td class="center"> {{ $student->id }} </td>
-                            <td> {{ $student->name }} </td>
-                            <td class="center"> {{ $student->is_female ? 'Nữ' : 'Nam'}} </td>
-                            <td class="center"> {{ date('d/m/Y', strtotime($student->birthday)) }} </td>
-                            <td class="center"> {{ $student->hometown }} </td>
-                            <td class="center"> {{ $science_name_arr[$count] or $student->science_id }} </td>
-                            <td class="center"> {{ $class_name_arr[$count] or $student->class_id }} </td>
+                            <td class="center">{{ $student->id }}</td>
+                            <td>{{ $student->name }}</td>
+                            <td class="center">{{ $student->is_female ? 'Nữ' : 'Nam'}}</td>
+                            <td class="center">{{ date('d/m/Y', strtotime($student->birthday)) }}</td>
+                            <td class="center">{{ $student->hometown }}</td>
+                            <td class="center">{{ $science_name_arr[$count] or $student->science_id }}</td>
+                            <td class="center">{{ $class_name_arr[$count] or $student->class_id }}</td>
                             <td>{{ $student->email }}</td>
                             <td>{{ $student->number_phone }}</td>
                         </tr>
@@ -114,13 +114,28 @@
 </div>
 <!-- /Table preview list -->
 @if(isset($studentList) && count($errors) == 0)
-<div class="row">
-    <div class="col-md-2 pull-right">
-        <button class="btn btn-block btn-success">Lưu và Thoát</button>
+<form action="{{ route('student_post_submit_student_list') }}" method="POST">
+    {{ csrf_field() }}
+    @foreach($studentList as $student)
+    <input type="hidden" name="id[]" value="{{ $student->id }}">
+    <input type="hidden" name="name[]" value="{{ $student->name }}">
+    <input type="hidden" name="gender[]" value="{{ $student->is_female }}">
+    <input type="hidden" name="birthday[]" value="{{ $student->birthday }}">
+    <input type="hidden" name="hometown[]" value="{{ $student->hometown }}">
+    <input type="hidden" name="science_id[]" value="{{ $student->science_id }}">
+    <input type="hidden" name="class_id[]" value="{{ $student->class_id }}">
+    <input type="hidden" name="email[]" value="{{ $student->email }}">
+    <input type="hidden" name="number_phone[]" value="{{ $student->number_phone }}">
+    @endforeach
+    <div class="row">
+        <div class="col-md-2 pull-right">
+            <button class="btn btn-block btn-success" type="submit" id="submit-list">Lưu và Thoát</button>
+        </div>
     </div>
-</div>
+</form>
 @endif
 @stop
+
 
 @section('js_area')
 <script type="text/javascript" src="{{ URL::asset('public/js/student.js') }}"></script>
