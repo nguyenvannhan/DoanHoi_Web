@@ -35,7 +35,7 @@
                             </div>
                             <div class="item form-group">
                                 <div class="w-100 black-color">SĐT: </div>
-                                <label class="form-control center">{{ $student->numberphone }}</label>
+                                <label class="form-control center">{{ $student->number_phone }}</label>
                             </div>
                         </div>
                     </div>
@@ -71,10 +71,12 @@
                             <div class="item form-group">
                                 <div class="w-100 black-color">Đảng: </div>
                                 <label class="form-control center">
-                                    @if($student->is_partisan)
-                                    <i class="fa fa-check-square green"></i>
+                                    @if($student->partisan_id == 0)
+                                    <span class="label label-success">Không</span>
+                                    @elseif($student->partisan_id == 1)
+                                    <span class="label label-warning">Cảm tình Đảng</span>
                                     @else
-                                    <i class="fa fa-square-o green"></i>
+                                    <span class="label label-danger">Đảng viên</span>
                                     @endif
                                 </label>
                             </div>

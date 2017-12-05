@@ -61,7 +61,6 @@
                                 <th class="column-title"> Năm sinh </th>
                                 <th class="column-title"> Lớp </th>
                                 <th class="column-title"> Khóa </th>
-                                <th class="column-title"> Đoàn viên </th>
                                 <th class="column-title"> Tình trạng </th>
                                 <th class="column-title"> Action </th>
                             </tr>
@@ -81,12 +80,9 @@
                                     @endphp
                                     {{ $gt }}
                                 </td>
-                                <td class="center"> {{ date('d/m/Y', strtotime($studentOb->birthday)) }} </td>
+                                <td class="center"> {{ $studentOb->birthday != null ? date('d/m/Y', strtotime($studentOb->birthday)) : '' }} </td>
                                 <td class="center"> {{ $studentOb->ClassOb->name }} </td>
                                 <td class="center"> {{ $studentOb->Science->name }} </td>
-                                <td class="center">
-                                    <i class="fa {{ $studentOb->is_cyu == 1 ? 'fa-check-square' : 'fa-square-o' }} green"></i>
-                                </td>
                                 <td class="center">
                                     <span class="label
                                     @if($studentOb->status == 1)

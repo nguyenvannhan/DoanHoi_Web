@@ -62,6 +62,7 @@ class StudentController extends Controller {
         $studentOb->name = $request->name;
         $studentOb->class_id = $request->class_id;
         $studentOb->science_id = $request->science_id;
+        $studentOb->partisan_id = $request->partisan_id;
         if($request->is_it_student) {
             $studentOb->is_it_student = $request->is_it_student;
         } else {
@@ -73,14 +74,9 @@ class StudentController extends Controller {
         } else {
             $studentOb->is_cyu=$request->is_cyu;
         }
-        if($request->is_partisan != 1) {
-            $studentOb->is_partisan=0;
-        } else {
-            $studentOb->is_partisan = $request->is_partisan;
-        }
         $studentOb->hometown=$request->hometown;
         $studentOb->number_phone=$request->numberphone;
-        if($request->birthday) {
+        if($request->birthday != NULL) {
             $studentOb->birthday = Carbon::createFromFormat('d/m/Y', $request->birthday)->format('Y-m-d');
         }
         $studentOb->email=$request->email;
@@ -105,6 +101,7 @@ class StudentController extends Controller {
         $studentOb->name = $request->name;
         $studentOb->class_id = $request->class_id;
         $studentOb->science_id = $request->science_id;
+        $studentOb->partisan_id = $request->partisan_id;
         if($request->is_it_student) {
             $studentOb->is_it_student = $request->is_it_student;
         } else {
@@ -116,14 +113,9 @@ class StudentController extends Controller {
         } else {
             $studentOb->is_cyu=$request->is_cyu;
         }
-        if($request->is_partisan != 1) {
-            $studentOb->is_partisan=0;
-        } else {
-            $studentOb->is_partisan = $request->is_partisan;
-        }
         $studentOb->hometown=$request->hometown;
         $studentOb->number_phone=$request->numberphone;
-        if($request->birthday) {
+        if($request->birthday != NULL) {
             $studentOb->birthday = Carbon::createFromFormat('d/m/Y', $request->birthday)->format('Y-m-d');
         }
         $studentOb->email=$request->email;
@@ -200,12 +192,29 @@ class StudentController extends Controller {
                 } else {
                     $newStudent->is_female = 1;
                 }
-                $newStudent->birthday = Carbon::createFromFormat('d/m/Y', $student[4])->format('Y-m-d');
+                if($student[4] != NULL) {
+                    $newStudent->birthday = Carbon::createFromFormat('d/m/Y', $student[4])->format('Y-m-d');
+                } else {
+                    $newStudent->birthday = NULL;
+                }
                 $newStudent->hometown = $student[5];
                 $newStudent->email = $student[6];
                 $newStudent->number_phone = $student[7];
                 $newStudent->science_id = $student[8];
                 $newStudent->class_id = $student[9];
+                $newStudent->partisan_id = 0;
+                if($student[10] != NULL) {
+                    $newStudent->is_cyu = 1;
+                } else {
+                    $newStudent->is_cyu = 0;
+                }
+                if($student[11] != NULL) {
+                    $newStudent->partisan_id = 1;
+                }
+                if($student[12] != NULL) {
+                    $newStudent->partisan_id = 2;
+                }
+
                 $newStudent->faculty_id = 1;
 
                 array_push($studentList, $newStudent);
@@ -245,7 +254,7 @@ class StudentController extends Controller {
                     array_push($errors, "Email của SV ".$student->id." không đúng.");
                 }
 
-                if($student->number_phone && !ctype_alpha($student->number_phone)) {
+                if($student->number_phone && !ctype_digit($student->number_phone)) {
                     array_push($errors, "SĐT của SV ".$student->id." không đúng.");
                 }
             }
@@ -272,6 +281,8 @@ class StudentController extends Controller {
             $number_phone_arr = $request->number_phone;
             $class_arr = $request->class_id;
             $science_arr = $request->science_id;
+            $cyu_arr = $request->is_cyu;
+            $partisan_arr = $request->partisan_id;
 
             for($i = 0; $i < count($request->id); $i++) {
                 $student = new Student;
@@ -292,8 +303,9 @@ class StudentController extends Controller {
                 $student->science_id = $science_arr[$i];
                 $student->is_it_student = 1;
                 $student->faculty_id = 1;
-                $student->is_cyu = 1;
-                $student->is_partisan = 0;
+                $student->is_cyu = $cyu_arr[$i];
+                $student->partisan_id = $partisan_arr[$i];
+
 
                 $student->save();
             }

@@ -1,5 +1,15 @@
 getDetailInfo();
 
+$('.label-checkbox').on('click', function() {
+    var old_check_div = $('div.check.active');
+    var old_input = $('input[name="partisan_id"]:checked');
+
+    old_check_div.removeClass('active');
+    old_input.prop('checked', false);
+
+    $(this).parent().addClass('active');
+    $(this).children().prop('checked', true);
+});
 
 $('select[name="science_id"]').on('change', function() {
     var science_id = $(this).val();

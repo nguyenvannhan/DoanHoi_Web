@@ -141,11 +141,28 @@
                                 </div>
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Đảng viên: </label>
+
                                     <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
-                                        <label class="switch">
-                                            <input type="checkbox" class="red" name="is_partisan" value="1">
-                                            <span class="slider round"></span>
-                                        </label>
+                                        <div class="group-checkbox">
+                                            <div class="check active bg-red text-center">
+                                                <label class="label-checkbox">
+                                                    <input type="radio" name="partisan_id" value="0" class="hidden check-input" checked>
+                                                    Không
+                                                </label>
+                                            </div>
+                                            <div class="check bg-red text-center">
+                                                <label class="label-checkbox">
+                                                    <input type="radio" name="partisan_id" value="1" class="hidden check-input">
+                                                    Cảm tình Đảng
+                                                </label>
+                                            </div>
+                                            <div class="check bg-red text-center">
+                                                <label class="label-checkbox">
+                                                    <input type="radio" name="partisan_id" value="2" class="hidden check-input">
+                                                    Đảng viên
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="item form-group">

@@ -20,6 +20,7 @@
             <div class="row">
                 <div class="col-md-offset-1 col-md-9 col-sm-6 col-xs-12">
                     <input type="file" name="import" class="form-control" />
+                    <a href="{{ URL::asset('public/files/mau_import_ds_sinh_vien.xlsx')}}" download>File import mẫu</a>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <button type="submit" class="btn btn-success btn-block">Load</button>
@@ -72,13 +73,10 @@
                         <tr class="headings text-center">
                             <th class="column-title"> MSSV </th>
                             <th class="column-title"> Họ tên </th>
-                            <th class="column-title"> Giới tính </th>
-                            <th class="column-title"> Năm sinh </th>
-                            <th class="column-title"> Quê quán </th>
-                            <th class="column-title"> Khóa học </th>
-                            <th class="column-title"> Lớp </th>
-                            <th class="column-title"> Email </th>
-                            <th class="column-title"> SĐT </th>
+                            <th class="column-title"> TT Cá nhân </th>
+                            <th class="column-title"> TT Khoa </th>
+                            <th class="column-title"> Liên hệ </th>
+                            <th class="column-title"> Đoàn - Đảng </th>
                         </tr>
                     </thead>
 
@@ -93,13 +91,47 @@
                         <tr>
                             <td class="center">{{ $student->id }}</td>
                             <td>{{ $student->name }}</td>
-                            <td class="center">{{ $student->is_female ? 'Nữ' : 'Nam'}}</td>
-                            <td class="center">{{ date('d/m/Y', strtotime($student->birthday)) }}</td>
-                            <td class="center">{{ $student->hometown }}</td>
-                            <td class="center">{{ $science_name_arr[$count] or $student->science_id }}</td>
-                            <td class="center">{{ $class_name_arr[$count] or $student->class_id }}</td>
-                            <td>{{ $student->email }}</td>
-                            <td>{{ $student->number_phone }}</td>
+                            <td>
+                                <strong>Giới tính: </strong>
+                                {{ $student->is_female ? 'Nữ' : 'Nam'}}
+                                <br/>
+                                <strong>Ngày sinh: </strong>
+                                {{ $student->birthday != NULL ? date('d/m/Y', strtotime($student->birthday)) : '' }}
+                                <br/>
+                                <strong>Quê quán: </strong>
+                                {{ $student->hometown }}
+                            </td>
+                            <td>
+                                <strong>Khóa học: </strong>
+                                {{ $science_name_arr[$count] or $student->science_id }}
+                                <br/>
+                                <strong>Lớp học: </strong>
+                                {{ $class_name_arr[$count] or $student->class_id }}
+                            </td>
+                            <td>
+                                <strong>Email: </strong>
+                                {{ $student->email }}
+                                <br/>
+                                <strong>SĐT: </strong>
+                                {{ $student->number_phone }}
+                            </td>
+                            <td>
+                                <strong>Đoàn viên:</strong>
+                                @if($student->is_cyu)
+                                    <i class="fa fa-check-square green"></i>
+                                @else
+                                    <i class="fa fa-square-o green"></i>
+                                @endif
+                                <br/>
+                                <strong>Chi bộ: </strong>
+                                @if($student->partisan_id == 0)
+                                    <span class="label label-success">Không</span>
+                                @elseif($student->partisan_id == 1)
+                                    <span class="label label-warning">Cảm tình Đảng</span>
+                                @else
+                                    <span class="label label-danger">Đảng viên</span>
+                                @endif
+                            </td>
                         </tr>
                         @php
                         $count++;
@@ -126,6 +158,8 @@
     <input type="hidden" name="class_id[]" value="{{ $student->class_id }}">
     <input type="hidden" name="email[]" value="{{ $student->email }}">
     <input type="hidden" name="number_phone[]" value="{{ $student->number_phone }}">
+    <input type="hidden" name="is_cyu[]" value="{{ $student->is_cyu }}">
+    <input type="hidden" name="partisan_id[]" value="{{ $student->partisan_id }}">
     @endforeach
     <div class="row">
         <div class="col-md-2 pull-right">

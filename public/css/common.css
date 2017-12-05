@@ -4531,8 +4531,47 @@ input:checked + .slider:before {
 
 input.mark {
     padding: 0;
-    width: 100%; 
+    width: 100%;
     text-align: center;
     border: none;
     height: 24px;
+}
+
+div.check {
+    padding: 0;
+    border-radius: none;
+    float: left;
+    min-width: 60px;
+    border: 1px solid #bababa;
+    background-color: #fff !important;
+    color: #000 !important;
+}
+
+div.check.active {
+    background-color: #E74C3C !important;
+}
+
+div.check:first-of-type {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+div.check:last-of-type {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+div.check > .label-checkbox {
+    margin: 0;
+    font-weight: 400;
+    padding: 3px 10px;
+}
+
+div.check.active > .label-checkbox {
+    color: #fff;
+    font-weight: bold;
+}
+
+div.check > .label-checkbox:hover {
+    cursor: pointer;
 }

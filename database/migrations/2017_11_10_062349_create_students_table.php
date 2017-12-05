@@ -24,7 +24,7 @@ class CreateStudentsTable extends Migration
             $table->unsignedInteger('science_id');
             $table->boolean('is_female')->default(true);
             $table->boolean('is_cyu')->default(true);
-            $table->boolean('is_partisan')->default(false);
+            $table->unsignedtinyInteger('partisan_id')->default(0);
             $table->string('hometown', 200)->nullable();
             $table->string('number_phone', 20)->nullable()->unique();
             $table->date('birthday', 20)->nullable();

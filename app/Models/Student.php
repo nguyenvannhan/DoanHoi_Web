@@ -14,7 +14,7 @@ class Student extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['name','class_id','science_id','is_female','is_cyu','is_partisan','hometown','number_phone','birthday', 'social_mark', 'email','status', 'is_it_student', 'faculty_id'];
+    protected $fillable = ['name','class_id','science_id','is_female','is_cyu','partisan_id','hometown','number_phone','birthday', 'social_mark', 'email','status', 'is_it_student', 'faculty_id'];
     protected $dates = ['deleted_at', 'created_at', 'updated_at', 'birthday'];
 
     public $timestamps = true;

@@ -19,11 +19,11 @@ class Activity extends Model {
     public $timestamps = true;
 
     public function Leader() {
-        return $this->belongsTo('App\Models\Student', 'leader', 'id');
+        return $this->belongsTo('App\Models\Student', 'leader', 'id')->withTrashed();
     }
 
     public function ClassOb() {
-        return $this->belongsTo('App\Models\Classes', 'class_id', 'id');
+        return $this->belongsTo('App\Models\Classes', 'class_id', 'id')->withTrashed();
     }
 
     public function SchoolYear() {
