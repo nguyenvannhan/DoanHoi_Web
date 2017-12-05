@@ -140,3 +140,7 @@
 @section('js_area')
 <script type="text/javascript" src="{{ URL::asset('public/js/student.js') }}"></script>
 @stop
+
+@section('js_area')
+<script type="text/javascript" src="{{ URL::asset('public/js/student.js') }}"></script>
+@stop
