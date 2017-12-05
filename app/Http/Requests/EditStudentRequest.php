@@ -26,7 +26,7 @@ class EditStudentRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'birthday' => 'date|nullable',
+            'birthday' => 'date_format:d/m/Y|nullable',
             'hometown' => 'nullable|string',
             'email' => 'nullable|email',
             'numberphone' => 'nullable|alpha_numeric|max:11|min:10',
@@ -41,7 +41,7 @@ class EditStudentRequest extends FormRequest
             'name.required' => 'Nhập tên sinh viên',
             'name.string' => 'Tên sinh viên không đúng.',
             'name.size' => 'Tên sinh viên quá dài.',
-            'birthday.date' => 'Ngày sinh không đúng (dd/mm/yyyy).',
+            'birthday.date_format' => 'Ngày sinh không đúng (dd/mm/yyyy).',
             'hometown.string' => 'Quê quán không đúng.',
             'email.email' => 'Không đúng định dạng email.',
             'numberphone.alpha_numeric' => 'SĐT không đúng.',

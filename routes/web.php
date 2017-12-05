@@ -36,6 +36,7 @@ Route::prefix('sinh-vien')->group(function() {
 
     Route::get('add-list', 'StudentController@getAddList')->name('student_get_add_list_route');
     Route::post('add-list', 'StudentController@postAddList')->name('student_post_add_list_route');
+    Route::post('submit-student-list', 'StudentController@postSubmitStudentList')->name('student_post_submit_student_list');
 });
 
 //Route science

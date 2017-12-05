@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use \Carbon\Carbon;
 use Excel;
 use File;
+use Exception;
+use DB;
 
 class StudentController extends Controller {
 
@@ -256,5 +258,54 @@ class StudentController extends Controller {
             return view('student.addListStudent', $this->data);
         }
         return redirect()->route('student_get_add_list_route');
+    }
+
+    public function postSubmitStudentList(Request $request) {
+        DB::beginTransaction();
+        try {
+            $id_arr = $request->id;
+            $name_arr = $request->name;
+            $gender_arr = $request->gender;
+            $birthday_arr = $request->birthday;
+            $hometown_arr = $request->hometown;
+            $email_arr = $request->email;
+            $number_phone_arr = $request->number_phone;
+            $class_arr = $request->class_id;
+            $science_arr = $request->science_id;
+
+            for($i = 0; $i < count($request->id); $i++) {
+                $student = new Student;
+                $student->id = $id_arr[$i];
+                $student->name = $name_arr[$i];
+                if($gender_arr[$i] == 1) {
+                    $student->is_female = 1;
+                } else {
+                    $student->is_female = 0;
+                }
+                if($birthday_arr[$i] != NULL) {
+                    $student->birthday = $birthday_arr[$i];
+                }
+                $student->hometown = $hometown_arr[$i];
+                $student->email = $email_arr[$i];
+                $student->number_phone = $number_phone_arr[$i];
+                $student->class_id = $class_arr[$i];
+                $student->science_id = $science_arr[$i];
+                $student->is_it_student = 1;
+                $student->faculty_id = 1;
+                $student->is_cyu = 1;
+                $student->is_partisan = 0;
+
+                $student->save();
+            }
+
+            DB::commit();
+            return redirect()->route('student_index_route');
+        } catch(Exception $e) {
+            DB::rollBack();
+            $this->data['error'] = $e->getMessage();
+            $this->data['result'] = false;
+            return $this->data;
+
+        }
     }
 }

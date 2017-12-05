@@ -119,7 +119,10 @@ function init_sidebar() {
         setContentHeight();
 
         $('.dataTable').each(function () {
-            $(this).dataTable().fnDraw();
+            $(this).dataTable().fnDestroy();
+            $(this)..dataTable({
+                "pageLength": 20
+            });
         });
     });
 
@@ -150,7 +153,9 @@ function init_sidebar() {
 };
 // /Sidebar
 function init_DataTables() {
-    $('.datatable').DataTable();
+    $('.datatable').DataTable({
+        "pageLength": 20
+    });
 }
 
 function init_SelectPicker() {

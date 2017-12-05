@@ -43,7 +43,9 @@ $('input[name="fil-faculty"]').on('change', function() {
     }).done(function(data) {
         $('#student-list-table').dataTable().fnDestroy();
         $('#student-list-table').html(data);
-        $('#student-list-table').dataTable();
+        $('#student-list-table').dataTable({
+            "pageLength": 20
+        });
         getDetailInfo();
     }).fail(function(xhr, status, error) {
         console.log(this.url);

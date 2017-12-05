@@ -11,12 +11,9 @@ class SchoolYearesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('school_yeares')->insert([
+        DB::table('school_years')->insert([
             [
-                'school_year_name' => '2012 - 2013'
-            ],
-            [
-                'school_year_name' => '2013 - 2014'
+                'name' => '2017 - 2018'
             ]
         ]);
     }
