@@ -120,7 +120,7 @@ function init_sidebar() {
 
         $('.dataTable').each(function () {
             $(this).dataTable().fnDestroy();
-            $(this)..dataTable({
+            $(this).dataTable({
                 "pageLength": 20
             });
         });
