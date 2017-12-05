@@ -13,6 +13,8 @@ use App\Models\Faculty;
 use App\Models\Science;
 use App\Models\Classes;
 use App\Models\Attender;
+use DB;
+use Exception;
 
 class AttenderController extends Controller {
     public function index() {
@@ -144,7 +146,7 @@ class AttenderController extends Controller {
         $check_number = Attender::where('activity_id', $attender->activity_id)->count();
         $activity = Activity::find($attender->activity_id);
 
-        \DB::beginTransaction();
+        DB::beginTransaction();
 
         try {
             if($check_number < $activity->max_regis_number) {
@@ -196,11 +198,11 @@ class AttenderController extends Controller {
                 return response()->json($this->data);
             }
 
-            \DB::commit();
+            DB::commit();
             $this->data['attenderList'] = Attender::with('Student', 'Activity')->where('activity_id', $attender->activity_id)->orderBy('updated_at', 'desc')->get();
             return response()->view('attender.load-attender-table', $this->data);
-        } catch(\Exception $e){
-            \DB::rollBack();
+        } catch(Exception $e){
+            DB::rollBack();
             return false;
         }
     }

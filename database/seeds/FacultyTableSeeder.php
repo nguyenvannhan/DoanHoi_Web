@@ -15,9 +15,25 @@ class FacultyTableSeeder extends Seeder
             [
                 'name' => 'Công nghệ Thông Tin'
             ],[
-                'name' => 'CN Hóa Học & Thực Phẩm'
+                'name' => 'CN Hóa học & Thực Phẩm'
             ],[
                 'name' => 'Cơ khí Chế tạo máy'
+            ],[
+                'name' => 'CN may và Thời trang'
+            ],[
+                'name' => 'ĐT Chất lượng cao'
+            ],[
+                'name' => 'Điện - Điện tử'
+            ],[
+                'name' => 'In - Truyền Thông'
+            ],[
+                'name' => 'Khoa học Ứng dụng'
+            ],[
+                'name' => 'Kinh tế'
+            ],[
+                'name' => 'Xây dựng'
+            ],[
+                'name' => 'Ngoại ngữ'
             ]
         ]);
     }

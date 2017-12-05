@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 
 class ClassesController extends Controller {
     public function getClassList() {
-        $this->data['classList'] = Classes::orderBy('id', 'desc')->get();
-        $this->data['scienceList'] = Science::orderBy('id', 'desc')->get();
+        $this->data['classList'] = Classes::orderBy('name', 'desc')->get();
+        $this->data['scienceList'] = Science::orderBy('name', 'desc')->get();
 
         return view('class.classList', $this->data);
     }

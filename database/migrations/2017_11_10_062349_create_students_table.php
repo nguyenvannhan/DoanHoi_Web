@@ -21,7 +21,7 @@ class CreateStudentsTable extends Migration
             $table->string('id',8);
             $table->string('name', 100);
             $table->unsignedInteger('class_id')->nullable();
-            $table->unsignedInteger('science_id')->nullable();
+            $table->unsignedInteger('science_id');
             $table->boolean('is_female')->default(true);
             $table->boolean('is_cyu')->default(true);
             $table->boolean('is_partisan')->default(false);
@@ -29,7 +29,7 @@ class CreateStudentsTable extends Migration
             $table->string('number_phone', 20)->nullable()->unique();
             $table->date('birthday', 20)->nullable();
             $table->string('email', 200)->unique()->nullable();
-            $table->unsignedInteger('social_mark')->nullable();
+            $table->unsignedInteger('social_mark')->default(0);
             $table->unsignedInteger('status')->default(1);
             $table->boolean('is_it_student')->default(true);
             $table->unsignedInteger('faculty_id')->default(1);
