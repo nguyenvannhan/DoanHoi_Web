@@ -185,33 +185,33 @@ class StudentController extends Controller {
             foreach($result as $student) {
                 $student = array_values($student);
                 $newStudent = new Student;
-                $newStudent->id = $student[1];
-                $newStudent->name = $student[2];
-                if($student[3] == NULL) {
+                $newStudent->id = $student[0];
+                $newStudent->name = $student[1];
+                if($student[2] == NULL) {
                     $newStudent->is_female = 0;
                 } else {
                     $newStudent->is_female = 1;
                 }
-                if($student[4] != NULL) {
-                    $newStudent->birthday = Carbon::createFromFormat('d/m/Y', $student[4])->format('Y-m-d');
+                if($student[3] != NULL) {
+                    $newStudent->birthday = Carbon::createFromFormat('d/m/Y', $student[3])->format('Y-m-d');
                 } else {
                     $newStudent->birthday = NULL;
                 }
-                $newStudent->hometown = $student[5];
-                $newStudent->email = $student[6];
-                $newStudent->number_phone = $student[7];
-                $newStudent->science_id = $student[8];
-                $newStudent->class_id = $student[9];
+                $newStudent->hometown = $student[4];
+                $newStudent->email = $student[5];
+                $newStudent->number_phone = $student[6];
+                $newStudent->science_id = $student[7];
+                $newStudent->class_id = $student[8];
                 $newStudent->partisan_id = 0;
-                if($student[10] != NULL) {
+                if($student[9] != NULL) {
                     $newStudent->is_cyu = 1;
                 } else {
                     $newStudent->is_cyu = 0;
                 }
-                if($student[11] != NULL) {
+                if($student[10] != NULL) {
                     $newStudent->partisan_id = 1;
                 }
-                if($student[12] != NULL) {
+                if($student[11] != NULL) {
                     $newStudent->partisan_id = 2;
                 }
 
@@ -306,6 +306,77 @@ class StudentController extends Controller {
                 $student->is_cyu = $cyu_arr[$i];
                 $student->partisan_id = $partisan_arr[$i];
 
+
+                $student->save();
+            }
+
+            DB::commit();
+            return redirect()->route('student_index_route');
+        } catch(Exception $e) {
+            DB::rollBack();
+            $this->data['error'] = $e->getMessage();
+            $this->data['result'] = false;
+            return $this->data;
+
+        }
+    }
+
+    public function getAddStatusList() {
+        return view('student.import_update_student');
+    }
+
+    public function postAddStatusList(Request $request) {
+        //Read Excell
+        if($request->hasFile('import')) {
+            $result = Excel::load($request->import, function($reader){})->get()->toArray();
+            $studentList = [];
+
+            foreach($result as $student) {
+                $student = array_values($student);
+                $studentStatusList = [];
+                $newStudent["id"] = $student[0];
+                $newStudent["status"] = $student[1];
+
+                array_push($studentList, $newStudent);
+            }
+            // $this->data['studentList'] = $studentList;
+
+            $errors = [];
+            $names = [];
+            //Check error
+            foreach($studentList as $student) {
+                //check tồn tại sinh viên
+                $check = Student::select('name')->find($student["id"]);
+                if(is_null($check)) {
+                    array_push($errors, "MSSV ".$student["id"]." không tồn tại.");
+                    array_push($names, NULL);
+                } else {
+                    array_push($names, $check->name);
+                }
+
+                if($student["status"] <= 0 || $student["status"] > 4) {
+                    array_push($errors, "Mã tình trạng của SV ".$student["id"]." không đúng.");
+                }
+            }
+
+            $this->data['studentList'] = $studentList;
+            $this->data['errors'] = $errors;
+            $this->data['names'] = $names;
+
+            return view('student.import_update_student', $this->data);
+        }
+        return redirect()->route('student_get_add_status_list_route');
+    }
+
+    public function postSubmitStatusStudentList(Request $request) {
+        DB::beginTransaction();
+        try {
+            $id_arr = $request->id;
+            $status_arr = $request->status;
+
+            for($i = 0; $i < count($request->id); $i++) {
+                $student = Student::find($id_arr[$i]);
+                $student->status = $status_arr[$i];
 
                 $student->save();
             }

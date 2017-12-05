@@ -29,7 +29,8 @@
                     <ul class="nav child_menu">
                         <li><a href="{{ route('student_index_route') }}">Danh Sách Sinh Viên</a></li>
                         <li><a href="{{ route('get_student_add_route') }}">Thêm Sinh Viên</a></li>
-                        <li><a href="{{ route('student_get_add_list_route') }}">Thêm Danh Sách Sinh Viên</a></li>
+                        <li><a href="{{ route('student_get_add_list_route') }}">Import DS Sinh Viên</a></li>
+                        <li><a href="{{ route('student_get_add_status_list_route') }}">Import File Tình trạng SV</a></li>
                     </ul>
                 </li>
                 <li>

@@ -84,73 +84,53 @@
                                 <td class="center"> {{ $studentOb->ClassOb->name }} </td>
                                 <td class="center"> {{ $studentOb->Science->name }} </td>
                                 <td class="center">
-                                    <span class="label
                                     @if($studentOb->status == 1)
-                                    {{ 'label-primary' }}
+                                    <span class="label label-primary">Đang học</span>
                                     @elseif($studentOb->status == 2)
-                                    {{ 'label-success' }}
+                                    <span class="label label-success">Đã tốt nghiệp</span>
                                     @elseif($studentOb->status == 3)
-                                    {{ 'label-warning' }}
+                                    <span class="label label-warning">Đang bảo lưu</span>
                                     @else
-                                    {{ 'label-danger' }}
+                                    <span class="label label-danger">Bị đuổi học</span>
                                     @endif
-                                    ">
-                                    @php
-
-                                    if( $studentOb->status ==1) {
-                                        $t='Đang học';
-                                    } else {
-                                        if( $studentOb->status ==2) {
-                                            $t='Đã tốt nghiệp';
-                                        } else {
-                                            if( $studentOb->status ==3) {
-                                                $t='Đang bảo lưu';
-                                            } else {
-                                                $t='Bị đuổi học';
-                                            }
-                                        }
-                                    }
-                                    @endphp
-                                    {{$t}}
-                                </span>
-                            </td>
-                            <td class="action-column center">
-                                <a class="info_student" data-toggle="modal" data-id="{{ $studentOb->id }}"><i class="fa fa-list" title="Chi tiết"></i></a>
-                                <a href="{{ route('get_edit_student_route',['id'=> $studentOb->id]) }}" ><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                <a class="delete-student" data-id="{{ $studentOb->id }}"><i class="fa fa-trash" title="Xóa"></i></a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                </td>
+                                <td class="action-column center">
+                                    <a class="info_student" data-toggle="modal" data-id="{{ $studentOb->id }}"><i class="fa fa-list" title="Chi tiết"></i></a>
+                                    <a href="{{ route('get_edit_student_route',['id'=> $studentOb->id]) }}" ><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
+                                    <a class="delete-student" data-id="{{ $studentOb->id }}"><i class="fa fa-trash" title="Xóa"></i></a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- /Student List Table-->
+        <!-- /Student List Table-->
 
-    <!-- Action Area -->
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-            <div class="panel_body">
-                <div class="row">
-                    <div class="col-md-2 col-sm-2 col-xs-6">
-                        <a href="{{ route('get_student_add_route') }}" class="btn btn-block btn-success"><i class="fa fa-user"></i> Thêm 1 Sinh viên </a>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-6">
-                        <a href="{{ route('student_get_add_list_route') }}" class="btn btn-block btn-success"><i class="fa fa-users"></i> Nhập file Excel </a>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-6">
-                        <a href="#" class="btn btn-block btn-primary"><i class="fa fa-graduation-cap"></i> Update tình trạng </a>
-                    </div>
-                    <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-6 pull-right">
-                        <a href="#" class="btn btn-block btn-info">Xuất ra file Excel</a>
+        <!-- Action Area -->
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="panel_body">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2 col-xs-6">
+                            <a href="{{ route('get_student_add_route') }}" class="btn btn-block btn-success"><i class="fa fa-user"></i> Thêm 1 Sinh viên </a>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-6">
+                            <a href="{{ route('student_get_add_list_route') }}" class="btn btn-block btn-success"><i class="fa fa-users"></i> Nhập file Excel </a>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-6">
+                            <a href="{{ route('student_get_add_status_list_route') }}" class="btn btn-block btn-primary"><i class="fa fa-graduation-cap"></i> Update tình trạng </a>
+                        </div>
+                        <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-6 pull-right">
+                            <a href="#" class="btn btn-block btn-info">Xuất ra file Excel</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- /Action Area -->
     </div>
-    <!-- /Action Area -->
-</div>
 </div>
 @stop
 

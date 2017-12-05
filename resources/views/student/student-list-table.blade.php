@@ -43,28 +43,15 @@
             <i class="fa {{ $studentOb->is_cyu == 1 ? 'fa-check-square' : 'fa-square-o' }} green"></i>
         </td>
         <td class="center">
-            <span class="label label-success">
-                @php
-
-                if( $studentOb->status == 1) {
-                    $t='Đang học';
-                }
-                else {
-                    if( $studentOb->status ==2) {
-                        $t='Đã tốt nghiệp';
-                    }
-                    else {
-                        if( $studentOb->status ==3) {
-                            $t='Đang bảo lưu';
-                        }
-                        else {
-                            $t='Bị đuổi học';
-                        }
-                    }
-                }
-                @endphp
-                {{$t}}
-            </span>
+            @if($studentOb->status == 1)
+            <span class="label label-primary">Đang học</span>
+            @elseif($studentOb->status == 2)
+            <span class="label label-success">Đã tốt nghiệp</span>
+            @elseif($studentOb->status == 3)
+            <span class="label label-warning">Đang bảo lưu</span>
+            @else
+            <span class="label label-danger">Bị đuổi học</span>
+            @endif
         </td>
         @else
         <td class="center">{{ $studentOb->Faculty->name }}</td>
