@@ -15,6 +15,7 @@ use App\Models\Classes;
 use App\Models\Attender;
 use DB;
 use Exception;
+use Excel;
 
 class AttenderController extends Controller {
     public function index() {
@@ -258,5 +259,64 @@ class AttenderController extends Controller {
         }
 
         return response()->json($this->data);
+    }
+
+    public function getImportAttenderList() {
+        $schoolYearList = School_Year::orderBy('name', 'desc')->take(10)->get();
+
+        $this->data['schoolYearList'] = $schoolYearList;
+        return view('attender.import_attenders_list', $this->data);
+    }
+
+    public function postImportAttenderList(Request $request) {
+        if($request->hasFile('import')) {
+            $schoolyear_id = $request->schoolyear_id;
+            $activity_id = $request->activity_id;
+            $result = Excel::load($request->import, function($reader){})->get()->toArray();
+
+            $attenderList = [];
+            $errors = [];
+            $names = [];
+
+            foreach($result as $attender_file) {
+                $attender_file = array_values($attender_file);
+                $attender = new Attender;
+                $attender->student_id = $attender_file[0];
+                if($attender_file[1] != NULL) {
+                    $attender->check = 1;
+                } else {
+                    $attender->check = 0;
+                }
+
+                array_push($attenderList, $attender);
+
+                $student = Student::find($attender_file[0]);
+                if(!is_null($student)) {
+                    array_push($names, $student->name);
+                } else {
+                    array_push($errors, 'SV '.$attender_file[0].' không tồn tại.');
+                    array_push($names, '');
+                }
+
+                $old_attender = Attender::where('student_id', $attender_file[0])->where('activity_id', $activity_id)->first();
+                if(!is_null($old_attender)) {
+                    array_push($errors, 'SV '.$attender_file[0].' đã đăng ký rồi.');
+                }
+            }
+
+            $schoolYearList = School_Year::orderBy('name', 'desc')->take(10)->get();
+            $activityList = Activity::where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
+            $this->data['attenderList'] = $attenderList;
+            $this->data['names'] = $names;
+            $this->data['errors'] = $errors;
+            $this->data['schoolyear_id'] = $schoolyear_id;
+            $this->data['activity_id'] = $activity_id;
+            $this->data['schoolYearList'] = $schoolYearList;
+            $this->data['activityList'] = $activityList;
+
+            return view('attender.import_attenders_list', $this->data);
+        } else {
+            return redirect()->route('get_import_attender_list_route');
+        }
     }
 }
