@@ -106,7 +106,7 @@ Route::prefix('hoat-dong')->group(function() {
 
         Route::get('import-attender-list', 'AttenderController@getImportAttenderList')->name('get_import_attender_list_route');
         Route::post('import-attender-list', 'AttenderController@postImportAttenderList')->name('post_import_attender_list_route');
-        Route::get('submit-import-attender-list', 'AttenderController@getImportAttenderList')->name('get_import_attender_list_route');
+        Route::post('submit-import-attender-list', 'AttenderController@postSubmitImportAttenderList')->name('post_submit_attender_list_route');
     });
 });
 

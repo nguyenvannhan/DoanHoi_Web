@@ -319,4 +319,42 @@ class AttenderController extends Controller {
             return redirect()->route('get_import_attender_list_route');
         }
     }
+
+    public function postSubmitImportAttenderList(Request $request) {
+        DB::beginTransaction();
+        try {
+            $student_id_arr = array_values($request->student_id);
+            $check_arr = array_values($request->check);
+
+            for($i = 0; $i < count($student_id_arr); $i++) {
+                $attender = new Attender;
+                $attender->student_id = $student_id_arr[$i];
+                $attender->check = $check_arr[$i];
+                $attender->activity_id = $request->activity_id;
+
+                $attender->save();
+            }
+            DB::commit();
+
+            $schoolYearList = School_Year::orderBy('name', 'desc')->take(10)->get();
+            $activity = Activity::find($request->activity_id);
+            $activityList = Activity::where('school_year_id', $activity->SchoolYear->id)->orderBy('start_date', 'desc')->get();
+            $attenderList = Attender::where('activity_id', $request->activity_id)->get();
+            $activity_id = $request->activity_id;
+            $school_year_id = $activity->SchoolYear->id;
+
+
+            $this->data['attenderList'] = $attenderList;
+            $this->data['schoolyear_id'] = $school_year_id;
+            $this->data['activity_id'] = $activity_id;
+            $this->data['schoolYearList'] = $schoolYearList;
+            $this->data['activityList'] = $activityList;
+
+            return view('attender.index', $this->data);
+        } catch(Exception $e) {
+            DB::rollBack();
+            $this->data['error'] = $e->getMessage();
+            return $this->data;
+        }
+    }
 }

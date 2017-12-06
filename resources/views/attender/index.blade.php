@@ -18,13 +18,18 @@
                 <label class="label-control">Năm học:</label>
                 <select class="form-control selectpicker" title="Chọn năm học" name="schoolyear_id">
                     @foreach($schoolYearList as $schoolyear)
-                    <option value="{{ $schoolyear->id }}"> {{ $schoolyear->name }}</option>
+                    <option value="{{ $schoolyear->id }}" {{ isset($school_year_id) && $schoolyear->id == $school_year_id ? 'selected' : '' }}> {{ $schoolyear->name }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-md-8 form-group">
                 <label class="label-control">Hoạt động:</label>
                 <select class="form-control selectpicker" title="Chọn hoạt động" name="activity_id">
+                    @if(isset($activityList) && count($activityList) > 0)
+                    @foreach($activityList as $activity)
+                        <option value="{{ $activity->id }}" {{ $activity_id == $activity->id ? 'selected' : '' }}>{{ $activity->name }}</option>
+                    @endforeach
+                    @endif
                 </select>
             </div>
         </div>
@@ -88,6 +93,44 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                        $stt = 1;
+                        @endphp
+                        @if(isset($attenderList) && count($attenderList) > 0)
+                        @foreach($attenderList as $attender)
+                        <tr id="attender-{{ $attender->id }}">
+                            <td class="center">{{ $stt++ }}</td>
+                            <td class="center">{{ $attender->Student->id }}</td>
+                            <td>{{ $attender->Student->name }}</td>
+                            <td class="center">{{ $attender->time_id }}</td>
+                            <td class="center">
+                                @if($attender->check)
+                                <a class="check_attend" data-id="{{ $attender->id }}"><i class="fa fa-check-circle green"></i></a>
+                                @else
+                                <a class="check_attend" data-id="{{ $attender->id }}"><i class="fa fa-times-circle red"></i></a>
+                                @endif
+                            </td>
+                            <td class="center {{ $attender->minus_conduct_mark > 0 ? 'red' : '' }}">
+                                @if($attender->minus_conduct_mark == 0)
+                                <input type="text" class="form-control mark {{ $attender->check ? '' : 'red' }}" data-mark="{{ $attender->conduct_mark }}" data-id="{{ $attender->id }}" name="conduct_mark" value="{{ $attender->conduct_mark }}">
+                                @else
+                                <input type="text" class="form-control mark {{ $attender->check ? '' : 'red' }}" data-mark="{{ '-'.$attender->conduct_mark }}" data-id="{{ $attender->id }}" name="conduct_mark" value="{{ '-'.$attender->conduct_mark }}">
+                                @endif
+                            </td>
+                            <td class="center {{ $attender->minus_social_mark > 0 ? 'red' : '' }}">
+                                @if($attender->minus_social_mark == 0)
+                                <input class="form-control mark {{ $attender->check ? '' : 'red' }}" data-mark="{{ $attender->social_mark }}" data-id="{{ $attender->id }}" name="social_mark" value="{{ $attender->social_mark }}">
+                                @else
+                                <input class="form-control mark {{ $attender->check ? '' : 'red' }}" data-mark="{{ '-'.$attender->social_mark }}" data-id="{{ $attender->id }}" name="social_mark" value="{{ '-'.$attender->minus_social_mark }}">
+                                @endif
+                            </td>
+                            <td class="center">
+                                <a class="update-attender blue hidden" data-id="{{ $attender->id }}"><i class="fa fa-floppy-o"></i></a>
+                                <a class="delete-attender red" data-id="{{ $attender->id }}"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
