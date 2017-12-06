@@ -99,10 +99,10 @@
             <div class="x_content">
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-md-2">
-                        <button class="btn btn-block btn-success">Thêm sinh viên</button>
+                        <a href="{{ route('get_import_attender_list_route') }}" class="btn btn-block btn-success"><i class="fa fa-users"></i> Nhập danh sách</a>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-2">
-                        <button class="btn btn-block btn-success">Nhập danh sách</button>
+                        <button class="btn btn-block btn-primary"><i class="fa fa-users"></i> Nhập danh sách</button>
                     </div>
                 </div>
             </div>

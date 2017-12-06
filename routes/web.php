@@ -103,6 +103,10 @@ Route::prefix('hoat-dong')->group(function() {
         Route::post('add-attender', 'AttenderController@postAddAttender')->name('post_add_attender_route');
         Route::post('update-mark', 'AttenderController@postUpdateMark')->name('post_update_mark_route');
         Route::post('delete-attender', 'AttenderController@postDeleteAttender')->name('post_delete_attender_route');
+
+        Route::get('import-attender-list', 'AttenderController@getImportAttenderList')->name('get_import_attender_list_route');
+        Route::post('import-attender-list', 'AttenderController@postImportAttenderList')->name('post_import_attender_list_route');
+        Route::get('submit-import-attender-list', 'AttenderController@getImportAttenderList')->name('get_import_attender_list_route');
     });
 });
 
