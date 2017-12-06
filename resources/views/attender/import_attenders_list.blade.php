@@ -18,7 +18,7 @@
                 {{ csrf_field() }}
                 <div class="col-md-2 form-group">
                     <label class="label-control">Năm học:</label>
-                    <select class="form-control selectpicker" title="Chọn năm học" name="schoolyear_id">
+                    <select class="form-control selectpicker" title="Chọn năm học" name="schoolyear_id" required>
                         @foreach($schoolYearList as $schoolyear)
                         <option value="{{ $schoolyear->id }}" {{ isset($schoolyear_id) && $schoolyear->id == $schoolyear_id ? 'selected' : '' }}> {{ $schoolyear->name }}</option>
                         @endforeach
@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-md-6 form-group">
                     <label class="label-control">Hoạt động:</label>
-                    <select class="form-control selectpicker" title="Chọn hoạt động" name="activity_id">
+                    <select class="form-control selectpicker" title="Chọn hoạt động" name="activity_id" required>
                         @if(isset($activityList) && count($activityList) > 0)
                         @foreach($activityList as $activity)
                         <option value="{{ $activity->id }}" {{ $activity->id == $activity_id ? 'selected' : '' }}>{{ $activity->name }}</option>
@@ -36,6 +36,7 @@
                 </div>
                 <div class="col-md-2 form-group">
                     <label class="label-control">File import:</label>
+                    <a href="{{ URL::asset('public/files/mau_import_tham_gia_diem_danh.xlsx') }}">Mẫu</a>
                     <input type="file" class="form-control" name="import">
                 </div>
                 <div class="col-md-2" style="padding-top: 24px;">
@@ -115,7 +116,8 @@
     </div>
     @if(isset($attenderList) && count($attenderList) > 0 && count($errors) == 0)
     <div class="col-xs-12">
-        <form action="{{ route('get_import_attender_list_route') }}" method="POST">
+        <form action="{{ route('post_submit_attender_list_route') }}" method="POST">
+            {{ csrf_field() }}
             <input type="hidden" value="{{ $activity_id }}" name="activity_id">
             @foreach($attenderList as $attender)
                 <input type="hidden" value="{{ $attender->student_id }}" name="student_id[]">
