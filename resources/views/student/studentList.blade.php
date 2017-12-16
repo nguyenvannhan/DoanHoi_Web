@@ -123,7 +123,7 @@
                             <a href="{{ route('student_get_add_status_list_route') }}" class="btn btn-block btn-primary"><i class="fa fa-graduation-cap"></i> Update tình trạng </a>
                         </div>
                         <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-6 pull-right">
-                            <a href="#" class="btn btn-block btn-info">Xuất ra file Excel</a>
+                            <a href="{{ route('student_get_export_list_route') }}" class="btn btn-block btn-info">Xuất ra file Excel</a>
                         </div>
                     </div>
                 </div>

@@ -41,6 +41,9 @@ Route::prefix('sinh-vien')->group(function() {
     Route::get('add-update-status', 'StudentController@getAddStatusList')->name('student_get_add_status_list_route');
     Route::post('add-update-status', 'StudentController@postAddStatusList')->name('student_post_add_status_list_route');
     Route::post('submit-update-status-list', 'StudentController@postSubmitStatusStudentList')->name('student_post_submit_status_student_list');
+
+    Route::get('xuat-ds-sv', 'StudentController@getExportList')->name('student_get_export_list_route');
+    Route::post('xuat-ds-sv-get-list', 'StudentController@postGetExportList')->name('student_post_get_export_list_route');
 });
 
 //Route science

@@ -388,7 +388,96 @@ class StudentController extends Controller {
             $this->data['error'] = $e->getMessage();
             $this->data['result'] = false;
             return $this->data;
-
         }
+    }
+
+    public function getExportList() {
+        $this->data['science_list'] = Science::orderBy('name', 'desc')->get();
+        $this->data['class_list'] = Classes::orderBy('name', 'desc')->get();
+        $this->data['faculty_list'] = Faculty::orderBy('id', 'asc')->get();
+
+        return view('student.exportStudentList', $this->data);
+    }
+
+    public function postGetExportList(Request $request) {
+        $science_check = -1;
+        $faculty_check = -1;
+        $class_check = -1;
+
+        if(!in_array(-1, $request->science_id)) {
+            $sciencd_check = 0;
+        }
+
+        if(!in_array(-1, $request->faculty_id)) {
+            if(!in_array(0, $request->faculty_id) || !in_array(1, $request->faculty_id)) {
+                $faculty_check = 0;
+            }
+        }
+
+        if(!in_array(-1, $request->class_id)) {
+            if(!in_array(1, $request->faculty_id)) {
+                $class_check = 0;
+            } else {
+                $class_check = 1;
+            }
+        }
+
+        $studentList = Student::orderBy('id', 'desc');
+        if($science_check == 0) {
+            $studentList = $studentList->whereIn('science_id', $request->science_id);
+        }
+        if($faculty_check == 0) {
+            $studentList = $studentList->whereIn('faculty_id', $request->faculty_id);
+        }
+        if($class_check == 1) {
+            $studentList = $studentList->whereNull('class_id')->orWhere(function($query) use($request) {
+                $query->whereIn('class_id', $request->class_id);
+            });
+        }
+
+        if($request->cyu_id == 1) {
+            $studentList = $studentList->where('is_cyu', 1);
+        }
+        if($request->cyu_id == 0) {
+            $studentList = $studentList->where('is_cyu', 0);
+        }
+
+        if($request->pre_partisan_id == 1) {
+            if($request->partisan_id == 1) {
+                $studentList = $studentList->whereIn('partisan_id', [1, 2]);
+            } else {
+                $studentList = $studentList->where('partisan_id', 1);
+            }
+        } elseif($request->pre_partisan_id == 0) {
+            if($request->partisan_id == 1) {
+                $studentList = $studentList->where('partisan_id', 2);
+            } elseif($request->partisan_id == 0) {
+                $studentList = $studentList->where('partisan_id', 0);
+            } else {
+                $studentList = $studentList->whereIn('partisan_id', [0, 2]);
+            }
+        } else {
+            if($request->partisan_id == 0) {
+                $studentList = $studentList->whereIn('partisan_id', [0, 1]);
+            }
+            if($request->partisan_id == 1) {
+                $studentList = $studentList->where('partisan_id', 2);
+            }
+        }
+
+        $studentList = $studentList->with('Science', 'Faculty', 'ClassOb')->get();
+        $this->data['studentList'] = $studentList;
+        $this->data['science_chosen_list'] = $request->science_id;
+        $this->data['faculty_chosen_list'] = $request->faculty_id;
+        $this->data['class_chosen_list'] = $request->class_id;
+        $this->data['partisan_id'] = $request->partisan_id;
+        $this->data['pre_partisan_id'] = $request->pre_partisan_id;
+        $this->data['cyu_id'] = $request->cyu_id;
+
+        $this->data['science_list'] = Science::orderBy('name', 'desc')->get();
+        $this->data['class_list'] = Classes::orderBy('name', 'desc')->get();
+        $this->data['faculty_list'] = Faculty::orderBy('id', 'asc')->get();
+
+        return view('student.exportStudentList', $this->data);
     }
 }
