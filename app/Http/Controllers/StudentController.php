@@ -179,7 +179,8 @@ class StudentController extends Controller {
     public function postAddList(Request $request) {
         //Read Excell
         if($request->hasFile('import')) {
-            $result = Excel::load($request->import, function($reader){})->get()->toArray();
+            $result = Excel::load($request->import, function($reader) {
+            })->get()->toArray();
             $studentList = [];
 
             foreach($result as $student) {
@@ -328,7 +329,8 @@ class StudentController extends Controller {
     public function postAddStatusList(Request $request) {
         //Read Excell
         if($request->hasFile('import')) {
-            $result = Excel::load($request->import, function($reader){})->get()->toArray();
+            $result = Excel::load($request->import, function($reader) {
+            })->get()->toArray();
             $studentList = [];
 
             foreach($result as $student) {
@@ -478,6 +480,76 @@ class StudentController extends Controller {
         $this->data['class_list'] = Classes::orderBy('name', 'desc')->get();
         $this->data['faculty_list'] = Faculty::orderBy('id', 'asc')->get();
 
-        return view('student.exportStudentList', $this->data);
+        if($request->submit_btn == "Preview") {
+            return view('student.exportStudentList', $this->data);
+        }
+
+        if($request->submit_btn == "Download") {
+            Excel::create('Danh_Sach_SV', function($excel) use($studentList) {
+                $excel->sheet('DSSV', function($sheet) use($studentList) {
+                    $sheet->row(1, array(
+                        'MSSV', 'Họ tên', 'Giới tính', 'Năm sinh', 'Quê quán', 'Khóa', 'Lớp', 'Đoàn viên', 'Đảng viên', 'Email', 'SĐT', 'Tình trạng'
+                    ));
+                    foreach($studentList as $student) {
+                        $row_data = array();
+
+                        array_push($row_data, $student->id);
+                        array_push($row_data, $student->name);
+                        if($student->is_female) {
+                            array_push($row_data, 'Nữ');
+                        } else {
+                            array_push($row_data, 'Nam');
+                        }
+                        if($student->birthday != NULL && $student->birthday != '') {
+                            array_push($row_data, date('d/m/Y', strtotime($student->birthday)));
+                        }
+                        if($student->hometown != NULL) {
+                            array_push($row_data, $student->hometown);
+                        }
+                        if($student->Science != NULL) {
+                            array_push($row_data, $student->Science->name);
+                        }
+                        if($student->ClassOb != NULL) {
+                            array_push($row_data, $student->ClassOb->name);
+                        }
+                        if($student->is_cyu == 1) {
+                            array_push($row_data, 'x');
+                        } else {
+                            array_push($row_data, '');
+                        }
+                        if($student->partisan_id == 1) {
+                            array_push($row_data, 'CTĐ');
+                        } elseif($student->partisan_id == 2) {
+                            array_push($row_data, 'ĐV');
+                        } else {
+                            array_push($row_data, '');
+                        }
+                        if($student->email != NULL) {
+                            array_push($row_data, $student->email);
+                        } else {
+                            array_push($row_data, '');
+                        }
+                        if($student->number_phone != NULL) {
+                            array_push($row_data, $student->number_phone);
+                        } else {
+                            array_push($row_data, '');
+                        }
+                        if($student->status == 2) {
+                            array_push($row_data, 'TN');
+                        } elseif($student->status == 3) {
+                            array_push($row_data, 'BL');
+                        } elseif($student->status == 4) {
+                            array_push($row_data, 'ĐH');
+                        } else {
+                            array_push($row_data, '');
+                        }
+
+                        $sheet->appendRow($row_data);
+                    }
+                });
+            })->export('xlsx');
+
+            return redirect()->route('student_get_export_list_route');
+        }
     }
 }

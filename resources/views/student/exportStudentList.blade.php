@@ -115,10 +115,10 @@
                 </div>
                 <div class="col-md-2 p-0 mt-40">
                     <div class="col-md-12">
-                        <button class="btn btn-block btn-success" type="submit">Preview</button>
+                        <input class="btn btn-block btn-success" name="submit_btn" type="submit" value="Preview"></input>
                     </div>
                     <div class="col-md-12">
-                        <button class="btn btn-block btn-primary">Download</button>
+                        <input class="btn btn-block btn-primary" name="submit_btn" type="submit" value="Download"></input>
                     </div>
                 </div>
             </form>

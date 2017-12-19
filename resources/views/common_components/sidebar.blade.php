@@ -31,17 +31,8 @@
                         <li><a href="{{ route('get_student_add_route') }}">Thêm Sinh Viên</a></li>
                         <li><a href="{{ route('student_get_add_list_route') }}">Import DS Sinh Viên</a></li>
                         <li><a href="{{ route('student_get_add_status_list_route') }}">Import File Tình trạng SV</a></li>
+                        <li><a href="{{ route('student_get_export_list_route') }}">Export DS Sinh viên</a></li>
                     </ul>
-                </li>
-                <li>
-                    <a href="{{ route('science_index_route') }}"><i class="fa fa-book"></i> Quản Lý Khóa Học </a>
-                </li>
-                <li>
-                    <a href="{{ route('school_year_index_route') }}"><i class="fa fa-calendar"></i> Quản Lý Năm Học </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('class_index_route') }}"><i class="fa fa-group"></i> Quản Lý Lớp Học </a>
                 </li>
                 <li>
                     <a><i class="fa fa-bullhorn"></i> Quản Lý Hoạt Động <span class="fa fa-chevron-down"></span></a>
@@ -50,8 +41,20 @@
                         <li><a href="{{ route('activity_index_route') }}">Danh Sách Hoạt Động</a></li>
                         <li><a href="{{ route('get_activity_add_route') }}">Thêm Hoạt Động</a></li>
                         <li><a href="{{ route('get_attender_index_route') }}">Danh sách tham gia</a></li>
+                        <li><a href="{{ route('get_import_attender_list_route') }}">Import file DS tham gia</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="{{ route('class_index_route') }}"><i class="fa fa-group"></i> Quản Lý Lớp Học </a>
+                </li>
+                <li>
+                    <a href="{{ route('science_index_route') }}"><i class="fa fa-book"></i> Quản Lý Khóa Học </a>
+                </li>
+                <li>
+                    <a href="{{ route('school_year_index_route') }}"><i class="fa fa-calendar"></i> Quản Lý Năm Học </a>
+                </li>
+
+
                 <!-- <li>
                     <a><i class="fa fa-graduation-cap"></i> Quản Lý BCH Khoa<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
