@@ -546,6 +546,12 @@ class StudentController extends Controller {
 
                         $sheet->appendRow($row_data);
                     }
+
+                    $sheet->setFontSize(13);
+                    $sheet->setFontFamily('Times New Roman');
+                    $sheet->row(1, function($row) {
+                        $row->setFontWeight('bold');
+                    });
                 });
             })->export('xlsx');
 

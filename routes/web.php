@@ -46,6 +46,10 @@ Route::prefix('sinh-vien')->group(function() {
     Route::post('xuat-ds-sv-get-list', 'StudentController@postGetExportList')->name('student_post_get_export_list_route');
 });
 
+Route::prefix('doan-dang')->group(function() {
+    Route::get('/', 'UnionistsController@getUnionistList')->name('get_unioinist_list');
+});
+
 //Route science
 Route::prefix('khoa-hoc')->group(function() {
     Route::get('/', 'ScienceController@getAllList')->name('science_index_route');
