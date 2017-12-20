@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-md-offset-1 col-md-9 col-sm-6 col-xs-12">
                     <input type="file" name="import" class="form-control" />
-                    <a href="{{ URL::asset('public/files/mau_import_status.xlsx')}}" download>File import mẫu</a>
+                    <a href="{{ URL::asset('public/files/mau_import_doan_vien.xlsx')}}" download>File import mẫu</a>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <button type="submit" class="btn btn-success btn-block">Load</button>

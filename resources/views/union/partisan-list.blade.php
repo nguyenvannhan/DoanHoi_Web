@@ -32,7 +32,7 @@
             </a>
         </div>
         <div class="col-sm-12 p-0">
-            <form action="#" method="POST">
+            <form action="{{ route('post_add_partisan') }}" method="POST">
                 {{ csrf_field() }}
                 <div class="form-group col-sm-2">
                     <label class="label-control">MSSV: </label>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="form-group col-sm-2">
                     <label class="label-control">Vị trí: </label>
-                    <select class="form-control selectpicker" name="type_id">
+                    <select class="form-control selectpicker" name="partisan_id">
                         <option value="1"> Cảm tình Đảng</option>
                         <option value="2"> Đảng viên</option>
                     </select>
@@ -62,6 +62,15 @@
                 </div>
             </form>
         </div>
+        @if(isset($u_errors) && count($u_errors) > 0)
+        <div class="col-sm-12 p-0">
+        <ul class="alert alert-danger">
+            @foreach($u_errors as $u_error)
+            <li>{{ $u_error }}</li>
+            @endforeach
+        </ul>
+    </div>
+        @endif
     </div>
 </div>
 
@@ -91,7 +100,7 @@
                                 <td>{{ $pre_partisan->email }}</td>
                                 <td class="text-center">{{ $pre_partisan->number_phone }}</td>
                                 <td class="text-center">
-                                    <a class="remove_cyu" data-id="{{ $pre_partisan->id }}"><i class="fa fa-times red"></i></a>
+                                    <a class="remove_partisan" data-id="{{ $pre_partisan->id }}"><i class="fa fa-times red"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -125,7 +134,7 @@
                                 <td>{{ $partisan->email }}</td>
                                 <td class="text-center">{{ $partisan->number_phone }}</td>
                                 <td class="text-center">
-                                    <a class="remove_cyu" data-id="{{ $partisan->id }}"><i class="fa fa-times red"></i></a>
+                                    <a class="remove_partisan" data-id="{{ $partisan->id }}"><i class="fa fa-times red"></i></a>
                                 </td>
                             </tr>
                             @endforeach

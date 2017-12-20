@@ -48,9 +48,12 @@ Route::prefix('sinh-vien')->group(function() {
 
 Route::prefix('doan-dang')->group(function() {
     Route::get('/', 'UnionistsController@getUnionistList')->name('get_unioinist_list');
-    Route::get('/chi-bo', 'UnionistsController@getPartisanList')->name('get_partisan_list');
+    Route::get('chi-bo', 'UnionistsController@getPartisanList')->name('get_partisan_list');
+
+    Route::post('add-partisan', 'UnionistsController@postAddPartisan')->name('post_add_partisan');
 
     Route::post('ajax-change-class', 'UnionistsController@getAjaxUnionitList')->name('post_get_list_change_class');
+    Route::post('delete-partisan', 'UnionistsController@postAjaxDeletePartisan')->name('post_delete_partisan');
 
 
     Route::post('update-cyu', 'UnionistsController@postUpdateUnionist')->name('post_update_cyu');

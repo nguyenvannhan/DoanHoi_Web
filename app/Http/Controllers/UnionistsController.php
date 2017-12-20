@@ -135,4 +135,48 @@ class UnionistsController extends Controller {
 
         return response()->json($this->data);
     }
+
+    public function postAddPartisan(Request $request) {
+        $student = Student::find($request->id);
+        $u_errors = [];
+
+        if(!is_null($student)) {
+            $student->partisan_id = $request->partisan_id;
+
+            if($student->email != $request->email) {
+                $student->email = $request->email;
+            }
+
+            if($student->number_phone != $request->numberphone) {
+                $student->number_phone = $request->numberphone;
+            }
+
+            if($student->partisan_id != 1 && $student->partisan_id != 2) {
+                array_push($u_errors, 'Sinh viên đã có trong NTK rồi!');
+            } else {
+                $student->save();
+            }
+        } else {
+            array_push($u_errors, 'Sinh viên không tồn tại!');
+        }
+
+        $this->data['u_errors'] = $u_errors;
+        $this->data['partisanList'] = Student::where('is_it_student', 1)->where('partisan_id', 2)->orderBy('id', 'desc')->get();
+        $this->data['prePartisanList'] = Student::where('is_it_student', 1)->where('partisan_id', 1)->orderBy('id', 'desc')->get();
+
+        return view('union.partisan-list', $this->data);
+    }
+
+    public function postAjaxDeletePartisan(Request $request) {
+        $student = Student::find($request->id);
+        return $student;
+        if(!is_null($student)) {
+            $student->partisan_id = 0;
+            $student->save();
+
+            return response()->json(['result' => true]);
+        } else {
+            return response()->json(['result' => false]);
+        }
+    }
 }

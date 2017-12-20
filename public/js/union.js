@@ -8,13 +8,7 @@ $('#change-class-btn').on('click', function() {
     changeclass();
 });
 
-$('input[name="id"]').on('blur', function(e) {
-    if($(this).val().trim().length == 8) {
-        var id = $(this).val();
-
-        getInfoStudent(id);
-    }
-}).on('input change', function() {
+$('input[name="id"]').on('input', function() {
 
     if($(this).val().trim().length > 8) {
         $(this).val($(this).val().trim().substr(0,8).trim());
@@ -28,6 +22,36 @@ $('input[name="id"]').on('blur', function(e) {
     if($(this).val().trim().length < 8) {
         resetValue();
     }
+});
+
+$('.remove_partisan').on('click', function() {
+    var id = $(this).data('id');
+    console.log(id);
+    $.ajax({
+        url: BASE_URL + 'doan-dang/add-partisan',
+        method: 'POST',
+        data: {
+            'id': id
+        }
+    }).done(function(data) {
+        console.log(data);
+        if(data.result) {
+            BootstrapDialog.show({
+                title: 'Xóa thành viên NTK',
+                message: 'Xóa thành công!',
+                type: 'type-success'
+            })
+        } else {
+            BootstrapDialog.show({
+                title: 'Xóa thành viên NTK',
+                message: 'Không tìm thấy thành viên!',
+                type: 'type-danger'
+            })
+        }
+    }).fail(function(xhr, status, error) {
+        console.log(this.url);
+        console.log(error);
+    });
 });
 
 function changeclass() {
