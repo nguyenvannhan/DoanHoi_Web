@@ -48,6 +48,15 @@ Route::prefix('sinh-vien')->group(function() {
 
 Route::prefix('doan-dang')->group(function() {
     Route::get('/', 'UnionistsController@getUnionistList')->name('get_unioinist_list');
+    Route::get('/chi-bo', 'UnionistsController@getPartisanList')->name('get_partisan_list');
+
+    Route::post('ajax-change-class', 'UnionistsController@getAjaxUnionitList')->name('post_get_list_change_class');
+
+
+    Route::post('update-cyu', 'UnionistsController@postUpdateUnionist')->name('post_update_cyu');
+    Route::get('import-ds-cyu', 'UnionistsController@getImportFileCYU')->name('get_import_file_cyu');
+    Route::post('import-ds-cyu', 'UnionistsController@postImportFileCYU')->name('post_import_file_cyu');
+    Route::post('submit-import-ds-cyu', 'UnionistsController@postSubmitImportFileCYU')->name('post_submit_import_file_cyu');
 });
 
 //Route science
