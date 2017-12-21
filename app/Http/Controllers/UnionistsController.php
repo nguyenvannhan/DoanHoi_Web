@@ -178,4 +178,98 @@ class UnionistsController extends Controller {
             return response()->json(['result' => false]);
         }
     }
+
+    public function postAjaxExportUnionist(Request $request) {
+        $idList = $request->id_arr;
+        $studentList = [];
+        foreach($idList as $id) {
+            $student = Student::find($id);
+            array_push($studentList, $student);
+        }
+        $type_id = $request->type_id;
+        if($type_id == 1) {
+            $title = 'DANH SÁCH ĐOÀN VIÊN';
+            $file_name = 'DS_Doan_Vien';
+        } else {
+            $title = 'DANH SÁCH CHƯA KẾT NẠP ĐOÀN VIÊN';
+            $file_name = 'DS_Chua_Doan_Vien';
+        }
+        $excelFile = Excel::create($file_name, function($excel) use($studentList, $file_name, $title) {
+            $excel->sheet($file_name, function($sheet) use($studentList, $title) {
+                $sheet->row(1, array($title));
+                $sheet->row(2, array(
+                    'MSSV', 'Họ tên', 'Giới tính', 'Năm sinh', 'Quê quán', 'Khóa', 'Lớp', 'Email', 'SĐT', 'Tình trạng'
+                ));
+
+                foreach($studentList as $student) {
+                    $row_data = array();
+
+                    array_push($row_data, $student->id);
+                    array_push($row_data, $student->name);
+                    if($student->is_female) {
+                        array_push($row_data, 'Nữ');
+                    } else {
+                        array_push($row_data, 'Nam');
+                    }
+                    if($student->birthday != NULL && $student->birthday != '') {
+                        array_push($row_data, date('d/m/Y', strtotime($student->birthday)));
+                    } else {
+                        array_push($row_data, '');
+                    }
+                    if($student->hometown != NULL) {
+                        array_push($row_data, $student->hometown);
+                    } else {
+                        array_push($row_data, '');
+                    }
+                    if($student->Science != NULL) {
+                        array_push($row_data, $student->Science->name);
+                    } else {
+                        array_push($row_data, '');
+                    }
+                    if($student->ClassOb != NULL) {
+                        array_push($row_data, $student->ClassOb->name);
+                    } else {
+                        array_push($row_data, '');
+                    }
+                    if($student->email != NULL) {
+                        array_push($row_data, $student->email);
+                    } else {
+                        array_push($row_data, '');
+                    }
+                    if($student->number_phone != NULL) {
+                        array_push($row_data, $student->number_phone);
+                    } else {
+                        array_push($row_data, '');
+                    }
+                    if($student->status == 2) {
+                        array_push($row_data, 'TN');
+                    } elseif($student->status == 3) {
+                        array_push($row_data, 'BL');
+                    } elseif($student->status == 4) {
+                        array_push($row_data, 'ĐH');
+                    } else {
+                        array_push($row_data, '');
+                    }
+
+                    $sheet->appendRow($row_data);
+                }
+
+                $sheet->mergeCells('A1:J1');
+                $sheet->setFontSize(13);
+                $sheet->setFontFamily('Times New Roman');
+                $sheet->row(1, function($row) {
+                    $row->setFontWeight('bold');
+                });
+                $sheet->row(2, function($row) {
+                    $row->setFontWeight('bold');
+                });
+            });
+        })->string('xlsx');
+
+        $response =  array(
+            'name' => $file_name, //no extention needed
+            'file' => "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,".base64_encode($excelFile) //mime type of used format
+        );
+        return response()->json($response);
+    }
 }

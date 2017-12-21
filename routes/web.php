@@ -54,6 +54,7 @@ Route::prefix('doan-dang')->group(function() {
 
     Route::post('ajax-change-class', 'UnionistsController@getAjaxUnionitList')->name('post_get_list_change_class');
     Route::post('delete-partisan', 'UnionistsController@postAjaxDeletePartisan')->name('post_delete_partisan');
+    Route::post('export-cyu', 'UnionistsController@postAjaxExportUnionist')->name('post_export_unionist');
 
 
     Route::post('update-cyu', 'UnionistsController@postUpdateUnionist')->name('post_update_cyu');

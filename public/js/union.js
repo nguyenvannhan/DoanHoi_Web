@@ -1,12 +1,17 @@
-init_update_cyu();
+$('#cyu_table').on('init.dt', function() {
+    init_remove_update_cyu();
+});
 
-$('.datatable').on('init.dt', function() {
+$('#non_cyu_table').on('init.dt', function() {
     init_update_cyu();
+    exportNonUnionistList();
 });
 
 $('#change-class-btn').on('click', function() {
     changeclass();
 });
+
+exportUnionistList();
 
 $('input[name="id"]').on('input', function() {
 
@@ -72,6 +77,76 @@ $('.remove_partisan').on('click', function() {
     });
 });
 
+function exportNonUnionistList() {
+    $('#export_non_cyu').on('click', function() {
+        var cyu_arr = new Array();
+
+        $('#non_cyu_table tr').each(function(row, tr){
+            cyu_arr[row]= $(tr).find('td:eq(0)').text();
+        });
+        cyu_arr.shift();
+
+        $.ajax({
+            url: BASE_URL + 'doan-dang/export-cyu',
+            method: 'POST',
+            data: {
+                'id_arr': cyu_arr,
+                'type_id': 0
+            }
+        }).done(function(data) {
+            var a = document.createElement("a");
+            a.href = data.file;
+            a.download = data.name;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        }).fail(function(xhr, status, error) {
+            console.log(this.url);
+            console.log(error);
+            BootstrapDialog.show({
+                title: 'Lỗi',
+                message: 'Đã xảy ra lỗi khi xuất file excel',
+                type: 'type-danger'
+            });
+        });
+    });
+}
+
+function exportUnionistList() {
+    $('#export_cyu').on('click', function() {
+        var cyu_arr = new Array();
+
+        $('#cyu_table tr').each(function(row, tr){
+            cyu_arr[row]= $(tr).find('td:eq(0)').text();
+        });
+        cyu_arr.shift();
+
+        $.ajax({
+            url: BASE_URL + 'doan-dang/export-cyu',
+            method: 'POST',
+            data: {
+                'id_arr': cyu_arr,
+                'type_id': 1
+            }
+        }).done(function(data) {
+            var a = document.createElement("a");
+            a.href = data.file;
+            a.download = data.name;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        }).fail(function(xhr, status, error) {
+            console.log(this.url);
+            console.log(error);
+            BootstrapDialog.show({
+                title: 'Lỗi',
+                message: 'Đã xảy ra lỗi khi xuất file excel',
+                type: 'type-danger'
+            });
+        });
+    });
+}
+
 function changeclass() {
     var class_id_list = [];
     $.each($('select[name="class_id[]"] option:selected'), function() {
@@ -97,16 +172,18 @@ function changeclass() {
 }
 
 function init_update_cyu() {
-    $('.remove_cyu').on('click', function() {
-        var id = $(this).data('id');
-        var type_id = 0;
-
-        update_cyu(id, type_id);
-    });
-
     $('.update_cyu').on('click', function() {
         var id = $(this).data('id');
         var type_id = 1;
+
+        update_cyu(id, type_id);
+    });
+}
+
+function init_remove_update_cyu() {
+    $('.remove_cyu').on('click', function() {
+        var id = $(this).data('id');
+        var type_id = 0;
 
         update_cyu(id, type_id);
     });
@@ -117,7 +194,6 @@ function update_cyu(id, type_id) {
     $.each($('select[name="class_id[]"] option:selected'), function() {
         class_id_list.push($(this).val());
     });
-    console.log(type_id);
 
     $.ajax({
         url: BASE_URL + 'doan-dang/update-cyu',
@@ -128,7 +204,6 @@ function update_cyu(id, type_id) {
             'class_id': class_id_list
         }
     }).done(function(data) {
-        console.log(data);
         $('#cyu_table').html(data.unionistView);
         $('#non_cyu_table').html(data.nonUnionistView);
 
@@ -151,7 +226,6 @@ function getInfoStudent($id) {
         url: BASE_URL + 'hoat-dong/tham-gia/get-student-info/' + $id,
         method: 'GET'
     }).done(function(data) {
-        console.log(data);
         if(data.student) {
             setValueStudent(data);
         } else {

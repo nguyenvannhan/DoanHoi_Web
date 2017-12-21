@@ -27,7 +27,7 @@
             </a>
             <a href="{{ route('get_partisan_list') }}" class="check">
                 <span class="check bg-red text-center active">
-                        Chi bộ
+                    Chi bộ
                 </span>
             </a>
         </div>
@@ -79,6 +79,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="col-md-12 p-0">
+                        <div class="col-md-4 p-0 pull-right">
+                            <a class="btn btn-info btn-block" id="export_cyu"> <i class="fa fa-download"></i> Export Excel</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -111,6 +116,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="col-md-12 p-0">
+                        <div class="col-md-4 p-0 pull-right">
+                            <a class="btn btn-info btn-block" id="export_non_cyu"> <i class="fa fa-download"></i> Export Excel</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -119,7 +129,7 @@
     <div class="x_panel">
         <div class="x_body">
             <div class="col-md-2">
-                <a class="btn btn-primary btn-block" href="{{ route('get_import_file_cyu') }}"> <i class="fa fa-file-excel-o"></i> Import Excel</a>
+                <a class="btn btn-primary btn-block" href="{{ route('get_import_file_cyu') }}"> <i class="fa fa-upload"></i> Import Excel</a>
             </div>
         </div>
     </div>
@@ -128,4 +138,6 @@
 
 @section('js_area')
 <script type="text/javascript" src="{{ URL::asset('public/js/union.js') }}"></script>
+<script>
+</script>
 @stop
