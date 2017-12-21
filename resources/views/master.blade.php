@@ -12,6 +12,9 @@
 
     <title> @yield('title_site') </title>
 
+    <!-- Favicon -->
+    <link rel="icon" href="{{ URL::asset('public/images/faculty_banner.png') }}">
+
     <!-- Bootstrap -->
     <link href="{{ URL::asset('public/vendors/bootstrap-3.3.7/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
