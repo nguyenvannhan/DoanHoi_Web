@@ -19,7 +19,7 @@ class CreateScienceTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->increments('id');
-            $table->string('nameScience', 4)->unique();
+            $table->string('name', 4)->unique();
             $table->softDeletes();
             $table->timestamps();
 

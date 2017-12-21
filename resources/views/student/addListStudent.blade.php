@@ -15,14 +15,18 @@
 <div class="x_panel">
     <div class="x_content">
         <!-- Choose file -->
-        <div class="row">
-            <div class="col-md-offset-1 col-md-9 col-sm-6 col-xs-12">
-                <input type="file" class="form-control" />
+        <form action="{{ route('student_post_add_list_route') }}" method="POST" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <div class="row">
+                <div class="col-md-offset-1 col-md-9 col-sm-6 col-xs-12">
+                    <input type="file" name="import" class="form-control" />
+                    <a href="{{ URL::asset('public/files/mau_import_ds_sinh_vien.xlsx')}}" download>File import mẫu</a>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <button type="submit" class="btn btn-success btn-block">Load</button>
+                </div>
             </div>
-            <div class="col-md-2 col-sm-6 col-xs-12">
-                <button type="submit" class="btn btn-success btn-block">Lưu</button>
-            </div>
-        </div>
+        </form>
         <!-- /Choose file -->
     </div>
 </div>
@@ -33,60 +37,107 @@
         <h4>Xem trước danh sách</h4>
     </div>
     <div class="x_content">
-        <div class="col-md-12 col-xs-12 col-sm-12">
-            <!-- Info Error -->
-            <div class="row" id="error-add-table">
-                <div class="col-md-4 blue center">
-                    <i class="fa fa-circle"></i> 3 SV đã tồn tại
-                </div>
-
-                <div class="col-md-4 green center">
-                    <i class="fa fa-circle"></i> 3 SV bị trùng
-                </div>
-
-                <div class="col-md-4 red center">
-                    <i class="fa fa-circle"></i> 3 SV bị lỗi thông tin
+        <div class="col-xs-12">
+            @if(isset($errors) && count($errors) > 0)
+            <div class="col-md-2">
+                <button type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#show-errors">
+                    THÔNG TIN LỖI
+                    <span style="background-color: #fff; border-radius: 50%; color: #000; padding: 3px;">
+                        {{ count($errors) }}
+                    </span>
+                </button>
+                <div class="modal fade" id="show-errors">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-red">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">THÔNG TIN LỖI</h4>
+                            </div>
+                            <div class="modal-body">
+                                <ul>
+                                    @foreach($errors as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- /Info Error -->
-
+            @endif
+        </div>
+        <div class="col-md-12 col-xs-12 col-sm-12">
             <div>
-                <table id="datatable-import-student" class="table table-striped table-bordered jambo_table table-responsive">
+                <table id="datatable-import-student" class="datatable table table-striped table-bordered jambo_table table-responsive">
                     <thead>
-                        <tr class="headings">
-                            <th><i class="fa fa-exclamation-circle red"></i></th>
+                        <tr class="headings text-center">
                             <th class="column-title"> MSSV </th>
                             <th class="column-title"> Họ tên </th>
-                            <th class="column-title"> Giới tính </th>
-                            <th class="column-title"> Năm sinh </th>
-                            <th class="column-title"> Lớp </th>
+                            <th class="column-title"> TT Cá nhân </th>
+                            <th class="column-title"> TT Khoa </th>
+                            <th class="column-title"> Liên hệ </th>
                             <th class="column-title"> Đoàn - Đảng </th>
-                            <th class="column-title"> Tình trạng </th>
-                            <th class="column-title"> Thông tin liên lạc </th>
                         </tr>
                     </thead>
+
                     <tbody>
+                        @if(isset($studentList) && count($studentList > 0))
+                        @php
+                        $count = 0;;
+                        $class_name_arr = array_values($class_names);
+                        $science_name_arr = array_values($science_names);
+                        @endphp
+                        @foreach($studentList as $student)
                         <tr>
-                            <td><i class="fa fa-circle blue"></i></td>
-                            <td> 13110113 </td>
-                            <td> Nguyễn Văn Nhàn </td>
-                            <td> Nam </td>
-                            <td> 08/10/1995 </td>
-                            <td> 139100 </td>
+                            <td class="center">{{ $student->id }}</td>
+                            <td>{{ $student->name }}</td>
                             <td>
-                                <strong>Đoàn viên: </strong><i class="fa fa-check-square green"></i>
-                                <br>
-                                <strong>Đảng viên: </strong><i class="fa fa-square-o green"></i>
+                                <strong>Giới tính: </strong>
+                                {{ $student->is_female ? 'Nữ' : 'Nam'}}
+                                <br/>
+                                <strong>Ngày sinh: </strong>
+                                {{ $student->birthday != NULL ? date('d/m/Y', strtotime($student->birthday)) : '' }}
+                                <br/>
+                                <strong>Quê quán: </strong>
+                                {{ $student->hometown }}
                             </td>
                             <td>
-                                <span class="label label-success"> Đang học </span>
+                                <strong>Khóa học: </strong>
+                                {{ $science_name_arr[$count] or $student->science_id }}
+                                <br/>
+                                <strong>Lớp học: </strong>
+                                {{ $class_name_arr[$count] or $student->class_id }}
                             </td>
                             <td>
-                                <strong>Email: </strong> nguyenvannhan0810@gmail.com
-                                <br />
-                                <strong>SĐT: </strong> 0121-983-3537
+                                <strong>Email: </strong>
+                                {{ $student->email }}
+                                <br/>
+                                <strong>SĐT: </strong>
+                                {{ $student->number_phone }}
+                            </td>
+                            <td>
+                                <strong>Đoàn viên:</strong>
+                                @if($student->is_cyu)
+                                    <i class="fa fa-check-square green"></i>
+                                @else
+                                    <i class="fa fa-square-o green"></i>
+                                @endif
+                                <br/>
+                                <strong>Chi bộ: </strong>
+                                @if($student->partisan_id == 0)
+                                    <span class="label label-success">Không</span>
+                                @elseif($student->partisan_id == 1)
+                                    <span class="label label-warning">Cảm tình Đảng</span>
+                                @else
+                                    <span class="label label-danger">Đảng viên</span>
+                                @endif
                             </td>
                         </tr>
+                        @php
+                        $count++;
+                        @endphp
+                        @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -94,4 +145,32 @@
     </div>
 </div>
 <!-- /Table preview list -->
+@if(isset($studentList) && count($errors) == 0)
+<form action="{{ route('student_post_submit_student_list') }}" method="POST">
+    {{ csrf_field() }}
+    @foreach($studentList as $student)
+    <input type="hidden" name="id[]" value="{{ $student->id }}">
+    <input type="hidden" name="name[]" value="{{ $student->name }}">
+    <input type="hidden" name="gender[]" value="{{ $student->is_female }}">
+    <input type="hidden" name="birthday[]" value="{{ $student->birthday }}">
+    <input type="hidden" name="hometown[]" value="{{ $student->hometown }}">
+    <input type="hidden" name="science_id[]" value="{{ $student->science_id }}">
+    <input type="hidden" name="class_id[]" value="{{ $student->class_id }}">
+    <input type="hidden" name="email[]" value="{{ $student->email }}">
+    <input type="hidden" name="number_phone[]" value="{{ $student->number_phone }}">
+    <input type="hidden" name="is_cyu[]" value="{{ $student->is_cyu }}">
+    <input type="hidden" name="partisan_id[]" value="{{ $student->partisan_id }}">
+    @endforeach
+    <div class="row">
+        <div class="col-md-2 pull-right">
+            <button class="btn btn-block btn-success" type="submit" id="submit-list">Lưu và Thoát</button>
+        </div>
+    </div>
+</form>
+@endif
+@stop
+
+
+@section('js_area')
+<script type="text/javascript" src="{{ URL::asset('public/js/student.js') }}"></script>
 @stop

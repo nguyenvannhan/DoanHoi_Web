@@ -24,33 +24,22 @@
                 </div>
             </div>
         @endif
+        @if($errors->any())
+        <div class="col-md-12 col-xs-12 col-sm-12 form-group">
+            <ul class="alert alert-danger">
+                @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <div class="col-md-12 col-sm-12 col-xs-12" id="filter">
             <div class="x_panel">
-                <div class="x_content">
+                <div class="x_content pb-0">
                     <div class="row">
                         <div class="col-md-2 col-sm-2 col-xs-6">
-                            <a id="ClassAdd" class="btn btn-block btn-success"><i class="fa fa-plus"></i> Thêm Lớp Học
+                            <a id="ClassAdd" class="btn btn-block btn-success" data-toggle="modal" href="#add-class-modal"><i class="fa fa-plus"></i> Thêm Lớp Học
                             </a>
-                        </div>
-                    </div>
-                    <div class="row" id="searchClass">
-                        <div class="col-md-1 col-md-offset-3 col-sm-6 col-xs-12 ">
-                            <label style="margin-top: 10px;">Khóa học: </label>
-                        </div>
-                        <div class="col-md-2 col-sm-6 col-xs-12">
-                            <select class="form-control select2" name="slScienceIdSearch">
-                                <option value="0" {{ (isset($scienceIdSearch) && $scienceIdSearch == 0) ? "selected" : "" }}>
-                                    Tất cả
-                                </option>
-                                @foreach($scienceList as $science)
-                                    <option value="{{ $science->id }}" {{ (isset($scienceIdSearch) && $scienceIdSearch == $science->id) ? "selected" : "" }}>{{ $science->nameScience }}</option>
-                                @endforeach
-                            </select>
-                            <a class="add-new-science" href="javascript:;">Thêm Khóa học</a>
-                        </div>
-                        <div class="col-md-2 col-sm-6 col-xs-12" id="submit-filter-div">
-                            <a class="btn btn-primary btn-block" href="javascript:;">
-                                <i class="fa fa-search"></i> Tìm Kiếm </a>
                         </div>
                     </div>
                 </div>
@@ -67,7 +56,7 @@
                     <table id="class-list-table"
                            class="center datatable table table-striped table-bordered jambo_table">
                         <thead>
-                        <tr class="headings">
+                        <tr class="headings text-center">
                             <th class="column-title"> STT</th>
                             <th class="column-title"> Tên Lớp Học</th>
                             <th class="column-title"> Khóa Học</th>
@@ -84,15 +73,15 @@
                                 <td>
                                     {{ $i++ }}
                                 </td>
-                                <td>{{ $classOb->nameClass }}</td>
-                                <td>{{ $classOb->Science->nameScience }}</td>
+                                <td>{{ $classOb->name }}</td>
+                                <td>{{ $classOb->Science->name }}</td>
                                 <td>
-                                    <a href="#">Danh sách SV Lớp {{ $classOb->nameClass }} </a>
+                                    <a href="#">Danh sách SV Lớp {{ $classOb->name }} </a>
                                 </td>
                                 <td class="action-column">
-                                    <a class="edit_class_button" data-id="{{ $classOb->id }}"><i class="fa fa-edit"
+                                    <a class="edit-class-button" data-id="{{ $classOb->id }}"><i class="fa fa-edit"
                                                                                                  title="Chỉnh sửa"></i></a>
-                                    <a class="delete_class_button" data-id="{{ $classOb->id }}" href="javascript:;"><i
+                                    <a class="delete-class-button" data-id="{{ $classOb->id }}" href="javascript:;"><i
                                                 class="fa fa-trash" title="Xóa"></i></a>
 
                                 </td>
@@ -105,135 +94,47 @@
         </div>
     </div>
     <!--Science List Table-->
-
-    <!-- Form confirm delete class -->
-    <div id="dialog-confirm-delete-class" class="jquery-ui-dialog" title="Xóa Lớp học?" hidden>
-        <p><span class="ui-icon ui-icon-alert"></span>Bạn có chắc muốn <strong>xóa Lớp học</strong> đã chọn?</p>
-    </div>
-    <!-- /Form confirm delete class -->
 @stop
 
 @section('modals')
     <!-- The Modal Add Class-->
-    <div id="add_class_modal" class="modal_add_class"
-         style="display: {{ old('txtAddClassName') !== null ? 'block;' : 'none;' }}">
-        <!-- Modal content -->
-        <div class="modal-content_add_class">
-            <div class="modal-header_add_class">
-                <span class="close_add_class">&times;</span>
-                <h2>Nhập Lớp Học</h2>
-            </div>
-            <div class="modal-body_add_class">
-                <div class="x_panel">
-                    <div class="x_content"><br/>
-                        <div class="row">
-                            @if($errors->any())
-                                <div class="col-md-12 col-xs-12 col-sm-12">
-                                    <ul class="alert alert-danger">
-                                        @foreach($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                        </div>
-                        <form class="form-horizontal" action="{{ route('post_add_class_route') }}" method="POST">
-                            {{ csrf_field() }}
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Lớp Học : </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" class="form-control" name="txtAddClassName" required
-                                           value="{{ old('txtAddClassName') }}">
-
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select class="form-control select2" name="slAddScienceId">
-                                        @foreach($scienceList as $science)
-                                            <option value="{{ $science->id }}" {{ old('slAddScienceId') == $science->id ? "selected" : "" }}> {{ $science->nameScience }} </option>
-                                        @endforeach
-                                    </select>
-                                    <a class="add-new-science" href="javascript:;">Thêm Khóa học</a>
-                                </div>
-                            </div>
-                            <div class="ln_solid"></div>
-                            <div class="form-group">
-                                <div class="col-md-12 col-sm-12 col-xs-12 center">
-                                    <button type="button" class="btn btn-primary btncancel">Cancel</button>
-                                    <button type="submit" class="btn btn-success">Submit</button>
-                                </div>
-                            </div>
-                        </form>
+    <div class="modal fade" id="add-class-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <form action="{{ route('post_add_class_route') }}" method="POST">
+                    {{ csrf_field() }}
+                    <div class="modal-header bg-green">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">THÊM LỚP HỌC</h4>
                     </div>
-                </div>
-            </div>
-            <div class="modal-footer_add_class">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Tên lớp học:</label>
+                            <input class="form-control" type="text" name="txtAddClassName">
+                        </div>
+                        <div class="form-group">
+                            <label>Khóa học: </label>
+                            <select class="form-control selectpicker" data-live-search="true" name="slAddClassScienceId">
+                                @foreach($scienceList as $science)
+                                <option value="{{ $science->id }}">{{ $science->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
     <!-- The Modal Edit Class-->
-    <div id="edit_class_modal" class="modal_add_class"
-         style="display: {{ old('txtEditClassName') !== null ? 'block;' : 'none;' }};">
-        <!-- Modal content -->
-        <div class="modal-content_add_class">
-            <div class="modal-header_add_class">
-                <span class="close_add_class">&times;</span>
-                <h2>Cập nhật Lớp Học</h2>
-            </div>
-            <div class="modal-body_add_class">
-                <div class="x_panel">
-                    <div class="x_content"><br/>
-                        <div class="row">
-                            @if($errors->any())
-                                <div class="col-md-12 col-xs-12 col-sm-12">
-                                    <ul class="alert alert-danger">
-                                        @foreach($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                        </div> 
-                        <form class="form-horizontal" action="#" method="POST">
-                            {{ csrf_field() }}
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Lớp Học
-                                    : </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="hidden" name="txtIdClass" value="{{ old('txtIdClass') }}">
-                                    <input type="text" class="form-control" name="txtEditClassName" required
-                                           value="{{ old('txtEditClassName') }}">
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Khóa : </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select class="select2 form-control" name="slEditScienceId">
-                                        @foreach($scienceList as $science)
-                                            <option value="{{ $science->id }}" {{ old('slEditScienceId') == $science->id ? "selected" : "" }}> {{ $science->nameScience }} </option>
-                                        @endforeach
-                                    </select>
-                                    <div>
-                                        <a class="add-new-science" href="javascript:;">Thêm Khóa học</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ln_solid"></div>
-                            <div class="form-group">
-                                <div class="col-md-12 col-sm-12 col-xs-12 center">
-                                    <button type="button" class="btn btn-primary btncancel">Cancel</button>
-                                    <button id="btnSubmit" type="button" class="btn btn-success">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer_add_class">
-            </div>
-        </div>
+    <div class="modal fade" id="edit-class-modal">
     </div>
+@stop
+
+@section('js_area')
+    <script type="text/javascript" src="{{ URL::asset('public/js/class.js')}}"></script>
 @stop

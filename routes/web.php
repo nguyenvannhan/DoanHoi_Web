@@ -15,67 +15,95 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('student')->group(function() {
-    Route::get('/', 'StudentesController@getStudentList')->name('student_index_route');
+Route::prefix('sinh-vien')->group(function() {
+    Route::get('/', 'StudentController@getStudentList')->name('student_index_route');
 
-    Route::get('info/{mssv}', 'StudentesController@getInfoStudent')->name('get_info_student_route');
+    Route::get('info/{id}', 'StudentController@getInfoStudent')->name('get_info_student_route');
 
-    Route::get('add','StudentesController@getAddStudentList')->name('student_add_route');
-    Route::post('add','StudentesController@postAddStudent')->name('post_student_add_route');
+    Route::get('them','StudentController@getAddStudent')->name('get_student_add_route');
+    Route::post('them','StudentController@postAddStudent')->name('post_student_add_route');
 
-    Route::get('edit/{mssv}','StudentesController@getEditStudent')->name('get_edit_student_route');
-    Route::post('edit/{mssv}','StudentesController@postEditStudent')->name('post_edit_student_route');
+    Route::get('cap-nhat/{id}','StudentController@getEditStudent')->name('get_edit_student_route');
+    Route::post('cap-nhat/{id}','StudentController@postEditStudent')->name('post_edit_student_route');
 
-    Route::get('delete/{mssv}', 'StudentesController@getDeleteStudent')->name('get_delete_student_route');
+    Route::post('xoa', 'StudentController@postDeleteStudent')->name('get_delete_student_route');
 
-    Route::get('add-list', function() {
-        return view('student.addListStudent');
-    })->name('student_add_list_route');
+    Route::get('lay-danh-sach/{type_id}', 'StudentController@ajaxGetStudentList')->name('get_ajax_student_list');
+
+    Route::get('lay-thong-tin/{id}', 'StudentController@ajaxGetStudentInfo')->name('get_ajax_student_info');
+
+    Route::get('get-info-add-student/{is_it_student}/{science_id?}', 'StudentController@ajaxGetInfoAddStudent')->name('ajax_get_info_student');
+
+    Route::get('add-list', 'StudentController@getAddList')->name('student_get_add_list_route');
+    Route::post('add-list', 'StudentController@postAddList')->name('student_post_add_list_route');
+    Route::post('submit-student-list', 'StudentController@postSubmitStudentList')->name('student_post_submit_student_list');
+
+    Route::get('add-update-status', 'StudentController@getAddStatusList')->name('student_get_add_status_list_route');
+    Route::post('add-update-status', 'StudentController@postAddStatusList')->name('student_post_add_status_list_route');
+    Route::post('submit-update-status-list', 'StudentController@postSubmitStatusStudentList')->name('student_post_submit_status_student_list');
+
+    Route::get('xuat-ds-sv', 'StudentController@getExportList')->name('student_get_export_list_route');
+    Route::post('xuat-ds-sv-get-list', 'StudentController@postGetExportList')->name('student_post_get_export_list_route');
+});
+
+Route::prefix('doan-dang')->group(function() {
+    Route::get('/', 'UnionistsController@getUnionistList')->name('get_unioinist_list');
+    Route::get('chi-bo', 'UnionistsController@getPartisanList')->name('get_partisan_list');
+
+    Route::post('add-partisan', 'UnionistsController@postAddPartisan')->name('post_add_partisan');
+
+    Route::post('ajax-change-class', 'UnionistsController@getAjaxUnionitList')->name('post_get_list_change_class');
+    Route::post('delete-partisan', 'UnionistsController@postAjaxDeletePartisan')->name('post_delete_partisan');
+    Route::post('export-cyu', 'UnionistsController@postAjaxExportUnionist')->name('post_export_unionist');
+    Route::post('export-partisan', 'UnionistsController@postAjaxExportPartisan')->name('post_export_partisan');
+
+
+    Route::post('update-cyu', 'UnionistsController@postUpdateUnionist')->name('post_update_cyu');
+    Route::get('import-ds-cyu', 'UnionistsController@getImportFileCYU')->name('get_import_file_cyu');
+    Route::post('import-ds-cyu', 'UnionistsController@postImportFileCYU')->name('post_import_file_cyu');
+    Route::post('submit-import-ds-cyu', 'UnionistsController@postSubmitImportFileCYU')->name('post_submit_import_file_cyu');
 });
 
 //Route science
-Route::prefix('science')->group(function() {
+Route::prefix('khoa-hoc')->group(function() {
     Route::get('/', 'ScienceController@getAllList')->name('science_index_route');
-
-    Route::get('edit/{id}', 'ScienceController@getEditScience')->name('get_edit_science_route');
-    Route::get('/add', 'ScienceController@getAddScience')->name('get_add_science');
-    Route::post('add-new','ScienceController@posttAddScience')->name('science_add_route');
-
-
-    Route::get('add', 'ScienceController@getAddScience')->name('get_add_science');
 });
 
 //Route chool year
-Route::prefix('school-year')->group(function() {
-    Route::get('/','School_YearesController@getAllList')->name('school_year_index_route');
-    Route::get('add','School_YearesController@getAddSchool_Year')->name('get_school_year_add_route');
+Route::prefix('nam-hoc')->group(function() {
+    Route::get('/','School_YearController@getAllList')->name('school_year_index_route');
+    Route::get('add','School_YearController@getAddSchool_Year')->name('get_school_year_add_route');
 });
 
 //Route class
-Route::prefix('class')->group(function() {
-    Route::get('/{scienceId?}', 'ClassesController@getClassList')->name('class_index_route');
+Route::prefix('lop-hoc')->group(function() {
+    Route::get('/', 'ClassesController@getClassList')->name('class_index_route');
 
     Route::get('search/{scienceId}', 'ClassesController@getClassListByScienceId')->name('class_search_route');
 
-    Route::post('add', 'ClassesController@postAddClass')->name('post_add_class_route');
+    Route::post('them-moi', 'ClassesController@postAddClass')->name('post_add_class_route');
+    Route::post('cap-nhat/{id}', 'ClassesController@postEditClass')->name('post_edit_class_route');
 
-    Route::get('edit/{id}', 'ClassesController@getEditClass')->name('get_edit_class_route');
-    Route::post('edit/{id}', 'ClassesController@postEditClass')->name('post_edit_class_route');
-
-    Route::get('delete/{id}', 'ClassesController@getDeleteClass')->name('get_delete_class_route');
+    Route::post('xoa', 'ClassesController@postDeleteClass')->name('get_delete_class_route');
 });
 
 //Route activities
-Route::prefix('activity')->group(function() {
+Route::prefix('hoat-dong')->group(function() {
     Route::get('/', 'ActivityController@getActivityList')->name('activity_index_route');
+    Route::get('/get-activity-list/{schoolyear_id}', 'ActivityController@getActivityListBySchoolYear')->name('ajax_get_list_by_schoolyear');
 
     Route::get('detail/{id}', 'ActivityController@getDetailActivity')->name('activity_detail_route');
 
-    Route::get('add', 'ActivityController@getAddActivity')->name('get_activity_add_route');
-    Route::post('add', 'ActivityController@postAddActivity')->name('post_activity_add_route');
+    Route::get('them-moi', 'ActivityController@getAddActivity')->name('get_activity_add_route');
+    Route::post('them-moi', 'ActivityController@postAddActivity')->name('post_activity_add_route');
 
-    Route::get('edit/{activityId}', 'ActivityController@getEditActivity')->name('get_edit_activity_route');
-    Route::post('edit/{activityId}', 'ActivityController@postEditActivity')->name('post_edit_activity_route');
+    Route::get('cap-nhat/{id}', 'ActivityController@getEditActivity')->name('get_edit_activity_route');
+    Route::post('cap-nhat/{id}', 'ActivityController@postEditActivity')->name('post_edit_activity_route');
+
+    Route::post('xoa', 'ActivityController@postDeleteActivity')->name('post_delete_activity_route');
+
+    Route::get('get-leader/{searchKey}', 'ActivityController@ajaxGetLeader')->name('ajax_get_leader');
+    Route::get('get-class/{student_id}', 'ActivityController@ajaxGetClass')->name('ajax_get_classs');
 
     Route::get('add-list', function() {
         return view('activity.addListStudentActivity');
@@ -84,6 +112,23 @@ Route::prefix('activity')->group(function() {
     Route::get('add-list-student-activity', function() {
         return view('activity.addListStudentActivity');
     })->name('activity_list_student_route');
+
+    Route::prefix('tham-gia')->group(function() {
+        Route::get('/', 'AttenderController@index')->name('get_attender_index_route');
+        Route::get('/lay-danh-sach/{activity_id}', 'AttenderController@getAttenderList')->name('ajax_get_attender_list');
+        Route::post('/check-attend', 'AttenderController@postCheckAttend')->name('ajax_post_check_attend');
+
+        Route::get('/get-activity-list-attender/{schoolyear_id}', 'AttenderController@getActivityListBySchoolYear')->name('ajax_get_list_by_schoolyear_attender');
+        Route::get('/get-student-info/{id}', 'AttenderController@getStudentInfo')->name('ajax_get_student_info_attender');
+
+        Route::post('add-attender', 'AttenderController@postAddAttender')->name('post_add_attender_route');
+        Route::post('update-mark', 'AttenderController@postUpdateMark')->name('post_update_mark_route');
+        Route::post('delete-attender', 'AttenderController@postDeleteAttender')->name('post_delete_attender_route');
+
+        Route::get('import-attender-list', 'AttenderController@getImportAttenderList')->name('get_import_attender_list_route');
+        Route::post('import-attender-list', 'AttenderController@postImportAttenderList')->name('post_import_attender_list_route');
+        Route::post('submit-import-attender-list', 'AttenderController@postSubmitImportAttenderList')->name('post_submit_attender_list_route');
+    });
 });
 
 //Route faculty commitee
@@ -114,13 +159,11 @@ Route::prefix('BCH-Lop')->group(function() {
 
 //Route ajax
 Route::prefix('ajax')->group(function() {
-    Route::get('add-science', 'ScienceController@getAjaxAddScience')->name('ajax_add_science_route');
+    Route::post('add-science', 'ScienceController@postAjaxAddScience')->name('ajax_add_science_route');
 
-    Route::get('add-school-year', 'School_YearesController@getAjaxAddSchoolYear')->name('ajax_add_school_year');
+    Route::post('add-school-year', 'School_YearController@postAjaxAddSchoolYear')->name('ajax_add_school_year');
 
-    Route::get('search-student/{searchKey}', 'StudentesController@getAjaxSearchStudent')->name('ajax_search_student_route');
-
-    Route::get('get-class-from-student-id/{studentId}','StudentesController@getClassFromId')->name('ajax_get_class_from_student_id');
+    Route::get('get-class-info/{class_id}', 'ClassesController@ajaxGetClassInfo')->name('ajax_get_class_info');
 
     Route::get('add-BCH_Khoa','BCH_KhoaController@getAjaxAddBCH_khoa')->name('ajax_add_BCH_Khoa_route');
 });
