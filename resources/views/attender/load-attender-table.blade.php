@@ -29,20 +29,20 @@
         </td>
         <td class="center {{ $attender->minus_conduct_mark > 0 ? 'red' : '' }}">
             @if($attender->minus_conduct_mark == 0)
-            <input type="text" class="form-control mark {{ $attender->check ? '' : 'red' }}" data-mark="{{ $attender->conduct_mark }}" data-id="{{ $attender->id }}" name="conduct_mark" value="{{ $attender->conduct_mark }}">
+            <input type="text" class="form-control mark" data-mark="{{ $attender->conduct_mark }}" data-id="{{ $attender->id }}" name="conduct_mark" value="{{ $attender->conduct_mark }}">
             @else
-            <input type="text" class="form-control mark {{ $attender->check ? '' : 'red' }}" data-mark="{{ '-'.$attender->conduct_mark }}" data-id="{{ $attender->id }}" name="conduct_mark" value="{{ '-'.$attender->conduct_mark }}">
+            <input type="text" class="form-control mark red" data-mark="{{ $attender->minus_conduct_mark > 0 ? '-'.$attender->minus_conduct_mark : '0' }}" data-id="{{ $attender->id }}" name="conduct_mark" value="{{ $attender->minus_conduct_mark > 0 ? '-'.$attender->minus_conduct_mark : '0' }}">
             @endif
         </td>
         <td class="center {{ $attender->minus_social_mark > 0 ? 'red' : '' }}">
             @if($attender->minus_social_mark == 0)
-            <input class="form-control mark {{ $attender->check ? '' : 'red' }}" data-mark="{{ $attender->social_mark }}" data-id="{{ $attender->id }}" name="social_mark" value="{{ $attender->social_mark }}">
+            <input class="form-control mark" data-mark="{{ $attender->social_mark }}" data-id="{{ $attender->id }}" name="social_mark" value="{{ $attender->social_mark }}">
             @else
-            <input class="form-control mark {{ $attender->check ? '' : 'red' }}" data-mark="{{ '-'.$attender->social_mark }}" data-id="{{ $attender->id }}" name="social_mark" value="{{ '-'.$attender->minus_social_mark }}">
+            <input class="form-control mark red" data-mark="{{ $attender->minus_social_mark > 0 ? '-'.$attender->minus_social_mark : '0' }}" data-id="{{ $attender->id }}" name="social_mark" value="{{ $attender->minus_social_mark > 0 ? '-'.$attender->minus_social_mark : '0' }}">
             @endif
         </td>
         <td class="center">
-            <a class="update-attender blue hidden" data-id="{{ $attender->id }}"><i class="fa fa-floppy-o"></i></a>
+            <a class="update-attender update-attender-{{ $attender->id }} blue hidden" data-id="{{ $attender->id }}"><i class="fa fa-floppy-o"></i></a>
             <a class="delete-attender red" data-id="{{ $attender->id }}"><i class="fa fa-trash"></i></a>
         </td>
     </tr>

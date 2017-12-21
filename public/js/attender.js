@@ -383,9 +383,9 @@ function updateMark() {
         var new_conduct_value = $('tr#attender-'+id).find('input[name="conduct_mark"]').val();
 
         if(old_social_mark == new_social_value && old_conduct_mark == new_conduct_value) {
-            $('a.update-attender').addClass('hidden');
+            $('a.update-attender-'+id).addClass('hidden');
         } else {
-            $('a.update-attender').removeClass('hidden');
+            $('a.update-attender-'+id).removeClass('hidden');
         }
     }).on('input', function() {
         var id = $(this).data('id');
@@ -396,9 +396,9 @@ function updateMark() {
         var new_conduct_value = $('tr#attender-'+id).find('input[name="conduct_mark"]').val();
 
         if(old_social_mark == new_social_value && old_conduct_mark == new_conduct_value) {
-            $('a.update-attender').addClass('hidden');
+            $('a.update-attender-'+id).addClass('hidden');
         } else {
-            $('a.update-attender').removeClass('hidden');
+            $('a.update-attender-'+id).removeClass('hidden');
         }
     });
 
@@ -411,9 +411,9 @@ function updateMark() {
         var new_social_mark = $('tr#attender-'+id).find('input[name="social_mark"]').val();
 
         if(old_conduct_mark == new_conduct_mark && old_social_mark == new_social_mark) {
-            $('a.update-attender').addClass('hidden');
+            $('a.update-attender-'+id).addClass('hidden');
         } else {
-            $('a.update-attender').removeClass('hidden');
+            $('a.update-attender-'+id).removeClass('hidden');
         }
     }).on('input', function() {
         var id = $(this).data('id');
@@ -424,9 +424,9 @@ function updateMark() {
         var new_social_value = $('tr#attender-'+id).find('input[name="social_mark"]').val();
 
         if(old_conduct_mark == new_conduct_mark && old_social_mark == new_social_value) {
-            $('a.update-attender').addClass('hidden');
+            $('a.update-attender-'+id).addClass('hidden');
         } else {
-            $('a.update-attender').removeClass('hidden');
+            $('a.update-attender-'+id).removeClass('hidden');
         }
     });
 
@@ -448,6 +448,15 @@ function updateMark() {
                 $('tr#attender-'+id).find('input[name="social_mark"]').data('mark', social_mark);
                 $('tr#attender-'+id).find('input[name="conduct_mark"]').data('mark', conduct_mark);
                 $('tr#attender-'+id).find('a.update-attender').addClass('hidden');
+                if(data.check) {
+                    $('tr#attender-'+id+ ' a.check_attend i').addClass('fa-check-circle green').removeClass('fa-times-circle red');
+                    $('tr#attender-'+id).find('input[name="social_mark"]').removeClass('red');
+                    $('tr#attender-'+id).find('input[name="conduct_mark"]').removeClass('red');
+                } else {
+                    $('tr#attender-'+id+ ' a.check_attend i').removeClass('fa-check-circle green').addClass('fa-times-circle red');
+                    $('tr#attender-'+id).find('input[name="social_mark"]').addClass('red');
+                    $('tr#attender-'+id).find('input[name="conduct_mark"]').addClass('red');
+                }
                 BootstrapDialog.show({
                     title: 'Cập nhật điểm',
                     message: 'Cập nhật thành công cho sinh viên',

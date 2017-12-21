@@ -45,7 +45,7 @@ class AttenderController extends Controller {
 
                         $attender->minus_social_mark = $attender->Activity->social_mark;
                     } else {
-                        $attender->social_mark = $attender->social_mark;
+                        $attender->minus_social_mark = $attender->social_mark;
                     }
                 } else {
                     $attender->minus_social_mark = 0;
@@ -229,7 +229,15 @@ class AttenderController extends Controller {
                         $attender->minus_social_mark = 0;
                         $attender->social_mark = $request->social_mark;
                     }
+
+                    if($request->conduct_mark < 0 || $request->social_mark < 0) {
+                        $attender->check = 0;
+                    } else {
+                        $attender->check = 1;
+                    }
+
                     $attender->save();
+                    $this->data['check'] = $attender->check;
                     $this->data['result'] = true;
                 } else {
                     $this->data['result'] = false;
@@ -449,16 +457,20 @@ class AttenderController extends Controller {
                     if($markList[$i] < 0) {
                         $attender->check = 0;
                         $attender->minus_conduct_mark = abs($markList[$i]);
+                        $attender->conduct_mark = 0;
                     } else {
                         $attender->conduct_mark = $markList[$i];
+                        $attender->minus_conduct_mark = 0;
                         $attender->check = 1;
                     }
                 } else {
                     if($markList[$i] < 0) {
                         $attender->check = 0;
                         $attender->minus_social_mark = abs($markList[$i]);
+                        $attender->social_mark = 0;
                     } else {
                         $attender->social_mark = $markList[$i];
+                        $attender->minus_social_mark = 0;
                         $attender->check = 1;
                     }
                 }
