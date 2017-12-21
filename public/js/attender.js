@@ -10,6 +10,40 @@ $('.datatable').on('init.dt', function() {
     deleteAttender();
 });
 
+$('#export-excel').on('click', function() {
+    var attender_list = new Array();
+    $('#attender-table tr').each(function(row, tr){
+        attender_list[row]= {
+            'id': $(tr).find('td:eq(1)').text(),
+            'name': $(tr).find('td:eq(2)').text(),
+            'conduct_mark': $(tr).find('td:eq(5)').children('input.mark').val(),
+            'social_mark': $(tr).find('td:eq(6)').children('input.mark').val()
+        };
+    });
+    attender_list.shift();
+
+    var check = $('export-excel').DataTable().rows().data();
+    console.log(check);
+
+    // $.ajax({
+    //     url: BASE_URL + 'hoat-dong/tham-gia/submit-export-mark-list',
+    //     method: 'POST',
+    //     data: {
+    //         'attenderList': attender_list
+    //     }
+    // }).done(function(data) {
+    //     var a = document.createElement("a");
+    //     a.href = data.file;
+    //     a.download = data.name;
+    //     document.body.appendChild(a);
+    //     a.click();
+    //     a.remove();
+    // }).fail(function(xhr, status, error) {
+    //     console.log(this.url);
+    //     console.log(error);
+    // });
+});
+
 $('select[name="schoolyear_id"]').on('change', function() {
     var id = $(this).val();
 

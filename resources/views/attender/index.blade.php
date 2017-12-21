@@ -18,7 +18,7 @@
                 <label class="label-control">Năm học:</label>
                 <select class="form-control selectpicker" title="Chọn năm học" name="schoolyear_id">
                     @foreach($schoolYearList as $schoolyear)
-                    <option value="{{ $schoolyear->id }}" {{ isset($school_year_id) && $schoolyear->id == $school_year_id ? 'selected' : '' }}> {{ $schoolyear->name }}</option>
+                    <option value="{{ $schoolyear->id }}" {{ isset($schoolyear_id) && $schoolyear->id == $schoolyear_id ? 'selected' : '' }}> {{ $schoolyear->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -142,10 +142,10 @@
             <div class="x_content">
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-md-2">
-                        <a href="{{ route('get_import_attender_list_route') }}" class="btn btn-block btn-success"><i class="fa fa-users"></i> Nhập danh sách</a>
+                        <a href="{{ route('get_import_attender_list_route') }}" class="btn btn-block btn-success"><i class="fa fa-upload"></i> Nhập danh sách</a>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-2">
-                        <button class="btn btn-block btn-primary"><i class="fa fa-users"></i> Nhập danh sách</button>
+                        <button class="btn btn-block btn-info" id="export-excel"><i class="fa fa-download"></i> Export danh sách</button>
                     </div>
                 </div>
             </div>

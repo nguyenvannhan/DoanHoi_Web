@@ -124,6 +124,8 @@ Route::prefix('hoat-dong')->group(function() {
         Route::get('import-mark-list', 'AttenderController@getImportMarkList')->name('get_import_mark_list_route');
         Route::post('import-mark-list', 'AttenderController@postImportMarkList')->name('post_import_mark_list_route');
         Route::post('submit-import-mark-list', 'AttenderController@postSubmitImportMarkList')->name('post_submit_import_mark_list_route');
+
+        Route::post('submit-export-mark-list', 'AttenderController@postExportExcelAttenderList')->name('post_submit_export_mark_list_route');
     });
 });
 

@@ -21,6 +21,19 @@ class AttenderController extends Controller {
     public function index() {
         $this->data['schoolYearList'] = School_Year::orderBy('name', 'desc')->take(10)->get();
 
+        $attenderList = session('attenderList', '');
+        $schoolyear_id = session('schoolyear_id', '');
+        $activity_id = session('activity_id', '');
+        $schoolYearList = session('schoolYearList', '');
+        $activityList = session('activityList', '');
+
+        if($attenderList != '') {
+            $this->data['attenderList'] = $attenderList;
+            $this->data['schoolyear_id'] = $schoolyear_id;
+            $this->data['activity_id'] = $activity_id;
+            $this->data['schoolYearList'] = $schoolYearList;
+            $this->data['activityList'] = $activityList;
+        }
         return view('attender.index', $this->data);
     }
 
@@ -359,7 +372,9 @@ class AttenderController extends Controller {
             $this->data['schoolYearList'] = $schoolYearList;
             $this->data['activityList'] = $activityList;
 
-            return view('attender.index', $this->data);
+            session($this->data);
+
+            return redirect()->route('get_attender_index_route');
         } catch(Exception $e) {
             DB::rollBack();
             $this->data['error'] = $e->getMessage();
@@ -492,12 +507,50 @@ class AttenderController extends Controller {
             $this->data['schoolYearList'] = $schoolYearList;
             $this->data['activityList'] = $activityList;
 
-            return view('attender.index', $this->data);
+            session($this->data);
+
+            // return view('attender.index', $this->data);
+            return redirect()->route('get_attender_index_route');
         } catch(Exception $e) {
             DB::rollBack();
 
             $this->data['error'] = $e->getMessage();
             return $this->data;
         }
+    }
+
+    public function postExportExcelAttenderList(Request $request) {
+        $attenderList = $request->attenderList;
+
+        $excelFile = Excel::create('DS_Tham_Gia', function($excel) use($attenderList) {
+            $excel->sheet('DS_Tham_Gia', function($sheet) use($attenderList) {
+                $sheet->row(1, array(
+                    'MSSV', 'Họ tên', 'ĐRL', 'Điểm CTXH'
+                ));
+
+                foreach($attenderList as $attender) {
+                    $row_data = array();
+
+                    array_push($row_data, $attender['id']);
+                    array_push($row_data, $attender['name']);
+                    array_push($row_data, $attender['conduct_mark']);
+                    array_push($row_data, $attender['social_mark']);
+
+                    $sheet->appendRow($row_data);
+                }
+                $sheet->setFontSize(13);
+                $sheet->setFontFamily('Times New Roman');
+                $sheet->row(1, function($row) {
+                    $row->setFontWeight('bold');
+                });
+            });
+        })->string('xlsx');
+
+        $response =  array(
+            'name' => 'DS_Tham_Gia', //no extention needed
+            'file' => "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,".base64_encode($excelFile)
+        );
+
+        return response()->json($response);
     }
 }
