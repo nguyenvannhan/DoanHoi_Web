@@ -26,31 +26,49 @@ $('input[name="id"]').on('input', function() {
 
 $('.remove_partisan').on('click', function() {
     var id = $(this).data('id');
-    console.log(id);
-    $.ajax({
-        url: BASE_URL + 'doan-dang/add-partisan',
-        method: 'POST',
-        data: {
-            'id': id
-        }
-    }).done(function(data) {
-        console.log(data);
-        if(data.result) {
-            BootstrapDialog.show({
-                title: 'Xóa thành viên NTK',
-                message: 'Xóa thành công!',
-                type: 'type-success'
-            })
-        } else {
-            BootstrapDialog.show({
-                title: 'Xóa thành viên NTK',
-                message: 'Không tìm thấy thành viên!',
-                type: 'type-danger'
-            })
-        }
-    }).fail(function(xhr, status, error) {
-        console.log(this.url);
-        console.log(error);
+    BootstrapDialog.show({
+        title: 'Xóa',
+        message: 'Bạn có muốn xóa thành viên đã chọn không?',
+        type: 'type-danger',
+        buttons: [{
+            label: 'Không',
+            cssClass: 'btn',
+            action: function(e) {
+                e.close();
+            }
+        }, {
+            label: 'Có, chắc chắn.',
+            cssClass: 'btn btn-danger',
+            action: function(e) {
+                e.close();
+                $.ajax({
+                    url: BASE_URL + 'doan-dang/delete-partisan',
+                    method: 'POST',
+                    data: {
+                        'id': id
+                    }
+                }).done(function(data) {
+                    if(data.result) {
+                        $('tr#'+id).remove();
+
+                        BootstrapDialog.show({
+                            title: 'Xóa thành viên NTK',
+                            message: 'Xóa thành công!',
+                            type: 'type-success'
+                        })
+                    } else {
+                        BootstrapDialog.show({
+                            title: 'Xóa thành viên NTK',
+                            message: 'Không tìm thấy thành viên!',
+                            type: 'type-danger'
+                        })
+                    }
+                }).fail(function(xhr, status, error) {
+                    console.log(this.url);
+                    console.log(error);
+                });
+            }
+        }]
     });
 });
 

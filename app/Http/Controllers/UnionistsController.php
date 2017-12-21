@@ -169,7 +169,6 @@ class UnionistsController extends Controller {
 
     public function postAjaxDeletePartisan(Request $request) {
         $student = Student::find($request->id);
-        return $student;
         if(!is_null($student)) {
             $student->partisan_id = 0;
             $student->save();

@@ -94,7 +94,7 @@
                         </thead>
                         <tbody>
                             @foreach($prePartisanList as $pre_partisan)
-                            <tr>
+                            <tr id="{{ $pre_partisan->id }}">
                                 <td class="text-center">{{ $pre_partisan->id }}</td>
                                 <td>{{ $pre_partisan->name }}</td>
                                 <td>{{ $pre_partisan->email }}</td>
@@ -128,7 +128,7 @@
                         </thead>
                         <tbody>
                             @foreach($partisanList as $partisan)
-                            <tr>
+                            <tr id="{{ $partisan->id }}">
                                 <td class="text-center">{{ $partisan->id }}</td>
                                 <td>{{ $partisan->name }}</td>
                                 <td>{{ $partisan->email }}</td>
