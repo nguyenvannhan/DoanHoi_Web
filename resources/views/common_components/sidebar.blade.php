@@ -35,6 +35,15 @@
                     </ul>
                 </li>
                 <li>
+                    <a><i class="fa fa-universal-access"></i> Quản Lý Đoàn - NTK <span
+                                class="fa fa-chevron-down"></span></a>
+
+                    <ul class="nav child_menu">
+                        <li><a href="{{ route('get_unioinist_list') }}">QL Đoàn viên</a></li>
+                        <li><a href="{{ route('get_partisan_list') }}">QL CTĐ - Đảng viên</a></li>
+                    </ul>
+                </li>
+                <li>
                     <a><i class="fa fa-bullhorn"></i> Quản Lý Hoạt Động <span class="fa fa-chevron-down"></span></a>
 
                     <ul class="nav child_menu">

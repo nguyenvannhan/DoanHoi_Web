@@ -82,7 +82,7 @@
                     DANH SÁCH CẢM TÌNH ĐẢNG
                 </div>
                 <div class="panel-body">
-                    <table class="table table-striped table-bordered jambo_table datatable" id="cyu_table">
+                    <table class="table table-striped table-bordered jambo_table datatable" id="pre_partisan_table">
                         <thead>
                             <tr class="headings text-center">
                                 <th class="column-title">MSSV</th>
@@ -116,7 +116,7 @@
                     DANH SÁCH ĐẢNG VIÊN
                 </div>
                 <div class="panel-body">
-                    <table class="table table-striped table-bordered jambo_table datatable" id="non_cyu_table">
+                    <table class="table table-striped table-bordered jambo_table datatable" id="partisan_table">
                         <thead>
                             <tr class="headings text-center">
                                 <th class="column-title">MSSV</th>
@@ -141,6 +141,14 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="x_panel">
+        <div class="x_body">
+            <div class="col-md-2">
+                <a class="btn btn-info btn-block" id="exportPartisan"> <i class="fa fa-download"></i> Xuất file Excel</a>
             </div>
         </div>
     </div>

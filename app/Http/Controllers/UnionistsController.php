@@ -260,7 +260,141 @@ class UnionistsController extends Controller {
                 $sheet->row(1, function($row) {
                     $row->setFontWeight('bold');
                 });
-                $sheet->row(2, function($row) {
+            });
+        })->string('xlsx');
+
+        $response =  array(
+            'name' => $file_name, //no extention needed
+            'file' => "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,".base64_encode($excelFile) //mime type of used format
+        );
+        return response()->json($response);
+    }
+
+    public function postAjaxExportPartisan(Request $request) {
+        $partisanList = [];
+        foreach($request->partisan_arr as $partisan_id) {
+            $student = Student::find($partisan_id);
+
+            array_push($partisanList, $student);
+        }
+
+        $prePartisanList = [];
+        foreach($request->pre_partisan_arr as $pre_partisan_id) {
+            $student = Student::find($pre_partisan_id);
+
+            array_push($prePartisanList, $student);
+        }
+
+        $file_name = 'DS_DangVien_CamTinhDang';
+
+        $excelFile = Excel::create($file_name, function($excel) use($partisanList, $prePartisanList) {
+            $excel->sheet('Đảng viên', function($sheet1) use($partisanList) {
+                $sheet1->row(1, array(
+                    'MSSV', 'Họ tên', 'Giới tính', 'Năm sinh', 'Quê quán', 'Email', 'SĐT', 'Tình trạng'
+                ));
+
+                foreach($partisanList as $student) {
+                    $row_data = array();
+
+                    array_push($row_data, $student->id);
+                    array_push($row_data, $student->name);
+                    if($student->is_female) {
+                        array_push($row_data, 'Nữ');
+                    } else {
+                        array_push($row_data, 'Nam');
+                    }
+                    if($student->birthday != NULL && $student->birthday != '') {
+                        array_push($row_data, date('d/m/Y', strtotime($student->birthday)));
+                    } else {
+                        array_push($row_data, '');
+                    }
+                    if($student->hometown != NULL) {
+                        array_push($row_data, $student->hometown);
+                    } else {
+                        array_push($row_data, '');
+                    }
+                    if($student->email != NULL) {
+                        array_push($row_data, $student->email);
+                    } else {
+                        array_push($row_data, '');
+                    }
+                    if($student->number_phone != NULL) {
+                        array_push($row_data, $student->number_phone);
+                    } else {
+                        array_push($row_data, '');
+                    }
+                    if($student->status == 2) {
+                        array_push($row_data, 'TN');
+                    } elseif($student->status == 3) {
+                        array_push($row_data, 'BL');
+                    } elseif($student->status == 4) {
+                        array_push($row_data, 'ĐH');
+                    } else {
+                        array_push($row_data, '');
+                    }
+
+                    $sheet1->appendRow($row_data);
+                }
+
+                $sheet1->setFontSize(13);
+                $sheet1->setFontFamily('Times New Roman');
+                $sheet1->row(1, function($row) {
+                    $row->setFontWeight('bold');
+                });
+            });
+
+            $excel->sheet('Cảm tình Đảng', function($sheet2) use($prePartisanList) {
+                $sheet2->row(1, array(
+                    'MSSV', 'Họ tên', 'Giới tính', 'Năm sinh', 'Quê quán', 'Email', 'SĐT', 'Tình trạng'
+                ));
+
+                foreach($prePartisanList as $student) {
+                    $row_data = array();
+
+                    array_push($row_data, $student->id);
+                    array_push($row_data, $student->name);
+                    if($student->is_female) {
+                        array_push($row_data, 'Nữ');
+                    } else {
+                        array_push($row_data, 'Nam');
+                    }
+                    if($student->birthday != NULL && $student->birthday != '') {
+                        array_push($row_data, date('d/m/Y', strtotime($student->birthday)));
+                    } else {
+                        array_push($row_data, '');
+                    }
+                    if($student->hometown != NULL) {
+                        array_push($row_data, $student->hometown);
+                    } else {
+                        array_push($row_data, '');
+                    }
+                    if($student->email != NULL) {
+                        array_push($row_data, $student->email);
+                    } else {
+                        array_push($row_data, '');
+                    }
+                    if($student->number_phone != NULL) {
+                        array_push($row_data, $student->number_phone);
+                    } else {
+                        array_push($row_data, '');
+                    }
+                    if($student->status == 2) {
+                        array_push($row_data, 'TN');
+                    } elseif($student->status == 3) {
+                        array_push($row_data, 'BL');
+                    } elseif($student->status == 4) {
+                        array_push($row_data, 'ĐH');
+                    } else {
+                        array_push($row_data, '');
+                    }
+
+                    $sheet2->appendRow($row_data);
+                }
+
+
+                $sheet2->setFontSize(13);
+                $sheet2->setFontFamily('Times New Roman');
+                $sheet2->row(1, function($row) {
                     $row->setFontWeight('bold');
                 });
             });

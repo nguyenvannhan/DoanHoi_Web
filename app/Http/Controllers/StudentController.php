@@ -502,15 +502,23 @@ class StudentController extends Controller {
                         }
                         if($student->birthday != NULL && $student->birthday != '') {
                             array_push($row_data, date('d/m/Y', strtotime($student->birthday)));
+                        } else {
+                            array_push($row_data, '');
                         }
                         if($student->hometown != NULL) {
                             array_push($row_data, $student->hometown);
+                        } else {
+                            array_push($row_data, '');
                         }
                         if($student->Science != NULL) {
                             array_push($row_data, $student->Science->name);
+                        } else {
+                            array_push($row_data, '');
                         }
                         if($student->ClassOb != NULL) {
                             array_push($row_data, $student->ClassOb->name);
+                        } else {
+                            array_push($row_data, '');
                         }
                         if($student->is_cyu == 1) {
                             array_push($row_data, 'x');

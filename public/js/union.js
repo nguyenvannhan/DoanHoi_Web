@@ -4,7 +4,6 @@ $('#cyu_table').on('init.dt', function() {
 
 $('#non_cyu_table').on('init.dt', function() {
     init_update_cyu();
-    exportNonUnionistList();
 });
 
 $('#change-class-btn').on('click', function() {
@@ -12,6 +11,7 @@ $('#change-class-btn').on('click', function() {
 });
 
 exportUnionistList();
+exportPartisanList();
 
 $('input[name="id"]').on('input', function() {
 
@@ -77,21 +77,27 @@ $('.remove_partisan').on('click', function() {
     });
 });
 
-function exportNonUnionistList() {
-    $('#export_non_cyu').on('click', function() {
-        var cyu_arr = new Array();
+function exportPartisanList() {
+    $('#exportPartisan').on('click', function() {
+        var partisan_arr = new Array();
+        var pre_partisan_arr = new Array();
 
-        $('#non_cyu_table tr').each(function(row, tr){
-            cyu_arr[row]= $(tr).find('td:eq(0)').text();
+        $('#pre_partisan_table tr').each(function(row, tr){
+            pre_partisan_arr[row]= $(tr).find('td:eq(0)').text();
         });
-        cyu_arr.shift();
+        pre_partisan_arr.shift();
+
+        $('#partisan_table tr').each(function(row, tr){
+            partisan_arr[row]= $(tr).find('td:eq(0)').text();
+        });
+        partisan_arr.shift();
 
         $.ajax({
-            url: BASE_URL + 'doan-dang/export-cyu',
+            url: BASE_URL + 'doan-dang/export-partisan',
             method: 'POST',
             data: {
-                'id_arr': cyu_arr,
-                'type_id': 0
+                'partisan_arr': partisan_arr,
+                'pre_partisan_arr': pre_partisan_arr,
             }
         }).done(function(data) {
             var a = document.createElement("a");
@@ -127,6 +133,39 @@ function exportUnionistList() {
             data: {
                 'id_arr': cyu_arr,
                 'type_id': 1
+            }
+        }).done(function(data) {
+            var a = document.createElement("a");
+            a.href = data.file;
+            a.download = data.name;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        }).fail(function(xhr, status, error) {
+            console.log(this.url);
+            console.log(error);
+            BootstrapDialog.show({
+                title: 'Lỗi',
+                message: 'Đã xảy ra lỗi khi xuất file excel',
+                type: 'type-danger'
+            });
+        });
+    });
+
+    $('#export_non_cyu').on('click', function() {
+        var cyu_arr = new Array();
+
+        $('#non_cyu_table tr').each(function(row, tr){
+            cyu_arr[row]= $(tr).find('td:eq(0)').text();
+        });
+        cyu_arr.shift();
+
+        $.ajax({
+            url: BASE_URL + 'doan-dang/export-cyu',
+            method: 'POST',
+            data: {
+                'id_arr': cyu_arr,
+                'type_id': 0
             }
         }).done(function(data) {
             var a = document.createElement("a");
