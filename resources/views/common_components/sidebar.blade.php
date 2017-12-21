@@ -51,6 +51,7 @@
                         <li><a href="{{ route('get_activity_add_route') }}">Thêm Hoạt Động</a></li>
                         <li><a href="{{ route('get_attender_index_route') }}">Danh sách tham gia</a></li>
                         <li><a href="{{ route('get_import_attender_list_route') }}">Import file DS tham gia</a></li>
+                        <li><a href="{{ route('get_import_mark_list_route') }}">Import file Điểm</a></li>
                     </ul>
                 </li>
                 <li>

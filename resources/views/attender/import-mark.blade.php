@@ -5,7 +5,7 @@
 @section('header_page')
 <div class="page-title mb-10">
     <div class="blue text-center">
-        <h1>DANH SÁCH THAM GIA HOẠT ĐỘNG</h1>
+        <h1>IMPORT ĐIỂM THAM GIA HOẠT ĐỘNG</h1>
     </div>
 </div>
 @stop
@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 nopadding" id="filter">
         <div class="row">
-            <form action="{{ route('post_import_attender_list_route') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('post_import_mark_list_route') }}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="col-md-2 form-group">
                     <label class="label-control">Năm học:</label>
@@ -24,7 +24,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-6 form-group">
+                <div class="col-md-4 form-group">
                     <label class="label-control">Hoạt động:</label>
                     <select class="form-control selectpicker" title="Chọn hoạt động" name="activity_id" required>
                         @if(isset($activityList) && count($activityList) > 0)
@@ -35,8 +35,15 @@
                     </select>
                 </div>
                 <div class="col-md-2 form-group">
+                    <label class="label-control">Loại điểm:</label>
+                    <select class="form-control selectpicker" name="type_id" required>
+                        <option value="1" {{ isset($type_id) && $type_id == 1 ? 'selected' : '' }}>Điểm rèn luyện</option>
+                        <option value="2" {{ isset($type_id) && $type_id == 2 ? 'selected' : '' }}>Điểm CTXH</option>
+                    </select>
+                </div>
+                <div class="col-md-2 form-group">
                     <label class="label-control">File import:</label>
-                    <a href="{{ URL::asset('public/files/mau_import_tham_gia_diem_danh.xlsx') }}">Mẫu</a>
+                    <a href="{{ URL::asset('public/files/mau_import_diem_tham_gia.xlsx') }}">Mẫu</a>
                     <input type="file" class="form-control" name="import">
                 </div>
                 <div class="col-md-2" style="padding-top: 24px;">
@@ -81,28 +88,25 @@
                     <table class="datatable table table-striped table-bordered jambo_table table-responsive" id="import-attenders-table">
                         <thead>
                             <tr class="headings text-center">
-                                <th>STT</th>
                                 <th>MSSV</th>
                                 <th>Họ tên</th>
-                                <th>Điểm danh</th>
+                                <th>Điểm</th>
                             </tr>
                         </thead>
                         <tbody>
 
                             @if(isset($attenderList) && count($attenderList) > 0)
-                            @php
-                            $count = 1;
-                            @endphp
                             @foreach($attenderList as $attender)
                             <tr>
-                                <td class="text-center">{{ $count++ }}</td>
                                 <td class="text-center">{{ $attender->student_id }}</td>
-                                <td>{{ $names[$count - 2] }}</td>
+                                <td>{{ $attender->name }}</td>
                                 <td class="text-center">
-                                    @if($attender->check == 1)
-                                    <i class="fa fa-check-circle green"></i>
+                                    @if($attender->mark == 0)
+                                    {{ $attender->mark }}
+                                    @elseif($attender->mark < 0)
+                                    <span class="red">{{ $attender->mark }}</span>
                                     @else
-                                    <i class="fa fa-times-circle red"></i>
+                                    <span class="green">{{ $attender->mark }}</span>
                                     @endif
                                 </td>
                             </tr>
@@ -116,12 +120,13 @@
     </div>
     @if(isset($attenderList) && count($attenderList) > 0 && count($errors) == 0)
     <div class="col-xs-12">
-        <form action="{{ route('post_submit_attender_list_route') }}" method="POST">
+        <form action="{{ route('post_submit_import_mark_list_route') }}" method="POST">
             {{ csrf_field() }}
+            <input type="hidden" name="type_id" value="{{ $type_id }}">
             <input type="hidden" value="{{ $activity_id }}" name="activity_id">
             @foreach($attenderList as $attender)
                 <input type="hidden" value="{{ $attender->student_id }}" name="student_id[]">
-                <input type="hidden" value="{{ $attender->check }}" name="check[]">
+                <input type="hidden" value="{{ $attender->mark }}" name="mark[]">
             @endforeach
             <div class="col-md-2 pull-right">
                 <button type="submit" class="btn btn-success btn-block">Submit và Thoát</button>
@@ -129,6 +134,7 @@
         </form>
     </div>
     @endif
+
 </div>
 @stop
 

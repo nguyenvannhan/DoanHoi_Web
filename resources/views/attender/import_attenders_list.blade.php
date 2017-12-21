@@ -5,7 +5,7 @@
 @section('header_page')
 <div class="page-title mb-10">
     <div class="blue text-center">
-        <h1>DANH SÁCH THAM GIA HOẠT ĐỘNG</h1>
+        <h1>IMPORT DS THAM GIA HOẠT ĐỘNG</h1>
     </div>
 </div>
 @stop

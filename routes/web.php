@@ -105,14 +105,6 @@ Route::prefix('hoat-dong')->group(function() {
     Route::get('get-leader/{searchKey}', 'ActivityController@ajaxGetLeader')->name('ajax_get_leader');
     Route::get('get-class/{student_id}', 'ActivityController@ajaxGetClass')->name('ajax_get_classs');
 
-    Route::get('add-list', function() {
-        return view('activity.addListStudentActivity');
-    })->name('get_activity_list_add_route');
-
-    Route::get('add-list-student-activity', function() {
-        return view('activity.addListStudentActivity');
-    })->name('activity_list_student_route');
-
     Route::prefix('tham-gia')->group(function() {
         Route::get('/', 'AttenderController@index')->name('get_attender_index_route');
         Route::get('/lay-danh-sach/{activity_id}', 'AttenderController@getAttenderList')->name('ajax_get_attender_list');
@@ -128,6 +120,10 @@ Route::prefix('hoat-dong')->group(function() {
         Route::get('import-attender-list', 'AttenderController@getImportAttenderList')->name('get_import_attender_list_route');
         Route::post('import-attender-list', 'AttenderController@postImportAttenderList')->name('post_import_attender_list_route');
         Route::post('submit-import-attender-list', 'AttenderController@postSubmitImportAttenderList')->name('post_submit_attender_list_route');
+
+        Route::get('import-mark-list', 'AttenderController@getImportMarkList')->name('get_import_mark_list_route');
+        Route::post('import-mark-list', 'AttenderController@postImportMarkList')->name('post_import_mark_list_route');
+        Route::post('submit-import-mark-list', 'AttenderController@postSubmitImportMarkList')->name('post_submit_import_mark_list_route');
     });
 });
 

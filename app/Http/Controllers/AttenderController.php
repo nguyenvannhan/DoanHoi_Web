@@ -272,7 +272,8 @@ class AttenderController extends Controller {
         if($request->hasFile('import')) {
             $schoolyear_id = $request->schoolyear_id;
             $activity_id = $request->activity_id;
-            $result = Excel::load($request->import, function($reader){})->get()->toArray();
+            $result = Excel::load($request->import, function($reader){
+            })->get()->toArray();
 
             $attenderList = [];
             $errors = [];
@@ -353,6 +354,136 @@ class AttenderController extends Controller {
             return view('attender.index', $this->data);
         } catch(Exception $e) {
             DB::rollBack();
+            $this->data['error'] = $e->getMessage();
+            return $this->data;
+        }
+    }
+
+    public function getImportMarkList() {
+        $schoolYearList = School_Year::orderBy('name', 'desc')->take(10)->get();
+
+        $this->data['schoolYearList'] = $schoolYearList;
+        return view('attender.import-mark', $this->data);
+    }
+
+    public function postImportMarkList(Request $request) {
+        if($request->hasFile('import')) {
+            $schoolyear_id = $request->schoolyear_id;
+            $activity_id = $request->activity_id;
+            $result = Excel::load($request->import, function($reader) {
+            })->get()->toArray();
+            if($request->type_id == 1) {
+                $max_mark = Activity::find($activity_id)->conduct_mark;
+            } else {
+                $max_mark = Activity::find($activity_id)->social_mark;
+            }
+
+            $attenderList = [];
+            $errors = [];
+            $names = [];
+
+            foreach($result as $attender_file) {
+                $attender_file = array_values($attender_file);
+                $attender = new Attender;
+                $attender->student_id = $attender_file[0];
+                if($attender_file[1] != NULL) {
+                    $attender->mark = $attender_file[1];
+
+                    if($attender->mark > $max_mark) {
+                        array_push($errors, 'Điểm của SV '.$attender->student_id.' cao hơn quy định.');
+                    }
+
+                    if(! filter_var($attender_file[1], FILTER_VALIDATE_INT)) {
+                        array_push($errors, 'Điểm của SV '.$attender->student_id.' không đúng.');
+                    }
+                } else {
+                    $attender->mark = 0;
+                }
+
+                array_push($attenderList, $attender);
+
+                $student = Student::find($attender_file[0]);
+                if(!is_null($student)) {
+                    $attender->name = $student->name;
+                } else {
+                    array_push($errors, 'SV '.$attender_file[0].' không tồn tại.');
+                }
+
+                $old_attender = Attender::where('student_id', $attender_file[0])->where('activity_id', $activity_id)->first();
+                if(is_null($old_attender)) {
+                    array_push($errors, 'SV '.$attender_file[0].' chưa đăng ký.');
+                }
+            }
+
+            $schoolYearList = School_Year::orderBy('name', 'desc')->take(10)->get();
+            $activityList = Activity::where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
+            $this->data['attenderList'] = $attenderList;
+            $this->data['errors'] = $errors;
+            $this->data['schoolyear_id'] = $schoolyear_id;
+            $this->data['activity_id'] = $activity_id;
+            $this->data['schoolYearList'] = $schoolYearList;
+            $this->data['activityList'] = $activityList;
+            $this->data['type_id'] = $request->type_id;
+
+            return view('attender.import-mark', $this->data);
+        } else {
+            return redirect()->route('get_import_mark_list_route');
+        }
+    }
+
+    public function postSubmitImportMarkList(Request $request) {
+        $idList = $request->student_id;
+        $markList = $request->mark;
+        $type_id = $request->type_id;
+        $activity_id = $request->type_id;
+
+        $idList = array_values($idList);
+        $markList = array_values($markList);
+
+        DB::beginTransaction();
+        try {
+            for($i = 0; $i < count($idList); $i++) {
+                $attender = Attender::where('student_id', $idList[$i])->where('activity_id', $activity_id)->first();
+
+                if($type_id == 1) {
+                    if($markList[$i] < 0) {
+                        $attender->check = 0;
+                        $attender->minus_conduct_mark = abs($markList[$i]);
+                    } else {
+                        $attender->conduct_mark = $markList[$i];
+                        $attender->check = 1;
+                    }
+                } else {
+                    if($markList[$i] < 0) {
+                        $attender->check = 0;
+                        $attender->minus_social_mark = abs($markList[$i]);
+                    } else {
+                        $attender->social_mark = $markList[$i];
+                        $attender->check = 1;
+                    }
+                }
+                $attender->save();
+            }
+            DB::commit();
+
+            $schoolYearList = School_Year::orderBy('name', 'desc')->take(10)->get();
+            $activity = Activity::find($request->activity_id);
+            $activityList = Activity::where('school_year_id', $activity->SchoolYear->id)->orderBy('start_date', 'desc')->get();
+            $attenderList = Attender::where('activity_id', $request->activity_id)->get();
+            $activity_id = $request->activity_id;
+            $school_year_id = $activity->SchoolYear->id;
+
+
+            $this->data['attenderList'] = $attenderList;
+            $this->data['schoolyear_id'] = $school_year_id;
+            $this->data['activity_id'] = $activity_id;
+            $this->data['schoolYearList'] = $schoolYearList;
+            $this->data['activityList'] = $activityList;
+
+            return view('attender.index', $this->data);
+        } catch(Exception $e) {
+            DB::rollBack();
+
             $this->data['error'] = $e->getMessage();
             return $this->data;
         }
