@@ -79,26 +79,9 @@ $('.remove_partisan').on('click', function() {
 
 function exportPartisanList() {
     $('#exportPartisan').on('click', function() {
-        var partisan_arr = new Array();
-        var pre_partisan_arr = new Array();
-
-        $('#pre_partisan_table tr').each(function(row, tr){
-            pre_partisan_arr[row]= $(tr).find('td:eq(0)').text();
-        });
-        pre_partisan_arr.shift();
-
-        $('#partisan_table tr').each(function(row, tr){
-            partisan_arr[row]= $(tr).find('td:eq(0)').text();
-        });
-        partisan_arr.shift();
-
         $.ajax({
             url: BASE_URL + 'doan-dang/export-partisan',
-            method: 'POST',
-            data: {
-                'partisan_arr': partisan_arr,
-                'pre_partisan_arr': pre_partisan_arr,
-            }
+            method: 'POST'
         }).done(function(data) {
             var a = document.createElement("a");
             a.href = data.file;
@@ -120,18 +103,16 @@ function exportPartisanList() {
 
 function exportUnionistList() {
     $('#export_cyu').on('click', function() {
-        var cyu_arr = new Array();
-
-        $('#cyu_table tr').each(function(row, tr){
-            cyu_arr[row]= $(tr).find('td:eq(0)').text();
+        var class_id_arr = [];
+        $.each($("select[name='class_id[]'] option:selected"), function(){
+            class_id_arr.push($(this).val());
         });
-        cyu_arr.shift();
 
         $.ajax({
             url: BASE_URL + 'doan-dang/export-cyu',
             method: 'POST',
             data: {
-                'id_arr': cyu_arr,
+                'class_id_arr': class_id_arr,
                 'type_id': 1
             }
         }).done(function(data) {
@@ -153,18 +134,16 @@ function exportUnionistList() {
     });
 
     $('#export_non_cyu').on('click', function() {
-        var cyu_arr = new Array();
-
-        $('#non_cyu_table tr').each(function(row, tr){
-            cyu_arr[row]= $(tr).find('td:eq(0)').text();
+        var class_id_arr = [];
+        $.each($("select[name='class_id[]'] option:selected"), function(){
+            class_id_arr.push($(this).val());
         });
-        cyu_arr.shift();
 
         $.ajax({
             url: BASE_URL + 'doan-dang/export-cyu',
             method: 'POST',
             data: {
-                'id_arr': cyu_arr,
+                'class_id_arr': class_id_arr,
                 'type_id': 0
             }
         }).done(function(data) {

@@ -547,7 +547,7 @@ class AttenderController extends Controller {
         })->string('xlsx');
 
         $response =  array(
-            'name' => 'DS_Tham_Gia', //no extention needed
+            'name' => 'DS_Tham_Gia'.'.xlsx', //no extention needed
             'file' => "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,".base64_encode($excelFile)
         );
 

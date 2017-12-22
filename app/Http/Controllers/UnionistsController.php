@@ -180,19 +180,33 @@ class UnionistsController extends Controller {
     }
 
     public function postAjaxExportUnionist(Request $request) {
-        $idList = $request->id_arr;
-        $studentList = [];
-        foreach($idList as $id) {
-            $student = Student::find($id);
-            array_push($studentList, $student);
-        }
+        $idClassList = $request->class_id_arr;
+
         $type_id = $request->type_id;
+        if(in_array(0, $idClassList)) {
+            $checkAll = 1;
+        } else {
+            $checkAll = 0;
+        }
+
         if($type_id == 1) {
             $title = 'DANH SÁCH ĐOÀN VIÊN';
             $file_name = 'DS_Doan_Vien';
+            $studentList = Student::where('is_it_student', 1)->where('is_cyu', 1);
+            if($checkAll) {
+                $studentList = $studentList->with('ClassOb', 'Science')->orderBy('id', 'desc')->get();
+            } else {
+                $studentList = $studentList->whereIn('class_id', $idClassList)->with('ClassOb', 'Science')->orderBy('id', 'desc')->get();
+            }
         } else {
             $title = 'DANH SÁCH CHƯA KẾT NẠP ĐOÀN VIÊN';
             $file_name = 'DS_Chua_Doan_Vien';
+            $studentList = Student::where('is_it_student', 1)->where('is_cyu', 0);
+            if($checkAll) {
+                $studentList = $studentList->with('ClassOb', 'Science')->orderBy('id', 'desc')->get();
+            } else {
+                $studentList = $studentList->whereIn('class_id', $idClassList)->with('ClassOb', 'Science')->orderBy('id', 'desc')->get();
+            }
         }
         $excelFile = Excel::create($file_name, function($excel) use($studentList, $file_name, $title) {
             $excel->sheet($file_name, function($sheet) use($studentList, $title) {
@@ -264,26 +278,16 @@ class UnionistsController extends Controller {
         })->string('xlsx');
 
         $response =  array(
-            'name' => $file_name, //no extention needed
+            'name' => $file_name.'.xlsx', //no extention needed
             'file' => "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,".base64_encode($excelFile) //mime type of used format
         );
         return response()->json($response);
     }
 
     public function postAjaxExportPartisan(Request $request) {
-        $partisanList = [];
-        foreach($request->partisan_arr as $partisan_id) {
-            $student = Student::find($partisan_id);
+        $partisanList = Student::where('is_it_student', 1)->where('partisan_id', 2)->get();
 
-            array_push($partisanList, $student);
-        }
-
-        $prePartisanList = [];
-        foreach($request->pre_partisan_arr as $pre_partisan_id) {
-            $student = Student::find($pre_partisan_id);
-
-            array_push($prePartisanList, $student);
-        }
+        $prePartisanList = Student::where('is_it_student', 1)->where('partisan_id', 1)->get();
 
         $file_name = 'DS_DangVien_CamTinhDang';
 
@@ -401,7 +405,7 @@ class UnionistsController extends Controller {
         })->string('xlsx');
 
         $response =  array(
-            'name' => $file_name, //no extention needed
+            'name' => $file_name.'.xlsx', //no extention needed
             'file' => "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,".base64_encode($excelFile) //mime type of used format
         );
         return response()->json($response);
