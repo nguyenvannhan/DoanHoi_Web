@@ -520,7 +520,7 @@ class AttenderController extends Controller {
 
     public function postExportExcelAttenderList(Request $request) {
         $activity_id = $request->activity_id;
-        $attenderList = Attender::where('activity_id', $activity_id)->get();
+        $attenderList = Attender::with('Student')->where('activity_id', $activity_id)->get();
 
         $excelFile = Excel::create('DS_Tham_Gia', function($excel) use($attenderList) {
             $excel->sheet('DS_Tham_Gia', function($sheet) use($attenderList) {
@@ -531,10 +531,19 @@ class AttenderController extends Controller {
                 foreach($attenderList as $attender) {
                     $row_data = array();
 
-                    array_push($row_data, $attender['id']);
-                    array_push($row_data, $attender['name']);
-                    array_push($row_data, $attender['conduct_mark']);
-                    array_push($row_data, $attender['social_mark']);
+                    array_push($row_data, $attender->student_id);
+                    array_push($row_data, $attender->Student->name);
+                    if($attender->minus_conduct_mark > 0) {
+                        array_push($row_data, -1 * $attender->minus_conduct_mark);
+                    } else {
+                        array_push($row_data, $attender->conduct_mark);
+                    }
+
+                    if($attender->minus_social_mark > 0){
+                        array_push($row_data, -1 * $attender->minus_social_mark);
+                    } else {
+                        array_push($row_data, $attender->social_mark);
+                    }
 
                     $sheet->appendRow($row_data);
                 }
