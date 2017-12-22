@@ -47,6 +47,7 @@
                     <a><i class="fa fa-bullhorn"></i> Quản Lý Hoạt Động <span class="fa fa-chevron-down"></span></a>
 
                     <ul class="nav child_menu">
+                        <li><a href="{{ route('get_check_attender_route') }}">ĐIỂM DANH</a></li>
                         <li><a href="{{ route('activity_index_route') }}">Danh Sách Hoạt Động</a></li>
                         <li><a href="{{ route('get_activity_add_route') }}">Thêm Hoạt Động</a></li>
                         <li><a href="{{ route('get_attender_index_route') }}">Danh sách tham gia</a></li>

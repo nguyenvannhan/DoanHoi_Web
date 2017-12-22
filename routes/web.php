@@ -117,6 +117,11 @@ Route::prefix('hoat-dong')->group(function() {
         Route::post('update-mark', 'AttenderController@postUpdateMark')->name('post_update_mark_route');
         Route::post('delete-attender', 'AttenderController@postDeleteAttender')->name('post_delete_attender_route');
 
+        Route::get('diem-danh', 'AttenderController@getCheck')->name('get_check_attender_route');
+        Route::post('diem-danh', 'AttenderController@postCheck')->name('post_check_attender_route');
+        Route::post('get-check', 'AttenderController@postGetCheckList')->name('post_get_check_list_route');
+        Route::post('export-check-number', 'AttenderController@postExportNumberCheck')->name('post_export_check_number');
+
         Route::get('import-attender-list', 'AttenderController@getImportAttenderList')->name('get_import_attender_list_route');
         Route::post('import-attender-list', 'AttenderController@postImportAttenderList')->name('post_import_attender_list_route');
         Route::post('submit-import-attender-list', 'AttenderController@postSubmitImportAttenderList')->name('post_submit_attender_list_route');

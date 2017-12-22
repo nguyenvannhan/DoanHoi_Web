@@ -13,6 +13,7 @@ use App\Models\Faculty;
 use App\Models\Science;
 use App\Models\Classes;
 use App\Models\Attender;
+use App\Models\Check_Number;
 use DB;
 use Exception;
 use Excel;
@@ -35,6 +36,12 @@ class AttenderController extends Controller {
             $this->data['activityList'] = $activityList;
         }
         return view('attender.index', $this->data);
+    }
+
+    public function getCheck() {
+        $this->data['schoolYearList'] = School_Year::orderBy('name', 'desc')->take(10)->get();
+
+        return view('attender.check', $this->data);
     }
 
     public function getAttenderList($activity_id) {
@@ -272,6 +279,10 @@ class AttenderController extends Controller {
 
         if(!is_null($attender)) {
             $attender->forceDelete();
+            $check_attender = Check_Number::where('student_id', $attender->student_id)->first();
+            if(!is_null($check_attender)) {
+                $check_attender->delete();
+            }
             $this->data['result'] = true;
         } else {
             $this->data['error'] = 'Không tồn tại Người tham gia!';
@@ -557,6 +568,100 @@ class AttenderController extends Controller {
 
         $response =  array(
             'name' => 'DS_Tham_Gia'.'.xlsx', //no extention needed
+            'file' => "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,".base64_encode($excelFile)
+        );
+
+        return response()->json($response);
+    }
+
+    public function postGetCheckList(Request $request) {
+        $activity_id = $request->activity_id;
+        $this->data['checkList'] = Check_Number::with('Student')->where('activity_id', $activity_id)->orderBy('id', 'desc')->get();
+
+        return response()->view('attender.load-check-table', $this->data);
+    }
+
+    public function postCheck(Request $request) {
+        $activity_id = $request->activity_id;
+        $student_id = $request->student_id;
+
+        $attender = Attender::where('student_id', $student_id)->where('activity_id', $activity_id)->first();
+
+        if(!is_null($attender)) {
+            $check_attender = Check_Number::where('student_id', $student_id)->where('activity_id', $activity_id)->first();
+            $number = 0;
+            if(!is_null($check_attender)) {
+                $check_attender->number += 1;
+                $check_attender->save();
+
+                $number = $check_attender->number;
+            } else {
+                $check = new Check_Number;
+                $check->student_id = $attender->student_id;
+                $check->activity_id = $attender->activity_id;
+                $check->number = 1;
+                $check->save();
+
+                $number = 1;
+            }
+            $attender->check = 1;
+            if($attender->minus_conduct_mark > 0) {
+                $attender->conduct_mark = $attender->minus_conduct_mark;
+                $attender->minus_conduct_mark = 0;
+            } else {
+                if($attender->conduct_mark == 0) {
+                    $attender->conduct_mark = $attender->Activity->conduct_mark;
+                }
+            }
+            if($attender->minus_social_mark > 0) {
+                $attender->social_mark = $attender->minus_social_mark;
+                $attender->minus_social_mark = 0;
+            } else {
+                if($attender->social_mark == 0) {
+                    $attender->social_mark = $attender->Activity->social_mark;
+                }
+            }
+            $attender->save();
+
+            $this->data['html'] = '<tr id="row-'.$attender->student_id.'">';
+            $this->data['html'] .= '<td class="text-center">'.$attender->student_id.'</td>';
+            $this->data['html'] .= '<td>'.$attender->Student->name.'</td>';
+            $this->data['html'] .= '<td class="text-center">'.$number.'</td>';
+            $this->data['html'] .= '</tr>';
+        } else {
+            $this->data['error'] = 'MSSV không đúng!';
+        }
+
+        return response()->json($this->data);
+    }
+
+    public function postExportNumberCheck(Request $request) {
+        $checkList = Check_Number::where('activity_id', $request->activity_id)->orderBy('student_id', 'desc')->get();
+
+        $excelFile = Excel::create('DS_Lan_Diem_Danh', function($excel) use($checkList) {
+            $excel->sheet('DS_Lan_Diem_Danh', function($sheet) use($checkList) {
+                $sheet->row(1, array(
+                    'MSSV', 'Số lần điểm danh'
+                ));
+
+                foreach($checkList as $check) {
+                    $row_data = array();
+
+                    array_push($row_data, $check->student_id);
+                    array_push($row_data, $check->number);
+
+                    $sheet->appendRow($row_data);
+                }
+                $sheet->setFontSize(13);
+                $sheet->setFontFamily('Times New Roman');
+                $sheet->row(1, function($row) {
+                    $row->setFontWeight('bold');
+                });
+            });
+        })->string('xlsx');
+
+        $response =  array(
+            'name' => 'DS_Lan_Diem_Danh'.'.xlsx', //no extention needed
             'file' => "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,".base64_encode($excelFile)
         );
 
