@@ -259,7 +259,6 @@ class AttenderController extends Controller {
             } else {
                 $this->data['result'] = false;
                 $this->data['error'] = 'Điểm Rèn luyện quá mức!!!';
-
             }
         } else {
             $this->data['result'] = false;
@@ -520,7 +519,8 @@ class AttenderController extends Controller {
     }
 
     public function postExportExcelAttenderList(Request $request) {
-        $attenderList = $request->attenderList;
+        $activity_id = $request->activity_id;
+        $attenderList = Attender::where('activity_id', $activity_id)->get();
 
         $excelFile = Excel::create('DS_Tham_Gia', function($excel) use($attenderList) {
             $excel->sheet('DS_Tham_Gia', function($sheet) use($attenderList) {

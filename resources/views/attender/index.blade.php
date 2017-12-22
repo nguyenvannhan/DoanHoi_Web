@@ -93,10 +93,10 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if(isset($attenderList) && count($attenderList) > 0)
                         @php
                         $stt = 1;
                         @endphp
-                        @if(isset($attenderList) && count($attenderList) > 0)
                         @foreach($attenderList as $attender)
                         <tr id="attender-{{ $attender->id }}">
                             <td class="center">{{ $stt++ }}</td>
