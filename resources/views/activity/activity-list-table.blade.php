@@ -30,7 +30,7 @@
     </td>
     <td class="center">{{ $activity->Attenders()->count() }}</td>
     <td class="action-column center">
-        <a href="{{ route('activity_detail_route', ['id' => $activity->id]) }}"><i class="fa fa-list" title="Chi tiết"></i></a>
+        <a class="detail-activity" data-id = "{{ $activity->id }}"><i class="fa fa-list" title="Chi tiết"></i></a>
         <a href="{{ route('get_edit_activity_route', ['id' => $activity->id]) }}"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
         <a href="#" class="delete-activity" data-id="{{ $activity->id }}"><i class="fa fa-trash" title="Xóa"></i></a>
     </td>

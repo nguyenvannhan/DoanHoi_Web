@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('index_route');
 
 Route::prefix('sinh-vien')->group(function() {
     Route::get('/', 'StudentController@getStudentList')->name('student_index_route');

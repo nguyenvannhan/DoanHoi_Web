@@ -154,7 +154,8 @@ function init_sidebar() {
 // /Sidebar
 function init_DataTables() {
     $('.datatable').DataTable({
-        "pageLength": 20
+        "pageLength": 20,
+        "order": [[ 0, "desc" ]]
     });
 }
 
