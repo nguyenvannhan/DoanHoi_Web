@@ -35,4 +35,8 @@ class HomeController extends Controller
         $this->data['science_arr'] = $science_arr;
         return view('admin', $this->data);
     }
+
+    public function getAccount() {
+        return view('auth.register');
+    }
 }

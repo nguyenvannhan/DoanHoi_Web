@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@AdminDashboard')->name('index_route');
+// Route::get('/', 'HomeController@AdminDashboard')->name('index_route');
 
 Route::prefix('sinh-vien')->group(function() {
     Route::get('/', 'StudentController@getStudentList')->name('student_index_route');
@@ -167,6 +167,10 @@ Route::prefix('ajax')->group(function() {
     Route::get('get-class-info/{class_id}', 'ClassesController@ajaxGetClassInfo')->name('ajax_get_class_info');
 
     Route::get('add-BCH_Khoa','BCH_KhoaController@getAjaxAddBCH_khoa')->name('ajax_add_BCH_Khoa_route');
+});
+
+Route::prefix('account')->group(function() {
+    Route::get('cap-tk', 'HomeController@getAccount')->name('regis_account_route');
 });
 
 Auth::routes();
