@@ -29,4 +29,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function IsAdmin() {
+        if($this->student_id == 'admin') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function Student() {
+        return $this->belongsTo('App\Models\Student', 'student_id', 'id');
+    }
 }

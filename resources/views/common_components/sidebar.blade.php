@@ -6,13 +6,17 @@
     <div class="clearfix"></div>
 
     <!-- menu profile quick info -->
-    <div class="profile clearfix">
-        <div class="profile_pic">
-            <img src="{{ URL('public/images/avatars/default.png') }}" alt="..." class="img-circle profile_img">
-        </div>
-        <div class="profile_info">
-            <span>Welcome,</span>
-            <h2>John Doe</h2>
+    <div class="profile clearfix row">
+        <div class="text-center col-md-12" style="margin-top: 10px; color: #fff;">
+            <span>Welcome</span>
+            <h2 class="text-center" style="font-size: 14px;">{{ $userName }}</h2>
+            @if($user->level == 1)
+            <span class="label label-danger">Thường trực</span>
+            @elseif($user->level == 2)
+            <span class="label label-success">BCH Khoa</span>
+            @elseif($user->level == 3)
+            <span class="label label-primary">BCH Lớp</span>
+            @endif
         </div>
     </div>
     <!-- /menu profile quick info -->
@@ -20,7 +24,6 @@
     <!-- sidebar menu -->
     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
         <div class="menu_section">
-            <h3>General</h3>
             <ul class="nav side-menu">
                 <li>
                     <a><i class="fa fa-graduation-cap"></i> Quản Lý Sinh Viên <span

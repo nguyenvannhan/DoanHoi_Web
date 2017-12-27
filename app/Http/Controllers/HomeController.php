@@ -61,6 +61,11 @@ class HomeController extends Controller
         }
     }
 
+    public function getLogout() {
+        Auth::logout();
+        return redirect()->route('get_login_route');
+    }
+
     public function AdminDashboard() {
         $current_date = date('Y-m-d');
         $science_arr = Science::orderBy('name', 'desc')->take(4)->get();

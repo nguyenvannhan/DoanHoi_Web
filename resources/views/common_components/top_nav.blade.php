@@ -8,7 +8,7 @@
             <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                    aria-expanded="false">
-                    <img src="{{ URL('/public/images/avatars/default.png') }}" alt=""/>John Doe
+                    {{ $userName }}
                     <span class="fa fa-angle-down"></span>
                 </a>
 
@@ -17,15 +17,7 @@
                         <a href="javascript:;">Profile</a>
                     </li>
                     <li>
-                        <a href="javascript:;">
-                            <span class="badge bg-red pull-right">50%</span>
-                            <span>SSettings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">Help</a></li>
-                    <li>
-                        <a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                        <a href="{{ route('get_logout_route') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </li>
                 </ul>
             </li>
