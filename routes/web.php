@@ -13,6 +13,14 @@
 
 // Route::get('/', 'HomeController@AdminDashboard')->name('index_route');
 
+
+// Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('login', 'HomeController@getLogin')->name('get_login_route');
+Route::post('login', 'HomeController@postLogin')->name('post_login_route');
+
 Route::prefix('sinh-vien')->group(function() {
     Route::get('/', 'StudentController@getStudentList')->name('student_index_route');
 
@@ -168,11 +176,3 @@ Route::prefix('ajax')->group(function() {
 
     Route::get('add-BCH_Khoa','BCH_KhoaController@getAjaxAddBCH_khoa')->name('ajax_add_BCH_Khoa_route');
 });
-
-Route::prefix('account')->group(function() {
-    Route::get('cap-tk', 'HomeController@getAccount')->name('regis_account_route');
-});
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

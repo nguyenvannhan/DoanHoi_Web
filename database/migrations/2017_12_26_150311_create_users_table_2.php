@@ -25,8 +25,6 @@ class CreateUsersTable2 extends Migration
             $table->rememberToken();
             $table->unsignedInteger('level');
             $table->timestamps();
-
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
         });
     }
 
