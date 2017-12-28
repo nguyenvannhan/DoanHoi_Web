@@ -182,6 +182,8 @@ Route::middleware(['auth'])->group(function() {
     Route::middleware(['admin'])->group(function() {
         Route::prefix('tai-khoan')->group(function() {
             Route::get('/', 'AccountController@index')->name('account_index_route');
+            Route::post('/register', 'AccountController@postCreateAccount')->name('create_account_route');
+            Route::post('/xoa', 'AccountController@postDeleteAccount')->name('delete_account_route');
         });
     });
 });

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Auth;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -43,7 +43,7 @@ class User extends Authenticatable
     }
 
     public static function getAccountList() {
-        $accountList = self::with('Student')->where('level', '<>', 0)->get();
+        $accountList = self::with('Student')->where('level', '<>', 0)->where('student_id', '<>', Auth::user()->student_id)->get();
         return $accountList;
     }
 }
