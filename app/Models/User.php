@@ -41,4 +41,9 @@ class User extends Authenticatable
     public function Student() {
         return $this->belongsTo('App\Models\Student', 'student_id', 'id');
     }
+
+    public static function getAccountList() {
+        $accountList = self::with('Student')->where('level', '<>', 0)->get();
+        return $accountList;
+    }
 }

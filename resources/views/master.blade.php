@@ -37,10 +37,6 @@
 </head>
 
 <body class="nav-md">
-    @php
-    $user = Auth::user();
-    $userName = !is_null($user->Student) ? $user->Student->name : 'Admin';
-    @endphp
     <div class="container body">
         <div class="main_container">
             <div class="col-md-3 left_col">

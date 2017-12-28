@@ -22,7 +22,7 @@ Route::post('login', 'HomeController@postLogin')->name('post_login_route');
 Route::get('logout', 'HomeController@getLogout')->name('get_logout_route');
 Route::middleware(['auth'])->group(function() {
     Route::get('/', 'HomeController@index')->name('home');
-    
+
     Route::prefix('sinh-vien')->group(function() {
         Route::get('/', 'StudentController@getStudentList')->name('student_index_route');
 
@@ -177,5 +177,11 @@ Route::middleware(['auth'])->group(function() {
         Route::get('get-class-info/{class_id}', 'ClassesController@ajaxGetClassInfo')->name('ajax_get_class_info');
 
         Route::get('add-BCH_Khoa','BCH_KhoaController@getAjaxAddBCH_khoa')->name('ajax_add_BCH_Khoa_route');
+    });
+
+    Route::middleware(['admin'])->group(function() {
+        Route::prefix('tai-khoan')->group(function() {
+            Route::get('/', 'AccountController@index')->name('account_index_route');
+        });
     });
 });
