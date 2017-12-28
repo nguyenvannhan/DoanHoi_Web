@@ -16,13 +16,13 @@
 
 // Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
-
 Route::get('login', 'HomeController@getLogin')->name('get_login_route');
 Route::post('login', 'HomeController@postLogin')->name('post_login_route');
 
 Route::get('logout', 'HomeController@getLogout')->name('get_logout_route');
 Route::middleware(['auth'])->group(function() {
+    Route::get('/', 'HomeController@index')->name('home');
+    
     Route::prefix('sinh-vien')->group(function() {
         Route::get('/', 'StudentController@getStudentList')->name('student_index_route');
 

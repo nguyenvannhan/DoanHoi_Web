@@ -53,8 +53,9 @@ class HomeController extends Controller
             'student_id' => $request->student_id,
             'password' => $request->password
         ];
+        $remember = $request->remember;
 
-        if(Auth::attempt($account)) {
+        if(Auth::attempt($account, $remember)) {
             return redirect()->route('home');
         } else {
             return redirect()->back()->with('error', 'MSSV hoặc Password không đúng');
