@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Dec 05, 2017 at 10:27 PM
--- Server version: 5.7.20-0ubuntu0.16.04.1
--- PHP Version: 7.1.12-1+ubuntu16.04.1+deb.sury.org+1
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 03, 2018 at 04:19 AM
+-- Server version: 5.7.19
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `vannhan_db_cyu`
+-- Database: `vannhan_cyu_management`
 --
 
 -- --------------------------------------------------------
@@ -26,8 +28,9 @@ SET time_zone = "+00:00";
 -- Table structure for table `activities`
 --
 
-CREATE TABLE `activities` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `activities`;
+CREATE TABLE IF NOT EXISTS `activities` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
   `leader` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
   `start_date` date NOT NULL,
@@ -44,7 +47,11 @@ CREATE TABLE `activities` (
   `max_regis_number` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `activities_leader_foreign` (`leader`),
+  KEY `activities_class_id_foreign` (`class_id`),
+  KEY `activities_school_year_id_foreign` (`school_year_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -53,8 +60,9 @@ CREATE TABLE `activities` (
 -- Table structure for table `attenders`
 --
 
-CREATE TABLE `attenders` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `attenders`;
+CREATE TABLE IF NOT EXISTS `attenders` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `activity_id` int(10) UNSIGNED NOT NULL,
   `student_id` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
   `time_id` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -65,7 +73,29 @@ CREATE TABLE `attenders` (
   `minus_social_mark` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `attenders_activity_id_student_id_unique` (`activity_id`,`student_id`),
+  KEY `attenders_student_id_foreign` (`student_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `check_number`
+--
+
+DROP TABLE IF EXISTS `check_number`;
+CREATE TABLE IF NOT EXISTS `check_number` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `activity_id` int(10) UNSIGNED NOT NULL,
+  `student_id` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
+  `number` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `check_number_activity_id_student_id_unique` (`activity_id`,`student_id`),
+  KEY `check_number_student_id_foreign` (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -74,22 +104,25 @@ CREATE TABLE `attenders` (
 -- Table structure for table `classes`
 --
 
-CREATE TABLE `classes` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `classes`;
+CREATE TABLE IF NOT EXISTS `classes` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
   `science_id` int(10) UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `classes_name_unique` (`name`),
+  KEY `classes_science_id_foreign` (`science_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `classes`
 --
 
 INSERT INTO `classes` (`id`, `name`, `science_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, '139100', 2, NULL, '2017-12-05 07:55:41', '2017-12-05 07:55:41'),
-(2, '171102', 6, NULL, '2017-12-05 08:17:17', '2017-12-05 08:17:17');
+(1, '139100', 2, NULL, '2018-01-02 20:51:07', '2018-01-02 20:51:07');
 
 -- --------------------------------------------------------
 
@@ -97,13 +130,16 @@ INSERT INTO `classes` (`id`, `name`, `science_id`, `deleted_at`, `created_at`, `
 -- Table structure for table `faculties`
 --
 
-CREATE TABLE `faculties` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `faculties`;
+CREATE TABLE IF NOT EXISTS `faculties` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `faculties_name_unique` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `faculties`
@@ -128,38 +164,17 @@ INSERT INTO `faculties` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`)
 -- Table structure for table `migrations`
 --
 
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `migrations`;
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
 --
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(19, '2014_10_12_000000_create_users_table', 1),
-(20, '2014_10_12_100000_create_password_resets_table', 1),
-(21, '2017_08_03_142725_create_science_table', 1),
-(22, '2017_08_03_181554_create_class_table', 1),
-(23, '2017_08_04_035804_school_year', 1),
-(24, '2017_11_10_061850_create_table_faculty', 1),
-(25, '2017_11_10_062349_create_students_table', 1),
-(26, '2017_11_10_065117_create_activities_table', 1),
-(27, '2017_11_10_065831_create_attenders_table', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `password_resets`
---
-
-CREATE TABLE `password_resets` (
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -167,13 +182,16 @@ CREATE TABLE `password_resets` (
 -- Table structure for table `school_years`
 --
 
-CREATE TABLE `school_years` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `school_years`;
+CREATE TABLE IF NOT EXISTS `school_years` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `school_years_name_unique` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `school_years`
@@ -188,13 +206,16 @@ INSERT INTO `school_years` (`id`, `name`, `deleted_at`, `created_at`, `updated_a
 -- Table structure for table `sciences`
 --
 
-CREATE TABLE `sciences` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `sciences`;
+CREATE TABLE IF NOT EXISTS `sciences` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `sciences_name_unique` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `sciences`
@@ -214,7 +235,8 @@ INSERT INTO `sciences` (`id`, `name`, `deleted_at`, `created_at`, `updated_at`) 
 -- Table structure for table `students`
 --
 
-CREATE TABLE `students` (
+DROP TABLE IF EXISTS `students`;
+CREATE TABLE IF NOT EXISTS `students` (
   `id` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `class_id` int(10) UNSIGNED DEFAULT NULL,
@@ -232,8 +254,21 @@ CREATE TABLE `students` (
   `faculty_id` int(10) UNSIGNED NOT NULL DEFAULT '1',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `students_number_phone_unique` (`number_phone`),
+  UNIQUE KEY `students_email_unique` (`email`),
+  KEY `students_science_id_foreign` (`science_id`),
+  KEY `students_class_id_foreign` (`class_id`),
+  KEY `students_faculty_id_foreign` (`faculty_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`id`, `name`, `class_id`, `science_id`, `is_female`, `is_cyu`, `partisan_id`, `hometown`, `number_phone`, `birthday`, `email`, `social_mark`, `status`, `is_it_student`, `faculty_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+('13110113', 'Nguyen Van Nhan', 1, 2, 0, 1, 0, NULL, '01219833537', '1995-10-08', 'nguyenvannhan0810@gmail.com', 0, 1, 1, 1, NULL, '2018-01-02 20:55:39', '2018-01-02 20:55:39');
 
 -- --------------------------------------------------------
 
@@ -241,140 +276,26 @@ CREATE TABLE `students` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `student_id` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `level` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_student_id_unique` (`student_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Indexes for dumped tables
+-- Dumping data for table `users`
 --
 
---
--- Indexes for table `activities`
---
-ALTER TABLE `activities`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `activities_leader_foreign` (`leader`),
-  ADD KEY `activities_class_id_foreign` (`class_id`),
-  ADD KEY `activities_school_year_id_foreign` (`school_year_id`);
+INSERT INTO `users` (`id`, `student_id`, `password`, `remember_token`, `level`, `created_at`, `updated_at`) VALUES
+(2, 'admin', '$2y$10$6NPZfbhhGdslXUaeaOSnd.sR3pPZQBtJs9kvOBGJpQQMYRzOz2pMe', '08h3XdexKTClPu5TSTPf4qC4yBYgZwhxz2P3rNon6ZghT9VhjI9Yxgwpwbrc', 0, NULL, NULL);
 
---
--- Indexes for table `attenders`
---
-ALTER TABLE `attenders`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `attenders_activity_id_student_id_unique` (`activity_id`,`student_id`),
-  ADD KEY `attenders_student_id_foreign` (`student_id`);
-
---
--- Indexes for table `classes`
---
-ALTER TABLE `classes`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `classes_name_unique` (`name`),
-  ADD KEY `classes_science_id_foreign` (`science_id`);
-
---
--- Indexes for table `faculties`
---
-ALTER TABLE `faculties`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `faculties_name_unique` (`name`);
-
---
--- Indexes for table `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `password_resets`
---
-ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`);
-
---
--- Indexes for table `school_years`
---
-ALTER TABLE `school_years`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `school_years_name_unique` (`name`);
-
---
--- Indexes for table `sciences`
---
-ALTER TABLE `sciences`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `sciences_name_unique` (`name`);
-
---
--- Indexes for table `students`
---
-ALTER TABLE `students`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `students_number_phone_unique` (`number_phone`),
-  ADD UNIQUE KEY `students_email_unique` (`email`),
-  ADD KEY `students_science_id_foreign` (`science_id`),
-  ADD KEY `students_class_id_foreign` (`class_id`),
-  ADD KEY `students_faculty_id_foreign` (`faculty_id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `activities`
---
-ALTER TABLE `activities`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `attenders`
---
-ALTER TABLE `attenders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `classes`
---
-ALTER TABLE `classes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `faculties`
---
-ALTER TABLE `faculties`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
---
--- AUTO_INCREMENT for table `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
---
--- AUTO_INCREMENT for table `school_years`
---
-ALTER TABLE `school_years`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `sciences`
---
-ALTER TABLE `sciences`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
@@ -395,6 +316,13 @@ ALTER TABLE `attenders`
   ADD CONSTRAINT `attenders_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `check_number`
+--
+ALTER TABLE `check_number`
+  ADD CONSTRAINT `check_number_activity_id_foreign` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `check_number_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `classes`
 --
 ALTER TABLE `classes`
@@ -407,6 +335,7 @@ ALTER TABLE `students`
   ADD CONSTRAINT `students_class_id_foreign` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `students_faculty_id_foreign` FOREIGN KEY (`faculty_id`) REFERENCES `faculties` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `students_science_id_foreign` FOREIGN KEY (`science_id`) REFERENCES `sciences` (`id`) ON DELETE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

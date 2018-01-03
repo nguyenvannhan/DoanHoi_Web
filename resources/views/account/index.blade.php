@@ -89,7 +89,7 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                <a class="blue mr-10" data-id="{{ $account->id }}" href="#">Reset</a>
+                                <a class="blue mr-10 reset-account" data-id="{{ $account->id }}" href="#">Reset</a>
                                 <a class="red delete-account-btn" data-id="{{ $account->id }}" href="#">Xóa</a>
                             </td>
                         </tr>

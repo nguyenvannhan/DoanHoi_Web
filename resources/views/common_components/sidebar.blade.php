@@ -67,6 +67,11 @@
                 <li>
                     <a href="{{ route('school_year_index_route') }}"><i class="fa fa-calendar"></i> Quản Lý Năm Học </a>
                 </li>
+                @if($user->level == 1 || $user->level == 0)
+                <li>
+                    <a href="{{ route('account_index_route') }}"><i class="fa fa-key"></i> Quản Lý Tài khoản </a>
+                </li>
+                @endif
 
 
                 <!-- <li>

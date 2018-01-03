@@ -23,13 +23,77 @@ $('.delete-account-btn').on('click', function() {
                         'id': id
                     }
                 }).done(function(data) {
-                    if(data) {
+                    if(data.result) {
                         $('#row-'+id).remove();
                         e.close();
                         BootstrapDialog.alert({
                             title: 'Xóa tài khoản',
                             message: 'Thành công!',
                             type: 'type-success'
+                        });
+                    } else {
+                        e.close();
+                        BootstrapDialog.alert({
+                            title: 'Lỗi',
+                            message: data.error,
+                            type: 'type-danger'
+                        });
+                    }
+                }).fail(function(xhr, status, error) {
+                    console.log(this.url);
+                    console.log(error);
+                    e.close();
+                    BootstrapDialog.alert({
+                        title: 'Lỗi',
+                        message: 'Không thể kết nối',
+                        type: 'type-danger'
+                    });
+                });
+            }
+        }]
+    });
+});
+
+
+$('.reset-account').on('click', function() {
+    var id = $(this).data('id');
+
+    BootstrapDialog.show({
+        title: 'Reset mật khẩu tài khoản',
+        message: 'Bạn có muốn reset tài khoản đã chọn?',
+        type: 'type-danger',
+        buttons: [{
+            label: 'Không',
+            cssClass: 'btn',
+            action: function(e) {
+                e.close();
+            }
+        }, {
+            label: 'Có, chắc chắn.',
+            cssClass: 'btn btn-danger',
+            action: function(e) {
+                e.close();
+                $.ajax({
+                    url: BASE_URL + 'tai-khoan/reset',
+                    method: 'POST',
+                    data: {
+                        'id': id
+                    }
+                }).done(function(data) {
+                    if(data.result) {
+                        $('#row-'+id).remove();
+                        e.close();
+                        BootstrapDialog.alert({
+                            title: 'Reset tài khoản',
+                            message: 'Thành công!',
+                            type: 'type-success'
+                        });
+                    } else {
+                        e.close();
+                        BootstrapDialog.alert({
+                            title: 'Lỗi',
+                            message: data.error,
+                            type: 'type-danger'
                         });
                     }
                 }).fail(function(xhr, status, error) {
