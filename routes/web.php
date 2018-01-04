@@ -16,31 +16,33 @@
 
 // Auth::routes();
 
+$number_regex = '[0-9\.]+';
+
 Route::get('login', 'HomeController@getLogin')->name('get_login_route');
 Route::post('login', 'HomeController@postLogin')->name('post_login_route');
 
 Route::get('logout', 'HomeController@getLogout')->name('get_logout_route');
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function() use($number_regex) {
     Route::get('/', 'HomeController@index')->name('home');
 
-    Route::prefix('sinh-vien')->group(function() {
+    Route::prefix('sinh-vien')->group(function() use($number_regex) {
         Route::get('/', 'StudentController@getStudentList')->name('student_index_route');
 
-        Route::get('info/{id}', 'StudentController@getInfoStudent')->name('get_info_student_route');
+        Route::get('info/{id}', 'StudentController@getInfoStudent')->name('get_info_student_route')->where(['id' => $number_regex]);
 
         Route::get('them','StudentController@getAddStudent')->name('get_student_add_route');
         Route::post('them','StudentController@postAddStudent')->name('post_student_add_route');
 
-        Route::get('cap-nhat/{id}','StudentController@getEditStudent')->name('get_edit_student_route');
-        Route::post('cap-nhat/{id}','StudentController@postEditStudent')->name('post_edit_student_route');
+        Route::get('cap-nhat/{id}','StudentController@getEditStudent')->name('get_edit_student_route')->where(['id' => $number_regex]);
+        Route::post('cap-nhat/{id}','StudentController@postEditStudent')->name('post_edit_student_route')->where(['id' => $number_regex]);
 
         Route::post('xoa', 'StudentController@postDeleteStudent')->name('get_delete_student_route');
 
-        Route::get('lay-danh-sach/{type_id}', 'StudentController@ajaxGetStudentList')->name('get_ajax_student_list');
+        Route::get('lay-danh-sach/{type_id}', 'StudentController@ajaxGetStudentList')->name('get_ajax_student_list')->where(['type_id' => $number_regex]);
 
-        Route::get('lay-thong-tin/{id}', 'StudentController@ajaxGetStudentInfo')->name('get_ajax_student_info');
+        Route::get('lay-thong-tin/{id}', 'StudentController@ajaxGetStudentInfo')->name('get_ajax_student_info')->where(['id' => $number_regex]);
 
-        Route::get('get-info-add-student/{is_it_student}/{science_id?}', 'StudentController@ajaxGetInfoAddStudent')->name('ajax_get_info_student');
+        Route::get('get-info-add-student/{is_it_student}/{science_id?}', 'StudentController@ajaxGetInfoAddStudent')->name('ajax_get_info_student')->where(['is_it_student' => $number_regex, 'science_id' => $number_regex]);
 
         Route::get('add-list', 'StudentController@getAddList')->name('student_get_add_list_route');
         Route::post('add-list', 'StudentController@postAddList')->name('student_post_add_list_route');
@@ -54,7 +56,7 @@ Route::middleware(['auth'])->group(function() {
         Route::post('xuat-ds-sv-get-list', 'StudentController@postGetExportList')->name('student_post_get_export_list_route');
     });
 
-    Route::prefix('doan-dang')->group(function() {
+    Route::prefix('doan-dang')->group(function() use($number_regex) {
         Route::get('/', 'UnionistsController@getUnionistList')->name('get_unioinist_list');
         Route::get('chi-bo', 'UnionistsController@getPartisanList')->name('get_partisan_list');
 
@@ -84,42 +86,42 @@ Route::middleware(['auth'])->group(function() {
     });
 
     //Route class
-    Route::prefix('lop-hoc')->group(function() {
+    Route::prefix('lop-hoc')->group(function() use($number_regex) {
         Route::get('/', 'ClassesController@getClassList')->name('class_index_route');
 
-        Route::get('search/{scienceId}', 'ClassesController@getClassListByScienceId')->name('class_search_route');
+        Route::get('search/{scienceId}', 'ClassesController@getClassListByScienceId')->name('class_search_route')->where(['scienceId' => $number_regex]);
 
         Route::post('them-moi', 'ClassesController@postAddClass')->name('post_add_class_route');
-        Route::post('cap-nhat/{id}', 'ClassesController@postEditClass')->name('post_edit_class_route');
+        Route::post('cap-nhat/{id}', 'ClassesController@postEditClass')->name('post_edit_class_route')->where(['id' => $number_regex]);
 
         Route::post('xoa', 'ClassesController@postDeleteClass')->name('get_delete_class_route');
     });
 
     //Route activities
-    Route::prefix('hoat-dong')->group(function() {
+    Route::prefix('hoat-dong')->group(function() use($number_regex) {
         Route::get('/', 'ActivityController@getActivityList')->name('activity_index_route');
         Route::get('/get-activity-list/{schoolyear_id}', 'ActivityController@getActivityListBySchoolYear')->name('ajax_get_list_by_schoolyear');
 
-        Route::get('detail/{id}', 'ActivityController@getDetailActivity')->name('activity_detail_route');
+        Route::get('detail/{id}', 'ActivityController@getDetailActivity')->name('activity_detail_route')->where(['id' => $number_regex]);
 
         Route::get('them-moi', 'ActivityController@getAddActivity')->name('get_activity_add_route');
         Route::post('them-moi', 'ActivityController@postAddActivity')->name('post_activity_add_route');
 
-        Route::get('cap-nhat/{id}', 'ActivityController@getEditActivity')->name('get_edit_activity_route');
-        Route::post('cap-nhat/{id}', 'ActivityController@postEditActivity')->name('post_edit_activity_route');
+        Route::get('cap-nhat/{id}', 'ActivityController@getEditActivity')->name('get_edit_activity_route')->where(['id' => $number_regex]);
+        Route::post('cap-nhat/{id}', 'ActivityController@postEditActivity')->name('post_edit_activity_route')->where(['id' => $number_regex]);
 
         Route::post('xoa', 'ActivityController@postDeleteActivity')->name('post_delete_activity_route');
 
         Route::get('get-leader/{searchKey}', 'ActivityController@ajaxGetLeader')->name('ajax_get_leader');
-        Route::get('get-class/{student_id}', 'ActivityController@ajaxGetClass')->name('ajax_get_classs');
+        Route::get('get-class/{student_id}', 'ActivityController@ajaxGetClass')->name('ajax_get_classs')->where(['student_id' => $number_regex]);
 
-        Route::prefix('tham-gia')->group(function() {
+        Route::prefix('tham-gia')->group(function() use($number_regex) {
             Route::get('/', 'AttenderController@index')->name('get_attender_index_route');
-            Route::get('/lay-danh-sach/{activity_id}', 'AttenderController@getAttenderList')->name('ajax_get_attender_list');
+            Route::get('/lay-danh-sach/{activity_id}', 'AttenderController@getAttenderList')->name('ajax_get_attender_list')->where(['activity_id' => $number_regex]);
             Route::post('/check-attend', 'AttenderController@postCheckAttend')->name('ajax_post_check_attend');
 
-            Route::get('/get-activity-list-attender/{schoolyear_id}', 'AttenderController@getActivityListBySchoolYear')->name('ajax_get_list_by_schoolyear_attender');
-            Route::get('/get-student-info/{id}', 'AttenderController@getStudentInfo')->name('ajax_get_student_info_attender');
+            Route::get('/get-activity-list-attender/{schoolyear_id}', 'AttenderController@getActivityListBySchoolYear')->name('ajax_get_list_by_schoolyear_attender')->where(['schoolyear_id' => $number_regex]);
+            Route::get('/get-student-info/{id}', 'AttenderController@getStudentInfo')->name('ajax_get_student_info_attender')->where(['id' => $number_regex]);
 
             Route::post('add-attender', 'AttenderController@postAddAttender')->name('post_add_attender_route');
             Route::post('update-mark', 'AttenderController@postUpdateMark')->name('post_update_mark_route');
@@ -169,12 +171,12 @@ Route::middleware(['auth'])->group(function() {
 
 
     //Route ajax
-    Route::prefix('ajax')->group(function() {
+    Route::prefix('ajax')->group(function() use($number_regex) {
         Route::post('add-science', 'ScienceController@postAjaxAddScience')->name('ajax_add_science_route');
 
         Route::post('add-school-year', 'School_YearController@postAjaxAddSchoolYear')->name('ajax_add_school_year');
 
-        Route::get('get-class-info/{class_id}', 'ClassesController@ajaxGetClassInfo')->name('ajax_get_class_info');
+        Route::get('get-class-info/{class_id}', 'ClassesController@ajaxGetClassInfo')->name('ajax_get_class_info')->where(['class_id' => $number_regex]);
 
         Route::get('add-BCH_Khoa','BCH_KhoaController@getAjaxAddBCH_khoa')->name('ajax_add_BCH_Khoa_route');
     });

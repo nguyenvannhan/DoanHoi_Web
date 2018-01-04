@@ -17,10 +17,22 @@ use Excel;
 use File;
 use Exception;
 use DB;
+use Auth;
 
 class StudentController extends Controller {
 
+    protected $user;
+    protected $userInfo;
+
+    public function __construct() {
+        $user = Auth::user();
+        if(!is_null($user->Student)) {
+            $userInfo = $user->Student;
+        }
+    }
+
     public function getStudentList() {
+
         $this->data['studentList'] = Student::with('ClassOb', 'Science')->where('is_it_student', 1)->get();
         $this->data['classList'] = Classes::orderBy('name', 'desc')->get();
 
