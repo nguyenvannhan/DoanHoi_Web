@@ -7,14 +7,15 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Auth;
 use App\Models\Student;
+use Config;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
+    * Bootstrap any application services.
+    *
+    * @return void
+    */
     public function boot()
     {
         //
@@ -22,10 +23,10 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register any application services.
-     *
-     * @return void
-     */
+    * Register any application services.
+    *
+    * @return void
+    */
     public function register()
     {
     }

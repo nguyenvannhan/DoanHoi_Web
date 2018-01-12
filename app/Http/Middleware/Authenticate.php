@@ -21,11 +21,9 @@ class Authenticate
             $user = Auth::user();
             $userInfo = $user->Student;
             $userName = !is_null($user->Student) ? $user->Student->name : 'Admin';
-
             View::share('user', $user);
             View::share('userInfo', $userInfo);
             View::share('userName', $userName);
-
             return $next($request);
         }
         return redirect()->route('get_login_route');

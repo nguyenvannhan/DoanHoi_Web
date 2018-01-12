@@ -21,27 +21,39 @@ use Auth;
 
 class StudentController extends Controller {
 
-    protected $user;
+    private $user;
     protected $userInfo;
 
     public function __construct() {
-        $user = Auth::user();
-        if(!is_null($user->Student)) {
-            $userInfo = $user->Student;
-        }
+        $this->middleware(function ($request, $next) {
+            $user = Auth::user();
+            $this->user = $user;
+            $this->userInfo = is_null($user->Student) ? NULL : $user->Student;
+
+            return $next($request);
+        });
     }
 
     public function getStudentList() {
-
-        $this->data['studentList'] = Student::with('ClassOb', 'Science')->where('is_it_student', 1)->get();
-        $this->data['classList'] = Classes::orderBy('name', 'desc')->get();
+        if($this->user->level == 3) {
+            $this->data['studentList'] = Student::with('ClassOb', 'Science')->where('is_it_student', 1)->where('class_id', $this->userInfo->class_id)->get();
+            $this->data['classList'] = Classes::where('id', $this->userInfo->class_id)->orderBy('name', 'desc')->get();
+        } else {
+            $this->data['studentList'] = Student::with('ClassOb', 'Science')->where('is_it_student', 1)->get();
+            $this->data['classList'] = Classes::orderBy('name', 'desc')->get();
+        }
 
         return view('student.studentList', $this->data);
     }
 
     public function getAddStudent() {
-        $this->data['scienceList'] = Science::orderBy('id','desc')->get();
-        $this->data['facultyList'] = Faculty::where('id', config('constants.IT_FACULTY_ID'))->get();
+        if($this->user->level == 3) {
+            $this->data['scienceList'] = Science::orderBy('id','desc')->where('id', $this->userInfo->science_id)->get();
+            $this->data['facultyList'] = Faculty::where('id', config('constants.IT_FACULTY_ID'))->get();
+        } else {
+            $this->data['scienceList'] = Science::orderBy('id','desc')->get();
+            $this->data['facultyList'] = Faculty::where('id', config('constants.IT_FACULTY_ID'))->get();
+        }
 
         return view('student.addStudent', $this->data);
     }
@@ -55,12 +67,15 @@ class StudentController extends Controller {
     public function getEditStudent($id){
         $student = Student::with('ClassOb', 'Faculty')->find($id);
         $this->data['student'] = $student;
-        $this->data['scienceList'] = Science::orderBy('id','desc')->get();
-
-        if($student->is_it_student) {
-            $this->data['classList'] = Classes::where('science_id', $student->science_id)->orderBy('id', 'desc')->get();
+        if($this->user->level == 3) {
+            $this->data['scienceList'] = Science::where('id', $this->userInfo->science_id)->get();
+            $this->data['classList'] = Classes::where('id', $this->userInfo->class_id)->orderBy('id', 'desc')->get();
         } else {
-            $this->data['facultyList'] = Faculty::orderBy('id', 'desc')->get();
+            if($student->is_it_student) {
+                $this->data['classList'] = Classes::where('science_id', $student->science_id)->orderBy('id', 'desc')->get();
+            } else {
+                $this->data['facultyList'] = Faculty::orderBy('id', 'desc')->get();
+            }
         }
 
         return view('student.editStudent', $this->data);
@@ -154,14 +169,20 @@ class StudentController extends Controller {
     }
 
     public function ajaxGetInfoAddStudent($is_it_student, $science_id = 0) {
-        if($is_it_student) {
-            $this->data['classList'] = Classes::where('science_id', $science_id)->orderBy('id', 'desc')->get();
+        if($this->user->level == 3) {
+            $this->data['classList'] = Classes::where('id', $this->userInfo->class_id)->orderBy('id', 'desc')->get();
             $this->data['faculty'] = Faculty::find(config('constants.IT_FACULTY_ID'));
-
             return response()->json($this->data);
         } else {
-            $this->data['facultyList'] = Faculty::where('id', '<>', config('constants.IT_FACULTY_ID'))->get();
-            return response()->json($this->data);
+            if($is_it_student) {
+                $this->data['classList'] = Classes::where('science_id', $science_id)->orderBy('id', 'desc')->get();
+                $this->data['faculty'] = Faculty::find(config('constants.IT_FACULTY_ID'));
+
+                return response()->json($this->data);
+            } else {
+                $this->data['facultyList'] = Faculty::where('id', '<>', config('constants.IT_FACULTY_ID'))->get();
+                return response()->json($this->data);
+            }
         }
     }
 

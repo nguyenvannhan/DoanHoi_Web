@@ -30,8 +30,7 @@ class AccountController extends Controller
                 $data = [
                     'student_id' => $student->id,
                     'password' => bcrypt($password),
-                    'level' => $request->level,
-                    'remember_token' => $request->_token
+                    'level' => $request->level
                 ];
 
                 $account = User::where('student_id', $student->id)->first();
@@ -39,9 +38,8 @@ class AccountController extends Controller
 
                     User::create($data);
                     $email_to = $student->email;
-
                     Mail::send('email_template.create_account', ['password' => $password], function($message) use($email_to) {
-                        $message->from('doanhoiit@cyu.syslife.info', 'Đoàn Hội IT SPKT');
+                        $message->from('doanhoiitspkt@gmail.com', 'Đoàn Hội IT SPKT');
                         $message->to($email_to);
                         $message->subject('TẠO TÀI KHOẢN WEBAPP ĐOÀN HỘI KHOA CNTT - SƯ PHẠM KỸ THUẬT TP.HCM');
                         $message->cc('doanhoiitspkt@gmail.com');
@@ -59,7 +57,7 @@ class AccountController extends Controller
         } catch(Exception $e) {
             DB::rollBack();
 
-            return redirect()->back()->with('errorST', 'Đã xảy ra lỗi');
+            return redirect()->back()->with('errorST', $e->getErrorMessages());
         }
     }
 

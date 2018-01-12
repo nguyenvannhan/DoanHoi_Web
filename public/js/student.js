@@ -12,8 +12,12 @@ $('.label-checkbox').on('click', function() {
 });
 
 $('select[name="science_id"]').on('change', function() {
+    var role = $(this).data('level');
     var science_id = $(this).val();
     var checkFaculty = $('input[name="is_it_student"]').prop('checked');
+    if(role == 3) {
+        checkFaculty = 1;
+    }
     if(checkFaculty) {
         getItClass(science_id);
     } else {
@@ -25,6 +29,7 @@ $('select[name="science_id"]').on('change', function() {
 $('input[name="is_it_student"]').on('change', function() {
     var science_id = $('select[name="science_id"]').val();
     var is_it = $(this).prop('checked');
+    var role = $(this).data('level');
 
     if(science_id) {
         if(is_it) {

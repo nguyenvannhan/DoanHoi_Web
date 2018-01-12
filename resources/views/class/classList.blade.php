@@ -60,7 +60,6 @@
                             <th class="column-title"> STT</th>
                             <th class="column-title"> Tên Lớp Học</th>
                             <th class="column-title"> Khóa Học</th>
-                            <th class="column-title"> Danh Sách Sinh Viên</th>
                             <th class="column-title"> Action</th>
                         </tr>
                         </thead>
@@ -75,9 +74,6 @@
                                 </td>
                                 <td>{{ $classOb->name }}</td>
                                 <td>{{ $classOb->Science->name }}</td>
-                                <td>
-                                    <a href="#">Danh sách SV Lớp {{ $classOb->name }} </a>
-                                </td>
                                 <td class="action-column">
                                     <a class="edit-class-button" data-id="{{ $classOb->id }}"><i class="fa fa-edit"
                                                                                                  title="Chỉnh sửa"></i></a>

@@ -95,7 +95,7 @@
                                 <div class="item form-group" >
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Khóa học: </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <select  class="form-control selectpicker" data-live-search="true" id="science_addstudent" name="science_id" title="Chọn khóa học">
+                                        <select  class="form-control selectpicker" data-live-search="true" id="science_addstudent" name="science_id" title="Chọn khóa học" data-level="{{ $user->level }}">
                                             @foreach($scienceList as $science)
                                             <option value="{{ $science->id }}" {{ old('science_id') == $science->id ? 'selected' : '' }} >{{ $science->name }}</option>
                                             @endforeach
@@ -103,6 +103,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                @if($user->level != 3)
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">SV Khoa CNTT: </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
@@ -112,12 +113,13 @@
                                         </label>
                                     </div>
                                 </div>
+                                @endif
                                 <div class="item form-group" >
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Khoa: </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
                                         <select  class="form-control selectpicker" data-live-search="true" id="science_addstudent" name="faculty_id" disabled>
                                             @foreach($facultyList as $faculty)
-                                            <option value="{{ $science->id }}" {{ old('faculty_id') == $faculty->id ? 'selected' : '' }}>{{ $faculty->name }}</option>
+                                            <option value="{{ $science->id }}" selected>{{ $faculty->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
