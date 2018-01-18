@@ -19,6 +19,7 @@
         <div class="panel-body">
             <form class="mt-10" method="POST" action="{{ route('student_post_get_export_list_route') }}">
                 {{ csrf_field() }}
+                @if($user->level != 3)
                 <div class="col-md-10 p-0">
                     <div class="form-group col-md-4">
                         <label class="label-control">Khóa học:</label>
@@ -121,6 +122,15 @@
                         <input class="btn btn-block btn-primary" name="submit_btn" type="submit" value="Download"></input>
                     </div>
                 </div>
+                @else
+                    <div class="col-md-3 col-md-offset-3">
+                        <input class="btn btn-block btn-success" name="submit_btn" type="submit" value="Preview"></input>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="btn btn-block btn-primary" name="submit_btn" type="submit" value="Download"></input>
+                    </div>
+                @endif
+
             </form>
         </div>
     </div>

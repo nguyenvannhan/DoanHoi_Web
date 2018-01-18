@@ -18,8 +18,8 @@
 <div class="clearfix"></div>
 
 <div class="x_panel">
-    <div class="x_body">
-        <div class="col-md-12 col-sm-12 col-xs-12 text-center mt-10">
+    <div class="x_body row">
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center mt-10" style="line-height: 40px;">
             <a href="{{ route('get_unioinist_list') }}" class="check">
                 <span class="check active bg-green text-center active">
                     Đoàn viên
@@ -32,6 +32,7 @@
             </a>
         </div>
 
+        @if($user->level != 3)
         <div class="col-md-12 mt-20" id="filter-cyu">
             <div class="col-md-2 col-md-offset-5">
                 <label class="label-control">Chi đoàn:</label>
@@ -46,6 +47,7 @@
                 <a class="btn btn-primary" id="change-class-btn" style="width: 34px; height: 34px; padding: 6px 10px;"><i class="fa fa-spinner" aria-hidden="true"></i></a>
             </div>
         </div>
+        @endif
     </div>
 </div>
 
@@ -63,7 +65,9 @@
                                 <th class="column-title">MSSV</th>
                                 <th class="column-title">Họ tên</th>
                                 <th class="column-title">Chi đoàn</th>
+                                @if($user->level != 2)
                                 <th></th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -72,9 +76,11 @@
                                 <td class="text-center">{{ $unionist->id }}</td>
                                 <td>{{ $unionist->name }}</td>
                                 <td class="text-center">{{ $unionist->ClassOb->name }}</td>
+                                @if($user->level != 2)
                                 <td class="text-center">
                                     <a class="remove_cyu" data-id="{{ $unionist->id }}"><i class="fa fa-times red"></i></a>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>
@@ -100,7 +106,9 @@
                                 <th class="column-title">MSSV</th>
                                 <th class="column-title">Họ tên</th>
                                 <th class="column-title">Chi đoàn</th>
+                                @if($user->level != 2)
                                 <th></th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -109,9 +117,11 @@
                                 <td class="text-center">{{ $unionist->id }}</td>
                                 <td>{{ $unionist->name }}</td>
                                 <td class="text-center">{{ $unionist->ClassOb->name }}</td>
+                                @if($user->level != 2)
                                 <td class="text-center">
                                     <a class="update_cyu" data-id="{{ $unionist->id }}"><i class="fa fa-check green"></i></a>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

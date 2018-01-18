@@ -19,6 +19,6 @@ class AdminAuthentication
         if(Auth::user()->level == 1 || Auth::user()->student_id == 'admin') {
             return $next($request);
         }
-        return redirect()->route('home');
+        return redirect()->back();
     }
 }

@@ -9,19 +9,43 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Classes;
+use Auth;
 
 class UnionistsController extends Controller {
+    private $user;
+    protected $userInfo;
+
+    public function __construct() {
+        $this->middleware(function ($request, $next) {
+            $user = Auth::user();
+            $this->user = $user;
+            $this->userInfo = is_null($user->Student) ? NULL : $user->Student;
+
+            return $next($request);
+        });
+    }
+
     public function getUnionistList() {
-        $this->data['unionistList'] = Student::where('is_it_student', 1)->where('is_cyu', 1)->orderBy('id', 'desc')->with('ClassOb')->get();
-        $this->data['nonUnionistList'] = Student::where('is_it_student', 1)->where('is_cyu', 0)->orderBy('id', 'desc')->with('ClassOb')->get();
-        $this->data['classList'] = Classes::orderBy('name', 'desc')->take(30)->get();
+        if($this->user->level != 3) {
+            $this->data['unionistList'] = Student::where('is_it_student', 1)->where('is_cyu', 1)->orderBy('id', 'desc')->with('ClassOb')->get();
+            $this->data['nonUnionistList'] = Student::where('is_it_student', 1)->where('is_cyu', 0)->orderBy('id', 'desc')->with('ClassOb')->get();
+            $this->data['classList'] = Classes::orderBy('name', 'desc')->take(30)->get();
+        } else {
+            $this->data['unionistList'] = Student::where('is_it_student', 1)->where('is_cyu', 1)->where('class_id', $this->userInfo->class_id)->orderBy('id', 'desc')->with('ClassOb')->get();
+            $this->data['nonUnionistList'] = Student::where('is_it_student', 1)->where('is_cyu', 0)->where('class_id', $this->userInfo->class_id)->orderBy('id', 'desc')->with('ClassOb')->get();
+        }
 
         return view('union.unionist-list', $this->data);
     }
 
     public function getPartisanList() {
+        if($this->user->level != 3) {
         $this->data['partisanList'] = Student::where('is_it_student', 1)->where('partisan_id', 2)->orderBy('id', 'desc')->get();
         $this->data['prePartisanList'] = Student::where('is_it_student', 1)->where('partisan_id', 1)->orderBy('id', 'desc')->get();
+    } else {
+        $this->data['partisanList'] = Student::where('is_it_student', 1)->where('partisan_id', 2)->where('class_id', $this->userInfo->class_id)->orderBy('id', 'desc')->get();
+        $this->data['prePartisanList'] = Student::where('is_it_student', 1)->where('partisan_id', 1)->where('class_id', $this->userInfo->class_id)->orderBy('id', 'desc')->get();
+    }
 
         return view('union.partisan-list', $this->data);
     }

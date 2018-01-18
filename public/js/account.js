@@ -26,14 +26,14 @@ $('.delete-account-btn').on('click', function() {
                     if(data.result) {
                         $('#row-'+id).remove();
                         e.close();
-                        BootstrapDialog.alert({
+                        BootstrapDialog.show({
                             title: 'Xóa tài khoản',
                             message: 'Thành công!',
                             type: 'type-success'
                         });
                     } else {
                         e.close();
-                        BootstrapDialog.alert({
+                        BootstrapDialog.show({
                             title: 'Lỗi',
                             message: data.error,
                             type: 'type-danger'
@@ -43,7 +43,7 @@ $('.delete-account-btn').on('click', function() {
                     console.log(this.url);
                     console.log(error);
                     e.close();
-                    BootstrapDialog.alert({
+                    BootstrapDialog.show({
                         title: 'Lỗi',
                         message: 'Không thể kết nối',
                         type: 'type-danger'
@@ -81,16 +81,15 @@ $('.reset-account').on('click', function() {
                     }
                 }).done(function(data) {
                     if(data.result) {
-                        $('#row-'+id).remove();
                         e.close();
-                        BootstrapDialog.alert({
+                        BootstrapDialog.show({
                             title: 'Reset tài khoản',
                             message: 'Thành công!',
                             type: 'type-success'
                         });
                     } else {
                         e.close();
-                        BootstrapDialog.alert({
+                        BootstrapDialog.show({
                             title: 'Lỗi',
                             message: data.error,
                             type: 'type-danger'
@@ -100,7 +99,7 @@ $('.reset-account').on('click', function() {
                     console.log(this.url);
                     console.log(error);
                     e.close();
-                    BootstrapDialog.alert({
+                    BootstrapDialog.show({
                         title: 'Lỗi',
                         message: 'Không thể kết nối',
                         type: 'type-danger'

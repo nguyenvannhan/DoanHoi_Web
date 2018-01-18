@@ -20,6 +20,7 @@
 <div>
 
     <div class="row">
+        @if($user->level != 3)
         <!-- Filter Condition -->
         <div class="col-md-12 col-sm-12 col-xs-12" id="filter">
             <div class="x_panel">
@@ -42,6 +43,7 @@
             </div>
         </div>
         <!-- /Filter Condition -->
+        @endif
 
         <!--Student List Table-->
         <div class="col-md-12 col-sm-12 col-xs-12">

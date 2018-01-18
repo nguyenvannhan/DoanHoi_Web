@@ -187,7 +187,7 @@
                 <div class="form-group">
                     <div class="col-md-12 col-sm-12 col-xs-12 center">
                         <a class="btn btn-primary" href="{{ route('student_index_route')}}">Cancel</a>
-                        <button type="Submit" class="btn btn-success">Submit</button>
+                        <button type="submit" class="btn btn-success">Submit</button>
                     </div>
                 </div>
             </form>

@@ -31,6 +31,7 @@
                 </span>
             </a>
         </div>
+        @if($user->level != 2 && $user->level != 3)
         <div class="col-sm-12 p-0">
             <form action="{{ route('post_add_partisan') }}" method="POST">
                 {{ csrf_field() }}
@@ -62,6 +63,7 @@
                 </div>
             </form>
         </div>
+        @endif
         @if(isset($u_errors) && count($u_errors) > 0)
         <div class="col-sm-12 p-0">
         <ul class="alert alert-danger">
@@ -89,7 +91,9 @@
                                 <th class="column-title">Họ tên</th>
                                 <th class="column-title">Email</th>
                                 <th class="column-title">SĐT</th>
+                                @if($user->level != 2 && $user->level != 3)
                                 <th></th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -99,9 +103,11 @@
                                 <td>{{ $pre_partisan->name }}</td>
                                 <td>{{ $pre_partisan->email }}</td>
                                 <td class="text-center">{{ $pre_partisan->number_phone }}</td>
+                                @if($user->level != 2 && $user->level != 3)
                                 <td class="text-center">
                                     <a class="remove_partisan" data-id="{{ $pre_partisan->id }}"><i class="fa fa-times red"></i></a>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>
@@ -123,7 +129,9 @@
                                 <th class="column-title">Họ tên</th>
                                 <th class="column-title">Email</th>
                                 <th class="column-title">SĐT</th>
+                                @if($user->level != 2 && $user->level != 3)
                                 <th></th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -133,9 +141,11 @@
                                 <td>{{ $partisan->name }}</td>
                                 <td>{{ $partisan->email }}</td>
                                 <td class="text-center">{{ $partisan->number_phone }}</td>
+                                @if($user->level != 2 && $user->level != 3)
                                 <td class="text-center">
                                     <a class="remove_partisan" data-id="{{ $partisan->id }}"><i class="fa fa-times red"></i></a>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

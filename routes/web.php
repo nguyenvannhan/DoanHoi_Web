@@ -30,13 +30,13 @@ Route::middleware(['auth'])->group(function() use($number_regex) {
 
         Route::get('info/{id}', 'StudentController@getInfoStudent')->name('get_info_student_route')->where(['id' => $number_regex]);
 
-        Route::get('them','StudentController@getAddStudent')->name('get_student_add_route');
-        Route::post('them','StudentController@postAddStudent')->name('post_student_add_route');
+        Route::get('them','StudentController@getAddStudent')->name('get_student_add_route')->middleware('admin');
+        Route::post('them','StudentController@postAddStudent')->name('post_student_add_route')->middleware('admin');
 
         Route::get('cap-nhat/{id}','StudentController@getEditStudent')->name('get_edit_student_route')->where(['id' => $number_regex]);
         Route::post('cap-nhat/{id}','StudentController@postEditStudent')->name('post_edit_student_route')->where(['id' => $number_regex]);
 
-        Route::post('xoa', 'StudentController@postDeleteStudent')->name('get_delete_student_route');
+        Route::post('xoa', 'StudentController@postDeleteStudent')->name('get_delete_student_route')->middleware('admin');
 
         Route::get('lay-danh-sach/{type_id}', 'StudentController@ajaxGetStudentList')->name('get_ajax_student_list')->where(['type_id' => $number_regex]);
 
