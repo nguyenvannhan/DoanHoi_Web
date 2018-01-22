@@ -165,6 +165,7 @@ if ($currentMonth <= 7) {
                         Cấp Độ Hoạt Động :
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
+                        @if($user->level != 3)
                         <div id="level-activity-radio" class="btn-group" style="width: 100%;">
                             <label class="btn btn-default label-activity-level">
                                 <input type="radio" name="activity_level" class="form-control" value="0" {{ old('activity_level') == 0 ? "checked" : "" }}> Chi đoàn
@@ -178,13 +179,25 @@ if ($currentMonth <= 7) {
                                 Trường
                             </label>
                         </div>
+                        @else
+                        <div id="level-activity-radio" class="btn-group" style="width: 100%;">
+                            <label class="btn btn-primary label-activity-level">
+                                <input type="radio" name="activity_level" class="form-control" value="0" checked> Chi đoàn
+                            </label>
+                        </div>
+                        @endif
                     </div>
                 </div>
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-3 label-class-name">Tên Lớp : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
+                        @if($user->level != 3)
                         <input type="text" name="class_name" class="form-control" disabled value="{{ old('class_name') }}">
                         <input type="hidden" name="class_id" class="form-control" value="{{ old('class_id') }}">
+                        @else
+                        <input type="text" name="class_name" class="form-control" disabled value="{{ $classOb->name }}">
+                        <input type="hidden" name="class_id" class="form-control" value="{{ $classOb->id }}">
+                        @endif
                     </div>
                 </div>
                 <div class="item form-group">

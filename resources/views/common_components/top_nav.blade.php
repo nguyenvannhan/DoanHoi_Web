@@ -14,7 +14,10 @@
 
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li>
-                        <a href="javascript:;">Profile</a>
+                        <a href="{{ route('profile') }}">Profile</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('get_change_pass_route') }}">Đổi mật khẩu</a>
                     </li>
                     <li>
                         <a href="{{ route('get_logout_route') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>

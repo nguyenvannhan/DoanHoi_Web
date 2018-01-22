@@ -17,8 +17,23 @@ use App\Models\Check_Number;
 use DB;
 use Exception;
 use Excel;
+use Auth;
 
 class AttenderController extends Controller {
+    private $user;
+    protected $userInfo;
+
+    public function __construct() {
+        $this->middleware(function ($request, $next) {
+            $user = Auth::user();
+            $this->user = $user;
+            $this->userInfo = is_null($user->Student) ? NULL : $user->Student;
+
+            return $next($request);
+        });
+    }
+
+
     public function index() {
         $this->data['schoolYearList'] = School_Year::orderBy('name', 'desc')->take(10)->get();
 
@@ -132,12 +147,16 @@ class AttenderController extends Controller {
     }
 
     public function getActivityListBySchoolYear($schoolyear_id) {
-        $activityList = Activity::with('Leader', 'ClassOb', 'SchoolYear')->where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
+        if($this->user->level == 3) {
+            $activityList = Activity::with('Leader', 'ClassOb', 'SchoolYear')->where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->where('activity_level', 0)->where('class_id', $this->userInfo->class_id)->get();
+        } else {
+            $activityList = Activity::with('Leader', 'ClassOb', 'SchoolYear')->where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
+        }
 
         $htmlContent = '';
 
         foreach($activityList as $activity) {
-            $htmlContent .= '<option value="'.$activity->id.'">'.date('d/m/Y', strtotime($activity->start_date)).' - '.$activity->name.'</option>';
+            $htmlContent .= '<option value="'.$activity->id.'">'.date('d/m/Y', strtotime($activity->start_date)).' - '.$activity->name.' - '.($activity->level == 0 ? 'Chi đoàn' : ($activity->level == 1 ? 'Khoa' : 'Trường')).'</option>';
         }
 
         $this->data['htmlContent'] = $htmlContent;
@@ -337,7 +356,11 @@ class AttenderController extends Controller {
             }
 
             $schoolYearList = School_Year::orderBy('name', 'desc')->take(10)->get();
-            $activityList = Activity::where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
+            if($this->user->level != 3) {
+                $activityList = Activity::where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
+            } else {
+                $activityList = Activity::where('school_year_id', $schoolyear_id)->where('class_id', $this->userInfo->class_id)->orderBy('start_date', 'desc')->get();
+            }
             $this->data['attenderList'] = $attenderList;
             $this->data['names'] = $names;
             $this->data['errors'] = $errors;
@@ -370,7 +393,11 @@ class AttenderController extends Controller {
 
             $schoolYearList = School_Year::orderBy('name', 'desc')->take(10)->get();
             $activity = Activity::find($request->activity_id);
-            $activityList = Activity::where('school_year_id', $activity->SchoolYear->id)->orderBy('start_date', 'desc')->get();
+            if($this->user->level != 3) {
+                $activityList = Activity::where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
+            } else {
+                $activityList = Activity::where('school_year_id', $schoolyear_id)->where('class_id', $this->userInfo->class_id)->orderBy('start_date', 'desc')->get();
+            }
             $attenderList = Attender::where('activity_id', $request->activity_id)->get();
             $activity_id = $request->activity_id;
             $school_year_id = $activity->SchoolYear->id;
@@ -449,7 +476,11 @@ class AttenderController extends Controller {
             }
 
             $schoolYearList = School_Year::orderBy('name', 'desc')->take(10)->get();
-            $activityList = Activity::where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
+            if($this->user->level != 3) {
+                $activityList = Activity::where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
+            } else {
+                $activityList = Activity::where('school_year_id', $schoolyear_id)->where('class_id', $this->userInfo->class_id)->orderBy('start_date', 'desc')->get();
+            }
             $this->data['attenderList'] = $attenderList;
             $this->data['errors'] = $errors;
             $this->data['schoolyear_id'] = $schoolyear_id;
@@ -505,7 +536,11 @@ class AttenderController extends Controller {
 
             $schoolYearList = School_Year::orderBy('name', 'desc')->take(10)->get();
             $activity = Activity::find($request->activity_id);
-            $activityList = Activity::where('school_year_id', $activity->SchoolYear->id)->orderBy('start_date', 'desc')->get();
+            if($this->user->level != 3) {
+                $activityList = Activity::where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
+            } else {
+                $activityList = Activity::where('school_year_id', $schoolyear_id)->where('class_id', $this->userInfo->class_id)->orderBy('start_date', 'desc')->get();
+            }
             $attenderList = Attender::where('activity_id', $request->activity_id)->get();
             $activity_id = $request->activity_id;
             $school_year_id = $activity->SchoolYear->id;

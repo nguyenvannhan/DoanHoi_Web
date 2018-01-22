@@ -10,8 +10,22 @@ use App\Models\School_Year;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
+use Auth;
 
 class ActivityController extends Controller {
+    private $user;
+    protected $userInfo;
+
+    public function __construct() {
+        $this->middleware(function ($request, $next) {
+            $user = Auth::user();
+            $this->user = $user;
+            $this->userInfo = is_null($user->Student) ? NULL : $user->Student;
+
+            return $next($request);
+        });
+    }
+
     public function getActivityList() {
         $schoolYearList = School_Year::orderBy('name', 'desc')->get();
 
@@ -30,8 +44,11 @@ class ActivityController extends Controller {
                 $schoolYearId = $choolyear->id;
             }
         }
-
+        if($this->user->level != 3) {
         $this->data['activityList'] = Activity::with('Leader', 'ClassOb', 'SchoolYear')->where('school_year_id', $schoolYearId)->orderBy('start_date', 'desc')->get();
+    } else {
+        $this->data['activityList'] = Activity::with('Leader', 'ClassOb', 'SchoolYear')->where('school_year_id', $schoolYearId)->where('class_id', $this->userInfo->class_id)->orderBy('start_date', 'desc')->get();
+    }
         $this->data['schoolYearList'] = $schoolYearList;
         $this->data['schoolYearId'] = $schoolYearId;
 
@@ -39,7 +56,11 @@ class ActivityController extends Controller {
     }
 
     public function getActivityListBySchoolYear($schoolyear_id) {
-        $this->data['activityList'] = Activity::with('Leader', 'ClassOb', 'SchoolYear')->where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
+        if($this->user->level == 3) {
+            $this->data['activityList'] = Activity::with('Leader', 'ClassOb', 'SchoolYear')->where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->where('activity_level', 0)->where('class_id', $this->userInfo->class_id)->get();
+        } else {
+            $this->data['activityList'] = Activity::with('Leader', 'ClassOb', 'SchoolYear')->where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
+        }
 
         return response()->view('activity.activity-list-table', $this->data);
     }
@@ -52,6 +73,9 @@ class ActivityController extends Controller {
 
     public function getAddActivity() {
         $this->data['schoolYearList'] = School_Year::orderBy('name', 'desc')->take(6)->get();
+        if($this->user->level == 3) {
+            $this->data['classOb'] = Classes::find($this->userInfo->class_id);
+        }
         return view('activity.addActivity', $this->data);
     }
 
@@ -88,6 +112,9 @@ class ActivityController extends Controller {
     public function getEditActivity($id) {
         $this->data['activity'] = Activity::find($id);
         $this->data['schoolYearList'] = School_Year::orderBy('id', 'desc')->get();
+        if($this->user->level == 3) {
+            $this->data['classOb'] = Classes::find($this->userInfo->class_id);
+        }
         return view('activity.editActivity', $this->data);
     }
 
@@ -137,7 +164,13 @@ class ActivityController extends Controller {
     public function ajaxGetLeader($searchKey) {
         $leaderList = Student::where('status', 1)->where('is_it_student', 1)->where(function($query) use($searchKey) {
             $query->where('id', 'LIKE', '%'.$searchKey.'%')->orwhere('name', 'LIKE', '%'.$searchKey.'%');
-        })->get();
+        });
+
+        if($this->user->level == 3) {
+            $leaderList = $leaderList->where('class_id', $this->userInfo->class_id);
+        }
+
+        $leaderList = $leaderList->get();
 
         $htmlContent = '';
         foreach($leaderList as $leader) {

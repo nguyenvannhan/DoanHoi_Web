@@ -103,6 +103,9 @@ class UnionistsController extends Controller {
                 if(is_null($checkST)) {
                     array_push($errors, 'MSSV '.$unionist[0].' không tồn tại!');
                 } else {
+                    if($this->user->level == 3 && $checkST->class_id != $this->userInfo->class_id) {
+                        array_push($errors, 'MSSV '.$unionist[0].' không thuộc lớp bạn!');
+                    }
                     $newUnionist->name = $checkST->name;
                     $newUnionist->class_id = $checkST->ClassOb->name;
                 }
@@ -207,10 +210,14 @@ class UnionistsController extends Controller {
         $idClassList = $request->class_id_arr;
 
         $type_id = $request->type_id;
-        if(in_array(0, $idClassList)) {
+        if($this->user->level == 3) {
             $checkAll = 1;
         } else {
-            $checkAll = 0;
+            if(in_array(0, $idClassList)) {
+                $checkAll = 1;
+            } else {
+                $checkAll = 0;
+            }
         }
 
         if($type_id == 1) {
@@ -218,20 +225,26 @@ class UnionistsController extends Controller {
             $file_name = 'DS_Doan_Vien';
             $studentList = Student::where('is_it_student', 1)->where('is_cyu', 1);
             if($checkAll) {
-                $studentList = $studentList->with('ClassOb', 'Science')->orderBy('id', 'desc')->get();
+                $studentList = $studentList->with('ClassOb', 'Science')->orderBy('id', 'desc');
             } else {
-                $studentList = $studentList->whereIn('class_id', $idClassList)->with('ClassOb', 'Science')->orderBy('id', 'desc')->get();
+                $studentList = $studentList->whereIn('class_id', $idClassList)->with('ClassOb', 'Science')->orderBy('id', 'desc');
             }
         } else {
             $title = 'DANH SÁCH CHƯA KẾT NẠP ĐOÀN VIÊN';
             $file_name = 'DS_Chua_Doan_Vien';
             $studentList = Student::where('is_it_student', 1)->where('is_cyu', 0);
             if($checkAll) {
-                $studentList = $studentList->with('ClassOb', 'Science')->orderBy('id', 'desc')->get();
+                $studentList = $studentList->with('ClassOb', 'Science')->orderBy('id', 'desc');
             } else {
-                $studentList = $studentList->whereIn('class_id', $idClassList)->with('ClassOb', 'Science')->orderBy('id', 'desc')->get();
+                $studentList = $studentList->whereIn('class_id', $idClassList)->with('ClassOb', 'Science')->orderBy('id', 'desc');
             }
         }
+
+        if($this->user->level == 3) {
+            $studentList = $studentList->where('class_id', $this->userInfo->class_id);
+        }
+
+        $studentList = $studentList->get();
         $excelFile = Excel::create($file_name, function($excel) use($studentList, $file_name, $title) {
             $excel->sheet($file_name, function($sheet) use($studentList, $title) {
                 $sheet->row(1, array($title));

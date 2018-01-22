@@ -98,8 +98,12 @@
                                 </td>
                                 <td class="action-column center">
                                     <a class="info_student" data-toggle="modal" data-id="{{ $studentOb->id }}"><i class="fa fa-list" title="Chi tiết"></i></a>
+                                    @if($user->level != 2)
                                     <a href="{{ route('get_edit_student_route',['id'=> $studentOb->id]) }}" ><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
+                                    @if($user->level != 3)
                                     <a class="delete-student" data-id="{{ $studentOb->id }}"><i class="fa fa-trash" title="Xóa"></i></a>
+                                    @endif
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach
@@ -115,15 +119,19 @@
             <div class="x_panel">
                 <div class="panel_body">
                     <div class="row">
+                        @if($user->level != 2)
+                        @if($user->level != 3)
                         <div class="col-md-2 col-sm-2 col-xs-6">
                             <a href="{{ route('get_student_add_route') }}" class="btn btn-block btn-success"><i class="fa fa-user"></i> Thêm 1 Sinh viên </a>
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-6">
                             <a href="{{ route('student_get_add_list_route') }}" class="btn btn-block btn-success"><i class="fa fa-users"></i> Nhập file Excel </a>
                         </div>
+                        @endif
                         <div class="col-md-2 col-sm-2 col-xs-6">
                             <a href="{{ route('student_get_add_status_list_route') }}" class="btn btn-block btn-primary"><i class="fa fa-graduation-cap"></i> Update tình trạng </a>
                         </div>
+                        @endif
                         <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1 col-xs-6 pull-right">
                             <a href="{{ route('student_get_export_list_route') }}" class="btn btn-block btn-info">Xuất ra file Excel</a>
                         </div>

@@ -29,6 +29,7 @@
         </div>
         @endif
     </div>
+    @if($user->level != 2)
     <div class="col-md-12 col-sm-12 col-xs-12" id="action">
         <div class="x_panel">
             <div class="x_content">
@@ -40,6 +41,7 @@
             </div>
         </div>
     </div>
+    @endif
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="center mb-10">
             <label class="label-control mr-10">Năm học: </label>
@@ -88,8 +90,10 @@
                             <td class="center">{{ $activity->Attenders()->count() }}</td>
                             <td class="action-column center">
                                 <a class="detail-activity" data-id = "{{ $activity->id }}"><i class="fa fa-list" title="Chi tiết"></i></a>
+                                @if($user->level != 2)
                                 <a href="{{ route('get_edit_activity_route', ['id' => $activity->id]) }}"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
                                 <a class="delete-activity" data-id="{{ $activity->id }}"><i class="fa fa-trash" title="Xóa"></i></a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

@@ -68,10 +68,14 @@ class StudentController extends Controller {
         $student = Student::with('ClassOb', 'Faculty')->find($id);
         $this->data['student'] = $student;
         if($this->user->level == 3) {
+            if($student->class_id != $this->userInfo->class_id) {
+                return redirect()->back();
+            }
             $this->data['scienceList'] = Science::where('id', $this->userInfo->science_id)->get();
             $this->data['classList'] = Classes::where('id', $this->userInfo->class_id)->orderBy('id', 'desc')->get();
         } else {
             if($student->is_it_student) {
+                $this->data['scienceList'] = Science::orderBy('name', 'desc')->get();
                 $this->data['classList'] = Classes::where('science_id', $student->science_id)->orderBy('id', 'desc')->get();
             } else {
                 $this->data['facultyList'] = Faculty::orderBy('id', 'desc')->get();
@@ -84,6 +88,9 @@ class StudentController extends Controller {
     public function postEditStudent($id, EditStudentRequest $request)
     {
         $studentOb=Student::find($id);
+        if($this->user->level == 3 && $student->class_id != $this->userInfo->class_id) {
+            return redirect()->back();
+        }
 
         $studentOb->id = $request->id;
         $studentOb->name = $request->name;
@@ -282,6 +289,10 @@ class StudentController extends Controller {
                 } else {
                     $student->class_id = $classOb->id;
                     array_push($class_names, $classOb->name);
+
+                    if($this->user->level == 3 && $classOb->id != $this->userInfo->class_id) {
+                        array_push($errors, 'Lớp của SV '.$student->id." không đúng." );
+                    }
                 }
 
                 if($student->email && !filter_var($student->email, FILTER_VALIDATE_EMAIL)) {
@@ -381,12 +392,15 @@ class StudentController extends Controller {
             //Check error
             foreach($studentList as $student) {
                 //check tồn tại sinh viên
-                $check = Student::select('name')->find($student["id"]);
+                $check = Student::select(['name', 'class_id'])->find($student["id"]);
                 if(is_null($check)) {
                     array_push($errors, "MSSV ".$student["id"]." không tồn tại.");
                     array_push($names, NULL);
                 } else {
                     array_push($names, $check->name);
+                    if($this->user->level == 3 && $this->userInfo->class_id != $check->class_id) {
+                        array_push($errors, 'Lớp của SV '.$student["id"]." không đúng.");
+                    }
                 }
 
                 if($student["status"] <= 0 || $student["status"] > 4) {

@@ -136,6 +136,7 @@
         </div>
     </div>
 
+    @if($user->level != 2)
     <div class="x_panel">
         <div class="x_body">
             <div class="col-md-2">
@@ -143,6 +144,7 @@
             </div>
         </div>
     </div>
+    @endif
 </div>
 @stop
 

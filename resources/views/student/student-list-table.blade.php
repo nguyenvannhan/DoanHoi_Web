@@ -58,8 +58,12 @@
         @endif
         <td class="action-column center">
             <a href="#profile" class="info_student" data-toggle="modal" data-id="{{ $studentOb->id }}"><i class="fa fa-list" title="Chi tiết"></i></a>
+            @if($user->level != 2)
             <a href="{{ route('get_edit_student_route',['id'=> $studentOb->id]) }}" ><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
+            @if($user->level != 3)
             <a class="delete-student" data-id="{{ $studentOb->id }}" href="javascript:;"><i class="fa fa-trash" title="Xóa"></i></a>
+            @endif
+            @endif
         </td>
     </tr>
     @endforeach

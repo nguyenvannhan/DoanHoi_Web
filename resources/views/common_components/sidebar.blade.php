@@ -52,14 +52,21 @@
                     <a><i class="fa fa-bullhorn"></i> Quản Lý Hoạt Động <span class="fa fa-chevron-down"></span></a>
 
                     <ul class="nav child_menu">
+                        @if($user->level != 2)
                         <li><a href="{{ route('get_check_attender_route') }}">ĐIỂM DANH</a></li>
+                        @endif
                         <li><a href="{{ route('activity_index_route') }}">Danh Sách Hoạt Động</a></li>
+                        @if($user->level != 2)
                         <li><a href="{{ route('get_activity_add_route') }}">Thêm Hoạt Động</a></li>
+                        @endif
                         <li><a href="{{ route('get_attender_index_route') }}">Danh sách tham gia</a></li>
+                        @if($user->level != 2)
                         <li><a href="{{ route('get_import_attender_list_route') }}">Import file DS tham gia</a></li>
                         <li><a href="{{ route('get_import_mark_list_route') }}">Import file Điểm</a></li>
+                        @endif
                     </ul>
                 </li>
+                @if($user->level != 2 && $user->level != 3)
                 <li>
                     <a href="{{ route('class_index_route') }}"><i class="fa fa-group"></i> Quản Lý Lớp Học </a>
                 </li>
@@ -69,7 +76,6 @@
                 <li>
                     <a href="{{ route('school_year_index_route') }}"><i class="fa fa-calendar"></i> Quản Lý Năm Học </a>
                 </li>
-                @if($user->level == 1 || $user->level == 0)
                 <li>
                     <a href="{{ route('account_index_route') }}"><i class="fa fa-key"></i> Quản Lý Tài khoản </a>
                 </li>

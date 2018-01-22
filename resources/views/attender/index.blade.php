@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-
+    @if($user->level != 2)
     <div class="col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -76,6 +76,7 @@
             </div>
         </div>
     </div>
+    @endif
     <div class="col-xs-12">
         <div class="x_panel">
             <div class="x_content">
@@ -89,7 +90,9 @@
                             <th>Điểm danh</th>
                             <th>ĐRL</th>
                             <th>CTXH</th>
+                            @if($user->level != 2)
                             <th>Action</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -124,10 +127,12 @@
                                 <input class="form-control mark {{ $attender->check ? '' : 'red' }}" data-mark="{{ '-'.$attender->social_mark }}" data-id="{{ $attender->id }}" name="social_mark" value="{{ '-'.$attender->minus_social_mark }}">
                                 @endif
                             </td>
+                            @if($user->level != 2)
                             <td class="center">
                                 <a class="update-attender blue hidden" data-id="{{ $attender->id }}"><i class="fa fa-floppy-o"></i></a>
                                 <a class="delete-attender red" data-id="{{ $attender->id }}"><i class="fa fa-trash"></i></a>
                             </td>
+                            @endif
                         </tr>
                         @endforeach
                         @endif
@@ -141,9 +146,11 @@
         <div class="x_panel">
             <div class="x_content">
                 <div class="row">
+                    @if($user->level != 2)
                     <div class="col-xs-12 col-sm-4 col-md-2">
                         <a href="{{ route('get_import_attender_list_route') }}" class="btn btn-block btn-success"><i class="fa fa-upload"></i> Nhập danh sách</a>
                     </div>
+                    @endif
                     <div class="col-xs-12 col-sm-4 col-md-2">
                         <button class="btn btn-block btn-info" id="export-excel"><i class="fa fa-download"></i> Export danh sách</button>
                     </div>
