@@ -57,6 +57,10 @@ Route::middleware(['auth'])->group(function() use($number_regex) {
 
         Route::get('xuat-ds-sv', 'StudentController@getExportList')->name('student_get_export_list_route');
         Route::post('xuat-ds-sv-get-list', 'StudentController@postGetExportList')->name('student_post_get_export_list_route');
+
+        Route::get('cap-nhat-so-doan', 'StudentController@updatePartisan')->name('student_get_update_partisan')->middleware('exbch');
+        Route::post('add-update-so-doan', 'StudentController@postUpdatePartisan')->name('student_post_update_partisan_route')->middleware('exbch');
+        Route::post('submit-update-so-doan', 'StudentController@postSubmitUpdatePartisan')->name('student_post_submit_update_so_doan')->middleware('exbch');
     });
 
     Route::prefix('doan-dang')->group(function() use($number_regex) {

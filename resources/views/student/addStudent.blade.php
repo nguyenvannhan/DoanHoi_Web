@@ -132,37 +132,59 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Đoàn viên: </label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
-                                        <label class="switch">
-                                            <input type="checkbox" class="green" name="is_cyu" value="1" checked>
-                                            <span class="slider round"></span>
-                                        </label>
+                                <div class="is_it_student">
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Đoàn viên: </label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
+                                            <label class="switch">
+                                                <input type="checkbox" class="green" name="is_cyu" value="1" >
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Đảng viên: </label>
+                                    <div class="is_DoanVien" style="display:none">
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Đơn Vị Cũ:</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
+                                                <input type="text" class="form-control" name="workplace_partisan_old">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày Vào:</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
+                                                <input type="text" class="form-control date-input-mask" name="day_on_partisan" aria-describedby="inputSuccess2Status" value="{{ old('day_on_partisan') }}">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày Rút Sổ:</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
+                                                <input type="text" class="form-control date-input-mask" name="day_withdrawal_partisan" aria-describedby="inputSuccess2Status" value="{{ old('day_withdrawal_partisan') }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Đảng viên: </label>
 
-                                    <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
-                                        <div class="group-checkbox">
-                                            <div class="check active bg-red text-center">
-                                                <label class="label-checkbox">
-                                                    <input type="radio" name="partisan_id" value="0" class="hidden check-input" checked>
-                                                    Không
-                                                </label>
-                                            </div>
-                                            <div class="check bg-red text-center">
-                                                <label class="label-checkbox">
-                                                    <input type="radio" name="partisan_id" value="1" class="hidden check-input">
-                                                    Cảm tình Đảng
-                                                </label>
-                                            </div>
-                                            <div class="check bg-red text-center">
-                                                <label class="label-checkbox">
-                                                    <input type="radio" name="partisan_id" value="2" class="hidden check-input">
-                                                    Đảng viên
-                                                </label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
+                                            <div class="group-checkbox">
+                                                <div class="check active bg-red text-center">
+                                                    <label class="label-checkbox">
+                                                        <input type="radio" name="partisan_id" value="0" class="hidden check-input" checked>
+                                                        Không
+                                                    </label>
+                                                </div>
+                                                <div class="check bg-red text-center">
+                                                    <label class="label-checkbox">
+                                                        <input type="radio" name="partisan_id" value="1" class="hidden check-input">
+                                                        Cảm tình Đảng
+                                                    </label>
+                                                </div>
+                                                <div class="check bg-red text-center">
+                                                    <label class="label-checkbox">
+                                                        <input type="radio" name="partisan_id" value="2" class="hidden check-input">
+                                                        Đảng viên
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

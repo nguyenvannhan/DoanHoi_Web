@@ -83,7 +83,7 @@
                                     {{ $gt }}
                                 </td>
                                 <td class="center"> {{ $studentOb->birthday != null ? date('d/m/Y', strtotime($studentOb->birthday)) : '' }} </td>
-                                <td class="center"> {{ $studentOb->ClassOb->name }} </td>
+                                <td class="center"> {{ $studentOb->ClassOb->id }} </td>
                                 <td class="center"> {{ $studentOb->Science->name }} </td>
                                 <td class="center">
                                     @if($studentOb->status == 1)

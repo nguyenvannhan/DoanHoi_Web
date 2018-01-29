@@ -33,6 +33,9 @@ class CreateStudentsTable extends Migration
             $table->unsignedInteger('status')->default(1);
             $table->boolean('is_it_student')->default(true);
             $table->unsignedInteger('faculty_id')->default(1);
+            $table->string('workplace_partisan_old')->nullable();
+            $table->string('day_on_partisan')->nullable();
+            $table->string('day_withdrawal_partisan')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

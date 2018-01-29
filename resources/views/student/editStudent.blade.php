@@ -1,11 +1,11 @@
 @extends('master')
 
-@section('title_site', "IT's CYU | Thêm 1 SV")
+@section('title_site', "IT's CYU | Sửa SV")
 
 @section('header_page')
 <div class="page-title">
     <div class="title_left">
-        <h3>Nhập Thông Tin Sinh Viên</h3>
+        <h3>Thông Tin Sinh Viên</h3>
     </div>
 </div>
 @stop
@@ -84,7 +84,7 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-3">Số Điện Thoại: </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" name="numberphone" value="{{ old('numberphone') ? old('numberphone') : $student->numberphone }}">
+                                        <input type="text" class="form-control" name="numberphone" value="{{ old('number_phone') ? old('number_phone') : $student->number_phone }}">
                                     </div>
                                 </div>
                             </div>
@@ -101,14 +101,14 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Khóa học: </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
                                         <select  class="form-control selectpicker" data-live-search="true" id="science_addstudent" name="science_id" title="Chọn khóa học" data-level="{{ $user->level }}">
-                                            @if(old('science_id'))
-                                            @foreach($scienceList as $science)
-                                            <option value="{{ $science->id }}" {{ old('science_id') == $science->id ? 'selected' : '' }} >{{ $science->name }}</option>
-                                            @endforeach
-                                            @else
-                                            @foreach($scienceList as $science)
-                                            <option value="{{ $science->id }}" {{ $student->science_id == $science->id ? 'selected' : '' }} >{{ $science->name }}</option>
-                                            @endforeach
+                                            @if(isset($scienceList))
+                                                @foreach($scienceList as $science)
+                                                    @if( $science->id==$student->science_id)
+                                                    <option value="{{ $science->id }}" selected>{{ $science->name }}</option>
+                                                    @else
+                                                    <option value="{{ $science->id }}" >{{ $science->name }}</option>
+                                                    @endif
+                                                @endforeach
                                             @endif
                                         </select>
                                     </div>
@@ -128,11 +128,11 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Khoa: </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
                                         <select  class="form-control selectpicker" data-live-search="true" id="science_addstudent" name="faculty_id" {{ $student->is_it_student ? 'disabled' : '' }}>
-                                            @if($student->is_it_student)
+                                            @if($student->is_it_student==1)
                                                 <option value="{{ $student->Faculty->id }}" selected>{{ $student->Faculty->name }}</option>
                                             @else
                                                 @foreach($facultyList as $faculty)
-                                                    <option value="{{ $science->id }}" {{ $student->faculty_id == $faculty->id ? 'selected' : '' }}>{{ $faculty->name }}</option>
+                                                    <option value="{{ $faculty->id }}" {{ $student->faculty_id == $faculty->id ? 'selected' : '' }}>{{ $faculty->name }}</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -152,37 +152,71 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Đoàn viên: </label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
-                                        <label class="switch">
-                                            <input type="checkbox" class="green" name="is_cyu" value="1" checked>
-                                            <span class="slider round"></span>
-                                        </label>
+                                @if($student->is_it_student==1)
+                                <div class="is_it_student">
+                                @else
+                                <div class="is_it_student" style="display:none">
+                                @endif
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Đoàn viên: </label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
+                                            <label class="switch">
+                                                @if($student->is_cyu==1)
+                                                <input type="checkbox" id="is_cyu" class="green" name="is_cyu" value="1" checked>
+                                                @else
+                                                <input type="checkbox" id="is_cyu" class="green" name="is_cyu" value="1">
+                                                @endif
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Đảng viên: </label>
+                                    @if($student->is_cyu==0)
+                                    <div class="is_DoanVien" style="display:none">
+                                    @else
+                                    <div class="is_DoanVien">
+                                    @endif
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Đơn Vị Cũ:</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
+                                                <input type="text" id="txt_workplace_partisan_old" class="form-control" value="{{ old('workplace_partisan_old') ? old('workplace_partisan_old') : $student->workplace_partisan_old }}" name="workplace_partisan_old">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày Vào:</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
+                                                <input type="text" id="txt_day_on_partisan" class="form-control date-input-mask" name="day_on_partisan" aria-describedby="inputSuccess2Status" value="{{ old('day_on_partisan') ? old('day_on_partisan') : $student->day_on_partisan}}">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày Rút Sổ:</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
+                                                <input type="text" id="txt_day_withdrawal_partisan" class="form-control date-input-mask" name="day_withdrawal_partisan" aria-describedby="inputSuccess2Status" value="{{ old('day_withdrawal_partisan') ? old('day_withdrawal_partisan') : $student->day_withdrawal_partisan}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Đảng viên: </label>
 
-                                    <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
-                                        <div class="group-checkbox">
-                                            <div class="check {{ $student->partisan_id == 0 ? 'active' : '' }} bg-red text-center">
-                                                <label class="label-checkbox">
-                                                    <input type="radio" name="partisan_id" value="0" class="hidden check-input" {{ $student->partisan_id == 0 ? 'checked' : '' }}>
-                                                    Không
-                                                </label>
-                                            </div>
-                                            <div class="check {{ $student->partisan_id == 1 ? 'active' : '' }} bg-red text-center">
-                                                <label class="label-checkbox">
-                                                    <input type="radio" name="partisan_id" value="1" class="hidden check-input" {{ $student->partisan_id == 1 ? 'checked' : '' }}>
-                                                    Cảm tình Đảng
-                                                </label>
-                                            </div>
-                                            <div class="check {{ $student->partisan_id == 2 ? 'active' : '' }} bg-red text-center">
-                                                <label class="label-checkbox">
-                                                    <input type="radio" name="partisan_id" value="2" class="hidden check-input" {{ $student->partisan_id == 2 ? 'checked' : '' }}>
-                                                    Đảng viên
-                                                </label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
+                                            <div class="group-checkbox">
+                                                <div class="check {{ $student->partisan_id == 0 ? 'active' : '' }} bg-red text-center">
+                                                    <label class="label-checkbox">
+                                                        <input type="radio" name="partisan_id" value="0" class="hidden check-input" {{ $student->partisan_id == 0 ? 'checked' : '' }}>
+                                                        Không
+                                                    </label>
+                                                </div>
+                                                <div class="check {{ $student->partisan_id == 1 ? 'active' : '' }} bg-red text-center">
+                                                    <label class="label-checkbox">
+                                                        <input type="radio" name="partisan_id" value="1" class="hidden check-input" {{ $student->partisan_id == 1 ? 'checked' : '' }}>
+                                                        Cảm tình Đảng
+                                                    </label>
+                                                </div>
+                                                <div class="check {{ $student->partisan_id == 2 ? 'active' : '' }} bg-red text-center">
+                                                    <label class="label-checkbox">
+                                                        <input type="radio" name="partisan_id" value="2" class="hidden check-input" {{ $student->partisan_id == 2 ? 'checked' : '' }}>
+                                                        Đảng viên
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

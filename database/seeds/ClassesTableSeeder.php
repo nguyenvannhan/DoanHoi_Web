@@ -13,20 +13,20 @@ class ClassesTableSeeder extends Seeder
     {
         DB::table('classes')->insert([
             [
-                'nameClass' => '121101',
-                'scienceId' => '1'
+                'name' => '121101',
+                'science_id' => '1'
             ],
             [
-                'nameClass' => '121102',
-                'scienceId' => '1'
+                'name' => '121102',
+                'science_id' => '1'
             ],
             [
-                'nameClass' => '121103',
-                'scienceId' => '1'
+                'name' => '121103',
+                'science_id' => '1'
             ],
             [
-                'nameClass' => '129100',
-                'scienceId' => '1'
+                'name' => '129100',
+                'science_id' => '1'
             ]
         ]);
     }

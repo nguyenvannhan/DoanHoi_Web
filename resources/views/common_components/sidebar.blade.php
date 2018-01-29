@@ -35,6 +35,7 @@
                         <li><a href="{{ route('get_student_add_route') }}">Thêm Sinh Viên</a></li>
                         <li><a href="{{ route('student_get_add_list_route') }}">Import DS Sinh Viên</a></li>
                         <li><a href="{{ route('student_get_add_status_list_route') }}">Import File Tình trạng SV</a></li>
+                        <li><a href="{{ route('student_get_update_partisan') }}">Import File Update Sổ Đoàn</a></li>
                         @endif
                         <li><a href="{{ route('student_get_export_list_route') }}">Export DS Sinh viên</a></li>
                     </ul>

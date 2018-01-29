@@ -42,7 +42,6 @@ class StudentController extends Controller {
             $this->data['studentList'] = Student::with('ClassOb', 'Science')->where('is_it_student', 1)->get();
             $this->data['classList'] = Classes::orderBy('name', 'desc')->get();
         }
-
         return view('student.studentList', $this->data);
     }
 
@@ -81,7 +80,7 @@ class StudentController extends Controller {
                 $this->data['facultyList'] = Faculty::orderBy('id', 'desc')->get();
             }
         }
-
+        // dd($this->data['scienceList']);
         return view('student.editStudent', $this->data);
     }
 
@@ -121,7 +120,10 @@ class StudentController extends Controller {
         } else {
             $studentOb->faculty_id  = $request->faculty_id;
         }
-
+        
+        $studentOb->workplace_partisan_old=$request->workplace_partisan_old;
+        $studentOb->day_on_partisan=$request->day_on_partisan;
+        $studentOb->day_withdrawal_partisan=$request->day_withdrawal_partisan;
 
         $studentOb->save();
 
@@ -161,6 +163,10 @@ class StudentController extends Controller {
             $studentOb->faculty_id  = $request->faculty_id;
         }
 
+        $studentOb->workplace_partisan_old=$request->workplace_partisan_old;
+        $studentOb->day_on_partisan=$request->day_on_partisan;
+        $studentOb->day_withdrawal_partisan=$request->day_withdrawal_partisan;
+        
         $studentOb->save();
 
         return redirect()->route('student_index_route');
@@ -620,6 +626,82 @@ class StudentController extends Controller {
             })->export('xlsx');
 
             return redirect()->route('student_get_export_list_route');
+        }
+    }
+
+    public function updatePartisan(){
+        return view('student.import_update_book_partisan');
+    }
+
+    public function postUpdatePartisan(Request $request) {
+        //Read Excell
+        if($request->hasFile('import')) {
+            $result = Excel::load($request->import, function($reader) {
+            })->get()->toArray();
+            $studentList = [];
+            foreach($result as $student) {
+                $student = array_values($student);
+                $studentStatusList = [];
+                if($student[0]!=null){
+                $newStudent["id"] = $student[0];
+                $newStudent["name"] = $student[1];
+                $newStudent["workplace_partisan_old"] = $student[2];
+                $newStudent["day_on_partisan"] = date('m-d-Y',strtotime($student[3]));
+                $newStudent["day_withdrawal_partisan"] = date('m-d-Y',strtotime($student[4]));
+                array_push($studentList, $newStudent);
+                } 
+            }
+
+            $errors = [];
+            $names = [];
+            //Check error
+            foreach($studentList as $student) {
+                //check tồn tại sinh viên
+                $check = Student::select(['name', 'class_id'])->find($student["id"]);
+                if(is_null($check)) {
+                    array_push($errors, "MSSV ".$student["id"]." không tồn tại.");
+                    array_push($names, NULL);
+                } else {
+                    array_push($names, $check->name);
+                    if($this->user->level == 3 && $this->userInfo->class_id != $check->class_id) {
+                        array_push($errors, 'Lớp của SV '.$student["id"]." không đúng.");
+                    }
+                }
+            }
+
+            $this->data['studentList'] = $studentList;
+            $this->data['errors'] = $errors;
+            $this->data['names'] = $names;
+            // dd($this->data);
+            return view('student.import_update_book_partisan', $this->data);
+        }
+        return redirect()->route('student_get_update_partisan');
+    }
+
+    public function postSubmitUpdatePartisan(Request $request){
+        DB::beginTransaction();
+        try {
+            $id_arr = $request->id;
+            $workplace_partisan_old = $request->workplace_partisan_old;
+            $day_on_partisan = $request->day_on_partisan;
+            $day_withdrawal_partisan = $request->day_withdrawal_partisan;
+
+            for($i = 0; $i < count($request->id); $i++) {
+                $student = Student::find($id_arr[$i]);
+                $student->workplace_partisan_old = $workplace_partisan_old[$i];
+                $student->day_on_partisan = $day_on_partisan[$i];
+                $student->day_withdrawal_partisan = $day_withdrawal_partisan[$i];
+
+                $student->save();
+            }
+
+            DB::commit();
+            return redirect()->route('student_index_route');
+        } catch(Exception $e) {
+            DB::rollBack();
+            $this->data['error'] = $e->getMessage();
+            $this->data['result'] = false;
+            return $this->data;
         }
     }
 }

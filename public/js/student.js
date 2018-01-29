@@ -42,6 +42,13 @@ $('input[name="is_it_student"]').on('change', function() {
         $('select[name="faculty_id"]').prop('disabled', true);
         $('select[name="class_id"]').prop('disabled', true);
     }
+
+    if($(this).prop('checked')){
+        $('#is_cyu').val('0');
+        $('.is_it_student').show();
+    }
+    else
+        $('.is_it_student').hide();
 });
 
 $('input[name="fil-faculty"]').on('change', function() {
@@ -70,6 +77,17 @@ $('input[name="fil-faculty"]').on('change', function() {
 
 $('#submit-list').on('click', function() {
     console.log(studentList);
+});
+
+$('input[name="is_cyu"]').on('change',function(){
+    if ($(this).prop('checked')) {
+        $('.is_DoanVien').show(); 
+        $('#txt_workplace_partisan_old').val('');
+        $('#txt_day_on_partisan').val('');
+        $('#txt_day_withdrawal_partisan').val('');
+    }
+    else
+        $('.is_DoanVien').hide();
 });
 
 function getItClass(science_id) {
