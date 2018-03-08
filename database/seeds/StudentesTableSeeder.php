@@ -11,7 +11,7 @@ class StudentesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('studentes')->insert([
+        DB::table('students')->insert([
             [
                 'mssv' => '12110032',
                 'student_name'=>'Huỳnh Quốc Đại',

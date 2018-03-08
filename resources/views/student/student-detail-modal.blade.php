@@ -113,23 +113,23 @@
                                     {{$t}}
                                 </span>
                             </label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- /modal body -->
-    <!-- modal footer -->
-    <div class="modal-footer">
-        <center>
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1 col-sm-6 col-xs-12">
-                    <button class="btn btn-primary btn-block" data-dismiss="modal"><i class="fa fa-close"></i> Đóng </button>
+        <!-- /modal body -->
+        <!-- modal footer -->
+        <div class="modal-footer">
+            <center>
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 col-sm-6 col-xs-12">
+                        <button class="btn btn-primary btn-block" data-dismiss="modal"><i class="fa fa-close"></i> Đóng </button>
+                    </div>
                 </div>
-            </div>
-        </center>
+            </center>
+        </div>
+        <!-- modal footer -->
     </div>
-    <!-- modal footer -->
-</div>
 </div>

@@ -1,22 +1,15 @@
-@extends('master')
-
-@section('title_site', "IT's CYU | Thêm 1 SV")
-
-@section('header_page')
+@extends('master') @section('title_site', "IT's CYU | Thêm 1 SV") @section('header_page')
 <div class="page-title">
     <div class="title_left">
         <h3>Nhập Thông Tin Sinh Viên</h3>
     </div>
 </div>
-@stop
-
-@section('main_content')
+@stop @section('main_content')
 
 <div class="clearfix"></div>
 <div class="">
     <div class="x_panel">
-        <div class="x_content"><br />
-            @if($errors->any())
+        <div class="x_content"><br /> @if($errors->any())
             <div class="col-md-12 col-xs-12 col-sm-12 form-group">
                 <ul class="alert alert-danger">
                     @foreach($errors->all() as $error)
@@ -35,22 +28,22 @@
                             </div>
                             <div class="panel-body">
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Mã Sinh Viên: </label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-4"><small style="color: red;font-style:italic">(*)</small> Mã số Sinh Viên: </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
                                         <input type="text" name="id" class="form-control" value="{{ old('id') }}">
                                     </div>
                                 </div>
 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Sinh Viên: </label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-4"><small style="color: red;font-style:italic">(*)</small> Tên Sinh Viên: </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
                                         <input type="text" name="name" class="form-control" value="{{ old('name') }}">
                                     </div>
                                 </div>
 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Giới Tính: </label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-4"><small style="color: red;font-style:italic">(*)</small> Giới Tính: </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
                                         <select class="form-control selectpicker" name="gender">
                                             <option value="0" {{ old('gender') == 0 ? 'selected' : '' }}>Nam</option>
                                             <option value="1" {{ old('gender') == 1 ? 'selected' : '' }}>Nữ</option>
@@ -59,26 +52,26 @@
                                 </div>
 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Ngày Sinh: </label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-3">Ngày Sinh: </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
                                         <input type="text" class="form-control date-input-mask" name="birthday" aria-describedby="inputSuccess2Status" value="{{ old('birthday') }}">
                                     </div>
                                 </div>
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Quên Quán: </label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-3">Quên Quán: </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
                                         <input type="text" class="form-control" name="hometown" value="{{ old('hometown') }}">
                                     </div>
                                 </div>
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Email: </label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-3">Email: </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
                                         <input type="Email" class="form-control" name="email" value="{{ old('email') }}">
                                     </div>
                                 </div>
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-3">Số Điện Thoại: </label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <label class="control-label col-md-4 col-sm-4 col-xs-3">Số Điện Thoại: </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
                                         <input type="text" class="form-control" name="numberphone" value="{{ old('numberphone') }}">
                                     </div>
                                 </div>
@@ -92,10 +85,10 @@
                                 <b>THÔNG TIN KHOA - ĐOÀN - HỘI</b>
                             </div>
                             <div class="panel-body">
-                                <div class="item form-group" >
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Khóa học: </label>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><small style="color: red;font-style:italic">(*)</small> Khóa học: </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <select  class="form-control selectpicker" data-live-search="true" id="science_addstudent" name="science_id" title="Chọn khóa học" data-level="{{ $user->level }}">
+                                        <select class="form-control selectpicker" data-live-search="true" id="science_addstudent" name="science_id" title="Chọn khóa học" data-level="{{ $user->level }}">
                                             @foreach($scienceList as $science)
                                             <option value="{{ $science->id }}" {{ old('science_id') == $science->id ? 'selected' : '' }} >{{ $science->name }}</option>
                                             @endforeach
@@ -114,10 +107,10 @@
                                     </div>
                                 </div>
                                 @endif
-                                <div class="item form-group" >
+                                <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Khoa: </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <select  class="form-control selectpicker" data-live-search="true" id="science_addstudent" name="faculty_id" disabled>
+                                        <select class="form-control selectpicker" data-live-search="true" id="science_addstudent" name="faculty_id" disabled>
                                             @foreach($facultyList as $faculty)
                                             <option value="{{ $science->id }}" selected>{{ $faculty->name }}</option>
                                             @endforeach
@@ -125,10 +118,10 @@
                                     </div>
                                 </div>
 
-                                <div class="item form-group" >
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Lớp học: </label>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><small style="color: red;font-style:italic">(*)</small> Lớp học: </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <select  class="form-control selectpicker" data-live-search="true" title="Lớp học" id="science_addstudent" name="class_id" disabled>
+                                        <select class="form-control selectpicker" data-live-search="true" title="Lớp học" id="science_addstudent" name="class_id" disabled>
                                         </select>
                                     </div>
                                 </div>
@@ -144,21 +137,27 @@
                                     </div>
                                     <div class="is_DoanVien" style="display:none">
                                         <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Đơn Vị Cũ:</label>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày kết nạp:</label>
                                             <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
-                                                <input type="text" class="form-control" name="workplace_partisan_old">
+                                                <input type="text" class="form-control date-input-mask" name="date_on_union" aria-describedby="inputSuccess2Status" value="{{ old('date_on_union') }}">
                                             </div>
                                         </div>
                                         <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày Vào:</label>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Nơi kết nạp:</label>
                                             <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
-                                                <input type="text" class="form-control date-input-mask" name="day_on_partisan" aria-describedby="inputSuccess2Status" value="{{ old('day_on_partisan') }}">
+                                                <input type="text" class="form-control" name="place_on_union" value="{{ old('place_on_union') }}">
                                             </div>
                                         </div>
                                         <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày Rút Sổ:</label>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày nộp sổ:</label>
                                             <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
-                                                <input type="text" class="form-control date-input-mask" name="day_withdrawal_partisan" aria-describedby="inputSuccess2Status" value="{{ old('day_withdrawal_partisan') }}">
+                                                <input type="text" class="form-control date-input-mask" name="date_set_union" aria-describedby="inputSuccess2Status" value="{{ old('date_set_union') }}">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Đơn vị cũ:</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12" style="padding-top: 3px;">
+                                                <input type="text" class="form-control" name="workplace_union_old" aria-describedby="inputSuccess2Status" value="{{ old('workplace_union_old') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -216,9 +215,6 @@
         </div>
     </div>
 </div>
-@stop
-
-
-@section('js_area')
+@stop @section('js_area')
 <script type="text/javascript" src="{{ URL::asset('public/js/student.js') }}"></script>
 @stop

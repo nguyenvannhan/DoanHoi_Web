@@ -15,16 +15,16 @@ exportPartisanList();
 
 $('input[name="id"]').on('input', function() {
 
-    if($(this).val().trim().length > 8) {
-        $(this).val($(this).val().trim().substr(0,8).trim());
+    if ($(this).val().trim().length > 8) {
+        $(this).val($(this).val().trim().substr(0, 8).trim());
     }
 
-    if($(this).val().trim().length == 8) {
+    if ($(this).val().trim().length == 8) {
         var id = $(this).val();
         getInfoStudent(id);
     }
 
-    if($(this).val().trim().length < 8) {
+    if ($(this).val().trim().length < 8) {
         resetValue();
     }
 });
@@ -53,8 +53,8 @@ $('.remove_partisan').on('click', function() {
                         'id': id
                     }
                 }).done(function(data) {
-                    if(data.result) {
-                        $('tr#'+id).remove();
+                    if (data.result) {
+                        $('tr#' + id).remove();
 
                         BootstrapDialog.show({
                             title: 'Xóa thành viên NTK',
@@ -75,6 +75,31 @@ $('.remove_partisan').on('click', function() {
             }
         }]
     });
+});
+
+$('input[name="student_book_id"]').on('keyup', function(e) {
+    var student_id = $(this).val();
+
+    if(student_id.length == 8 && e.keyCode == 13) {
+        $.ajax({
+            url: BASE_URL + 'doan-dang/get-info-union-book/' + student_id,
+            method: 'GET'
+        }).done(function(data) {
+            if(data) {
+                $('#info-book-div').html(data);
+            } else {
+                BootstrapDialog.alert({
+                    title: 'Lỗi',
+                    message: 'Không tìm thấy sinh viên',
+                    type: 'type-danger'
+                });
+            }
+            
+        }).fail(function(xhr, status, error) {
+            console.log(this.url);
+            console.log(error);
+        });
+    }
 });
 
 function exportPartisanList() {
@@ -104,7 +129,7 @@ function exportPartisanList() {
 function exportUnionistList() {
     $('#export_cyu').on('click', function() {
         var class_id_arr = [];
-        $.each($("select[name='class_id[]'] option:selected"), function(){
+        $.each($("select[name='class_id[]'] option:selected"), function() {
             class_id_arr.push($(this).val());
         });
 
@@ -135,7 +160,7 @@ function exportUnionistList() {
 
     $('#export_non_cyu').on('click', function() {
         var class_id_arr = [];
-        $.each($("select[name='class_id[]'] option:selected"), function(){
+        $.each($("select[name='class_id[]'] option:selected"), function() {
             class_id_arr.push($(this).val());
         });
 
@@ -172,7 +197,7 @@ function changeclass() {
     });
 
     $.ajax({
-        url: BASE_URL+'doan-dang/ajax-change-class',
+        url: BASE_URL + 'doan-dang/ajax-change-class',
         method: 'POST',
         data: {
             'class_id': class_id_list
@@ -183,7 +208,7 @@ function changeclass() {
 
         $('.datatable').dataTable().fnDestroy();
         $('.datatable').dataTable();
-    }).fail(function(xhr, status, error){
+    }).fail(function(xhr, status, error) {
         console.log(this.url);
         console.log(error);
     });
@@ -225,7 +250,10 @@ function update_cyu(id, type_id) {
         $('#cyu_table').html(data.unionistView);
         $('#non_cyu_table').html(data.nonUnionistView);
 
-        $('.datatable').dataTable().fnDestroy();
+        $('.datatable').each(function() {
+            $(this).dataTable().fnDestroy();
+            $(this).dataTable();
+        });
         $('.datatable').dataTable();
 
         BootstrapDialog.show({
@@ -244,7 +272,7 @@ function getInfoStudent($id) {
         url: BASE_URL + 'hoat-dong/tham-gia/get-student-info/' + $id,
         method: 'GET'
     }).done(function(data) {
-        if(data.student) {
+        if (data.student) {
             setValueStudent(data);
         } else {
             resetValue();

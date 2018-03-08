@@ -33,9 +33,12 @@ class CreateStudentsTable extends Migration
             $table->unsignedInteger('status')->default(1);
             $table->boolean('is_it_student')->default(true);
             $table->unsignedInteger('faculty_id')->default(1);
-            $table->string('workplace_partisan_old')->nullable();
-            $table->string('day_on_partisan')->nullable();
-            $table->string('day_withdrawal_partisan')->nullable();
+            $table->date('date_on_union')->nullable();
+            $table->string('place_on_union')->nullable();
+            $table->string('workplace_union_old')->nullable();
+            $table->date('date_set_union')->nullable();
+            $table->string('workplace_union_new')->nullable();
+            $table->date('date_get_union')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

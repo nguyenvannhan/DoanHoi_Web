@@ -66,6 +66,9 @@ Route::middleware(['auth'])->group(function() use($number_regex) {
     Route::prefix('doan-dang')->group(function() use($number_regex) {
         Route::get('/', 'UnionistsController@getUnionistList')->name('get_unioinist_list');
         Route::get('chi-bo', 'UnionistsController@getPartisanList')->name('get_partisan_list');
+        Route::get('so-doan', 'UnionistsController@getUnionBook')->name('get_union_book');
+        Route::get('get-info-union-book/{id}','UnionistsController@getInfoBook')->name('ajax_get_info_book');
+        Route::post('post-info-union-book', 'UnionistsController@postInfoBook')->name('ajax_post_info_book');
 
         Route::post('add-partisan', 'UnionistsController@postAddPartisan')->name('post_add_partisan')->middleware('admin');
 
