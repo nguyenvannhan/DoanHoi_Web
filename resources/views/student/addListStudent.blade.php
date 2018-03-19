@@ -148,19 +148,58 @@
 @if(isset($studentList) && count($errors) == 0)
 <form action="{{ route('student_post_submit_student_list') }}" method="POST">
     {{ csrf_field() }}
-    @foreach($studentList as $student)
-    <input type="hidden" name="id[]" value="{{ $student->id }}">
-    <input type="hidden" name="name[]" value="{{ $student->name }}">
-    <input type="hidden" name="gender[]" value="{{ $student->is_female }}">
-    <input type="hidden" name="birthday[]" value="{{ $student->birthday }}">
-    <input type="hidden" name="hometown[]" value="{{ $student->hometown }}">
-    <input type="hidden" name="science_id[]" value="{{ $student->science_id }}">
-    <input type="hidden" name="class_id[]" value="{{ $student->class_id }}">
-    <input type="hidden" name="email[]" value="{{ $student->email }}">
-    <input type="hidden" name="number_phone[]" value="{{ $student->number_phone }}">
-    <input type="hidden" name="is_cyu[]" value="{{ $student->is_cyu }}">
-    <input type="hidden" name="partisan_id[]" value="{{ $student->partisan_id }}">
-    @endforeach
+    @php
+    $id_str = '';
+    $name_str = '';
+    $is_female_str = '';
+    $hometown_str = '';
+    $science_id_str = '';
+    $birthday_str = '';
+    $class_id_str = '';
+    $email_str = '';
+    $number_phone_str = '';
+    $is_cyu_str = '';
+    $partisan_id_str = '';
+    
+    foreach($studentList as $student) {
+    if($id_str == '') {
+        $id_str .= $student->id;
+        $name_str .= $student->name;
+        $is_female_str .= $student->is_female;
+        $hometown_str .= $student->hometown;
+        $science_id_str .= $student->science_id;
+        $birthday_str .= $student->birthday;
+        $class_id_str .= $student->class_id;
+        $email_str .= $student->email;
+        $number_phone_str .= $student->number_phone;
+        $is_cyu_str .= $student->is_cyu;
+        $partisan_id_str .= $student->partisan_id;
+    } else {
+        $id_str .= ','.$student->id;
+        $name_str .= ','.$student->name;
+        $is_female_str .= ','.$student->is_female;
+        $hometown_str .= ','.$student->hometown;
+        $science_id_str .= ','.$student->science_id;
+        $birthday_str .= ','.$student->birthday;
+        $class_id_str .= ','.$student->class_id;
+        $email_str .= ','.$student->email;
+        $number_phone_str .= ','.$student->number_phone;
+        $is_cyu_str .= ','.$student->is_cyu;
+        $partisan_id_str .= ','.$student->partisan_id;
+    }
+}
+    @endphp
+    <input type="hidden" name="id" value="{{ $id_str }}">
+    <input type="hidden" name="name" value="{{ $name_str }}">
+    <input type="hidden" name="gender" value="{{ $is_female_str }}">
+    <input type="hidden" name="birthday" value="{{ $birthday_str }}">
+    <input type="hidden" name="hometown" value="{{ $hometown_str }}">
+    <input type="hidden" name="science_id" value="{{ $science_id_str }}">
+    <input type="hidden" name="class_id" value="{{ $class_id_str }}">
+    <input type="hidden" name="email" value="{{ $email_str }}">
+    <input type="hidden" name="number_phone" value="{{ $number_phone_str }}">
+    <input type="hidden" name="is_cyu" value="{{ $is_cyu_str }}">
+    <input type="hidden" name="partisan_id" value="{{ $partisan_id_str }}">
     <div class="row">
         <div class="col-md-2 pull-right">
             <button class="btn btn-block btn-success" type="submit" id="submit-list">Lưu và Thoát</button>

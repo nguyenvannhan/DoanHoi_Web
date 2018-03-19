@@ -118,7 +118,7 @@ function init_sidebar() {
 
         setContentHeight();
 
-        $('.dataTable').each(function () {
+        $('.datatable').each(function () {
             $(this).dataTable().fnDestroy();
             $(this).dataTable({
                 "pageLength": 20
@@ -153,9 +153,11 @@ function init_sidebar() {
 };
 // /Sidebar
 function init_DataTables() {
-    $('.datatable').DataTable({
-        "pageLength": 20,
-        "order": [[ 0, "desc" ]]
+    $('.datatable').each(function () {
+        $(this).dataTable().fnDestroy();
+        $(this).dataTable({
+            "pageLength": 20
+        });
     });
 }
 

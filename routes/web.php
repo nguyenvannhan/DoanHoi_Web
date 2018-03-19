@@ -200,5 +200,14 @@ Route::middleware(['auth'])->group(function() use($number_regex) {
             Route::post('/reset', 'AccountController@postResetAccount')->name('reset_account_route');
             Route::post('/xoa', 'AccountController@postDeleteAccount')->name('delete_account_route');
         });
+
+        Route::prefix('trash')->group(function() {
+            Route::get('/', 'TrashController@index')->name('trash_index_route');
+            Route::get('get-data/{type_id}', 'TrashController@ajaxGetData')->name('ajax_get_data_trash');
+            Route::post('restore', 'TrashController@ajaxRestore')->name('ajax_post_restore_trash');
+            Route::post('permantly', 'TrashController@ajaxPermantly')->name('ajax_post_permantly_trash');
+        });
+
+        Route::get('track', 'TrackController@index')->name('track_index_route');
     });
 });

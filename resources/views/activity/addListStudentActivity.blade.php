@@ -1,23 +1,17 @@
-@extends('master')
-
-@section('title_site', "IT's CYU | Thêm danh sách SV")
-
-@section('header_page')
+@extends('master') @section('title_site', "IT's CYU | Thêm danh sách SV") @section('header_page')
 <div class="page-title">
     <div class="">
         <h1>Thêm Sinh Viên Tham Gia Hoạt Động</h1>
     </div>
 </div>
-@stop
-
-@section('main_content')
+@stop @section('main_content')
 <div class="clearfix"></div>
 <div class="x_panel">
     <div class="x_content">
         <!-- Choose file -->
         <div class="row">
             <div class="col-md-offset-1 col-md-9 col-sm-6 col-xs-12">
-                <input type="file" class="form-control" id="input-file-activity-list"/>
+                <input type="file" class="form-control" id="input-file-activity-list" />
             </div>
             <div class="col-md-2 col-sm-6 col-xs-12">
                 <button type="submit" class="btn btn-success btn-block">Lưu</button>
@@ -54,50 +48,50 @@
 
             <div>
                 <table id="test-xlsx" class="datatable table table-striped table-bordered jambo_table table-responsive">
-                                    <thead>
-                                        <tr class="headings">
-                                            <th><i class="fa fa-exclamation-circle red"></i></th>
-                                            <th class="column-title"> STT </th>
-                                            <th class="column-title"> MSSV </th>
-                                            <th class="column-title"> Họ tên </th>
-                                            <th class="column-title"> Giới tính </th>
-                                            <th class="column-title"> Ngày tháng năm sinh </th>
-                                            <th class="column-title"> Lớp </th>
-                                            <th class="column-title"> Đoàn viên </th>
-                                            <th class="column-title"> Đảng Viên </th>
-                                            <th class="column-title"> Chức Vụ </th>
-                                            <th class="column-title"> Action </th>
-                                            <th class="bulk-actions" colspan="8">
-                                                <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td> 
-                                               <i class="fa fa-circle blue"></i>
-                                            </td>
-                                            <td>1</td>
-                                            <td> 13110113 </td>
-                                            <td> Nguyễn Văn Nhàn </td>
-                                            <td> Nam </td>
-                                            <td> 08/10/1995 </td>
-                                            <td> 139100 </td>
-                                            <td>
-                                                <i class="fa fa-check-square fa-2x green"></i>
-                                            </td>
-                                            <td>
-                                               <i class="fa fa-check-square fa-2x green"></i>
-                                            </td>
-                                            <td>Bí Thư</td>
-                                            <td class="action-column">
-                                                <a href="#profile" data-toggle="modal"><i class="fa fa-list" title="Chi tiết"></i></a>
-                                                <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
-                                                <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    <thead>
+                        <tr class="headings">
+                            <th><i class="fa fa-exclamation-circle red"></i></th>
+                            <th class="column-title"> STT </th>
+                            <th class="column-title"> MSSV </th>
+                            <th class="column-title"> Họ tên </th>
+                            <th class="column-title"> Giới tính </th>
+                            <th class="column-title"> Ngày tháng năm sinh </th>
+                            <th class="column-title"> Lớp </th>
+                            <th class="column-title"> Đoàn viên </th>
+                            <th class="column-title"> Đảng Viên </th>
+                            <th class="column-title"> Chức Vụ </th>
+                            <th class="column-title"> Action </th>
+                            <th class="bulk-actions" colspan="8">
+                                <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <i class="fa fa-circle blue"></i>
+                            </td>
+                            <td>1</td>
+                            <td> 13110113 </td>
+                            <td> Nguyễn Văn Nhàn </td>
+                            <td> Nam </td>
+                            <td> 08/10/1995 </td>
+                            <td> 139100 </td>
+                            <td>
+                                <i class="fa fa-check-square fa-2x green"></i>
+                            </td>
+                            <td>
+                                <i class="fa fa-check-square fa-2x green"></i>
+                            </td>
+                            <td>Bí Thư</td>
+                            <td class="action-column">
+                                <a href="#profile" data-toggle="modal"><i class="fa fa-list" title="Chi tiết"></i></a>
+                                <a href="#"><i class="fa fa-edit" title="Chỉnh sửa"></i></a>
+                                <a href="#"><i class="fa fa-trash" title="Xóa"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -8,6 +8,7 @@ use App\Models\Classes;
 use App\Models\Faculty;
 use App\Models\Science;
 use App\Models\Student;
+use App\Models\Log;
 use Auth;
 use DB;
 use Excel;
@@ -39,7 +40,7 @@ class StudentController extends Controller
             $this->data['studentList'] = Student::with('ClassOb', 'Science')->where('is_it_student', 1)->where('class_id', $this->userInfo->class_id)->get();
             $this->data['classList'] = Classes::where('id', $this->userInfo->class_id)->orderBy('name', 'desc')->get();
         } else {
-            $this->data['studentList'] = Student::with('ClassOb', 'Science')->where('is_it_student', 1)->get();
+            $this->data['studentList'] = Student::with('ClassOb', 'Science')->has('ClassOb')->where('is_it_student', 1)->get();
             $this->data['classList'] = Classes::orderBy('name', 'desc')->get();
         }
         return view('student.studentList', $this->data);
@@ -203,7 +204,8 @@ class StudentController extends Controller
         $studentOb = Student::find($request->id);
         $studentOb->delete();
 
-        $this->data['studentList'] = Student::with('ClassOb', 'Science')->where('is_it_student', 1)->get();
+        $this->data['studentList'] = Student::with(['ClassOb', 'Science'])->where('is_it_student', 1)->get();
+        $this->data['type_id'] = $request->type_id;
 
         return response()->view('student.student-list-table', $this->data);
     }
@@ -235,7 +237,7 @@ class StudentController extends Controller
             $studentList = $studentList->where('is_it_student', $type_id);
         }
 
-        $this->data['studentList'] = $studentList->with('ClassOb', 'Faculty', 'Science')->get();
+        $this->data['studentList'] = $studentList->has('ClassOb')->with('ClassOb', 'Faculty', 'Science')->get();
         $this->data['type_id'] = $type_id;
 
         return response()->view('student.student-list-table', $this->data);
@@ -346,7 +348,6 @@ class StudentController extends Controller
             $this->data['errors'] = $errors;
             $this->data['class_names'] = $class_names;
             $this->data['science_names'] = $science_names;
-
             return view('student.addListStudent', $this->data);
         }
         return redirect()->route('student_get_add_list_route');
@@ -356,19 +357,19 @@ class StudentController extends Controller
     {
         DB::beginTransaction();
         try {
-            $id_arr = $request->id;
-            $name_arr = $request->name;
-            $gender_arr = $request->gender;
-            $birthday_arr = $request->birthday;
-            $hometown_arr = $request->hometown;
-            $email_arr = $request->email;
-            $number_phone_arr = $request->number_phone;
-            $class_arr = $request->class_id;
-            $science_arr = $request->science_id;
-            $cyu_arr = $request->is_cyu;
-            $partisan_arr = $request->partisan_id;
+            $id_arr = explode(',', $request->id);
+            $name_arr = explode(',', $request->name);
+            $gender_arr = explode(',', $request->gender);
+            $birthday_arr = explode(',', $request->birthday);
+            $hometown_arr = explode(',', $request->hometown);
+            $email_arr = explode(',', $request->email);
+            $number_phone_arr = explode(',', $request->number_phone);
+            $class_arr = explode(',', $request->class_id);
+            $science_arr = explode(',', $request->science_id);
+            $cyu_arr = explode(',', $request->is_cyu);
+            $partisan_arr = explode(',', $request->partisan_id);
 
-            for ($i = 0; $i < count($request->id); $i++) {
+            for ($i = 0; $i < count($id_arr); $i++) {
                 $student = new Student;
                 $student->id = $id_arr[$i];
                 $student->name = $name_arr[$i];
@@ -377,12 +378,16 @@ class StudentController extends Controller
                 } else {
                     $student->is_female = 0;
                 }
-                if ($birthday_arr[$i] != null) {
+                if ($birthday_arr[$i] != "") {
                     $student->birthday = $birthday_arr[$i];
                 }
                 $student->hometown = $hometown_arr[$i];
-                $student->email = $email_arr[$i];
-                $student->number_phone = $number_phone_arr[$i];
+                if ($email_arr[$i] != '') {
+                    $student->email = $email_arr[$i];
+                }
+                if ($number_phone_arr[$i] != '') {
+                    $student->number_phone = $number_phone_arr[$i];
+                }
                 $student->class_id = $class_arr[$i];
                 $student->science_id = $science_arr[$i];
                 $student->is_it_student = 1;
@@ -461,10 +466,10 @@ class StudentController extends Controller
     {
         DB::beginTransaction();
         try {
-            $id_arr = $request->id;
-            $status_arr = $request->status;
+            $id_arr = explode(',', $request->id);
+            $status_arr = explode(',', $request->status);
 
-            for ($i = 0; $i < count($request->id); $i++) {
+            for ($i = 0; $i < count($id_arr); $i++) {
                 $student = Student::find($id_arr[$i]);
                 $student->status = $status_arr[$i];
 

@@ -114,10 +114,22 @@
 @if(isset($studentList) && count($errors) == 0)
 <form action="{{ route('student_post_submit_status_student_list') }}" method="POST">
     {{ csrf_field() }}
-    @foreach($studentList as $student)
-    <input type="hidden" name="id[]" value="{{ $student['id'] }}">
-    <input type="hidden" name="status[]" value="{{ $student['status'] }}">
-    @endforeach
+    @php
+    $id_str = '';
+    $status_str = '';
+    foreach($studentList as $student) {
+        if($id_str == '') {
+            $id_str .= $student['id'];
+            $status_str .= $student['status'];
+        } else {
+            $id_str .= ','.$student['id'];
+            $status_str .= ','.$student['status'];
+        }
+    }
+    
+    @endphp
+    <input type="hidden" name="id" value="{{ $id_str }}">
+    <input type="hidden" name="status" value="{{ $status_str }}">
     <div class="row">
         <div class="col-md-2 pull-right">
             <button class="btn btn-block btn-success" type="submit" id="submit-list">Lưu và Thoát</button>

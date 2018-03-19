@@ -378,8 +378,12 @@ class AttenderController extends Controller {
     public function postSubmitImportAttenderList(Request $request) {
         DB::beginTransaction();
         try {
-            $student_id_arr = array_values($request->student_id);
-            $check_arr = array_values($request->check);
+            if($request->student_id == '' || $request->check == '') {
+                return redirect()->back();
+            }
+            
+            $student_id_arr = explode(',', $request->student_id);
+            $check_arr = explode(',', $request->check);
 
             for($i = 0; $i < count($student_id_arr); $i++) {
                 $attender = new Attender;
@@ -501,8 +505,12 @@ class AttenderController extends Controller {
         $type_id = $request->type_id;
         $activity_id = $request->type_id;
 
-        $idList = array_values($idList);
-        $markList = array_values($markList);
+        if($idList == '' || $markList == '') {
+            return redirect()->back();
+        }
+
+        $idList = explode(',', $idList);
+        $markList = explode(',', $markList);
 
         DB::beginTransaction();
         try {

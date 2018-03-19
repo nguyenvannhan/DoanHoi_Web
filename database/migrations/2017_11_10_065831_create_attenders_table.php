@@ -17,7 +17,7 @@ class CreateAttendersTable extends Migration
             $table->charset = 'utf8';
             $table->collation = 'utf8_unicode_ci';
             $table->engine = 'InnoDB';
-            
+
             $table->increments('id');
             $table->unsignedInteger('activity_id');
             $table->string('student_id', 8);
@@ -27,7 +27,7 @@ class CreateAttendersTable extends Migration
             $table->unsignedInteger('social_mark')->default(0);
             $table->unsignedInteger('minus_conduct_mark')->default(0);
             $table->unsignedInteger('minus_social_mark')->default(0);
-
+            $table->text('note')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

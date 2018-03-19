@@ -119,10 +119,22 @@
         <form action="{{ route('post_submit_attender_list_route') }}" method="POST">
             {{ csrf_field() }}
             <input type="hidden" value="{{ $activity_id }}" name="activity_id">
-            @foreach($attenderList as $attender)
-                <input type="hidden" value="{{ $attender->student_id }}" name="student_id[]">
-                <input type="hidden" value="{{ $attender->check }}" name="check[]">
-            @endforeach
+            @php
+            $id_str = '';
+            $check_str = '';
+
+            foreach($attenderList as $attender) {
+                if($id_str == '') {
+                    $id_str .= $attender->student_id;
+                    $check_str .= $attender->check;
+                } else {
+                    $id_str .= ','.$attender->student_id;
+                    $check_str .= ','.$attender->check;
+                }
+            }
+            @endphp
+                <input type="hidden" value="{{ $id_str }}" name="student_id">
+                <input type="hidden" value="{{ $check_str }}" name="check">
             <div class="col-md-2 pull-right">
                 <button type="submit" class="btn btn-success btn-block">Submit và Thoát</button>
             </div>

@@ -124,10 +124,22 @@
             {{ csrf_field() }}
             <input type="hidden" name="type_id" value="{{ $type_id }}">
             <input type="hidden" value="{{ $activity_id }}" name="activity_id">
-            @foreach($attenderList as $attender)
-                <input type="hidden" value="{{ $attender->student_id }}" name="student_id[]">
-                <input type="hidden" value="{{ $attender->mark }}" name="mark[]">
-            @endforeach
+            @php
+            $id_str = "";
+                $mark_str = "";
+
+            foreach($attenderList as $attender) {
+                if($id_str == '') {
+                    $id_str .= $attender->student_id;
+                    $mark_str .= $attender->mark;
+                } else {
+                    $id_str .= ','.$attender->student_id;
+                    $mark_str .= ','.$attender->mark;
+                }
+            }
+            @endphp
+                <input type="hidden" value="{{ $id_str }}" name="student_id">
+                <input type="hidden" value="{{ $mark_str }}" name="mark">
             <div class="col-md-2 pull-right">
                 <button type="submit" class="btn btn-success btn-block">Submit và Thoát</button>
             </div>

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Science;
+use App\Models\Log;
 use Illuminate\Http\Request;
+use Auth;
 
 class ScienceController extends Controller
 {
@@ -48,6 +50,9 @@ class ScienceController extends Controller
         $science->name = $newScienceName;
 
         $science->save();
+
+        $new_data = "id: <b>".$science->id."</b><br/>Tên: <b>".$science->name."</b>";
+        Log::addToLog('Thêm Khóa học', '', $new_data);
 
         $this->data['scienceList'] = Science::orderBy('id', 'desc')->get();
         return response()->view('science.ajaxScienceListTable', $this->data);

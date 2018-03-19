@@ -11,12 +11,9 @@
             <span>Welcome</span>
             <h2 class="text-center" style="font-size: 14px;">{{ $userName }}</h2>
             @if($user->level == 1)
-            <span class="label label-danger">Thường trực</span>
-            @elseif($user->level == 2)
-            <span class="label label-success">BCH Khoa</span>
-            @elseif($user->level == 3)
-            <span class="label label-primary">BCH Lớp</span>
-            @endif
+            <span class="label label-danger">Thường trực</span> @elseif($user->level == 2)
+            <span class="label label-success">BCH Khoa</span> @elseif($user->level == 3)
+            <span class="label label-primary">BCH Lớp</span> @endif
         </div>
     </div>
     <!-- /menu profile quick info -->
@@ -82,6 +79,12 @@
                 </li>
                 <li>
                     <a href="{{ route('account_index_route') }}"><i class="fa fa-key"></i> Quản Lý Tài khoản </a>
+                </li>
+                <li>
+                    <a href="{{ route('track_index_route') }}"><i class="fa fa-cloud-download"></i> Track User's Acivities </a>
+                </li>
+                <li>
+                    <a href="{{ route('trash_index_route') }}"><i class="fa fa-trash"></i> Trash</a>
                 </li>
                 @endif
 

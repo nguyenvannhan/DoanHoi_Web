@@ -44,6 +44,10 @@ a:hover {
     margin-bottom: 0 !important;
 }
 
+.mb-20 {
+    margin-bottom: 20px !important;
+}
+
 .mr-5 {
     margin-right: 5px !important;
 }
@@ -1381,6 +1385,7 @@ td.details {
 .paging_full_numbers a.paginate_button,
 .paging_full_numbers a.paginate_active {
     border: 1px solid #aaa;
+    border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     padding: 2px 5px;
@@ -1471,7 +1476,9 @@ ul.msg_list li a .message {
     background: #fff;
     margin-top: 0;
     border: 1px solid #D9DEE4;
+    box-shadow: none;
     -webkit-box-shadow: none;
+    -moz-box-shadow: none;
     right: 0;
     left: auto;
     width: 220px
@@ -2190,6 +2197,7 @@ select.parsley-error {
     box-shadow: 0 0 4px -2px #CE5454;
     position: relative;
     left: 0;
+    animation: .7s 1 shake linear;
     -moz-animation: .7s 1 shake linear;
     -webkit-animation: 0.7s 1 shake linear
 }
@@ -2428,6 +2436,7 @@ textarea:focus {
     overflow-y: auto
 }
 span.tag {
+    border-radius:2px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     display: block;
