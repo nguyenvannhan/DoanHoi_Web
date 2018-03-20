@@ -6,6 +6,7 @@ use App\Models\Classes;
 use App\Http\Requests\AddClassRequest;
 use App\Http\Requests\EditClassRequest;
 use App\Models\Science;
+use App\Models\Log;
 use Illuminate\Http\Request;
 
 class ClassesController extends Controller {
@@ -26,6 +27,8 @@ class ClassesController extends Controller {
 
         $classOb->save();
 
+        $new_data = "Id: <b>$classOb->id</b><br/>Tên: <b>$classOb->name</b><br/>Khóa: <b>".$classOb->Science->name."</b>";
+        Log::addToLog('Thêm lớp học', '', $new_data);
         return redirect('/lop-hoc')->with(['success_alert' => 'Thêm Lớp Học Thành Công']);
     }
 
@@ -43,17 +46,25 @@ class ClassesController extends Controller {
     public function postEditClass(EditClassRequest $request, $id) {
         $classOb = Classes::find($id);
 
+        $old_data = "Id: <b>$classOb->id</b><br/>Tên: <b>$classOb->name</b><br/>Khóa: <b>".$classOb->Science->name."</b>";
+
         $classOb->name = $request->txtEditClassName;
         $classOb->science_id = $request->slEditClassScienceId;
 
         $classOb->save();
+
+        $new_data = "Id: <b>$classOb->id</b><br/>Tên: <b>$classOb->name</b><br/>Khóa: <b>".$classOb->Science->name."</b>";
+        Log::addToLog('Cập nhật lớp học', $old_data, $new_data);
 
         return redirect('/lop-hoc')->with(['success_alert' => 'Cập nhật Lớp học thành công!']);
     }
 
     public function postDeleteClass(Request $request) {
         $classOb = Classes::find($request->id);
+        $old_data = "Id: <b>$classOb->id</b><br/>Tên: <b>$classOb->name</b><br/>Khóa: <b>".$classOb->Science->name."</b>";
         $classOb->delete();
+
+        Log::addToLog('Xóa lớp học', $old_data, '');
 
         $this->data['classList'] = Classes::orderBy('id', 'desc')->get();
 

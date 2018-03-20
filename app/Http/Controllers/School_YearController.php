@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\School_Year;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -30,6 +31,10 @@ class School_YearController extends Controller {
         $school_yearob = new School_Year;
         $school_yearob->name = $namhoc;
         $school_yearob->save();
+
+        $new_data = "id: <b>$school_yearob->id</b><br/>Name: <b>$school_yearob->name</b>";
+        Log::addToLog('Thêm Năm học', '', $new_data);
+
 
         $this->data['school_year_list'] = School_Year::orderBy('name','desc')->get();
 

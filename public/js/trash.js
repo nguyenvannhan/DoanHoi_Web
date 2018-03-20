@@ -80,7 +80,7 @@ function actionData() {
                             .fail(function(xhr, status, error) {
                                 console.log(this.url);
                                 console.log(error);
-                                
+
                                 BootstrapDialog.alert({
                                     title: 'Lỗi',
                                     message: 'Không thể kết nối',
@@ -123,7 +123,6 @@ function actionData() {
                             }
                         })
                             .done(function(data) {
-                                console.log(data);
                                 $('.datatable').each(function () {
                                     $(this).dataTable().fnDestroy();
                                 });
@@ -139,7 +138,7 @@ function actionData() {
                             .fail(function(xhr, status, error) {
                                 console.log(this.url);
                                 console.log(error);
-                                
+
                                 BootstrapDialog.alert({
                                     title: 'Lỗi',
                                     message: 'Không thể kết nối',

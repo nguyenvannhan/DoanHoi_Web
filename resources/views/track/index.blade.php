@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title_site', "Thùng Rác | IT CYU HCMUTE")
+@section('title_site', "USER'S ACTIVITIES TRACK | IT CYU HCMUTE")
 
 @section('header_page')
 <div class="row">
