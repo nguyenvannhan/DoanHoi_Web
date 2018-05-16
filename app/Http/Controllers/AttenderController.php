@@ -156,7 +156,7 @@ class AttenderController extends Controller {
         $htmlContent = '';
 
         foreach($activityList as $activity) {
-            $htmlContent .= '<option value="'.$activity->id.'">'.date('d/m/Y', strtotime($activity->start_date)).' - '.$activity->name.' - '.($activity->level == 0 ? 'Chi đoàn' : ($activity->level == 1 ? 'Khoa' : 'Trường')).'</option>';
+            $htmlContent .= '<option value="'.$activity->id.'">'.date('d/m/Y', strtotime($activity->start_date)).' - '.$activity->name.' - '.($activity->activity_level == 0 ? 'Chi đoàn' : ($activity->activity_level == 1 ? 'Khoa' : 'Trường')).'</option>';
         }
 
         $this->data['htmlContent'] = $htmlContent;
@@ -376,6 +376,7 @@ class AttenderController extends Controller {
     }
 
     public function postSubmitImportAttenderList(Request $request) {
+
         DB::beginTransaction();
         try {
             if($request->student_id == '' || $request->check == '') {
@@ -397,18 +398,17 @@ class AttenderController extends Controller {
 
             $schoolYearList = School_Year::orderBy('name', 'desc')->take(10)->get();
             $activity = Activity::find($request->activity_id);
+            $attenderList = Attender::where('activity_id', $request->activity_id)->get();
+            $activity_id = $request->activity_id;
+            $schoolyear_id = $activity->SchoolYear->id;
             if($this->user->level != 3) {
                 $activityList = Activity::where('school_year_id', $schoolyear_id)->orderBy('start_date', 'desc')->get();
             } else {
                 $activityList = Activity::where('school_year_id', $schoolyear_id)->where('class_id', $this->userInfo->class_id)->orderBy('start_date', 'desc')->get();
             }
-            $attenderList = Attender::where('activity_id', $request->activity_id)->get();
-            $activity_id = $request->activity_id;
-            $school_year_id = $activity->SchoolYear->id;
-
 
             $this->data['attenderList'] = $attenderList;
-            $this->data['schoolyear_id'] = $school_year_id;
+            $this->data['schoolyear_id'] = $schoolyear_id;
             $this->data['activity_id'] = $activity_id;
             $this->data['schoolYearList'] = $schoolYearList;
             $this->data['activityList'] = $activityList;
