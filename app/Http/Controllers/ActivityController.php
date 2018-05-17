@@ -218,8 +218,11 @@ class ActivityController extends Controller {
         $schoolYearId = $request->schoolYearId;
         
         $activity = Activity::find($id);
+        $old_data = $activity->id.' - '.$activity->name;
         $activity->delete();
         
+        Log::addToLog('Xóa hoạt động', $old_data, '');
+
         $this->data['activityList'] = Activity::with('Leader', 'ClassOb', 'SchoolYear')->where('school_year_id', $schoolYearId)->orderBy('start_date', 'desc')->get();
         
         return response()->view('activity.activity-list-table', $this->data);
