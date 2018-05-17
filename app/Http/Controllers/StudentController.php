@@ -19,21 +19,21 @@ use \Carbon\Carbon;
 
 class StudentController extends Controller
 {
-
+    
     private $user;
     protected $userInfo;
-
+    
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
             $user = Auth::user();
             $this->user = $user;
             $this->userInfo = is_null($user->Student) ? null : $user->Student;
-
+            
             return $next($request);
         });
     }
-
+    
     public function getStudentList()
     {
         if ($this->user->level == 3) {
@@ -45,7 +45,7 @@ class StudentController extends Controller
         }
         return view('student.studentList', $this->data);
     }
-
+    
     public function getAddStudent()
     {
         if ($this->user->level == 3) {
@@ -55,17 +55,17 @@ class StudentController extends Controller
             $this->data['scienceList'] = Science::orderBy('id', 'desc')->get();
             $this->data['facultyList'] = Faculty::where('id', config('constants.IT_FACULTY_ID'))->get();
         }
-
+        
         return view('student.addStudent', $this->data);
     }
-
+    
     public function getInfoStudent($id)
     {
         $studentOb = Student::find($id);
-
+        
         return response()->json(['studentOb' => $studentOb]);
     }
-
+    
     public function getEditStudent($id)
     {
         $student = Student::with('ClassOb', 'Faculty')->find($id);
@@ -87,19 +87,41 @@ class StudentController extends Controller
         // dd($this->data['scienceList']);
         return view('student.editStudent', $this->data);
     }
-
+    
     public function postEditStudent($id, EditStudentRequest $request)
     {
         $studentOb = Student::find($id);
-        if ($this->user->level == 3 && $student->class_id != $this->userInfo->class_id) {
+        if ($this->user->level == 3 && $studentOb->class_id != $this->userInfo->class_id) {
             return redirect()->back();
         }
-
-        $studentOb->id = $request->id;
-        $studentOb->name = $request->name;
-        $studentOb->class_id = $request->class_id;
-        $studentOb->science_id = $request->science_id;
-        $studentOb->partisan_id = $request->partisan_id;
+        
+        $old_data = $studentOb->id.'<br/>';
+        $new_data = $studentOb->id.'<br/>';
+        
+        if($studentOb->name != $request->name) {
+            $old_data .= 'Tên: '.$studentOb->name.'<br/>';
+            $new_data .= 'Tên: '.$request->name.'<br/>';
+            
+            $studentOb->name = $request->name;
+        }
+        if($studentOb->class_id != $request->class_id) {
+            $old_data .= 'Lớp: '.$studentOb->class_id.'<br/>';
+            $new_data .= 'Lớp: '.$request->class_id.'<br/>';
+            
+            $studentOb->class_id = $request->class_id;
+        }
+        if($studentOb->science_id != $request->science_id) {
+            $old_data = 'Khóa: '.$studentOb->science_id.'<br/>';
+            $new_data = 'Khóa: '.$request->science_id.'<br/>';
+            
+            $studentOb->science_id = $request->science_id;
+        }
+        if($studentOb->partisan_id != $request->partisan_id) {
+            $new_data = 'Đảng viên: '.$request->partisan_id.'<br/>';
+            $old_data = 'Đảng viên: '.$studentOb->partisan_id.'<br/>';
+            
+            $studentOb->partisan_id = $request->partisan_id;
+        }
         if ($request->is_it_student) {
             $studentOb->is_it_student = $request->is_it_student;
         } else {
@@ -111,44 +133,117 @@ class StudentController extends Controller
         } else {
             $studentOb->is_cyu = $request->is_cyu;
         }
-        $studentOb->hometown = $request->hometown;
-        $studentOb->number_phone = $request->numberphone;
+        if($studentOb->hometown != $request->hometown) {
+            $new_data = 'Quê quán: '.$request->hometown.'<br/>';
+            $old_data = 'Quê quán: '.$studentOb->hometown.'<br/>';
+            
+            $studentOb->hometown = $request->hometown;
+        }
+        if($tudentOb->number_phone != $request->numberphone) {
+            $new_data = 'SĐT: '.$request->numberphone.'<br/>';
+            $old_data = 'SĐT: '.$studentOb->number_phone.'<br/>';
+            
+            $studentOb->number_phone = $request->numberphone;
+        }
         if ($request->birthday != null) {
-            $studentOb->birthday = Carbon::createFromFormat('d/m/Y', $request->birthday)->format('Y-m-d');
+            $new = Carbon::createFromFormat('d/m/Y', $request->birthday)->format('Y-m-d');
+            if($studentOb->birthday != $new) {
+                $new_data = 'Ngày sinh: '.$new.'<br/>';
+                $old_data = 'Ngày sinh: '.$studentOb->birthday.'<br/>';
+                
+                $studentOb->birthday = $new;
+            }
         }
-        $studentOb->email = $request->email;
+        if($studentOb->email != $request->email) {
+            $new_data = 'Email: '.$request->email.'<br/>';
+            $old_data = 'Email: '.$studentOb->email.'<br/>';
+            
+            $studentOb->email = $request->email;
+        }
         $studentOb->social_mark = 0;
-        $studentOb->status = $request->status;
+        if($studentOb->status != $request->status) {
+            $new_data .= 'TT: '.$request->status.'<br/>';
+            $old_data .= 'TT: '.$studentOb->status.'<br/>';
+            
+            $studentOb->status = $request->status;
+        }
         if ($request->is_it_student == 1) {
-            $studentOb->faculty_id = 1;
+            if($studentOb->faculty_id != 1) {
+                $old_data = 'Khoa: '.$studentOb->faculty_id.'<br/>';
+                $new_data = 'Khoa: 1'.'<br/>';
+                
+                $studentOb->faculty_id = 1;
+            }
         } else {
-            $studentOb->faculty_id = $request->faculty_id;
+            if($request->faculty_id != $studentOb->faculty_id) {
+                $new_data = 'Khoa:'.$request->faculty_id.'<br/>';
+                $old_data = 'Khoa:'.$studentOb->faculty_id.'<br/>';
+                
+                $studentOb->faculty_id = $request->faculty_id;
+            }
         }
-
+        
         if ($request->is_cyu == 1) {
-            $studentOb->workplace_union_old = $request->workplace_union_old;
-            if ($request->date_set_union != null) {
-                $studentOb->date_set_union = Carbon::createFromFormat('d/m/Y', $request->date_set_union)->format('Y-m-d');
-            } else {
-                $studentOb->date_set_union = null;
+            if($studentOb->workplace_union_old != $request->workplace_union_old) {
+                $new_data .= 'Nơi SH cũ: '.$request->workplace_union_old.'<br/>';
+                $old_data .= 'Nơi SH cũ: '.$studentOb->workplace_union_old.'<br/>';
+                
+                $studentOb->workplace_union_old = $request->workplace_union_old;
             }
-            $studentOb->place_on_union = $request->place_on_union;
-            if ($request->date_on_union != null) {
-                $studentOb->date_on_union = Carbon::createFromFormat('d/m/Y', $request->date_on_union)->format('Y-m-d');
+            
+            if ($request->date_set_union != null) {
+                $new = Carbon::createFromFormat('d/m/Y', $request->date_set_union)->format('Y-m-d');
+                if($studentOb->date_set_union != $new) {
+                    $new_data .= 'Ngày KN Đoàn: '.$new.'<br/>';
+                    $old_data .= 'Ngày KN Đoàn: '.$studentOb->date_set_union.'<br/>';
+                    
+                    $studentOb->date_set_union = $new;
+                }
             } else {
-                $studentOb->date_on_union = null;
+                if(!is_null($studentOb->date_set_union)) {
+                    $new_data .= 'Ngày nộp sổ Đoàn: NULL'.'<br/>';
+                    $old_data .= 'Ngày nộp sổ  Đoàn: '.$student->date_set_union.'<br/>';
+                    
+                    $studentOb->date_set_union = null;
+                }
+            }
+            if($studentOb->place_on_union != $request->place_on_uinon) {
+                $new_data .= 'Nơi KN Đoàn: '.$request->place_on_uinon.'<br/>';
+                $old_data .= 'Nơi KN Đoàn: '.$studentOb->place_on_union.'<br/>';
+                
+                $studentOb->place_on_union = $request->place_on_union;
+            }
+            if ($request->date_on_union != null) {
+                $new = Carbon::createFromFormat('d/m/Y', $request->date_on_union)->format('Y-m-d');
+                
+                if($studentOb->date_on_union != $new) {
+                    $new_data .= 'Ngày KN Đoàn: '.$new.'<br/>';
+                    $old_data .= 'Ngày KN Đoàn: '.$studentOb->date_on_union.'<br/>';
+                    
+                    $studentOb->date_on_union = $new;
+                }
+                
+            } else {
+                if(!is_null($studentOb->date_on_union)) {
+                    $new_data .= 'Ngày KN Đoàn: NULL'.'<br/>';
+                    $old_data .= 'Ngày KN Đoàn: '.$studentOb->date_on_union.'<br/>';
+
+                    $studentOb->date_on_union = null;
+                }
             }
         }
-
+        
         $studentOb->save();
 
+        Log::AddToLog('Cập nhật sinh viên', $old_data, $new_data);
+        
         return redirect()->route('student_index_route');
     }
-
+    
     public function postAddStudent(AddStudentRequest $request)
     {
         $studentOb = new Student;
-
+        
         $studentOb->id = $request->id;
         $studentOb->name = $request->name;
         $studentOb->class_id = $request->class_id;
@@ -178,7 +273,7 @@ class StudentController extends Controller
         } else {
             $studentOb->faculty_id = $request->faculty_id;
         }
-
+        
         if ($request->is_cyu == 1) {
             $studentOb->workplace_union_old = $request->workplace_union_old;
             if ($request->date_set_union != null) {
@@ -193,23 +288,29 @@ class StudentController extends Controller
                 $studentOb->date_on_union = null;
             }
         }
-
+        
         $studentOb->save();
 
+        Log::AddToLog('Thêm sinh viên', '', $studentOb->id.' - '.$studentOb->name);
+        
         return redirect()->route('student_index_route');
     }
-
+    
     public function postDeleteStudent(Request $request)
     {
         $studentOb = Student::find($request->id);
         $studentOb->delete();
 
+        Log::AddToLog('Xóa sinh viên', $studentOb->id.' - '.$studentOb->name, '');
+        
         $this->data['studentList'] = Student::with(['ClassOb', 'Science'])->where('is_it_student', 1)->get();
         $this->data['type_id'] = $request->type_id;
 
+        Log::AddToLog('Thêm sinh viên', '', $studentOb->id.' - '.$studentOb->name);
+        
         return response()->view('student.student-list-table', $this->data);
     }
-
+    
     public function ajaxGetInfoAddStudent($is_it_student, $science_id = 0)
     {
         if ($this->user->level == 3) {
@@ -220,7 +321,7 @@ class StudentController extends Controller
             if ($is_it_student) {
                 $this->data['classList'] = Classes::where('science_id', $science_id)->orderBy('id', 'desc')->get();
                 $this->data['faculty'] = Faculty::find(config('constants.IT_FACULTY_ID'));
-
+                
                 return response()->json($this->data);
             } else {
                 $this->data['facultyList'] = Faculty::where('id', '<>', config('constants.IT_FACULTY_ID'))->get();
@@ -228,33 +329,33 @@ class StudentController extends Controller
             }
         }
     }
-
+    
     public function ajaxGetStudentList($type_id)
     {
         $studentList = Student::orderBy('id', 'desc');
-
+        
         if ($type_id != -1) {
             $studentList = $studentList->where('is_it_student', $type_id);
         }
-
+        
         $this->data['studentList'] = $studentList->has('ClassOb')->with('ClassOb', 'Faculty', 'Science')->get();
         $this->data['type_id'] = $type_id;
-
+        
         return response()->view('student.student-list-table', $this->data);
     }
-
+    
     public function ajaxGetStudentInfo($id)
     {
         $this->data['student'] = Student::find($id);
-
+        
         return response()->view('student.student-detail-modal', $this->data);
     }
-
+    
     public function getAddList()
     {
         return view('student.addListStudent');
     }
-
+    
     public function postAddList(Request $request)
     {
         //Read Excell
@@ -262,7 +363,7 @@ class StudentController extends Controller
             $result = Excel::load($request->import, function ($reader) {
             })->get()->toArray();
             $studentList = [];
-
+            
             foreach ($result as $student) {
                 $student = array_values($student);
                 $newStudent = new Student;
@@ -295,13 +396,13 @@ class StudentController extends Controller
                 if ($student[11] != null) {
                     $newStudent->partisan_id = 2;
                 }
-
+                
                 $newStudent->faculty_id = 1;
-
+                
                 array_push($studentList, $newStudent);
             }
             // $this->data['studentList'] = $studentList;
-
+            
             $errors = [];
             $class_names = [];
             $science_names = [];
@@ -312,7 +413,7 @@ class StudentController extends Controller
                 if (!is_null($check)) {
                     array_push($errors, "MSSV " . $student->id . " đã tồn tại.");
                 }
-
+                
                 $science = Science::where('name', $student->science_id)->first();
                 if (is_null($science)) {
                     array_push($errors, "Khóa học của SV " . $student->id . " không tồn tại.");
@@ -321,7 +422,7 @@ class StudentController extends Controller
                     $student->science_id = $science->id;
                     array_push($science_names, $science->name);
                 }
-
+                
                 $classOb = Classes::where('name', $student->class_id)->first();
                 if (is_null($classOb)) {
                     array_push($errors, "Lớp học của SV " . $student->id . " không tồn tại.");
@@ -329,21 +430,21 @@ class StudentController extends Controller
                 } else {
                     $student->class_id = $classOb->id;
                     array_push($class_names, $classOb->name);
-
+                    
                     if ($this->user->level == 3 && $classOb->id != $this->userInfo->class_id) {
                         array_push($errors, 'Lớp của SV ' . $student->id . " không đúng.");
                     }
                 }
-
+                
                 if ($student->email && !filter_var($student->email, FILTER_VALIDATE_EMAIL)) {
                     array_push($errors, "Email của SV " . $student->id . " không đúng.");
                 }
-
+                
                 if ($student->number_phone && !ctype_digit($student->number_phone)) {
                     array_push($errors, "SĐT của SV " . $student->id . " không đúng.");
                 }
             }
-
+            
             $this->data['studentList'] = $studentList;
             $this->data['errors'] = $errors;
             $this->data['class_names'] = $class_names;
@@ -352,7 +453,7 @@ class StudentController extends Controller
         }
         return redirect()->route('student_get_add_list_route');
     }
-
+    
     public function postSubmitStudentList(Request $request)
     {
         DB::beginTransaction();
@@ -368,7 +469,7 @@ class StudentController extends Controller
             $science_arr = explode(',', $request->science_id);
             $cyu_arr = explode(',', $request->is_cyu);
             $partisan_arr = explode(',', $request->partisan_id);
-
+            
             for ($i = 0; $i < count($id_arr); $i++) {
                 $student = new Student;
                 $student->id = $id_arr[$i];
@@ -394,10 +495,10 @@ class StudentController extends Controller
                 $student->faculty_id = 1;
                 $student->is_cyu = $cyu_arr[$i];
                 $student->partisan_id = $partisan_arr[$i];
-
+                
                 $student->save();
             }
-
+            
             DB::commit();
             return redirect()->route('student_index_route');
         } catch (Exception $e) {
@@ -405,15 +506,15 @@ class StudentController extends Controller
             $this->data['error'] = $e->getMessage();
             $this->data['result'] = false;
             return $this->data;
-
+            
         }
     }
-
+    
     public function getAddStatusList()
     {
         return view('student.import_update_student');
     }
-
+    
     public function postAddStatusList(Request $request)
     {
         //Read Excell
@@ -421,17 +522,17 @@ class StudentController extends Controller
             $result = Excel::load($request->import, function ($reader) {
             })->get()->toArray();
             $studentList = [];
-
+            
             foreach ($result as $student) {
                 $student = array_values($student);
                 $studentStatusList = [];
                 $newStudent["id"] = $student[0];
                 $newStudent["status"] = $student[1];
-
+                
                 array_push($studentList, $newStudent);
             }
             // $this->data['studentList'] = $studentList;
-
+            
             $errors = [];
             $names = [];
             //Check error
@@ -447,35 +548,35 @@ class StudentController extends Controller
                         array_push($errors, 'Lớp của SV ' . $student["id"] . " không đúng.");
                     }
                 }
-
+                
                 if ($student["status"] <= 0 || $student["status"] > 4) {
                     array_push($errors, "Mã tình trạng của SV " . $student["id"] . " không đúng.");
                 }
             }
-
+            
             $this->data['studentList'] = $studentList;
             $this->data['errors'] = $errors;
             $this->data['names'] = $names;
-
+            
             return view('student.import_update_student', $this->data);
         }
         return redirect()->route('student_get_add_status_list_route');
     }
-
+    
     public function postSubmitStatusStudentList(Request $request)
     {
         DB::beginTransaction();
         try {
             $id_arr = explode(',', $request->id);
             $status_arr = explode(',', $request->status);
-
+            
             for ($i = 0; $i < count($id_arr); $i++) {
                 $student = Student::find($id_arr[$i]);
                 $student->status = $status_arr[$i];
-
+                
                 $student->save();
             }
-
+            
             DB::commit();
             return redirect()->route('student_index_route');
         } catch (Exception $e) {
@@ -485,37 +586,37 @@ class StudentController extends Controller
             return $this->data;
         }
     }
-
+    
     public function getExportList()
     {
         if ($this->user->level != 3) {
             $this->data['science_list'] = Science::orderBy('name', 'desc')->get();
             $this->data['class_list'] = Classes::orderBy('name', 'desc')->get();
             $this->data['faculty_list'] = Faculty::orderBy('id', 'asc')->get();
-
+            
             return view('student.exportStudentList', $this->data);
         } else {
             return view('student.exportStudentList');
         }
     }
-
+    
     public function postGetExportList(Request $request)
     {
         if ($this->user->level != 3) {
             $science_check = -1;
             $faculty_check = -1;
             $class_check = -1;
-
+            
             if (!in_array(-1, $request->science_id)) {
                 $sciencd_check = 0;
             }
-
+            
             if (!in_array(-1, $request->faculty_id)) {
                 if (!in_array(0, $request->faculty_id) || !in_array(1, $request->faculty_id)) {
                     $faculty_check = 0;
                 }
             }
-
+            
             if (!in_array(-1, $request->class_id)) {
                 if (!in_array(1, $request->faculty_id)) {
                     $class_check = 0;
@@ -523,7 +624,7 @@ class StudentController extends Controller
                     $class_check = 1;
                 }
             }
-
+            
             $studentList = Student::orderBy('id', 'desc');
             if ($science_check == 0) {
                 $studentList = $studentList->whereIn('science_id', $request->science_id);
@@ -536,14 +637,14 @@ class StudentController extends Controller
                     $query->whereIn('class_id', $request->class_id);
                 });
             }
-
+            
             if ($request->cyu_id == 1) {
                 $studentList = $studentList->where('is_cyu', 1);
             }
             if ($request->cyu_id == 0) {
                 $studentList = $studentList->where('is_cyu', 0);
             }
-
+            
             if ($request->pre_partisan_id == 1) {
                 if ($request->partisan_id == 1) {
                     $studentList = $studentList->whereIn('partisan_id', [1, 2]);
@@ -566,7 +667,7 @@ class StudentController extends Controller
                     $studentList = $studentList->where('partisan_id', 2);
                 }
             }
-
+            
             $studentList = $studentList->with('Science', 'Faculty', 'ClassOb')->get();
             $this->data['studentList'] = $studentList;
             $this->data['science_chosen_list'] = $request->science_id;
@@ -575,7 +676,7 @@ class StudentController extends Controller
             $this->data['partisan_id'] = $request->partisan_id;
             $this->data['pre_partisan_id'] = $request->pre_partisan_id;
             $this->data['cyu_id'] = $request->cyu_id;
-
+            
             $this->data['science_list'] = Science::orderBy('name', 'desc')->get();
             $this->data['class_list'] = Classes::orderBy('name', 'desc')->get();
             $this->data['faculty_list'] = Faculty::orderBy('id', 'asc')->get();
@@ -583,11 +684,11 @@ class StudentController extends Controller
             $studentList = Student::with('Science', 'Faculty', 'ClassOb')->where('class_id', $this->userInfo->class_id)->orderBy('id', 'desc')->get();
             $this->data['studentList'] = $studentList;
         }
-
+        
         if ($request->submit_btn == "Preview") {
             return view('student.exportStudentList', $this->data);
         }
-
+        
         if ($request->submit_btn == "Download") {
             Excel::create('Danh_Sach_SV', function ($excel) use ($studentList) {
                 $excel->sheet('DSSV', function ($sheet) use ($studentList) {
@@ -596,7 +697,7 @@ class StudentController extends Controller
                     ));
                     foreach ($studentList as $student) {
                         $row_data = array();
-
+                        
                         array_push($row_data, $student->id);
                         array_push($row_data, $student->name);
                         if ($student->is_female) {
@@ -655,10 +756,10 @@ class StudentController extends Controller
                         } else {
                             array_push($row_data, '');
                         }
-
+                        
                         $sheet->appendRow($row_data);
                     }
-
+                    
                     $sheet->setFontSize(13);
                     $sheet->setFontFamily('Times New Roman');
                     $sheet->row(1, function ($row) {
@@ -666,16 +767,16 @@ class StudentController extends Controller
                     });
                 });
             })->export('xlsx');
-
+            
             return redirect()->route('student_get_export_list_route');
         }
     }
-
+    
     public function updatePartisan()
     {
         return view('student.import_update_book_partisan');
     }
-
+    
     public function postUpdatePartisan(Request $request)
     {
         //Read Excell
@@ -695,7 +796,7 @@ class StudentController extends Controller
                     array_push($studentList, $newStudent);
                 }
             }
-
+            
             $errors = [];
             $names = [];
             //Check error
@@ -712,7 +813,7 @@ class StudentController extends Controller
                     }
                 }
             }
-
+            
             $this->data['studentList'] = $studentList;
             $this->data['errors'] = $errors;
             $this->data['names'] = $names;
@@ -721,7 +822,7 @@ class StudentController extends Controller
         }
         return redirect()->route('student_get_update_partisan');
     }
-
+    
     public function postSubmitUpdatePartisan(Request $request)
     {
         DB::beginTransaction();
@@ -730,16 +831,16 @@ class StudentController extends Controller
             $workplace_partisan_old = $request->workplace_partisan_old;
             $day_on_partisan = $request->day_on_partisan;
             $day_withdrawal_partisan = $request->day_withdrawal_partisan;
-
+            
             for ($i = 0; $i < count($request->id); $i++) {
                 $student = Student::find($id_arr[$i]);
                 $student->workplace_partisan_old = $workplace_partisan_old[$i];
                 $student->day_on_partisan = $day_on_partisan[$i];
                 $student->day_withdrawal_partisan = $day_withdrawal_partisan[$i];
-
+                
                 $student->save();
             }
-
+            
             DB::commit();
             return redirect()->route('student_index_route');
         } catch (Exception $e) {
