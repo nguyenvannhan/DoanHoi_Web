@@ -175,7 +175,6 @@ function init_BSDatepicker() {
         autoclose: true,
         immediateUpdates: true,
     })
-    .datepicker('setDate', new Date());
 }
 
 function init_InputMask() {

@@ -62,7 +62,7 @@ if ($currentMonth <= 7) {
                         Sinh viên đứng Chính :
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="leader_info" value="{{ old('leader_info') }}" id="leader">
+                        <input type="text" class="form-control" name="leader_info" value="{{ old('leader_info') }}" id="leader" autocomplete="off">
                         <input type="hidden" class="form-control" name="leader_id" value="{{ old('leader_id') }}">
                         <ul class="dropdown-menu" id="dropdown-leader">
                             <li><a href="#">HTML</a></li>
