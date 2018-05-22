@@ -59,7 +59,7 @@ var studentChart = new Chart(studentCTX, {
                     var dataset = data.datasets[tooltipItem.datasetIndex];
                     //calculate the total of this data set
                     var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-                        return previousValue + currentValue;
+                        return Math.floor(previousValue) + Math.floor(currentValue);
                     });
                     //get the current items value
                     var currentValue = dataset.data[tooltipItem.index];
