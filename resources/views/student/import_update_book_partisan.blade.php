@@ -86,9 +86,9 @@
                             <tr>
                                 <td class="center">{{ $student["id"] }}</td>
                                 <td>{{ $student["name"] }}</td>
-                                <td>{{ $student["workplace_partisan_old"] }}</td>
-                                <td>{{ $student["day_on_partisan"] }}</td>
-                                <td>{{ $student["day_withdrawal_partisan"] }}</td>
+                                <td>{{ $student["workplace_union_old"] }}</td>
+                                <td>{{ $student["date_on_union"] }}</td>
+                                <td>{{ $student["date_get_union"] }}</td>
                             </tr>
                             @endforeach
                         @endif
@@ -105,9 +105,9 @@
     @foreach($studentList as $student)
     <input type="hidden" name="id[]" value="{{ $student['id'] }}">
     <input type="hidden" name="name[]" value="{{ $student['name'] }}">
-    <input type="hidden" name="workplace_partisan_old[]" value="{{ $student['workplace_partisan_old'] }}">
-    <input type="hidden" name="day_on_partisan[]" value="{{ $student['day_on_partisan'] }}">
-    <input type="hidden" name="day_withdrawal_partisan[]" value="{{ $student['day_withdrawal_partisan'] }}">
+    <input type="hidden" name="workplace_union_old[]" value="{{ $student['workplace_union_old'] }}">
+    <input type="hidden" name="date_on_union[]" value="{{ $student['date_on_union'] }}">
+    <input type="hidden" name="date_get_union[]" value="{{ $student['date_get_union'] }}">
     @endforeach
     <div class="row">
         <div class="col-md-2 pull-right">

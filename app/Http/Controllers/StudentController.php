@@ -139,7 +139,7 @@ class StudentController extends Controller
             
             $studentOb->hometown = $request->hometown;
         }
-        if($tudentOb->number_phone != $request->numberphone) {
+        if($studentOb->number_phone != $request->numberphone) {
             $new_data = 'SĐT: '.$request->numberphone.'<br/>';
             $old_data = 'SĐT: '.$studentOb->number_phone.'<br/>';
             
@@ -227,14 +227,14 @@ class StudentController extends Controller
                 if(!is_null($studentOb->date_on_union)) {
                     $new_data .= 'Ngày KN Đoàn: NULL'.'<br/>';
                     $old_data .= 'Ngày KN Đoàn: '.$studentOb->date_on_union.'<br/>';
-
+                    
                     $studentOb->date_on_union = null;
                 }
             }
         }
         
         $studentOb->save();
-
+        
         Log::AddToLog('Cập nhật sinh viên', $old_data, $new_data);
         
         return redirect()->route('student_index_route');
@@ -290,7 +290,7 @@ class StudentController extends Controller
         }
         
         $studentOb->save();
-
+        
         Log::AddToLog('Thêm sinh viên', '', $studentOb->id.' - '.$studentOb->name);
         
         return redirect()->route('student_index_route');
@@ -300,12 +300,12 @@ class StudentController extends Controller
     {
         $studentOb = Student::find($request->id);
         $studentOb->delete();
-
+        
         Log::AddToLog('Xóa sinh viên', $studentOb->id.' - '.$studentOb->name, '');
         
         $this->data['studentList'] = Student::with(['ClassOb', 'Science'])->where('is_it_student', 1)->get();
         $this->data['type_id'] = $request->type_id;
-
+        
         Log::AddToLog('Thêm sinh viên', '', $studentOb->id.' - '.$studentOb->name);
         
         return response()->view('student.student-list-table', $this->data);
@@ -499,6 +499,8 @@ class StudentController extends Controller
                 $student->save();
             }
             
+            Log::AddToLog('Import DS Sinh viên mới', '', $request->id);
+            
             DB::commit();
             return redirect()->route('student_index_route');
         } catch (Exception $e) {
@@ -570,13 +572,23 @@ class StudentController extends Controller
             $id_arr = explode(',', $request->id);
             $status_arr = explode(',', $request->status);
             
+            $old_data = '';
+            $new_data = '';
+            
             for ($i = 0; $i < count($id_arr); $i++) {
                 $student = Student::find($id_arr[$i]);
+                
+                $old_data .= 'SV: '.$student->id.' - TT: '.$student->status.'<br/>';
+                
                 $student->status = $status_arr[$i];
                 
                 $student->save();
+                
+                $new_data .= 'SV: '.$student->id.' - TT: '.$student->status.'<br/>';
             }
             
+            
+            Log::AddToLog('Import Update Student Status', $old_data, $new_data);
             DB::commit();
             return redirect()->route('student_index_route');
         } catch (Exception $e) {
@@ -790,9 +802,9 @@ class StudentController extends Controller
                 if ($student[0] != null) {
                     $newStudent["id"] = $student[0];
                     $newStudent["name"] = $student[1];
-                    $newStudent["workplace_partisan_old"] = $student[2];
-                    $newStudent["day_on_partisan"] = date('m-d-Y', strtotime($student[3]));
-                    $newStudent["day_withdrawal_partisan"] = date('m-d-Y', strtotime($student[4]));
+                    $newStudent["workplace_union_old"] = $student[2];
+                    $newStudent["date_on_union"] = Carbon::createFromFormat('d/m/Y', $student[3])->format('Y-m-d');;
+                    $newStudent["date_get_union"] = Carbon::createFromFormat('d/m/Y', $student[4])->format('Y-m-d');;
                     array_push($studentList, $newStudent);
                 }
             }
@@ -828,18 +840,46 @@ class StudentController extends Controller
         DB::beginTransaction();
         try {
             $id_arr = $request->id;
-            $workplace_partisan_old = $request->workplace_partisan_old;
-            $day_on_partisan = $request->day_on_partisan;
-            $day_withdrawal_partisan = $request->day_withdrawal_partisan;
+            $workplace_union_old = $request->workplace_union_old;
+            $date_on_union = $request->date_on_union;
+            $date_get_union = $request->date_get_union;
+            
+            $old_data = '';
+            $new_data = '';
             
             for ($i = 0; $i < count($request->id); $i++) {
                 $student = Student::find($id_arr[$i]);
-                $student->workplace_partisan_old = $workplace_partisan_old[$i];
-                $student->day_on_partisan = $day_on_partisan[$i];
-                $student->day_withdrawal_partisan = $day_withdrawal_partisan[$i];
+                $old_data .= $student->id;
+                $new_data .= $student->id;
+                
+                if($student->workplace_union_old != $workplace_union_old[$i]) {
+                    $old_data .= ' - Nơi SH cũ: '.$student->workplace_union_old;
+                    $new_data .= ' - Nơi SH cũ: '.$workplace_union_old[$i];
+
+                    $student->workplace_union_old = $workplace_union_old[$i];
+                }
+                if($student->date_on_union != $date_on_union[$i]) {
+                    $old_data .= ' - Ngày vào Đoàn: '.$student->date_on_union;
+                    $new_data .= ' - Ngày vào Đoàn: '.$date_on_union[$i];
+
+                    $student->date_on_union = $date_on_union[$i];
+                }
+                if($student->date_get_union != $date_get_union[$i]) {
+                    $old_data .= ' - Ngày rút sổ  Đoàn: '.$student->date_get_union;
+                    $new_data .= ' - Ngày rút sổ  Đoàn: '.$date_get_union[$i];
+
+                    $student->date_get_union = $date_get_union[$i];
+                }
+
+                $student->is_cyu = 1;
+
+                $old_data .= '<br/>';
+                $new_data .= '<br/>';
                 
                 $student->save();
             }
+
+            Log::AddToLog('Import DS TT Đoàn viên', $old_data, $new_data);
             
             DB::commit();
             return redirect()->route('student_index_route');

@@ -232,6 +232,9 @@ class AttenderController extends Controller {
 
                 $activity->max_regis_number += 1;
                 $activity->save();
+
+                Log::addToLog('Thêm người tham gia HĐ '.$activity->name, '', $newAttender->id);
+
             } else {
                 $errors[0] = 'Hoạt động đã đủ người!!!';
                 $this->data['errors'] = $errors;
@@ -276,6 +279,7 @@ class AttenderController extends Controller {
                     }
 
                     $attender->save();
+
                     $this->data['check'] = $attender->check;
                     $this->data['result'] = true;
                 } else {
@@ -302,6 +306,8 @@ class AttenderController extends Controller {
             if(!is_null($check_attender)) {
                 $check_attender->delete();
             }
+
+            Log::addToLog('Xóa người tham gia '.$activity->name, $attender->id, '');
             $this->data['result'] = true;
         } else {
             $this->data['error'] = 'Không tồn tại Người tham gia!';
@@ -385,7 +391,7 @@ class AttenderController extends Controller {
             
             $student_id_arr = explode(',', $request->student_id);
             $check_arr = explode(',', $request->check);
-
+            $new_data = '';
             for($i = 0; $i < count($student_id_arr); $i++) {
                 $attender = new Attender;
                 $attender->student_id = $student_id_arr[$i];
@@ -393,7 +399,11 @@ class AttenderController extends Controller {
                 $attender->activity_id = $request->activity_id;
 
                 $attender->save();
+
+                $new_data .= $attender->id.'<br/>';
             }
+            
+            Log::addToLog('Thêm ds tham gia '.$request->activity_id, '', $new_data);
             DB::commit();
 
             $schoolYearList = School_Year::orderBy('name', 'desc')->take(10)->get();
